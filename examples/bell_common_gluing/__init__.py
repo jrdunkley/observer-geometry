@@ -1,0 +1,1 @@
+"""Bell/common-gluing example."""

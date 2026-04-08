@@ -1,0 +1,196 @@
+{
+  "name": "bell_counts_projected_gaussian_surrogate",
+  "latent_dim": 4,
+  "observers": [
+    {
+      "name": "00",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "provenance": "bell_counts_bundle:context selector table",
+      "notes": ""
+    },
+    {
+      "name": "01",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "provenance": "bell_counts_bundle:context selector table",
+      "notes": ""
+    },
+    {
+      "name": "10",
+      "matrix": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "provenance": "bell_counts_bundle:context selector table",
+      "notes": ""
+    },
+    {
+      "name": "11",
+      "matrix": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "provenance": "bell_counts_bundle:context selector table",
+      "notes": ""
+    }
+  ],
+  "evidence": [
+    {
+      "name": "cov_00",
+      "observer": "00",
+      "kind": "covariance",
+      "matrix": [
+        [
+          0.9999646634098908,
+          -0.7144818506096031
+        ],
+        [
+          -0.7144818506096031,
+          0.9999564286899983
+        ]
+      ],
+      "exact": false,
+      "tolerance": null,
+      "authoritative": true,
+      "provenance": "bell_counts_bundle:projected covariance 00",
+      "notes": "local means averaged across matching settings before Gaussian common-descent test"
+    },
+    {
+      "name": "cov_01",
+      "observer": "01",
+      "kind": "covariance",
+      "matrix": [
+        [
+          0.9999646634098908,
+          0.7592191339407088
+        ],
+        [
+          0.7592191339407088,
+          0.9999968114976345
+        ]
+      ],
+      "exact": false,
+      "tolerance": null,
+      "authoritative": true,
+      "provenance": "bell_counts_bundle:projected covariance 01",
+      "notes": "local means averaged across matching settings before Gaussian common-descent test"
+    },
+    {
+      "name": "cov_10",
+      "observer": "10",
+      "kind": "covariance",
+      "matrix": [
+        [
+          0.9990175611282798,
+          0.7736103254888756
+        ],
+        [
+          0.7736103254888756,
+          0.9999564286899983
+        ]
+      ],
+      "exact": false,
+      "tolerance": null,
+      "authoritative": true,
+      "provenance": "bell_counts_bundle:projected covariance 10",
+      "notes": "local means averaged across matching settings before Gaussian common-descent test"
+    },
+    {
+      "name": "cov_11",
+      "observer": "11",
+      "kind": "covariance",
+      "matrix": [
+        [
+          0.9990175611282798,
+          -0.7537592024932701
+        ],
+        [
+          -0.7537592024932701,
+          0.9999968114976345
+        ]
+      ],
+      "exact": false,
+      "tolerance": null,
+      "authoritative": true,
+      "provenance": "bell_counts_bundle:projected covariance 11",
+      "notes": "local means averaged across matching settings before Gaussian common-descent test"
+    }
+  ],
+  "ceilings": [],
+  "constraints": [],
+  "assumptions": {
+    "entries": [
+      {
+        "label": "gaussian_surrogate",
+        "statement": "Binary pair covariances are treated as Gaussian surrogate visible objects downstream.",
+        "exact": false,
+        "provenance": "bell_counts_bundle:bundle design"
+      },
+      {
+        "label": "no_signalling_projection",
+        "statement": "Repeated local means are averaged across matching settings to remove finite-sample signalling before Gaussian common-descent testing.",
+        "exact": false,
+        "provenance": "bell_counts_bundle:projection layer"
+      }
+    ]
+  },
+  "goals": [
+    {
+      "kind": "common_completion",
+      "target": null,
+      "candidates": [],
+      "notes": ""
+    }
+  ],
+  "description": "Bell counts with explicit no-signalling marginal projection before Gaussian-surrogate descent",
+  "provenance": "SciPost Phys. 10, 017 (2021), Table A2 transcription plus encoded no-signalling projection",
+  "tags": [
+    "micro-real",
+    "bell"
+  ]
+}

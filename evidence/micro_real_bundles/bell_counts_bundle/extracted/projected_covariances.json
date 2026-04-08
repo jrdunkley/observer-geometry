@@ -1,0 +1,126 @@
+{
+  "00": {
+    "extraction": {
+      "authoritative": true,
+      "confidence": 1.0,
+      "epistemic_status": "inferred",
+      "extraction_mode": "encoded_inference",
+      "notes": "",
+      "parser": ""
+    },
+    "matrix": [
+      [
+        0.9999646634098908,
+        -0.7144818506096031
+      ],
+      [
+        -0.7144818506096031,
+        0.9999564286899983
+      ]
+    ],
+    "matrix_kind": "covariance",
+    "matrix_role": "visible_object",
+    "name": "cov_00",
+    "notes": "local means averaged across matching settings before Gaussian common-descent test",
+    "observer_name": "00",
+    "source_ref": {
+      "location": "projected covariance 00",
+      "note": "selection provenance: no-signalling marginal projection after exact count extraction",
+      "quote": "",
+      "source": "bell_counts_bundle"
+    }
+  },
+  "01": {
+    "extraction": {
+      "authoritative": true,
+      "confidence": 1.0,
+      "epistemic_status": "inferred",
+      "extraction_mode": "encoded_inference",
+      "notes": "",
+      "parser": ""
+    },
+    "matrix": [
+      [
+        0.9999646634098908,
+        0.7592191339407088
+      ],
+      [
+        0.7592191339407088,
+        0.9999968114976345
+      ]
+    ],
+    "matrix_kind": "covariance",
+    "matrix_role": "visible_object",
+    "name": "cov_01",
+    "notes": "local means averaged across matching settings before Gaussian common-descent test",
+    "observer_name": "01",
+    "source_ref": {
+      "location": "projected covariance 01",
+      "note": "selection provenance: no-signalling marginal projection after exact count extraction",
+      "quote": "",
+      "source": "bell_counts_bundle"
+    }
+  },
+  "10": {
+    "extraction": {
+      "authoritative": true,
+      "confidence": 1.0,
+      "epistemic_status": "inferred",
+      "extraction_mode": "encoded_inference",
+      "notes": "",
+      "parser": ""
+    },
+    "matrix": [
+      [
+        0.9990175611282798,
+        0.7736103254888756
+      ],
+      [
+        0.7736103254888756,
+        0.9999564286899983
+      ]
+    ],
+    "matrix_kind": "covariance",
+    "matrix_role": "visible_object",
+    "name": "cov_10",
+    "notes": "local means averaged across matching settings before Gaussian common-descent test",
+    "observer_name": "10",
+    "source_ref": {
+      "location": "projected covariance 10",
+      "note": "selection provenance: no-signalling marginal projection after exact count extraction",
+      "quote": "",
+      "source": "bell_counts_bundle"
+    }
+  },
+  "11": {
+    "extraction": {
+      "authoritative": true,
+      "confidence": 1.0,
+      "epistemic_status": "inferred",
+      "extraction_mode": "encoded_inference",
+      "notes": "",
+      "parser": ""
+    },
+    "matrix": [
+      [
+        0.9990175611282798,
+        -0.7537592024932701
+      ],
+      [
+        -0.7537592024932701,
+        0.9999968114976345
+      ]
+    ],
+    "matrix_kind": "covariance",
+    "matrix_role": "visible_object",
+    "name": "cov_11",
+    "notes": "local means averaged across matching settings before Gaussian common-descent test",
+    "observer_name": "11",
+    "source_ref": {
+      "location": "projected covariance 11",
+      "note": "selection provenance: no-signalling marginal projection after exact count extraction",
+      "quote": "",
+      "source": "bell_counts_bundle"
+    }
+  }
+}

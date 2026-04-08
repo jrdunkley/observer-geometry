@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this workspace, please cite the software stack and the underlying paper sources as described in CITATIONS.md."
+title: "Observer Geometry Workspace"
+version: "0.15"
+date-released: 2026-04-08
+license: "BSD-3-Clause"
+authors:
+  - family-names: "Dunkley"
+    given-names: "J. R."
+abstract: >-
+  Multi-layer observer-geometry workspace including the nomogeo kernel,
+  nomodescent exact descent layer, and evidence encoding layer, plus
+  demonstrations, micro-real bundles, and test surfaces.
+keywords:
+  - observer geometry
+  - quotient descent
+  - gaussian observation
+  - evidence encoding
+  - compatibility
+references:
+  - type: generic
+    title: "Workspace citation guidance"
+    scope: "See CITATIONS.md for software, demonstration, bundle, and paper-source citation rules."
+  - type: generic
+    title: "Local paper DOI list"
+    scope: "See papers/DOIs.txt for the current DOI set used by the local paper collection."

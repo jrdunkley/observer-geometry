@@ -1,0 +1,8 @@
+{
+  "max_abs_residual_tau_minus_2mi": 6.217248937900877e-14,
+  "max_local_symplectic_invariance_residual": 1.4033219031261979e-13,
+  "global_clock": 7.180103284118602,
+  "sum_pair_clocks": 7.180103284118602,
+  "composition_clock_residual": 0.0,
+  "contraction_recovery_residual": 2.589462819655575e-15
+}

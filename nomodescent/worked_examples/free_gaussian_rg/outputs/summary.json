@@ -1,0 +1,7 @@
+{
+  "tower_residual": 6.162975822039155e-33,
+  "mode_relation": "a_is_coarsening_of_b",
+  "block_relation": "non_nested_observers",
+  "mode4_to_mode2_logdet_gap": 1.5611101375885788,
+  "boundary": "interacting RG is deliberately deferred; this example is exact only in the free Gaussian regime"
+}

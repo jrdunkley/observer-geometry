@@ -1,0 +1,5 @@
+relation,classification,residual
+mode2_through_mode4,a_is_coarsening_of_b,0.0
+block4_vs_mode4,non_nested_observers,1.0483125432915497
+tower_mode4_to_mode2,exact_tower_agreement,6.162975822039155e-33
+mode4_to_mode2_logdet_gap,exact_visible_gap,1.5611101375885788

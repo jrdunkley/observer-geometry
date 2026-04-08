@@ -1,0 +1,8 @@
+{
+  "theorem_layer": "exact quotient tower law and observer relation tests in the free Gaussian regime",
+  "residuals": {
+    "tower_residual": 6.162975822039155e-33,
+    "mode_factorisation_residual": 0.0,
+    "block_factorisation_residual": 1.0483125432915497
+  }
+}

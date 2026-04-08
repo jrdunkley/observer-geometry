@@ -1,0 +1,33 @@
+{
+  "compatible_class": "compatible",
+  "variance_only_class": "variance-only obstruction",
+  "correlator_only_class": "correlator-only obstruction",
+  "both_class": "both obstructions",
+  "correlator_matrix_match_residual": 0.0,
+  "compatible_variance_gap": 0.0,
+  "variance_only_variance_gap": 0.21999999999999997,
+  "compatible_arcsine_margin": 0.5675882184166556,
+  "variance_only_arcsine_margin": 0.5675882184166556,
+  "compatible_linear_completion_residual": 2.220446049250313e-16,
+  "variance_only_linear_completion_residual": 0.11000000000000032,
+  "correlator_only_linear_completion_residual": 3.3306690738754696e-16,
+  "compatible_best_psd_gap": 0.15147186257614292,
+  "correlator_only_best_psd_gap": -0.15965512114593777,
+  "compatible_pair_precision_residual_max": 5.551115123125783e-16,
+  "variance_open_region_confirmed": true,
+  "both_obstructions_present": true,
+  "open_region_grid": {
+    "delta_range": [
+      0.18,
+      0.26
+    ],
+    "rho_range": [
+      0.56,
+      0.66
+    ],
+    "grid_shape": [
+      5,
+      5
+    ]
+  }
+}

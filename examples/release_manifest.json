@@ -1,0 +1,45 @@
+{
+  "kernel": "nomogeo",
+  "release_date": "2026-04-08",
+  "examples": [
+    {
+      "name": "entanglement_hidden_load",
+      "type": "exact_identity_demo",
+      "run_command": "python -m examples.entanglement_hidden_load.run_all",
+      "summary": "nomogeo clock equals twice Gaussian mutual information on the stated families",
+      "outputs": [
+        "outputs/tmsv_tau_vs_2mi.svg",
+        "outputs/tmsv_residual.svg",
+        "outputs/headline_summary.csv",
+        "outputs/summary.json",
+        "outputs/audit.json"
+      ]
+    },
+    {
+      "name": "bell_common_gluing",
+      "type": "structural_separation_demo",
+      "run_command": "python -m examples.bell_common_gluing.run_all",
+      "summary": "correlator compatibility can pass while full-law Gaussian common gluing fails",
+      "outputs": [
+        "outputs/phase_diagram.svg",
+        "outputs/variance_slice.svg",
+        "outputs/comparison_table.csv",
+        "outputs/summary.json",
+        "outputs/audit.json"
+      ]
+    },
+    {
+      "name": "arrow_rank_deficiency",
+      "type": "synthetic_worked_example",
+      "run_command": "python -m examples.arrow_rank_deficiency.run_all",
+      "summary": "nested voting observers erase different latent preference directions",
+      "outputs": [
+        "outputs/clock_comparison.svg",
+        "outputs/hidden_spectra.svg",
+        "outputs/observer_summary.csv",
+        "outputs/summary.json",
+        "outputs/audit.json"
+      ]
+    }
+  ]
+}

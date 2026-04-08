@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "evidence"
+version = "0.3.0"
+description = "Disciplined evidence-to-problem encoding layer above nomodescent."
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "Proprietary"}
+authors = [{name = "J. R. Dunkley"}]
+dependencies = [
+  "numpy>=2.0",
+  "scipy>=1.15",
+  "nomodescent>=0.2.0"
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=9.0"]
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q -p no:cacheprovider"
+cache_dir = ".pytest_tmp"
+norecursedirs = ["tmp*", "build", "dist", ".pytest_tmp"]
+

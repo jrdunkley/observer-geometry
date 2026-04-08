@@ -1,0 +1,175 @@
+{
+  "backend_agreement": {
+    "serial_vs_process": {
+      "all_match": true,
+      "classification_mismatch_count": 0,
+      "max_numeric_difference": 0.0,
+      "ordering_match": true
+    },
+    "serial_vs_thread": {
+      "all_match": true,
+      "classification_mismatch_count": 0,
+      "max_numeric_difference": 0.0,
+      "ordering_match": true
+    }
+  },
+  "backend_runtime_by_suite_seconds": {
+    "process": {
+      "descent": 0.01811730000190437,
+      "evidence": 0.0033421000043745153,
+      "example": 45.721005100000184,
+      "kernel": 0.27763400000549154
+    },
+    "serial": {
+      "descent": 0.016103000001749024,
+      "evidence": 0.00214129999949364,
+      "example": 46.01033479999751,
+      "kernel": 0.24316579999867827
+    },
+    "thread": {
+      "descent": 0.018930799997178838,
+      "evidence": 0.003339900002174545,
+      "example": 46.719213900003524,
+      "kernel": 0.28277800000068964
+    }
+  },
+  "backend_runtime_seconds": {
+    "process": 46.02010280000104,
+    "serial": 46.27174910000031,
+    "thread": 47.024268300003314
+  },
+  "failure_propagation": {
+    "process": {
+      "index": 1,
+      "message": "batch task 1 failed for task={'label': 'bad_1', 'fail': True}: intentional failure for bad_1",
+      "task": {
+        "fail": true,
+        "label": "bad_1"
+      }
+    },
+    "serial": {
+      "index": 1,
+      "message": "batch task 1 failed for task={'label': 'bad_1', 'fail': True}: intentional failure for bad_1",
+      "task": {
+        "fail": true,
+        "label": "bad_1"
+      }
+    },
+    "thread": {
+      "index": 1,
+      "message": "batch task 1 failed for task={'label': 'bad_1', 'fail': True}: intentional failure for bad_1",
+      "task": {
+        "fail": true,
+        "label": "bad_1"
+      }
+    }
+  },
+  "forced_process_fallback_matches_serial": true,
+  "long_run_descent_dashboard": {
+    "max_a_residual": 1.013251982318053e-14,
+    "max_b_residual": 6.154292972516563,
+    "max_certificate_count": 2.0,
+    "max_linear_residual": 0.5000000000000002,
+    "max_psd_margin": 3.410099515590938,
+    "max_score_full_4": -7.180459576355747,
+    "max_score_panel_3": -4.985900077874535,
+    "max_tower_residual": 3.055333763768431e-13,
+    "median_a_residual": 2.435551760271437e-15,
+    "median_b_residual": 1.9552927798907391,
+    "median_certificate_count": 2.0,
+    "median_linear_residual": 3.552713678800501e-15,
+    "median_psd_margin": 3.109745757218083,
+    "median_score_full_4": -7.90796567567809,
+    "median_score_panel_3": -5.277657888148258,
+    "median_tower_residual": 3.9968028886505635e-15
+  },
+  "long_run_evidence_dashboard": {
+    "max_candidate_count": 2.0,
+    "max_exact_flag": 0.0,
+    "max_required_decisions": 1.0,
+    "max_score_gap": 1.5,
+    "max_unresolved_count": 1.0,
+    "median_candidate_count": 2.0,
+    "median_exact_flag": 0.0,
+    "median_required_decisions": 1.0,
+    "median_score_gap": 1.5,
+    "median_unresolved_count": 1.0
+  },
+  "long_run_example_dashboard": {
+    "max_clock_gap": 0.6431293578142254,
+    "max_clock_order_ok": 1.0,
+    "max_linear_residual": 3.3306690738754696e-16,
+    "max_phase_class": 2.0,
+    "max_tau": 1.674535197166096,
+    "max_tau_residual": 1.3322676295501878e-15,
+    "median_clock_gap": 0.6431293578142254,
+    "median_clock_order_ok": 1.0,
+    "median_linear_residual": 3.3306690738754696e-16,
+    "median_phase_class": 2.0,
+    "median_tau": 1.085396247854419,
+    "median_tau_residual": 5.551115123125783e-16
+  },
+  "long_run_kernel_dashboard": {
+    "max_hidden_rank_gap": 0.0,
+    "max_inverse_roundtrip_residual": 1.4248815595545104e-12,
+    "max_large_load_clock": 7.933749519730831,
+    "max_long_chain_clock_residual": 3.197442310920451e-14,
+    "max_phi_condition": 434440152.9735675,
+    "max_projector_residual": 1.187503391032954e-12,
+    "max_two_step_transport_residual": 2.51014486973844e-14,
+    "max_zero_support_residual": 0.0,
+    "median_hidden_rank_gap": 0.0,
+    "median_inverse_roundtrip_residual": 7.736569761560265e-16,
+    "median_large_load_clock": 6.90875478931522,
+    "median_long_chain_clock_residual": 8.881784197001252e-16,
+    "median_phi_condition": 121129.91252327725,
+    "median_projector_residual": 4.2544093248331194e-15,
+    "median_two_step_transport_residual": 4.683753385137379e-16,
+    "median_zero_support_residual": 0.0
+  },
+  "seed": 20260408,
+  "task_counts": {
+    "descent": 48,
+    "evidence": 24,
+    "example": 24,
+    "kernel": 96
+  },
+  "validation_sweep": {
+    "dims": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "draws_per_dim": 6,
+    "max_curvature_split_residual": 0.040700616583364047,
+    "max_divergence_contraction_violation": 0.0,
+    "max_downstairs_associativity_residual": 3.300463568266465e-15,
+    "max_dv_hidden_normalized_residual": 0.06755628851080539,
+    "max_dv_visible_residual": 1.03967118476566e-12,
+    "max_energy_split_residual": 2.0405423128977418e-08,
+    "max_h_projector_symmetry_residual": 4.275820557745339e-12,
+    "max_hidden_clock_residual": 6.217248937900877e-15,
+    "max_hidden_loewner_violation": 3.6560062370811647e-16,
+    "max_hidden_rank_mismatch": 0,
+    "max_inverse_lambda_roundtrip_rel_error": 2.495821549702065e-15,
+    "max_inverse_order_violation": 3.6560062370811647e-16,
+    "max_inverse_x_roundtrip_rel_error": 1.9183338750232137e-15,
+    "max_lift_projector_residual": 7.902089973450499e-11,
+    "max_local_hidden_birth_residual": 0.01948258723108754,
+    "max_local_t3_normalised_residual": 0.13487577787560748,
+    "max_long_chain_clock_residual": 1.7763568394002505e-14,
+    "max_long_chain_transport_residual": 0.0,
+    "max_tower_law_residual": 9.203748874142548e-14,
+    "max_transport_two_step_residual": 1.4322596439176526e-14,
+    "seed": 20260408
+  },
+  "worker_modes_exercised": [
+    "serial",
+    "thread",
+    "process"
+  ]
+}

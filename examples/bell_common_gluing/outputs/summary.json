@@ -1,0 +1,27 @@
+{
+  "claim": "There exists an explicit Gaussian family where the normalized correlator summary is unchanged, the correlator-level Bell obstruction is absent, and common gluing still fails at the full law level.",
+  "parameter_ranges": {
+    "delta": [
+      0.0,
+      0.35
+    ],
+    "rho": [
+      0.0,
+      0.95
+    ]
+  },
+  "compatible_fraction": 0.010416666666666666,
+  "variance_only_fraction": 0.7291666666666666,
+  "correlator_only_fraction": 0.0036678403755868545,
+  "both_fraction": 0.2567488262910798,
+  "compatible_completion_alpha": 0.0,
+  "compatible_completion_beta": 0.0,
+  "compatible_completion_gap": 0.15147186257614292,
+  "compatible_pair_precision_residual_max": 5.551115123125783e-16,
+  "compatible_pair_precision_residuals": {
+    "00": 5.551115123125783e-16,
+    "01": 5.551115123125783e-16,
+    "10": 5.551115123125783e-16,
+    "11": 5.551115123125783e-16
+  }
+}

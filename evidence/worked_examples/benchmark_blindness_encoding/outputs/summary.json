@@ -1,0 +1,8 @@
+{
+  "initial_classification": "underdetermined_evidence",
+  "selected_observers": {
+    "benchmark_A": "A_balanced",
+    "benchmark_B": "B_balanced"
+  },
+  "resolved_relation": "non_nested_observers"
+}

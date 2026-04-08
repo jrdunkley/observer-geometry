@@ -1,0 +1,7 @@
+observer,matrix
+plurality,"[[1., 0., 0.]]"
+approval,"[[1., 0., 0.],
+ [0., 1., 0.]]"
+ranked_choice,"[[1., 0., 0.],
+ [0., 1., 0.],
+ [0., 0., 1.]]"

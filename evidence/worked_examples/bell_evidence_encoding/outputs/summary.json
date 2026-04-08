@@ -1,0 +1,12 @@
+{
+  "coarse_only_classification": {
+    "compatible": "insufficient_evidence",
+    "variance_only": "insufficient_evidence",
+    "correlator_only": "insufficient_evidence"
+  },
+  "full_law_downstream_classification": {
+    "compatible": "approximate_common_descent",
+    "variance_only": "incompatible_by_linear_inconsistency",
+    "correlator_only": "incompatible_by_approximate_psd_search"
+  }
+}

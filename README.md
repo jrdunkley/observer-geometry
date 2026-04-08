@@ -1,0 +1,112 @@
+﻿# nomogeo
+
+Agent-facing observer-geometry workspace.
+
+Use this repo as a three-layer stack:
+
+- `nomogeo`
+  - exact linear / Gaussian kernel
+- `nomodescent`
+  - exact observer relation and common-descent layer, plus explicitly audited approximation where enabled
+- `evidence`
+  - evidence encoding and problem assembly with explicit exact / inferred / ambiguous status
+
+Supporting surfaces:
+
+- [examples/README.md](examples/README.md)
+  - public demonstrations and runnable examples
+- [tests/micro_case_studies/README.md](tests/micro_case_studies/README.md)
+  - tiny "we took paper X and did Y" case studies
+- [docs/claim_hierarchy.md](docs/claim_hierarchy.md)
+  - epistemic split across exact, audited approximate, synthetic, and micro-real outputs
+- [LICENSE](LICENSE)
+- [CITATIONS.md](CITATIONS.md)
+
+## Exact Domain
+
+This workspace is disciplined around:
+
+- linear observers
+- finite-dimensional Gaussian / quadratic visible objects
+- exact matrix identities where theorems apply
+- explicitly audited approximation only where the exact engine deliberately stops
+
+It is not a generic scientific assistant, generic PDF reader, or unconstrained search system.
+
+## Kernel Surface
+
+`nomogeo` keeps scope narrow:
+
+- exact visible precision `Phi_C(H) = (C H^{-1} C^T)^{-1}`
+- canonical lift and hidden projector
+- local visible calculus `(V, Q)` and determinant-curvature split
+- support-aware hidden-load parametrisation beneath a ceiling
+- fixed-ceiling inverse theorem
+- hidden-load transport and determinant clock
+- contraction factors for associative hidden composition
+- thin Donsker-Varadhan and quotient-side Gaussian layers
+
+Runtime deps stay minimal: `numpy`, `scipy`.
+
+## Working Directories
+
+The workspace has three install roots. Run commands from the correct root.
+
+- repo root
+  - `python -m pytest -q`
+  - `python -m examples.entanglement_hidden_load.run_all`
+  - `python -m examples.bell_common_gluing.run_all`
+  - `python -m examples.arrow_rank_deficiency.run_all`
+  - `python -m tools.stack_soak`
+- `nomodescent/`
+  - `python -m pytest`
+  - `python -m worked_examples.bell_descent.run_main`
+  - `python -m worked_examples.free_gaussian_rg.run_main`
+  - `python -m worked_examples.replication_fragility.run_main`
+- `evidence/`
+  - `python -m pytest`
+  - `python -m worked_examples.bell_evidence_encoding.run_main`
+  - `python -m worked_examples.replication_protocol_encoding.run_main`
+  - `python -m worked_examples.benchmark_blindness_encoding.run_main`
+  - `python -m micro_real_bundles.bell_counts_bundle.run_main`
+  - `python -m micro_real_bundles.iris_protocol_mismatch.run_main`
+  - `python -m micro_real_bundles.leaderboard_benchmark_slice.run_main`
+
+## Quick Kernel Use
+
+```python
+import numpy as np
+from nomogeo import canonical_lift, hidden_load, inverse_visible_class, visible_precision
+
+H = np.array([[3.0, 1.0], [1.0, 2.0]])
+C = np.array([[1.0, 0.0]])
+phi = visible_precision(H, C)
+lift = canonical_lift(H, C)
+
+T = np.diag([2.0, 1.0, 0.0])
+Lambda = np.diag([0.3, 0.8])
+X = inverse_visible_class(T, Lambda, lambda_representation="reduced")
+load = hidden_load(T, X)
+```
+
+## Important Boundaries
+
+- The fixed-ceiling inverse theorem is exact only after choosing the ceiling `T`. It does not invert the global map `(H, C) -> Phi_C(H)`.
+- If `rank(T) = n`, reduced and ambient hidden-load coordinates can have the same shape. In that case you must pass `lambda_representation="reduced"` or `"ambient"`.
+- For long hidden composition, use `hidden_contraction(...)` and `load_from_hidden_contraction(...)`. Raw load coordinates are not the associative object.
+
+## Verification
+
+```bash
+python -m pytest -q
+python tools/validation_sweep.py
+python tools/stack_soak.py
+```
+
+For theorem and validation maps, start with:
+
+- [docs/theorem_map.md](docs/theorem_map.md)
+- [docs/inverse_theorem.md](docs/inverse_theorem.md)
+- [docs/validation_note.md](docs/validation_note.md)
+- [docs/stack_validation_note.md](docs/stack_validation_note.md)
+

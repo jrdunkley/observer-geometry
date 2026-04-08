@@ -1,0 +1,8 @@
+{
+  "common_refinement_classification": "exact_common_refinement",
+  "comparison_relation": "reproduced",
+  "external_method": "Schur-complement Gaussian elimination",
+  "relation_classification": "non_nested_observers",
+  "schur_residual": 4.440892098500626e-16,
+  "tower_classification": "exact_tower_agreement"
+}

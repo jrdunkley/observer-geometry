@@ -1,0 +1,80 @@
+{
+  "compatible": {
+    "classification": "approximate_common_descent",
+    "exact": false,
+    "audit": {
+      "theorem_layer": "audited approximate PSD-feasibility search on an exact affine family",
+      "residuals": {
+        "linear_residual": 2.220446049250313e-16,
+        "best_psd_margin": 0.15147186257614298
+      },
+      "falsification_route": [
+        "Produce a better affine parameter with a larger PSD margin if the current search is wrong.",
+        "Show that no positive definite point exists in the affine family."
+      ]
+    },
+    "certificates": []
+  },
+  "variance_only": {
+    "classification": "incompatible_by_linear_inconsistency",
+    "exact": true,
+    "audit": {
+      "theorem_layer": "exact Gaussian linear compatibility test",
+      "residuals": {
+        "linear_residual": 0.11000000000000032
+      },
+      "falsification_route": [
+        "Exhibit a symmetric covariance matching all visible constraints exactly.",
+        "Re-encode the evidence with distinct observers if repeated-marginal mismatch was a modelling error."
+      ]
+    },
+    "certificates": [
+      {
+        "kind": "repeated_marginal_inconsistency",
+        "exact": true,
+        "summary": "the same observed linear functional carries incompatible marginal variance data",
+        "details": {
+          "row": "[1.,0.,0.,0.]",
+          "variance_1": 1.0,
+          "variance_2": 1.22
+        }
+      },
+      {
+        "kind": "linear_constraint_inconsistency",
+        "exact": true,
+        "summary": "no symmetric covariance satisfies the visible linear constraints",
+        "details": {
+          "linear_residual": 0.11000000000000032
+        }
+      }
+    ]
+  },
+  "correlator_only": {
+    "classification": "incompatible_by_approximate_psd_search",
+    "exact": false,
+    "audit": {
+      "theorem_layer": "audited approximate PSD-feasibility search on an exact affine family",
+      "residuals": {
+        "linear_residual": 3.3306690738754696e-16,
+        "best_psd_margin": -0.1596551211459381
+      },
+      "falsification_route": [
+        "Provide a positive definite point in the affine completion family.",
+        "Expand the search radius or resolution and check whether the PSD margin changes sign."
+      ]
+    },
+    "certificates": [
+      {
+        "kind": "approximate_psd_search_failure",
+        "exact": false,
+        "summary": "deterministic affine PSD search found no positive definite completion",
+        "details": {
+          "best_psd_margin": -0.1596551211459381,
+          "nullity": 2,
+          "psd_search_radius": 2.0,
+          "psd_search_grid_size": 31
+        }
+      }
+    ]
+  }
+}

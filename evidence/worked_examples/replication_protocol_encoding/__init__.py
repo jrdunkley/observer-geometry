@@ -1,0 +1,1 @@
+"""Replication protocol encoding example."""

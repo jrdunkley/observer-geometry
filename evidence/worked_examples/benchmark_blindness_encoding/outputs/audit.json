@@ -1,0 +1,219 @@
+{
+  "unresolved_audit": {
+    "exact_items": [
+      "benchmark_A",
+      "benchmark_B",
+      "benchmark_scope",
+      "benchmark_scores",
+      "cov_benchmark_A",
+      "cov_benchmark_B"
+    ],
+    "inferred_items": [
+      "A_balanced",
+      "A_math_only",
+      "B_balanced",
+      "B_reasoning_only"
+    ],
+    "ambiguous_items": [],
+    "authoritative_items": [
+      "A_balanced",
+      "A_math_only",
+      "B_balanced",
+      "B_reasoning_only",
+      "benchmark_A",
+      "benchmark_B",
+      "benchmark_scores",
+      "cov_benchmark_A",
+      "cov_benchmark_B"
+    ],
+    "load_bearing_items": [
+      "benchmark_scope"
+    ],
+    "load_bearing_exact_items": [
+      "benchmark_scope"
+    ],
+    "load_bearing_inferred_items": [],
+    "load_bearing_ambiguous_items": [],
+    "load_bearing_assumptions": [],
+    "unresolved_items": [
+      "benchmark_A",
+      "benchmark_B"
+    ],
+    "residuals": {
+      "unresolved_count": 2.0,
+      "exact_flag": 0.0
+    },
+    "theorem_layer": "evidence assembly stopped before ProblemSpec construction",
+    "falsification_route": [
+      "supply an explicit observer matrix or remove a conflicting authoritative item",
+      "mark any modelling choice as encoded_inference instead of exact_extraction if it is not directly stated"
+    ],
+    "ambiguity_collapse_route": [
+      "add an exact source item that distinguishes between the remaining observer hypotheses",
+      "promote only one observer hypothesis per protocol into authoritative downstream use"
+    ],
+    "notes": [
+      "assembly refused because at least one protocol observer family remained unresolved"
+    ]
+  },
+  "suggestion_audit": {
+    "benchmark_A": {
+      "exact_items": [
+        "benchmark_A"
+      ],
+      "inferred_items": [
+        "A_balanced",
+        "A_math_only"
+      ],
+      "ambiguous_items": [
+        "A_math_only"
+      ],
+      "authoritative_items": [
+        "benchmark_A"
+      ],
+      "load_bearing_items": [
+        "benchmark_A"
+      ],
+      "load_bearing_exact_items": [
+        "benchmark_A"
+      ],
+      "load_bearing_inferred_items": [],
+      "load_bearing_ambiguous_items": [
+        "A_math_only"
+      ],
+      "load_bearing_assumptions": [
+        "observer hypothesis 'A_balanced' encodes protocol 'benchmark_A' via features ['arith', 'logic']",
+        "observer hypothesis 'A_math_only' encodes protocol 'benchmark_A' via features ['arith']"
+      ],
+      "unresolved_items": [
+        "A_math_only"
+      ],
+      "residuals": {
+        "score_gap_top2": 1.5
+      },
+      "theorem_layer": "finite-family evidence suggestion; not a theorem-grade descent conclusion",
+      "falsification_route": [
+        "supply an explicit observer matrix from the source and bypass finite-family suggestion",
+        "add protocol facts that distinguish between the tied candidate hypotheses"
+      ],
+      "ambiguity_collapse_route": [
+        "record one more exact protocol fact that only one candidate family satisfies"
+      ],
+      "notes": [
+        "candidate ranking is deterministic and finite-family only"
+      ]
+    },
+    "benchmark_B": {
+      "exact_items": [
+        "benchmark_B"
+      ],
+      "inferred_items": [
+        "B_balanced",
+        "B_reasoning_only"
+      ],
+      "ambiguous_items": [
+        "B_reasoning_only"
+      ],
+      "authoritative_items": [
+        "benchmark_B"
+      ],
+      "load_bearing_items": [
+        "benchmark_B"
+      ],
+      "load_bearing_exact_items": [
+        "benchmark_B"
+      ],
+      "load_bearing_inferred_items": [],
+      "load_bearing_ambiguous_items": [
+        "B_reasoning_only"
+      ],
+      "load_bearing_assumptions": [
+        "observer hypothesis 'B_balanced' encodes protocol 'benchmark_B' via features ['logic', 'memory']",
+        "observer hypothesis 'B_reasoning_only' encodes protocol 'benchmark_B' via features ['logic']"
+      ],
+      "unresolved_items": [
+        "B_reasoning_only"
+      ],
+      "residuals": {
+        "score_gap_top2": 1.5
+      },
+      "theorem_layer": "finite-family evidence suggestion; not a theorem-grade descent conclusion",
+      "falsification_route": [
+        "supply an explicit observer matrix from the source and bypass finite-family suggestion",
+        "add protocol facts that distinguish between the tied candidate hypotheses"
+      ],
+      "ambiguity_collapse_route": [
+        "record one more exact protocol fact that only one candidate family satisfies"
+      ],
+      "notes": [
+        "candidate ranking is deterministic and finite-family only"
+      ]
+    }
+  },
+  "resolved_audit": {
+    "exact_items": [
+      "benchmark_A",
+      "benchmark_B",
+      "benchmark_scope",
+      "benchmark_scores",
+      "cov_benchmark_A",
+      "cov_benchmark_B"
+    ],
+    "inferred_items": [
+      "A_balanced",
+      "A_math_only",
+      "B_balanced",
+      "B_reasoning_only"
+    ],
+    "ambiguous_items": [],
+    "authoritative_items": [
+      "A_balanced",
+      "A_math_only",
+      "B_balanced",
+      "B_reasoning_only",
+      "benchmark_A",
+      "benchmark_B",
+      "benchmark_scores",
+      "cov_benchmark_A",
+      "cov_benchmark_B"
+    ],
+    "load_bearing_items": [
+      "A_balanced",
+      "B_balanced",
+      "benchmark_scope",
+      "cov_benchmark_A",
+      "cov_benchmark_B"
+    ],
+    "load_bearing_exact_items": [
+      "benchmark_scope",
+      "cov_benchmark_A",
+      "cov_benchmark_B"
+    ],
+    "load_bearing_inferred_items": [
+      "A_balanced",
+      "B_balanced"
+    ],
+    "load_bearing_ambiguous_items": [],
+    "load_bearing_assumptions": [
+      "benchmark A is modelled as a two-direction math-plus-logic observer",
+      "benchmark B is modelled as logic-plus-memory observer"
+    ],
+    "unresolved_items": [],
+    "residuals": {
+      "unresolved_count": 0.0,
+      "exact_flag": 0.0
+    },
+    "theorem_layer": "assembled evidence-to-problem encoding; exact only where extraction_mode is exact_extraction",
+    "falsification_route": [
+      "supply an explicit observer matrix or remove a conflicting authoritative item",
+      "mark any modelling choice as encoded_inference instead of exact_extraction if it is not directly stated"
+    ],
+    "ambiguity_collapse_route": [
+      "add an exact source item that distinguishes between the remaining observer hypotheses",
+      "promote only one observer hypothesis per protocol into authoritative downstream use"
+    ],
+    "notes": [
+      "observer hypotheses were promoted into ProblemSpec observers only after explicit selection"
+    ]
+  }
+}

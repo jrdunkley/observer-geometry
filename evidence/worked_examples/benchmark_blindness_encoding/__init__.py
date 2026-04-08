@@ -1,0 +1,1 @@
+"""Benchmark blindness encoding example."""

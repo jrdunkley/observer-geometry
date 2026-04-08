@@ -1,0 +1,4 @@
+observer,visible_dim,latent_dim,observer_rank_deficiency,clock,hidden_rank,direct_logdet_gap,clock_minus_direct_gap_abs,preserved_features
+plurality,1,3,2,0.6431293578142273,1,0.6431293578142272,1.1102230246251565e-16,first_place
+approval,2,3,1,0.32993491349249165,1,0.3299349134924907,9.43689570931383e-16,"first_place,approval_support"
+ranked_choice,3,3,0,1.8873791418627638e-15,0,4.440892098500626e-16,1.4432899320127011e-15,"first_place,approval_support,transfer_structure"

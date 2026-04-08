@@ -1,0 +1,1745 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext,newtxmath}
+
+\setcounter{tocdepth}{1}
+\usepackage[a4paper,margin=35mm]{geometry}
+\linespread{0.90}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\usepackage{float}
+\usepackage{cmap}
+\usepackage{amsfonts}
+\let\openbox\relax
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\allowdisplaybreaks
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\hyphenation{superselection}
+\usepackage{microtype}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{setspace}
+\usepackage[explicit]{titlesec}
+\usepackage[labelfont=bf]{caption}
+\DeclareCaptionFont{captionthirtysmaller}{\fontsize{7.7}{9.2}\selectfont}
+\captionsetup[figure]{font=captionthirtysmaller}
+\captionsetup[table]{font=captionthirtysmaller}
+\usepackage{mdframed}
+\usepackage{needspace}
+\usepackage{tocloft}
+\usepackage{placeins}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.1}
+\renewcommand{\qedsymbol}{}
+\AtBeginEnvironment{tabular}{\small}
+\AtBeginEnvironment{tabularx}{\small}
+
+\numberwithin{equation}{section}
+\mathtoolsset{showonlyrefs=false}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Ran}{Ran}
+\DeclareMathOperator{\tr}{tr}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\SPD}{SPD}
+\newcommand{\dd}{\mathrm{d}}
+\newcommand{\ii}{\mathrm{i}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\ip}[2]{\langle #1, #2 \rangle}
+
+\setlist{nosep,leftmargin=1.25em}
+
+\titleformat{\section}
+{\normalfont\normalsize\bfseries\raggedright}
+{\thesection}{0.75em}{\begin{minipage}[t]{0.9\textwidth}#1\end{minipage}}
+[\vspace{0.12em}\titlerule]
+
+\newcommand{\subaccent}{\vspace{0.01em}\noindent\rule{7ex}{0.2pt}}
+\titleformat{\subsection}
+{\normalfont\normalsize\bfseries}{\thesubsection}{0.5em}{#1}
+[\subaccent]
+\titlespacing*{\subsection}{0pt}{2.2ex plus 0.6ex}{1.5ex}
+
+\titleformat{\subsubsection}
+{\normalfont\normalsize\bfseries}{\thesubsubsection}{0.5em}{#1}
+\titlespacing*{\subsubsection}{0pt}{1.6ex plus 0.4ex}{0.6ex}
+
+\usepackage[
+  pdfusetitle,
+  hidelinks,
+  bookmarksopen=true,
+  bookmarksnumbered=true
+]{hyperref}
+
+\newtheoremstyle{thmcompact}
+{0.5ex}{0.5ex}
+{\itshape}
+{0pt}
+{\bfseries}
+{.}
+{0.6em}
+{\thmname{#1}\ \thmnumber{#2}\ \thmnote{(\textit{#3})}}
+
+\theoremstyle{thmcompact}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem*{remarkplain}{Remark}
+
+\mdfdefinestyle{thmframe}{%
+	leftline=true, rightline=false, topline=false, bottomline=false,
+	linewidth=0.8pt, linecolor=black,
+	innerleftmargin=16pt, innerrightmargin=8pt,
+	innertopmargin=6pt, innerbottommargin=6pt,
+	skipabove=6pt, skipbelow=6pt,
+	nobreak=true
+}
+\surroundwithmdframed[style=thmframe]{theorem}
+\surroundwithmdframed[style=thmframe]{proposition}
+\surroundwithmdframed[style=thmframe]{lemma}
+\surroundwithmdframed[style=thmframe]{corollary}
+\surroundwithmdframed[style=thmframe]{definition}
+
+\newmdenv[
+linewidth=0.6pt,
+topline=false,
+bottomline=false,
+rightline=false,
+skipabove=\baselineskip,
+skipbelow=\baselineskip,
+backgroundcolor=gray!3,
+leftmargin=0pt,
+innerleftmargin=8pt,
+innerrightmargin=6pt,
+frametitleaboveskip=0.4em,
+frametitlebelowskip=0.2em,
+frametitlefont=\bfseries\small,
+]{remarkbox}
+\usepackage{titling}
+\newenvironment{remark}[1][]%
+{\begin{remarkbox}\begin{remarkplain}[#1]\normalfont}
+		{\end{remarkplain}\end{remarkbox}}
+
+\renewcommand{\contentsname}{Contents}
+
+\titleformat{name=\section,numberless}
+{\normalfont\normalsize\bfseries\raggedright}
+{}{0em}{\begin{minipage}[t]{0.9\textwidth}#1\end{minipage}}
+[\vspace{0.12em}\titlerule]
+\makeatletter
+\renewcommand{\l@section}[2]{\@dottedtocline{1}{0em}{2.3em}{\raggedright #1}{#2}}
+\renewcommand{\l@subsection}[2]{\@dottedtocline{2}{1.8em}{3.2em}{\raggedright #1}{#2}}
+\makeatother
+
+\emergencystretch=3em
+\hfuzz=1pt
+\tolerance=1800
+\hbadness=2500
+
+\newcommand{\thmneed}{\Needspace{6\baselineskip}}
+\AtBeginEnvironment{theorem}{\thmneed}
+\AtBeginEnvironment{proposition}{\thmneed}
+\AtBeginEnvironment{lemma}{\thmneed}
+\AtBeginEnvironment{corollary}{\thmneed}
+
+\AtBeginEnvironment{thebibliography}{\small}
+
+\widowpenalty=10000
+\clubpenalty=10000
+
+\title{\textbf{Quotient Descent}\\[0.2em]
+{\large Hidden-to-Visible Structure Across Reduction Mechanisms}\\[0.2em]
+{\large \textbf{DRAFT TECHNICAL NOTE}}}
+\author{J.\,R.~Dunkley}
+\date{30th March 2026}
+
+\hypersetup{
+  pdftitle={Quotient Descent: Hidden-to-Visible Structure Across Reduction Mechanisms},
+  pdfauthor={J. R. Dunkley},
+  pdfsubject={Hidden-to-visible reduction, quotient descent, Schur elimination, information geometry}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+We study a recurring hidden-to-visible reduction pattern across nine explicit instances drawn from large deviations theory, structural identifiability, chemical kinetics, dissipative systems, graphical models, linear systems, network theory, information theory, and probability. In each case a canonical positive or nonnegative upstairs object produces a well-defined visible descendant after observation, elimination, or conditioning, and the hidden contribution is either factored exactly or isolated by a controlled remainder. The note records these instances at a common internal standard of rigour and separates the proved core from the conjectural transfer perimeter. The main compression achieved in the present pass is that the exact classical core is now seen as one induced visible Hilbert structure with two dual faces. On the dual-observable side, orthogonal compression yields the KL, Fisher, covariance, and observability branches. On the primal-state side, minimal-lift quotienting yields quotient-visible precision, Gaussian precision Schur complements, grounded Dirichlet-to-Neumann laws, and the gradient dissipative kernel frequencywise. The canonical minimal lift identifies the first visible response as pullback of the upstairs perturbation and the quartic defect as hidden leakage through the hidden projector. The Donsker-Varadhan bridge also admits an exact local lift into this geometry, though still only extrinsically. The result is not a universal theorem of reduction. It is a precise statement of a recurring structural pattern, together with its proved instances, its sharpest current boundaries, and a disciplined map of where further transfer may be worth testing.
+\end{abstract}
+
+\newpage
+
+\tableofcontents
+
+\newpage
+
+\section{Introduction}
+\label{sec:introduction}
+
+\textbf{Evidence of a fast AGI/ASI take-off is emerging. As such, this technical note is not polished. We release it in its current state because to polish and prime it for human readers, at the expense of other work would be foolhardy. }
+
+\subsection{The hidden-to-visible question}
+
+A full model may carry structure in many microscopic or latent directions while observation exposes only a quotient of that structure. The same question then appears in different languages. What survives after hidden variables are eliminated? Which object on the visible sector is canonical? What part of the upstairs structure descends exactly, and what part survives only as a controlled remainder?
+
+The aim of this note is to isolate one recurrent answer. Across nine explicit instances, a canonical positive or nonnegative upstairs object produces a visible descendant under observation, elimination, marginalisation, conditioning, or variational contraction. The mechanisms differ on the surface. The surviving architecture is the same often enough to merit a common name.
+
+\subsection{Main claim and scope}
+
+The common structure recorded here is called \emph{quotient descent}. It is not presented as a universal theorem of hidden-to-visible reduction. It is presented as a proved pattern across a sharply delimited family of explicit cases. In each of those cases the descended visible object is uniquely determined by the full object and the observation mechanism, the natural positivity statement survives, and the hidden contribution is either factored exactly or isolated by a controlled obstruction term.
+
+Two further boundaries are important. First, the note keeps the proved core separate from the transfer perimeter. The final section records candidate domains only as candidate domains. Second, the note does not blur together instances whose formal roles differ. In particular, the KL chain rule, the Fisher second-order shadow, the CME-CLE cubic boundary, and the Donsker-Varadhan bridge are structurally related, but they are not stated here as one closed Taylor ladder unless that identification has actually been proved. The main compression achieved in the present pass is more exact and more structural: the classical core now appears as one induced visible Hilbert geometry with dual faces. Proposition~\ref{prop:hilbert-root} gives the orthogonal-compression side, while Theorem~\ref{thm:hilbert-quotient-root} gives the minimal-lift quotient side. The quotient side captures the visible precision map of \emph{Quotient Observation}, the Gaussian Schur structure of Instance~D, the grounded boundary energy behind Instance~F, and the gradient subcase of Instance~C frequencywise. In addition, Instance~0 now admits an exact local lift into the same broad geometry, though not yet an intrinsic probabilistic one.
+
+\subsection{Organisation}
+
+Section~\ref{sec:qdp} states the quotient descent datum and the quotient descent principle. Sections~\ref{sec:finite-bridge} to \ref{sec:bridge-H} record the nine explicit instances. Section~\ref{sec:synthesis} extracts the common structure and draws the line between what is proved and what is not claimed. Section~\ref{sec:applications} then gives the transfer perimeter as a conjectural map rather than as an extension theorem.
+
+
+\section{The quotient descent datum and principle}
+\label{sec:qdp}
+%======================================================================
+
+\subsection{Structural pattern}
+
+Across several domains of mathematical physics and statistics, a common pattern appears when one passes from a full model to a partially observed or coarse-grained description. The pattern has five components:
+
+\begin{enumerate}[label=(\roman*)]
+\item \textbf{Positive structure on the full model.} The full model carries a canonical nonnegative bilinear, quadratic, or convex object (Fisher information, fluctuation Hessian, diffusion matrix, positive-real transfer function, positive precision, KL divergence).
+\item \textbf{Observation quotient.} An observation map defines a structural quotient, partitioning the model into visible and hidden sectors.
+\item \textbf{Descent.} The nonnegative object descends to a well-defined visible object on the quotient, via a mechanism specific to the instance (chain rule, variational contraction, Taylor truncation, Schur complement of the resolvent, conditional expectation).
+\item \textbf{Positivity inheritance.} The descended object inherits nonnegativity from the full form.
+\item \textbf{Controlled hidden contribution.} The hidden contribution is isolated by a factorisation or explicit remainder representation (Gram, Schur, Taylor remainder, conditional divergence).
+\end{enumerate}
+
+Two additional features appear across many instances but not all:
+
+\begin{enumerate}[label=(\roman*),start=6]
+\item \textbf{Refinement monotonicity.} Enlarging the observation class can only sharpen (never coarsen) the quotient structure.
+\item \textbf{Sharp boundary.} The first non-descended structure is identified at a specific algebraic or analytic order.
+\end{enumerate}
+
+\subsection{Formal definition}
+
+\begin{definition}[Quotient descent datum]\label{def:qdd}
+A \emph{quotient descent datum} is a tuple $(\mathcal{M}, B, \pi, \bar{\mathcal{M}}, \bar{B}, R)$ where:
+\begin{enumerate}[label=(\alph*)]
+\item $\mathcal{M}$ is a model space (smooth manifold, vector space, function space, or cone);
+\item $B$ is a canonical bilinear, quadratic, convex, or operator-theoretic object on $\mathcal{M}$ (or on its tangent bundle), equipped with the natural positivity statement of the instance;
+\item $\pi: \mathcal{M} \to \bar{\mathcal{M}}$ is a surjective observation map or quotient mechanism;
+\item $\bar{B}$ is the descended visible object on $\bar{\mathcal{M}}$, satisfying the natural positivity statement of the instance;
+\item $R$ is a canonically defined hidden contribution or remainder comparing the full and visible structures in the natural way of the instance.
+\end{enumerate}
+\end{definition}
+
+\begin{definition}[Quotient descent principle]\label{def:qdp}
+A quotient descent datum satisfies the \emph{quotient descent principle} if:
+\begin{enumerate}[label=(QDP\arabic*)]
+\item \textbf{Descent:} $\bar{B}$ is uniquely determined by $B$ and $\pi$.
+\item \textbf{Positivity:} positivity of the full object implies the corresponding positivity statement for the descended visible object.
+\item \textbf{Controlled hidden structure:} the hidden contribution $R$ admits an explicit Gram-type, Schur-type, Taylor-type, or conditional-expectation representation. When a rank notion is available, its rank or rank bound measures the effective hidden dimension.
+\item \textbf{Compatibility under refinement:} if $\pi_1 = \rho \circ \pi_2$ with $\pi_2$ finer than $\pi_1$, then descent through $\pi_1$ agrees with descent through $\pi_2$ followed by the induced visible reduction $\rho$. Depending on the instance, this appears as pullback, Loewner monotonicity, data processing, or Schur-complement composition.
+\end{enumerate}
+\end{definition}
+
+%======================================================================
+\section{Instance 0: The Donsker-Varadhan bridge}
+\label{sec:finite-bridge}
+%======================================================================
+
+This is the foundational instance proved in \emph{Finite Observation} \cite{Dunkley2026}.
+
+\begin{theorem}[Donsker-Varadhan bridge {\cite[Theorem~3.2]{Dunkley2026}}]
+\label{thm:dv-bridge}
+Let $Q$ be an irreducible generator on $n$ states with stationary distribution $\pi$. In reduced Fisher coordinates with $\widehat{K} = \widehat{G} + \widehat{J}$ (symmetric $+$ skew decomposition of the reduced conjugated generator), the Donsker-Varadhan Hessian decomposes as
+\[
+H_{DV} = H_0 + \Delta_{DV}
+\]
+where $H_0 = -\tfrac{1}{2}\widehat{G} \succ 0$ is the detailed-balance reference Hessian and
+\[
+\Delta_{DV} = \tfrac{1}{4}\widehat{J}\,H_0^{-1}\widehat{J}^T \succeq 0.
+\]
+\end{theorem}
+
+\textbf{Quotient descent reading:}
+\begin{itemize}[leftmargin=2em]
+\item $\mathcal{M}$: space of empirical measures near stationarity (parametrised by reduced Fisher coordinates $x \in \R^{n-1}$, with optimisation over reduced logarithmic coordinates $y \in \R^{n-1}$).
+\item $B$: the DV Hessian $H_{DV}$, encoding second-order fluctuation cost.
+\item $\pi$: the variational contraction (supremum over $y$), equivalently the Legendre transform / Schur complement that eliminates the current sector.
+\item $\bar{B}$: the detailed-balance backbone $H_0$ (what remains when the skew sector is absent).
+\item $R = \Delta_{DV}$: the nonequilibrium correction, with Gram factorisation $\Delta_{DV} = \tfrac{1}{4}A_{DV}A_{DV}^T$, $A_{DV} = \widehat{J}H_0^{-1/2}$.
+\item Rank: $\rank(\Delta_{DV}) = \rank(\widehat{J})$, always even.
+\item Boundary: $\Delta_{DV} = 0$ iff detailed balance.
+\end{itemize}
+
+\begin{proposition}[Canonical local Hilbert lift of the DV bridge]\label{prop:dv-hilbert-lift}
+Let $E=\R^{n-1}$ with its Euclidean inner product and define the linear map
+\begin{equation}\label{eq:dv-hilbert-lift-map}
+T_{DV}:E\to E\oplus E,
+\qquad
+T_{DV}x:=\Bigl(H_0^{1/2}x,\;\tfrac12 H_0^{-1/2}\widehat J^{\!T}x\Bigr).
+\end{equation}
+Let $P:E\oplus E\to E\oplus\{0\}$ be the orthogonal projection onto the first summand. Then for every $x\in E$,
+\begin{align}
+\|T_{DV}x\|^2 &= x^T H_{DV}x, \label{eq:dv-hilbert-lift-full}\\
+\|PT_{DV}x\|^2 &= x^T H_0 x, \label{eq:dv-hilbert-lift-backbone}\\
+\|(I-P)T_{DV}x\|^2 &= x^T \Delta_{DV} x. \label{eq:dv-hilbert-lift-correction}
+\end{align}
+Hence Instance~0 admits an exact local Hilbert lift in which the detailed-balance backbone is the projected quadratic form and the nonequilibrium correction is the orthogonal remainder.
+\end{proposition}
+
+\begin{proof}
+By definition,
+\[
+\|T_{DV}x\|^2
+= x^T H_0 x + \tfrac14 x^T \widehat J H_0^{-1}\widehat J^T x
+= x^T(H_0+\Delta_{DV})x
+= x^T H_{DV}x,
+\]
+which proves \eqref{eq:dv-hilbert-lift-full}. Since $P$ keeps only the first component of $T_{DV}x$,
+\[
+\|PT_{DV}x\|^2=\|H_0^{1/2}x\|^2=x^T H_0 x,
+\]
+proving \eqref{eq:dv-hilbert-lift-backbone}. Likewise $(I-P)$ keeps only the second component, so
+\[
+\|(I-P)T_{DV}x\|^2
+= \Bigl\|\tfrac12 H_0^{-1/2}\widehat J^T x\Bigr\|^2
+= \tfrac14 x^T \widehat J H_0^{-1}\widehat J^T x
+= x^T \Delta_{DV}x,
+\]
+which is \eqref{eq:dv-hilbert-lift-correction}. The final sentence is just the interpretation of these three identities.
+\end{proof}
+
+\begin{remark}[What this lift does and does not prove]\label{rem:dv-hilbert-lift}
+Proposition~\ref{prop:dv-hilbert-lift} closes part of the previously open Hilbert-lift question for Instance~0. It shows that the bridge does admit an exact \emph{local} orthogonal-splitting representation after canonical doubling of the tangent space. What it does \emph{not} prove is that the Donsker-Varadhan bridge arises from an intrinsic probabilistic conditional-expectation projection of the kind seen in Instances~G and~H. The lift here is exact but presently extrinsic: it is built from the pair $(H_0,\widehat J)$ after the bridge has already been established.
+\end{remark}
+
+%======================================================================
+\section{Instance A: Structural identifiability and the descended Fisher form}
+\label{sec:bridge-A}
+%======================================================================
+
+This bridge is proved in \cite{Dunkley2026b}. We restate it here to establish the standard.
+
+Let $\Theta$ be a smooth parameter manifold, let $\mathcal{E}$ be an admissible experiment class, and for each $E \in \mathcal{E}$ let $p_E(z \mid \theta)$ be the observational law. Define structural equivalence relative to $\mathcal{E}$ by
+\[
+\theta \sim \theta' \quad \Longleftrightarrow \quad p_E(\cdot \mid \theta) = p_E(\cdot \mid \theta') \text{ for all } E \in \mathcal{E}.
+\]
+Assume the equivalence classes form a smooth quotient manifold $q: \Theta \to \bar{\Theta} := \Theta / {\sim}$ near a regular point.
+
+\begin{theorem}[Structural descent of the Fisher form]\label{thm:bridge-A}
+Under the regular quotient hypothesis:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item Each experiment $E \in \mathcal{E}$ factors uniquely through the quotient: there exists $\bar{p}_E(z \mid \bar{\theta})$ with $p_E(z \mid \theta) = \bar{p}_E(z \mid q(\theta))$.
+\item For every vertical vector $v \in \ker dq_\theta$, the score annihilates: $\partial_v \log p_E(z \mid \theta) = 0$.
+\item The Fisher form descends uniquely:
+\[
+I_E(\theta)(u, w) = \bar{I}_E(q(\theta))(dq_\theta\, u,\, dq_\theta\, w).
+\]
+\item Structural nonidentifiability is vertical degeneracy of $q$; practical nonidentifiability is degeneracy or anisotropy of $\bar{I}_E$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Since $p_E(\cdot \mid \theta)$ is constant on structural fibres, it depends only on $q(\theta)$, giving the unique reduced model. Differentiating along $v \in \ker dq_\theta$ gives score annihilation. The Fisher identity $I_E(\theta)(v, \cdot) = 0$ then shows $I_E$ depends only on quotient tangent classes and descends uniquely.
+\end{proof}
+
+\begin{proposition}[Refinement monotonicity]\label{prop:bridge-A-refine}
+Let $\mathcal{E}_1 \subseteq \mathcal{E}_2$ with regular quotients $q_i: \Theta \to \bar{\Theta}_i$. Then there exists a unique local surjection $\rho: \bar{\Theta}_2 \to \bar{\Theta}_1$ with $q_1 = \rho \circ q_2$ and $\bar{I}_E^{(2)} = \rho^* \bar{I}_E^{(1)}$ for every $E \in \mathcal{E}_1$.
+\end{proposition}
+
+\begin{proof}
+$\mathcal{E}_2$-equivalence implies $\mathcal{E}_1$-equivalence, so every $\sim_2$-class sits inside a $\sim_1$-class, inducing $\rho$. The Fisher pullback follows by functoriality.
+\end{proof}
+
+\textbf{Quotient descent reading:}
+\begin{itemize}[leftmargin=2em]
+\item $\mathcal{M} = \Theta$, $B = I_E$ (Fisher form), $\pi = q$ (structural quotient).
+\item $\bar{B} = \bar{I}_E$ (descended Fisher form).
+\item $R$: the restriction of $I_E$ to vertical directions, identically zero by score annihilation.
+\item The hidden remainder here is degenerate (zero on vertical directions), which is the special case where the quotient absorbs all information.
+\item Refinement: Proposition~\ref{prop:bridge-A-refine}.
+\end{itemize}
+
+%======================================================================
+\section{Instance B: The CME-CLE quadratic shadow}
+\label{sec:bridge-B}
+%======================================================================
+
+\subsection{Setting}
+
+Consider a reaction network on $\N^d$ with $R$ reactions. For each reaction $r \in \{1, \ldots, R\}$, let $\nu_r \in \Z^d$ be the stoichiometric jump vector and $a_r: \N^d \to [0, \infty)$ the propensity function. Define the drift and diffusion:
+\begin{equation}\label{eq:B-drift-diff}
+b(x) := \sum_{r=1}^R a_r(x)\,\nu_r, \qquad D(x) := \sum_{r=1}^R a_r(x)\,\nu_r\nu_r^\top.
+\end{equation}
+Let $\Pi \in \R^{m \times d}$ be a linear observation map. Write $y = \Pi x$ and define the visible objects:
+\begin{equation}\label{eq:B-visible}
+b_\Pi(x) := \Pi\, b(x), \qquad D_\Pi(x) := \Pi\, D(x)\, \Pi^\top.
+\end{equation}
+Define the pullback observable algebra:
+\begin{equation}\label{eq:B-pullback}
+\mathcal{F}_\Pi := \{f: \N^d \to \R \mid \exists\, \varphi: \R^m \to \R \text{ with } f = \varphi \circ \Pi\}.
+\end{equation}
+
+\subsection{The shadow theorem}
+
+\begin{theorem}[Quadratic visible shadow]\label{thm:bridge-B}
+Let $L_{\mathrm{CME}}$ be the chemical master equation generator
+\[
+(L_{\mathrm{CME}} f)(x) = \sum_{r=1}^R a_r(x)\bigl[f(x + \nu_r) - f(x)\bigr],
+\]
+and let $L_{\mathrm{CLE}}$ be the chemical Langevin generator
+\[
+(L_{\mathrm{CLE}} g)(x) = b(x) \cdot \nabla g(x) + \tfrac{1}{2}\, D(x) : \nabla^2 g(x).
+\]
+Then the following hold.
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \textbf{Exact quadratic shadow.} For every $\varphi: \R^m \to \R$ of polynomial degree at most two, the pullback observable $f = \varphi \circ \Pi$ satisfies
+\begin{equation}\label{eq:B-shadow}
+(L_{\mathrm{CME}} f)(x) = b_\Pi(x) \cdot \nabla\varphi(\Pi x) + \tfrac{1}{2}\, D_\Pi(x) : \nabla^2 \varphi(\Pi x).
+\end{equation}
+In particular, $L_{\mathrm{CME}} f = L_{\mathrm{CLE}} f$ on this test class.
+
+\item \textbf{Fibre-constancy closure.} The visible quadratic theory closes on observation space (i.e.\ the right-hand side of \eqref{eq:B-shadow} depends only on $y = \Pi x$) if and only if both $b_\Pi$ and $D_\Pi$ are fibre-constant:
+\begin{equation}\label{eq:B-fibre}
+x \in \Pi^{-1}(y) \implies b_\Pi(x) = \bar{b}(y), \quad D_\Pi(x) = \bar{D}(y).
+\end{equation}
+
+\item \textbf{Sharp cubic boundary.} For $\varphi \in C^3(\R^m)$, the discrepancy between the two generators on $f = \varphi \circ \Pi$ is
+\begin{equation}\label{eq:B-cubic}
+(L_{\mathrm{CME}} f)(x) - (L_{\mathrm{CLE}} f)(x) = \sum_{r=1}^R a_r(x)\, T_3(\varphi, \Pi x, \Pi\nu_r),
+\end{equation}
+where $T_3(\varphi, y, \delta)$ is the exact third-order Taylor remainder:
+\begin{equation}\label{eq:B-taylor}
+T_3(\varphi, y, \delta) = \int_0^1 \frac{(1-t)^2}{2}\, D^3\varphi(y+t\delta)[\delta,\delta,\delta] \, dt.
+\end{equation}
+For polynomial $\varphi$ of degree exactly three, $D^3\varphi$ is constant and
+\[
+T_3(\varphi, y, \delta) = \frac{1}{6}D^3\varphi(y)[\delta,\delta,\delta].
+\]
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+For $f = \varphi \circ \Pi$ and any reaction $r$, Taylor-expand $\varphi$ around $\Pi x$:
+\begin{align}
+\varphi(\Pi(x + \nu_r)) - \varphi(\Pi x) &= \varphi(\Pi x + \Pi\nu_r) - \varphi(\Pi x) \notag \\
+&= \nabla\varphi(\Pi x) \cdot (\Pi\nu_r) + \tfrac{1}{2}(\Pi\nu_r)^\top \nabla^2\varphi(\Pi x)(\Pi\nu_r) + T_3(\varphi, \Pi x, \Pi\nu_r). \label{eq:B-taylor-expand}
+\end{align}
+For $\deg \varphi \leq 2$, all third and higher derivatives vanish, so $T_3 = 0$ and \eqref{eq:B-taylor-expand} is exact. Summing over $r$ with weights $a_r(x)$:
+\[
+\begin{aligned}
+(L_{\mathrm{CME}} f)(x)
+&= \sum_r a_r(x)\bigl[\nabla\varphi(\Pi x) \cdot (\Pi\nu_r)
++ \tfrac{1}{2}(\Pi\nu_r)^\top \nabla^2\varphi(\Pi x)(\Pi\nu_r)\bigr] \\
+&= b_\Pi(x) \cdot \nabla\varphi
++ \tfrac{1}{2}\, D_\Pi : \nabla^2\varphi,
+\end{aligned}
+\]
+using the definitions \eqref{eq:B-drift-diff} to \eqref{eq:B-visible}. This proves~(i).
+
+For~(ii), the right-hand side of \eqref{eq:B-shadow} is $b_\Pi(x) \cdot \nabla\varphi(y) + \tfrac{1}{2}D_\Pi(x):\nabla^2\varphi(y)$ with $y = \Pi x$. The forward direction: if this depends only on $y$ for \emph{all} quadratic $\varphi$, then by choosing $\varphi(y) = e_i^\top y$ and $\varphi(y) = y_i y_j$ respectively, we recover the requirement that $b_\Pi(x)$ and $D_\Pi(x)$ are constant on each fibre $\Pi^{-1}(y)$. The converse is immediate: fibre-constancy of both quantities makes the right-hand side a function of $y$ alone.
+
+For~(iii), the integral-form Taylor theorem gives
+\[
+\varphi(y+\delta)=\varphi(y)+\nabla\varphi(y)\cdot\delta+\tfrac12\delta^\top\nabla^2\varphi(y)\delta+\int_0^1 \frac{(1-t)^2}{2}\,D^3\varphi(y+t\delta)[\delta,\delta,\delta] \,dt.
+\]
+Applying this with $y=\Pi x$ and $\delta=\Pi\nu_r$ yields \eqref{eq:B-cubic}. Since $L_{\mathrm{CLE}}$ uses only first and second derivatives, the discrepancy is exactly $\sum_r a_r(x)\, T_3(\varphi, \Pi x, \Pi\nu_r)$.
+\end{proof}
+
+\subsection{Refinement}
+
+\begin{proposition}[Observation refinement for the quadratic shadow]\label{prop:bridge-B-refine}
+Let $\Pi_1 = P\Pi_2$ where $P \in \R^{m_1 \times m_2}$ is a surjective linear map ($m_1 < m_2$). Then for every $\varphi_1: \R^{m_1} \to \R$ with $\deg \varphi_1 \leq 2$ and every $x \in \N^d$:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item The pullback $\varphi_1 \circ P$ has degree at most two on $\R^{m_2}$, and
+\[
+L_{\mathrm{CME}}(\varphi_1 \circ \Pi_1) = L_{\mathrm{CME}}((\varphi_1 \circ P) \circ \Pi_2).
+\]
+\item The visible objects coarsen consistently:
+\[
+b_{\Pi_1}(x) = P\, b_{\Pi_2}(x), \qquad D_{\Pi_1}(x) = P\, D_{\Pi_2}(x)\, P^\top.
+\]
+\item Fibre-constancy for $\Pi_2$ implies fibre-constancy for $\Pi_1$, but not conversely. Hence finer observation can only sharpen closure.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) follows because $\varphi_1 \circ P$ is a polynomial in $m_2$ variables of degree at most two, and $(\varphi_1 \circ P) \circ \Pi_2 = \varphi_1 \circ (P\Pi_2) = \varphi_1 \circ \Pi_1$.
+
+(ii): $b_{\Pi_1} = \Pi_1 b = P\Pi_2 b = P b_{\Pi_2}$. Similarly $D_{\Pi_1} = \Pi_1 D \Pi_1^\top = P\Pi_2 D \Pi_2^\top P^\top = P D_{\Pi_2} P^\top$.
+
+(iii): If $b_{\Pi_2}$ and $D_{\Pi_2}$ are constant on $\Pi_2$-fibres, then $b_{\Pi_1} = Pb_{\Pi_2}$ and $D_{\Pi_1} = PD_{\Pi_2}P^\top$ are constant on $\Pi_1$-fibres (since $\Pi_2^{-1}(y_2) \subseteq \Pi_1^{-1}(Py_2)$). The converse fails: $\Pi_1$-fibre-constancy imposes fewer constraints.
+\end{proof}
+
+\textbf{Quotient descent reading:}
+\begin{itemize}[leftmargin=2em]
+\item $\mathcal{M} = \N^d$ (state space), $B = (b, D)$ (drift and diffusion pair from the CME generator).
+\item $\pi = \Pi$ (linear observation map).
+\item $\bar{B} = (\bar{b}, \bar{D})$ (visible drift and diffusion, when fibre-constant).
+\item $R$: the cubic Taylor remainder, the first structure lost in the descent. It is controlled by the exact integral remainder \eqref{eq:B-taylor}, and hence by third derivatives of $\varphi$ together with the projected jump sizes $|\Pi\nu_r|$.
+\item Refinement: Proposition~\ref{prop:bridge-B-refine}.
+\item Boundary: cubic order. The quadratic shadow is exact; the first discrepancy is third-order in jump size.
+\end{itemize}
+
+\subsection{Toy model}
+
+\begin{example}\label{ex:bridge-B-toy}
+Consider the network $\varnothing \xrightarrow{\alpha} X$, $X \xrightarrow{\mu} \varnothing$, $X \xrightarrow{\kappa} Y$, $Y \xrightarrow{\mu} \varnothing$, observed through $\Pi = (1\ \ 1)$ so that $n = x + y$. The stoichiometric jumps project as $\Pi\nu_1 = 1$, $\Pi\nu_2 = -1$, $\Pi\nu_3 = 0$, $\Pi\nu_4 = -1$. The internal conversion $X \to Y$ has projected jump zero, so it is structurally invisible. Computing:
+\[
+b_\Pi(x,y) = \alpha - \mu(x+y) = \alpha - \mu n, \qquad D_\Pi(x,y) = \alpha + \mu(x+y) = \alpha + \mu n.
+\]
+Both are fibre-constant, so the visible quadratic theory closes exactly. The internal conversion is a vertical direction in the quotient.
+\end{example}
+
+\begin{proposition}[Why Instance~B is not Instance~G]\label{prop:B-not-G}
+Assume there exist $x$ and $r$ with $a_r(x)>0$ and $\Pi\nu_r\neq 0$. Then the cubic discrepancy in \eqref{eq:B-cubic} cannot be represented, even locally on the class of cubic test functions, as a canonically nonnegative remainder analogous to the conditional KL term in Instance~G.
+\end{proposition}
+
+\begin{proof}
+Instance~B is a filtered-observable statement, not an information-theoretic chain rule. The map
+\[
+\varphi\longmapsto (L_{\mathrm{CME}}-L_{\mathrm{CLE}})(\varphi\circ\Pi)(x)
+\]
+is linear in $\varphi$, and on cubic polynomials it is determined by the third derivative through \eqref{eq:B-cubic}. Hence replacing $\varphi$ by $-\varphi$ changes the sign of the discrepancy. If this discrepancy were equal to a canonically nonnegative remainder on cubic observables, then both it and its negative would have to be nonnegative, forcing it to vanish identically on cubic test functions.
+
+But for any nonzero $\delta:=\Pi\nu_r$ one can choose a cubic polynomial, for example $\varphi(y)=\langle u,y\rangle^3$ with $u\cdot\delta\neq 0$, for which
+\[
+T_3(\varphi,\Pi x,\delta)=\frac16 D^3\varphi(\Pi x)[\delta,\delta,\delta]=\langle u,\delta\rangle^3\neq 0.
+\]
+So the cubic discrepancy is a genuine sign-indefinite obstruction term. It identifies the first algebraic boundary of visible closure, but it is not a KL-type hidden divergence.
+\end{proof}
+
+%======================================================================
+\section{Instance C: Hidden elimination in dissipative systems}
+\label{sec:bridge-C}
+%======================================================================
+
+\subsection{Setting}
+
+Consider a linear co-located dissipative input-output system:
+\begin{equation}\label{eq:C-system}
+\dot{z} = Az + Gu, \qquad y = G^\top z,
+\end{equation}
+with state $z \in \R^n$, input $u \in \R^m$, output $y \in \R^m$, and the dissipation inequality
+\begin{equation}\label{eq:C-dissipation}
+A + A^\top \preceq 0.
+\end{equation}
+The transfer function on the open right half-plane is
+\begin{equation}\label{eq:C-transfer}
+H(s) = G^\top(sI - A)^{-1}G, \qquad \Re\, s > 0.
+\end{equation}
+
+Split the state into resolved and hidden blocks:
+\begin{equation}\label{eq:C-blocks}
+z = \binom{r}{h}, \qquad
+A = \begin{pmatrix} A_{rr} & A_{rh} \\ A_{hr} & A_{hh} \end{pmatrix}, \qquad
+G = \binom{G_r}{G_h}.
+\end{equation}
+
+\subsection{The hidden elimination theorem}
+
+\begin{theorem}[Dissipative hidden elimination]\label{thm:bridge-C}
+Assume zero initial state, $\Re\, s > 0$, and that $sI - A_{hh}$ is invertible. Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \textbf{Positive-realness.} The full transfer function is positive-real:
+\begin{equation}\label{eq:C-pr}
+H(s) + H(s)^* \succeq 0.
+\end{equation}
+
+\item \textbf{Dynamic Schur complement representation.} Exact elimination of the hidden block gives
+\begin{equation}\label{eq:C-schur}
+H(s) = D_{\mathrm{eff}}(s) + C_{\mathrm{eff}}(s)\,\Sigma_r(s)^{-1}\,B_{\mathrm{eff}}(s),
+\end{equation}
+where the dynamic Schur complement and effective input/output maps are:
+\begin{align}
+\Sigma_r(s) &= sI_r - A_{rr} - A_{rh}(sI_h - A_{hh})^{-1}A_{hr}, \label{eq:C-sigma} \\
+B_{\mathrm{eff}}(s) &= G_r + A_{rh}(sI_h - A_{hh})^{-1}G_h, \label{eq:C-beff} \\
+C_{\mathrm{eff}}(s) &= G_r^\top + G_h^\top(sI_h - A_{hh})^{-1}A_{hr}, \label{eq:C-ceff} \\
+D_{\mathrm{eff}}(s) &= G_h^\top(sI_h - A_{hh})^{-1}G_h. \label{eq:C-deff}
+\end{align}
+
+\item \textbf{Positivity inheritance.} The reduced transfer $H(s)$ computed via \eqref{eq:C-schur} is positive-real. More precisely, for each $s$ with $\Re\,s > 0$:
+\begin{equation}\label{eq:C-pr-reduced}
+H(s) + H(s)^* = 2\Re(s)\,X(s)^* X(s) - X(s)^*(A + A^\top)X(s) \succeq 0,
+\end{equation}
+where $X(s) = (sI - A)^{-1}G$.
+
+\item \textbf{Gradient subcase.} If $A = -B$ with $B = B^\top \succeq 0$ and the hidden states are not directly forced ($G_h = 0$), then:
+\begin{enumerate}[label=(\alph*)]
+\item The transfer is real and positive for real $s > 0$.
+\item The dynamic Schur complement simplifies to
+\begin{equation}\label{eq:C-gradient-schur}
+\Sigma_r(s) = sI_r + B_{rr} - B_{rh}(sI_h + B_{hh})^{-1}B_{hr},
+\end{equation}
+and $H(s) = G_r^\top \Sigma_r(s)^{-1} G_r$. Consequently, for real $s > 0$,
+\begin{equation}\label{eq:C-gradient-order}
+\Sigma_r(s) \preceq sI_r + B_{rr}, \qquad H(s) - H_{\mathrm{bare}}(s) \succeq 0,
+\end{equation}
+where $H_{\mathrm{bare}}(s) := G_r^\top (sI_r + B_{rr})^{-1}G_r$.
+\item The transfer $H$ is a matrix Stieltjes function: it maps the upper half-plane $\{\Im\, s > 0\}$ to the lower half-plane $\{M : \Im\, M \preceq 0\}$.
+\end{enumerate}
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\textbf{(i)} For any $\xi \in \C^m$, set $X = (sI - A)^{-1}G\xi$. Then $G\xi = (sI - A)X$, so
+\[
+2\Re(\xi^* H(s)\xi) = 2\Re(X^* G\xi) = 2\Re(s)\|X\|^2 - X^*(A + A^\top)X \geq 0,
+\]
+since $\Re\,s > 0$ and $A + A^\top \preceq 0$. This gives \eqref{eq:C-pr} and \eqref{eq:C-pr-reduced}.
+
+\textbf{(ii)} The resolvent equation $(sI - A)\binom{r}{h} = \binom{G_r}{G_h}u$ gives, from the hidden block:
+\[
+h = (sI_h - A_{hh})^{-1}(A_{hr}\,r + G_h\,u).
+\]
+Substituting into the resolved block:
+\[
+\Sigma_r(s)\,r = B_{\mathrm{eff}}(s)\,u.
+\]
+The output $y = G_r^\top r + G_h^\top h$ then gives \eqref{eq:C-schur} after substitution.
+
+\textbf{(iii)} Positivity of the reduced transfer follows from~(i), since the Schur complement representation is an algebraic identity: it computes the same $H(s)$.
+
+\textbf{(iv)} When $A = -B$, $B = B^\top \succeq 0$, and $G_h = 0$, the full resolvent is $(sI+B)^{-1}$ with block inverse
+\[
+((sI+B)^{-1})_{rr}=\Sigma_r(s)^{-1},
+\]
+where \eqref{eq:C-gradient-schur} is the standard Schur-complement formula. Since $(sI_h+B_{hh})^{-1}\succeq 0$ for real $s>0$, the correction term
+\[
+B_{rh}(sI_h+B_{hh})^{-1}B_{hr}\succeq 0,
+\]
+so \eqref{eq:C-gradient-order} follows by Loewner monotonicity and order reversal under inversion on positive definite matrices. Hence $H(s)$ is real and positive for real $s>0$.
+
+For the Stieltjes property, let $z$ lie in the upper half-plane. Then
+\[
+\Im\bigl((zI+B)^{-1}\bigr)=\frac{(zI+B)^{-1}-(\bar z I+B)^{-1}}{2i}=-\Im(z)\,(zI+B)^{-1}(\bar z I+B)^{-1}\preceq 0.
+\]
+Congruence by the fixed matrix $G=(G_r,0)$ preserves Loewner order, so
+\[
+\Im H(z)=\Im\bigl(G^\top(zI+B)^{-1}G\bigr)\preceq 0.
+\]
+Thus $H$ is a matrix Stieltjes function.
+\end{proof}
+
+\subsection{Refinement}
+
+\begin{proposition}[Resolution refinement for dissipative elimination]\label{prop:bridge-C-refine}
+Consider two splittings of the state space: $z = (r_1, h_1)$ with $\dim r_1 = k_1$, and $z = (r_2, h_2)$ with $\dim r_2 = k_2 > k_1$, where the resolved block of the coarser splitting is a sub-block of the finer. Let $H^{(i)}(s)$ denote the transfer function obtained after eliminating the corresponding hidden block. Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item Both reduced transfers are positive-real.
+\item The coarser reduction is recovered from the finer one by further elimination: $H^{(1)}(s)$ is obtained from the effective data of splitting~2 by a second Schur complement over the states that are resolved in splitting~2 but hidden in splitting~1.
+\item In the gradient subcase, the Stieltjes property is preserved at each elimination stage.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(i) follows from Theorem~\ref{thm:bridge-C}(iii) applied to each splitting. (ii) is the composition identity for Schur complements of block resolvents. (iii) follows because each stage is a compression of $(sI+B)^{-1}$ by a fixed matrix after eliminating a positive block, and the argument in Theorem~\ref{thm:bridge-C}(iv) applies verbatim at each stage.
+\end{proof}
+
+\textbf{Quotient descent reading:}
+\begin{itemize}[leftmargin=2em]
+\item $\mathcal{M}$: the full state space $\R^n$, carrying the dissipative system.
+\item $B = H(s)$: the positive-real transfer function (frequency-dependent bilinear form on input/output space).
+\item $\pi$: hidden elimination (projection onto the resolved block, followed by dynamic Schur complement).
+\item $\bar{B}$: the exact reduced transfer $H(s)$ represented by the effective resolved operator $\Sigma_r(s)$ together with $B_{\mathrm{eff}}, C_{\mathrm{eff}}, D_{\mathrm{eff}}$.
+\item $R$: the hidden memory kernel
+\[
+K_{\mathrm{hid}}(s):=A_{rh}(sI_h-A_{hh})^{-1}A_{hr},
+\]
+which is the explicit hidden contribution entering the reduced dynamics. In the gradient subcase with $G_h = 0$, comparison with the bare resolved model yields the additional PSD correction
+\[
+H(s) - H_{\mathrm{bare}}(s) = G_r^\top\bigl[\Sigma_r(s)^{-1} - (sI_r + B_{rr})^{-1}\bigr]G_r \succeq 0
+\]
+for real $s>0$, which is the transfer-function analogue of $\Delta_{DV} \succeq 0$ in the Finite bridge.
+\item Refinement: Proposition~\ref{prop:bridge-C-refine}.
+\item Boundary: the hidden memory kernel $A_{rh}(sI_h - A_{hh})^{-1}A_{hr}$ is the first dynamic structure that enters.
+\end{itemize}
+
+\subsection{Toy model}
+
+\begin{example}\label{ex:bridge-C-toy}
+Let $n = 2$, $A = \bigl(\begin{smallmatrix} -a & c \\ c & -d \end{smallmatrix}\bigr)$ with $a, d > 0$ and $|c| \leq \sqrt{ad}$, and $G = \bigl(\begin{smallmatrix} 1 \\ 0 \end{smallmatrix}\bigr)$ (hidden state not directly forced). Then:
+\begin{align*}
+H(s) &= \frac{1}{s + a - c^2/(s+d)} = \frac{s+d}{(s+a)(s+d) - c^2}, \\
+H_{\mathrm{bare}}(s) &= \frac{1}{s + a}.
+\end{align*}
+The hidden contribution is
+\[
+R(s) = H(s) - H_{\mathrm{bare}}(s) = \frac{c^2}{(s+a)\bigl[(s+a)(s+d) - c^2\bigr]} > 0 \quad \text{for real } s > 0.
+\]
+The Schur correction $c^2/(s+d)$ to the resolved dynamics is the exact analogue of $\tfrac{1}{4}\widehat{J}H_0^{-1}\widehat{J}^T$: the off-diagonal coupling $c$ plays the role of $\widehat{J}$, the hidden stiffness $(s+d)$ plays the role of $H_0$, and the quadratic-in-coupling structure $c^2/(s+d)$ parallels the Gram form $\widehat{J}H_0^{-1}\widehat{J}^T$.
+\end{example}
+
+%======================================================================
+\section{Instance D: Latent-variable Gaussian graphical models}
+\label{sec:bridge-D}
+%======================================================================
+
+\subsection{Setting}
+
+Let $X = (X_V, X_H)$ be a jointly Gaussian random vector on $\R^{|V|+|H|}$ with precision matrix $\Omega \in \SPD(n)$, $n = |V|+|H|$. The index sets $V$ (visible) and $H$ (hidden/latent) partition the variables. Block-decompose:
+\begin{equation}\label{eq:D-blocks}
+\Omega = \begin{pmatrix} \Omega_{VV} & \Omega_{VH} \\ \Omega_{HV} & \Omega_{HH} \end{pmatrix}.
+\end{equation}
+The marginal distribution of $X_V$ is Gaussian with covariance $\Sigma_{VV}$ (the leading block of $\Sigma = \Omega^{-1}$).
+
+\subsection{The marginalisation theorem}
+
+\begin{theorem}[Precision descent under marginalisation]\label{thm:bridge-D}
+The marginal precision matrix of $X_V$ is the Schur complement:
+\begin{equation}\label{eq:D-schur}
+\bar{\Omega} := \Sigma_{VV}^{-1} = \Omega_{VV} - \Omega_{VH}\,\Omega_{HH}^{-1}\,\Omega_{HV}.
+\end{equation}
+Moreover:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \textbf{Uniqueness.} $\bar{\Omega}$ is uniquely determined by $\Omega$ and the partition $V \cup H$.
+\item \textbf{Positivity.} $\bar{\Omega} \succ 0$.
+\item \textbf{Gram factorisation of hidden gap.} Define $R := \Omega_{VH}\,\Omega_{HH}^{-1}\,\Omega_{HV}$, and the canonical factor
+\[
+B_{\mathrm{can}} := \Omega_{VH}\,\Omega_{HH}^{-1/2} \in \R^{|V| \times |H|}.
+\]
+Then
+\begin{equation}\label{eq:D-gram}
+R = B_{\mathrm{can}} B_{\mathrm{can}}^\top \succeq 0, \qquad \rank(R) = \rank(\Omega_{VH}) \leq |H|.
+\end{equation}
+If $\widetilde B, \widetilde B' \in \R^{|V| \times r}$ are \emph{minimal factors} with $r = \rank(R)$ and
+\[
+R = \widetilde B\widetilde B^\top = \widetilde B'\widetilde B'^\top,
+\]
+then $\widetilde B' = \widetilde BQ$ for some $Q \in O(r)$.
+\item \textbf{Graph-sparsity plus low-rank decomposition.} If $\Omega$ has the sparsity pattern of a graph $G = (V \cup H, E)$, then $\bar{\Omega}$ decomposes as
+\begin{equation}\label{eq:D-sparse-lowrank}
+\bar{\Omega} = S - L
+\end{equation}
+where $S = \Omega_{VV}$ is sparse (inheriting the $V$-$V$ edge pattern of the graph $G$, since $(\Omega_{VV})_{ij} = 0$ whenever there is no edge between $i, j \in V$ in $G$) and $L = R$ is positive semidefinite with $\rank(L) \leq |H|$. The sparse-plus-low-rank structure is an exact algebraic consequence of the quotient, not an approximation.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The identity \eqref{eq:D-schur} is the classical Schur complement formula for marginals of multivariate Gaussians, obtained by integrating out $X_H$ from the joint density.
+
+(i): The Schur complement is a deterministic algebraic function of $\Omega$ and the index partition.
+
+(ii): The Schur complement of a positive definite matrix is positive definite; this is the positive-definite case of Haynsworth's inertia theorem.
+
+(iii): Since $\Omega_{HH} \succ 0$, the square root $\Omega_{HH}^{1/2}$ exists and is invertible. Setting $B_{\mathrm{can}} = \Omega_{VH}\Omega_{HH}^{-1/2}$ gives $R = B_{\mathrm{can}} B_{\mathrm{can}}^\top$, so $R \succeq 0$. Since $\Omega_{HH}^{-1/2}$ is invertible, $\rank(B_{\mathrm{can}}) = \rank(\Omega_{VH})$, and $\rank(B_{\mathrm{can}}B_{\mathrm{can}}^\top) = \rank(B_{\mathrm{can}})$. For minimal factors $\widetilde B, \widetilde B'$ with full column rank $r$, define $Q := \widetilde B^{+}\widetilde B'$. Then $\widetilde BQ = \widetilde B'$ and
+\[
+QQ^\top = \widetilde B^{+}R(\widetilde B^{+})^\top = \widetilde B^{+}\widetilde B\widetilde B^\top(\widetilde B^{+})^\top = I_r,
+\]
+so $Q \in O(r)$.
+
+(iv): $S = \Omega_{VV}$ has the sparsity of the $V$-induced subgraph, and $L = R$ is PSD of rank at most $|H|$.
+\end{proof}
+
+\begin{proposition}[Refinement under latent revelation]\label{prop:bridge-D-refine}
+Let $H = H_1 \cup H_2$ be a partition of the hidden set. Define
+\[
+\bar{\Omega}_{\text{all hidden}} := \Omega/\Omega_{HH} \quad \text{(marginalise all of }H\text{)},
+\]
+\[
+\bar{\Omega}_{\text{some hidden}} := \Omega/\Omega_{H_2 H_2} \quad \text{(marginalise only }H_2\text{, reveal }H_1\text{)}.
+\]
+Then $\bar{\Omega}_{\text{all hidden}}$ is obtained from $\bar{\Omega}_{\text{some hidden}}$ by a further Schur complement (marginalising the revealed $H_1$ from the intermediate). Moreover, on the original visible set $V$:
+\begin{equation}\label{eq:D-refine}
+(\bar{\Omega}_{\text{some hidden}})_{VV} \succeq \bar{\Omega}_{\text{all hidden}}.
+\end{equation}
+That is, revealing latent variables can only increase the effective precision on the original visible set.
+\end{proposition}
+
+\begin{proof}
+Schur complements compose, so marginalising $H_2$ and then $H_1$ gives the same matrix as marginalising $H_1\cup H_2$ in one step. For the Loewner inequality, write the intermediate precision after marginalising $H_2$ as
+\[
+\widetilde\Omega=
+\begin{pmatrix}
+\widetilde\Omega_{VV} & \widetilde\Omega_{V H_1}\\
+\widetilde\Omega_{H_1 V} & \widetilde\Omega_{H_1 H_1}
+\end{pmatrix}\succ 0.
+\]
+Then
+\[
+\bar\Omega_{\text{all hidden}}=\widetilde\Omega_{VV}-\widetilde\Omega_{V H_1}\widetilde\Omega_{H_1H_1}^{-1}\widetilde\Omega_{H_1V},
+\]
+while $(\bar\Omega_{\text{some hidden}})_{VV}=\widetilde\Omega_{VV}$. The correction term is positive semidefinite, so \eqref{eq:D-refine} follows.
+\end{proof}
+
+\textbf{Quotient descent reading:}
+\begin{itemize}[leftmargin=2em]
+\item $\mathcal{M} = \SPD(n)$ (joint precision matrices), $B = \Omega$.
+\item $\pi$: marginalisation over $H$ (Schur complement).
+\item $\bar{B} = \bar{\Omega}$ (marginal precision).
+\item $R = \Omega_{VH}\Omega_{HH}^{-1}\Omega_{HV}$: the latent mediation, with Gram form $BB^\top$, $\rank \leq |H|$.
+\item Refinement: Proposition~\ref{prop:bridge-D-refine}.
+\item Boundary: the sparsity pattern of $\bar{\Omega}$ can be denser than $\Omega_{VV}$; this is the fill-in phenomenon for Schur complements of sparse matrices.
+\end{itemize}
+
+\begin{example}\label{ex:bridge-D-toy}
+Let $V = \{1, 2\}$, $H = \{3\}$, and $\Omega = \bigl(\begin{smallmatrix} 3 & 0 & 1 \\ 0 & 3 & 1 \\ 1 & 1 & 2 \end{smallmatrix}\bigr)$. Then $\Omega_{VV} = \bigl(\begin{smallmatrix} 3 & 0 \\ 0 & 3 \end{smallmatrix}\bigr)$ is diagonal (no direct edge between 1 and 2), but $\bar{\Omega} = \Omega_{VV} - \tfrac{1}{2}\bigl(\begin{smallmatrix} 1 \\ 1 \end{smallmatrix}\bigr)(1\ 1) = \bigl(\begin{smallmatrix} 2.5 & -0.5 \\ -0.5 & 2.5 \end{smallmatrix}\bigr)$ has a nonzero $(1,2)$ entry. The single latent variable creates an effective coupling between the two visible nodes. The hidden rank is $\rank(R) = 1$.
+\end{example}
+
+%======================================================================
+\section{Instance E: Observability Gramians in linear systems}
+\label{sec:bridge-E}
+%======================================================================
+
+\subsection{Setting}
+
+Consider a stable linear time-invariant system:
+\begin{equation}\label{eq:E-system}
+\dot{x} = Ax, \qquad y = Cx,
+\end{equation}
+with state $x \in \R^n$ and output $y \in \R^p$, where $A$ is Hurwitz (all eigenvalues have strictly negative real part). The \emph{observability Gramian} is
+\begin{equation}\label{eq:E-gramian}
+W_C := \int_0^\infty e^{A^\top t}\,C^\top C\,e^{At}\,dt,
+\end{equation}
+the unique positive semidefinite solution of the Lyapunov equation
+\begin{equation}\label{eq:E-lyapunov}
+A^\top W_C + W_C A + C^\top C = 0.
+\end{equation}
+$W_C$ encodes the total information about the initial state $x(0)$ available from the infinite output trajectory $\{y(t)\}_{t \geq 0}$.
+
+\subsection{The output-refinement theorem}
+
+\begin{theorem}[Observability Gramian descent]\label{thm:bridge-E}
+Let $A$ be Hurwitz and let $C_1 \in \R^{p_1 \times n}$, $C_2 \in \R^{p_2 \times n}$ be two output matrices with $p_1 \leq p_2$. Assume $C_1$ consists of a subset of the rows of $C_2$. Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \textbf{Uniqueness.} Each $W_{C_i}$ is the unique PSD solution of its Lyapunov equation.
+\item \textbf{Positivity.} $W_{C_i} \succeq 0$, with $\ker W_{C_i}$ equal to the unobservable subspace of $(A, C_i)$.
+\item \textbf{Additivity over outputs.} If $C_2 = \bigl(\begin{smallmatrix} C_1 \\ C_{\mathrm{new}} \end{smallmatrix}\bigr)$, then
+\begin{equation}\label{eq:E-additive}
+W_{C_2} = W_{C_1} + W_{C_{\mathrm{new}}}.
+\end{equation}
+The hidden gap $R := W_{C_2} - W_{C_1} = W_{C_{\mathrm{new}}} \succeq 0$ is itself the observability Gramian of the missing outputs.
+\item \textbf{Gram factorisation.} The Gramian $W_{C_{\mathrm{new}}}$ has the integral Gram form
+\begin{equation}\label{eq:E-gram}
+W_{C_{\mathrm{new}}} = \int_0^\infty F(t)\,F(t)^\top\,dt, \qquad F(t) := e^{A^\top t}\,C_{\mathrm{new}}^\top.
+\end{equation}
+The new output block has channel dimension $p_2 - p_1$, but time propagation through $A$ can spread those channels across many state directions, so one should not expect the rank of $W_{C_{\mathrm{new}}}$ to be bounded by $p_2 - p_1$. The only general a priori bound is $\rank(W_{C_{\mathrm{new}}}) \le n$.
+\item \textbf{Loewner refinement.} $W_{C_2} \succeq W_{C_1}$ in the Loewner order. More outputs yield more information.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(i): Stability of $A$ guarantees that the Lyapunov equation $A^\top W + WA + C^\top C = 0$ has a unique solution.
+
+(ii): The integral representation \eqref{eq:E-gramian} is manifestly PSD. Its kernel is $\{x : Ce^{At}x = 0 \text{ for all } t \geq 0\}$, which is exactly the unobservable subspace.
+
+(iii): By linearity of the Lyapunov equation: if $C_2^\top C_2 = C_1^\top C_1 + C_{\mathrm{new}}^\top C_{\mathrm{new}}$ (which holds when $C_2 = (C_1^\top, C_{\mathrm{new}}^\top)^\top$), then $W_{C_2} = W_{C_1} + W_{C_{\mathrm{new}}}$ by uniqueness of the Lyapunov solution.
+
+(iv): Immediate from \eqref{eq:E-gramian} applied to $C_{\mathrm{new}}$.
+
+(v): Direct from (iii) and $W_{C_{\mathrm{new}}} \succeq 0$.
+\end{proof}
+
+\textbf{Quotient descent reading:}
+\begin{itemize}[leftmargin=2em]
+\item $\mathcal{M} = \R^n$ (state space), $B = W_C$ (observability Gramian as the information form).
+\item $\pi$: restriction of the output (use fewer sensors / measure fewer states).
+\item $\bar{B} = W_{C_1}$ (Gramian from partial output).
+\item $R = W_{C_{\mathrm{new}}}$: the missing-output Gramian, with integral Gram form. Its channel dimension is $p_2 - p_1$, while its state-space rank can be as large as $n$.
+\item Refinement: adding outputs can only increase the Gramian (Loewner monotonicity).
+\item Boundary: the unobservable subspace of $(A, C_1)$ is the kernel of $W_{C_1}$, exactly characterising what cannot be reconstructed from partial output.
+\end{itemize}
+
+\begin{example}
+Consider $A = \bigl(\begin{smallmatrix} -1 & 2 \\ 0 & -3 \end{smallmatrix}\bigr)$ (stable, upper-triangular) with full output $C_2 = I_2$ and partial output $C_1 = (1\ 0)$ (observe only $x_1$). Despite observing only $x_1$, the cross-coupling $A_{12} = 2$ propagates information about $x_2$ into the $x_1$ channel, so $(A, C_1)$ is observable and $W_{C_1} \succ 0$. However, $W_{C_2} \succ W_{C_1}$: direct observation of $x_2$ provides additional information beyond what propagates through $A$.
+\end{example}
+
+%======================================================================
+\section{Instance F: The Dirichlet-to-Neumann map on resistive networks}
+\label{sec:bridge-F}
+%======================================================================
+
+\subsection{Setting}
+
+Let $G = (V, E, w)$ be a connected weighted graph with positive conductances $w_{ij} > 0$. The graph Laplacian is
+\begin{equation}\label{eq:F-laplacian}
+L_{ij} = \begin{cases} -w_{ij} & i \neq j, \\ \sum_{k \neq i} w_{ik} & i = j. \end{cases}
+\end{equation}
+$L \succeq 0$ with $\ker L = \mathrm{span}\{\mathbf{1}\}$. Partition $V = B \cup I$ (boundary $=$ visible, interior $=$ hidden). Block-decompose:
+\begin{equation}\label{eq:F-blocks}
+L = \begin{pmatrix} L_{BB} & L_{BI} \\ L_{IB} & L_{II} \end{pmatrix}.
+\end{equation}
+Since $G$ is connected and $I \subsetneq V$, the submatrix $L_{II}$ is positive definite (it is a strictly diagonally dominant $M$-matrix).
+
+\subsection{The effective conductance theorem}
+
+\begin{theorem}[Dirichlet-to-Neumann descent]\label{thm:bridge-F}
+The \emph{effective Laplacian} (Dirichlet-to-Neumann map) on the boundary is
+\begin{equation}\label{eq:F-effective}
+\bar{L} := L_{BB} - L_{BI}\,L_{II}^{-1}\,L_{IB}.
+\end{equation}
+This satisfies:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \textbf{Laplacian structure preserved.} $\bar{L}$ is a valid graph Laplacian on $B$: it has non-positive off-diagonals, rows summing to zero, and $\bar{L} \succeq 0$ with $\ker \bar{L} = \mathrm{span}\{\mathbf{1}_B\}$.
+\item \textbf{Uniqueness.} $\bar{L}$ is uniquely determined by $L$ and the partition $B \cup I$.
+\item \textbf{Electrical interpretation.} For any boundary voltage assignment $v_B \in \R^{|B|}$, the interior voltages that minimise the total dissipated power $v^\top L v$ are $v_I^* = -L_{II}^{-1}L_{IB}v_B$, and the power dissipated at this minimiser is $v_B^\top \bar{L} v_B$. Thus $\bar{L}$ is the effective conductance matrix of the network as seen from the boundary.
+\item \textbf{Mediated conductance and Gram factorisation.} The Schur correction $R := L_{BI}\,L_{II}^{-1}\,L_{IB} \succeq 0$ represents the mediated conductance through interior nodes. Setting $C := -L_{BI} \geq 0$ (entrywise, since $L_{BI}$ has non-positive entries) and $B_{\mathrm{gram}} := C\,L_{II}^{-1/2}$:
+\begin{equation}\label{eq:F-gram}
+R = B_{\mathrm{gram}}\,B_{\mathrm{gram}}^\top, \qquad \rank(R) \leq |I|.
+\end{equation}
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+\textbf{(i)}: Off-diagonals of $\bar{L}$: write $\bar{L}_{ij} = (L_{BB})_{ij} - (L_{BI}L_{II}^{-1}L_{IB})_{ij}$ for $i \neq j \in B$. Now $(L_{BB})_{ij} = -w_{ij} \leq 0$, and $L_{II}^{-1} \geq 0$ entrywise (since $L_{II}$ is an $M$-matrix of a connected graph), so $(L_{BI}L_{II}^{-1}L_{IB})_{ij} = \sum_{k,l \in I}(L_{BI})_{ik}(L_{II}^{-1})_{kl}(L_{IB})_{lj}$. Since $(L_{BI})_{ik} \leq 0$, $(L_{II}^{-1})_{kl} \geq 0$, and $(L_{IB})_{lj} \leq 0$, each term in the sum is the product $(\leq 0)(\geq 0)(\leq 0) \geq 0$. Thus the entire sum is $\geq 0$, and $\bar{L}_{ij} = (L_{BB})_{ij} - (\text{nonneg}) \leq 0$.
+
+Row sums: $L\mathbf{1} = 0$ gives $L_{BB}\mathbf{1}_B + L_{BI}\mathbf{1}_I = 0$ and $L_{IB}\mathbf{1}_B + L_{II}\mathbf{1}_I = 0$. From the second: $\mathbf{1}_I = -L_{II}^{-1}L_{IB}\mathbf{1}_B$. Substituting into the first: $\bar{L}\mathbf{1}_B = L_{BB}\mathbf{1}_B - L_{BI}L_{II}^{-1}L_{IB}\mathbf{1}_B = L_{BB}\mathbf{1}_B + L_{BI}\mathbf{1}_I = 0$.
+
+Positive semidefiniteness with one-dimensional kernel follows from $\bar{L}$ being a Schur complement of the PSD matrix $L$ with kernel $\mathrm{span}\{\mathbf{1}\}$.
+
+\textbf{(ii)}: Algebraic function of $L$ and the partition.
+
+\textbf{(iii)}: The minimisation $\min_{v_I} v^\top L v$ over interior voltages at fixed boundary voltage $v_B$ gives the quadratic form $v_B^\top \bar{L}\, v_B$ by completing the square in $v_I$, identical to the Schur complement construction.
+
+\textbf{(iv)}: $L_{II} \succ 0$ admits a square root. $C = -L_{BI}$ has non-negative entries. $R = C L_{II}^{-1} C^\top = B_{\mathrm{gram}}B_{\mathrm{gram}}^\top \succeq 0$ with $\rank(R) = \rank(C) \leq |I|$.
+\end{proof}
+
+\begin{proposition}[Composition under staged elimination]\label{prop:bridge-F-refine}
+Let $I = I_1 \cup I_2$ and define $\bar{L}_I$ by condensing all of $I$ at once, and $\bar{L}_{I_2}$ by condensing only $I_2$ so that the intermediate boundary is $B \cup I_1$. Then condensing $I_1$ from the intermediate network recovers the full condensation:
+\begin{equation}\label{eq:F-compose}
+\bar{L}_I = (\bar{L}_{I_2})/(\bar{L}_{I_2})_{I_1 I_1}.
+\end{equation}
+In general there is no entrywise monotonicity of the off-diagonal effective conductances under revealing interior nodes.
+\end{proposition}
+
+\begin{proof}
+Write the full Laplacian in three blocks corresponding to $B$, $I_1$, and $I_2$. Schur complements over disjoint blocks compose, so eliminating $I_2$ and then $I_1$ gives the same result as eliminating $I_1 \cup I_2$ in one step. This proves \eqref{eq:F-compose}. The final sentence is a warning rather than an additional claim: for the path $1-3-2$, condensing node $3$ creates an effective edge of weight $1/2$ between $1$ and $2$, whereas revealing node $3$ removes any direct $1,2$ edge in the enlarged boundary network.
+\end{proof}
+
+\begin{remark}[Connection to the Donsker-Varadhan bridge]\label{rem:F-connection}
+For a reversible (detailed-balance) Markov chain with generator $Q$ and stationary distribution $\pi$, the conductance matrix $w_{ij} = \pi_i q_{ij}$ defines a weighted graph whose Laplacian is $L_{ij} = -\pi_i q_{ij}$ for $i \neq j$. In Fisher coordinates, the reduced symmetric operator $\widehat{G}$ is the restriction of this weighted Laplacian to the tangent space $\{\sqrt{\pi}\}^\perp$. So the detailed-balance backbone of Instance~0 lives in the same Laplacian algebraic family as Instance~F. What is not claimed here is an exact identification of the full DV bridge with a Dirichlet-to-Neumann map: that would require a separate boundary/interior partition and elimination theorem. The robust statement is the shared Laplacian backbone, with the nonequilibrium correction $\Delta_{DV}$ appearing only after the skew sector is introduced.
+\end{remark}
+
+\textbf{Quotient descent reading:}
+\begin{itemize}[leftmargin=2em]
+\item $\mathcal{M}$: weighted graph $(V, E, w)$, carrying $B = L$ (graph Laplacian).
+\item $\pi$: interior condensation (Schur complement over hidden nodes).
+\item $\bar{B} = \bar{L}$ (effective boundary Laplacian, itself a valid Laplacian).
+\item $R = L_{BI}L_{II}^{-1}L_{IB}$: mediated conductance, Gram form, rank $\leq |I|$.
+\item Refinement: Proposition~\ref{prop:bridge-F-refine} gives staged-elimination compatibility rather than entrywise monotonicity.
+\item Boundary: $\bar{L}$ can have fill-in (nonzero entries where $L_{BB}$ had zeros), corresponding to effective long-range boundary couplings mediated by interior paths.
+\end{itemize}
+
+\begin{example}
+Consider the path graph $1 - 3 - 2$ with unit weights, $B = \{1, 2\}$, $I = \{3\}$. Then $L_{BB} = \bigl(\begin{smallmatrix} 1 & 0 \\ 0 & 1 \end{smallmatrix}\bigr)$, $L_{BI} = \bigl(\begin{smallmatrix} -1 \\ -1 \end{smallmatrix}\bigr)$, $L_{II} = (2)$. The effective Laplacian is $\bar{L} = \bigl(\begin{smallmatrix} 1/2 & -1/2 \\ -1/2 & 1/2 \end{smallmatrix}\bigr)$: the interior node creates an effective conductance of $1/2$ between the boundary nodes that have no direct edge. The effective resistance between nodes 1 and 2 is $2$ (sum of the two unit resistances in series), consistent with $1/\bar{w}_{12} = 1/(1/2) = 2$.
+\end{example}
+
+%======================================================================
+\section{Instance G: KL divergence chain rule}
+\label{sec:bridge-G}
+%======================================================================
+
+\subsection{Setting}
+
+Let $(\Omega, \mathcal{F})$ be a measurable space equipped with two sub-$\sigma$-algebras $\mathcal{F}_V$ and $\mathcal{F}_H$ such that $\mathcal{F} = \sigma(\mathcal{F}_V, \mathcal{F}_H)$. In the product case, the sample space is $\mathcal{X}_V \times \mathcal{X}_H$ with $\mathcal{F}_V$ and $\mathcal{F}_H$ the coordinate $\sigma$-algebras. Let $P, Q$ be probability measures on $(\Omega, \mathcal{F})$ with $P \ll Q$. Write $P_V, Q_V$ for the marginals on $\mathcal{F}_V$, and $P_{H|v}, Q_{H|v}$ for the regular conditional distributions on $\mathcal{F}_H$ given $\mathcal{F}_V$.
+
+The \emph{Kullback-Leibler divergence} (relative entropy) is
+\begin{equation}\label{eq:G-kl}
+D_{\mathrm{KL}}(P \| Q) := \int \log \frac{dP}{dQ}\, dP.
+\end{equation}
+
+\subsection{The chain rule theorem}
+
+\begin{theorem}[KL descent under marginalisation]\label{thm:bridge-G}
+Under the hypotheses above, the KL divergence decomposes as
+\begin{equation}\label{eq:G-chain}
+D_{\mathrm{KL}}(P \| Q) = D_{\mathrm{KL}}(P_V \| Q_V) + \int D_{\mathrm{KL}}(P_{H|v} \| Q_{H|v})\, dP_V(v).
+\end{equation}
+Moreover:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \textbf{Uniqueness.} $D_{\mathrm{KL}}(P_V \| Q_V)$ is uniquely determined by $P$, $Q$, and the marginalisation $\pi: \mathcal{F} \to \mathcal{F}_V$.
+
+\item \textbf{Positivity.} $D_{\mathrm{KL}}(P_V \| Q_V) \geq 0$, with equality if and only if $P_V = Q_V$.
+
+\item \textbf{Hidden remainder.} The conditional divergence
+\begin{equation}\label{eq:G-remainder}
+R := \int D_{\mathrm{KL}}(P_{H|v} \| Q_{H|v})\, dP_V(v) \geq 0,
+\end{equation}
+with equality if and only if $P_{H|v} = Q_{H|v}$ for $P_V$-a.e.\ $v$.
+
+\item \textbf{Gaussian specialisation.} If $P = \mathcal{N}(\mu_P, \Sigma_P)$ and $Q = \mathcal{N}(\mu_Q, \Sigma_Q)$ on $\R^{|V|+|H|}$, then
+\begin{equation}\label{eq:G-gauss-remainder}
+R = \tfrac{1}{2}\Bigl[\log\frac{|\Sigma_{Q,H|V}|}{|\Sigma_{P,H|V}|} - |H| + \tr(\Sigma_{Q,H|V}^{-1}\Sigma_{P,H|V}) + \mathcal{Q}\Bigr],
+\end{equation}
+where $\Sigma_{\cdot,H|V} := \Sigma_{\cdot,HH} - \Sigma_{\cdot,HV}\Sigma_{\cdot,VV}^{-1}\Sigma_{\cdot,VH}$ is the $|H| \times |H|$ conditional covariance (covariance-space Schur complement, cf.\ Instance~H), and
+\begin{equation}\label{eq:G-gauss-quad}
+\mathcal{Q} = \bar{\delta}^\top\Sigma_{Q,H|V}^{-1}\bar{\delta} + \tr\bigl(\Sigma_{Q,H|V}^{-1}\,M\,\Sigma_{P,VV}\,M^\top\bigr) \geq 0,
+\end{equation}
+with
+\[
+\bar{\delta} := \mu_{Q,H} - \mu_{P,H} + B_Q(\mu_{P,V} - \mu_{Q,V}),
+\]
+the $P_V$-mean conditional-mean difference, $M := B_Q - B_P$ the regression coefficient difference, and $B_\cdot := \Sigma_{\cdot,HV}\Sigma_{\cdot,VV}^{-1}$ the regression matrix. Both terms in $\mathcal{Q}$ are nonneg, and $\mathcal{Q}$ involves only $|H| \times |H|$ matrices.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The Radon-Nikodym derivative factorises as
+\[
+\frac{dP}{dQ}(\omega) = \frac{dP_V}{dQ_V}(v) \cdot \frac{dP_{H|v}}{dQ_{H|v}}(h),
+\]
+where $(v, h)$ are the projections of $\omega$ onto the visible and hidden coordinates. Taking logarithms and integrating against $P$:
+\begin{align*}
+D_{\mathrm{KL}}(P \| Q) &= \int \log\frac{dP_V}{dQ_V}(v)\,dP + \int \log\frac{dP_{H|v}}{dQ_{H|v}}(h)\,dP \\
+&= D_{\mathrm{KL}}(P_V \| Q_V) + \int \biggl[\int \log\frac{dP_{H|v}}{dQ_{H|v}}(h)\,dP_{H|v}(h)\biggr]dP_V(v),
+\end{align*}
+by iterated expectation. This gives \eqref{eq:G-chain}.
+
+(i) is immediate: $P_V$ and $Q_V$ are uniquely determined by $P$, $Q$.
+
+(ii) is Gibbs' inequality: $D_{\mathrm{KL}} \geq 0$ with equality iff the arguments coincide.
+
+(iii) follows by applying Gibbs' inequality to each conditional divergence: $D_{\mathrm{KL}}(P_{H|v} \| Q_{H|v}) \geq 0$ for every $v$, with equality iff the conditionals agree.
+
+(iv) For Gaussian $P$ and $Q$, the conditional distributions are Gaussian with covariances given by the Schur complements $\Sigma_{P,H|V}$ and $\Sigma_{Q,H|V}$ (which are constant in $v$) and means that are affine in $v$. The conditional KL is the Gaussian KL formula applied to these $|H|$-dimensional Gaussians. The covariance-dependent part is the first three terms of \eqref{eq:G-gauss-remainder}. The mean-dependent part $\mathcal{Q}$ is the expected squared Mahalanobis distance between conditional means:
+\[
+\mathcal{Q} = \mathbb{E}_{v \sim P_V}\bigl[\delta(v)^\top \Sigma_{Q,H|V}^{-1}\,\delta(v)\bigr],
+\]
+where $\delta(v) = \mu_{Q,H|V}(v) - \mu_{P,H|V}(v)$ is an affine function of $v$, giving a nonneg quantity controlled by $|H|$ parameters.
+\end{proof}
+
+\subsection{Refinement}
+
+\begin{proposition}[Data processing refinement]\label{prop:bridge-G-refine}
+Let $\pi_1 = \rho \circ \pi_2$ where $\pi_1, \pi_2$ are observation maps with $\pi_2$ finer (more informative) than $\pi_1$. Then
+\begin{equation}\label{eq:G-dpi}
+D_{\mathrm{KL}}(P_{\pi_1} \| Q_{\pi_1}) \leq D_{\mathrm{KL}}(P_{\pi_2} \| Q_{\pi_2}).
+\end{equation}
+That is, finer observation preserves more divergence (more information about the difference between $P$ and $Q$).
+\end{proposition}
+
+\begin{proof}
+Apply the chain rule \eqref{eq:G-chain} twice. With $V_1 \subseteq V_2$ (identifying visible sets):
+\[
+D_{\mathrm{KL}}(P_{V_2} \| Q_{V_2}) = D_{\mathrm{KL}}(P_{V_1} \| Q_{V_1}) + \int D_{\mathrm{KL}}(P_{V_2 \setminus V_1 | v_1} \| Q_{V_2 \setminus V_1 | v_1})\, dP_{V_1}(v_1).
+\]
+Since the second term is nonneg, $D_{\mathrm{KL}}(P_{V_2} \| Q_{V_2}) \geq D_{\mathrm{KL}}(P_{V_1} \| Q_{V_1})$. This is the data processing inequality.
+\end{proof}
+
+\textbf{Quotient descent reading:}
+\begin{itemize}[leftmargin=2em]
+\item $\mathcal{M}$: the space of pairs of probability measures $(P, Q)$ on a product space.
+\item $B = D_{\mathrm{KL}}(P \| Q)$: the full divergence (nonneg functional on pairs).
+\item $\pi$: marginalisation to the visible $\sigma$-algebra.
+\item $\bar{B} = D_{\mathrm{KL}}(P_V \| Q_V)$: the marginal divergence.
+\item $R = \int D_{\mathrm{KL}}(P_{H|v} \| Q_{H|v})\, dP_V(v)$: the conditional divergence. For Gaussians, controlled by $|H|$ eigenvalues of $\Sigma_{Q,H|V}^{-1}\Sigma_{P,H|V}$.
+\item Refinement: data processing inequality (Proposition~\ref{prop:bridge-G-refine}).
+\item Boundary: $R = 0$ iff $P$ and $Q$ have identical conditional structure given $V$.
+\end{itemize}
+
+\begin{proposition}[Second-order shadow of the KL chain rule]\label{prop:G-to-A}
+Let $\{p_\theta(v,h): \theta \in U\}$ be a $C^1$ parametric family of strictly positive densities on $\mathcal{X}_V \times \mathcal{X}_H$, with differentiation under the integral justified near $\theta_0 \in U$. Write
+\[
+p_\theta(v,h)=p_{V,\theta}(v)\,p_{H\mid V,\theta}(h\mid v)
+\]
+and define the full score, marginal score, and conditional score at $\theta_0$ by
+\[
+\begin{aligned}
+s(v,h)&:=\nabla_\theta \log p_\theta(v,h)\big|_{\theta_0},\\
+s_V(v)&:=\nabla_\theta \log p_{V,\theta}(v)\big|_{\theta_0},\\
+s_{H\mid V}(v,h)&:=\nabla_\theta \log p_{H\mid V,\theta}(h\mid v)\big|_{\theta_0}.
+\end{aligned}
+\]
+Then
+\[
+s=s_V+s_{H\mid V},\qquad \mathbb{E}_{\theta_0}[s_{H\mid V}\mid V]=0,
+\]
+and the Fisher information decomposes as
+\begin{equation}\label{eq:G-fisher-split}
+I(\theta_0)=I_V(\theta_0)+I_{H\mid V}(\theta_0),
+\end{equation}
+where
+\[
+I(\theta_0)=\mathbb{E}_{\theta_0}[ss^\top],\qquad
+I_V(\theta_0)=\mathbb{E}_{\theta_0}[s_Vs_V^\top],\qquad
+I_{H\mid V}(\theta_0)=\mathbb{E}_{\theta_0}[s_{H\mid V}s_{H\mid V}^\top]\succeq 0.
+\]
+In particular, the score-level decomposition is exact. Under the usual additional $C^2$ dominated-regularity hypotheses for local asymptotic expansion of KL, it is the second-order term of the KL chain rule and recovers Fisher descent with a positive conditional Fisher remainder.
+\end{proposition}
+
+\begin{proof}
+Differentiate
+\[
+\log p_\theta(v,h)=\log p_{V,\theta}(v)+\log p_{H\mid V,\theta}(h\mid v)
+\]
+at $\theta_0$ to obtain $s=s_V+s_{H\mid V}$. Since $p_{H\mid V,\theta_0}(\cdot\mid v)$ is a conditional density,
+\[
+\mathbb{E}_{\theta_0}[s_{H\mid V}\mid V=v]=\int \nabla_\theta p_{H\mid V,\theta}(h\mid v)\big|_{\theta_0}\,dh=\nabla_\theta\!\int p_{H\mid V,\theta}(h\mid v)\,dh\big|_{\theta_0}=0.
+\]
+Therefore the cross term vanishes:
+\[
+\mathbb{E}_{\theta_0}[s_Vs_{H\mid V}^\top]=\mathbb{E}_{\theta_0}\bigl[s_V\,\mathbb{E}_{\theta_0}[s_{H\mid V}^\top\mid V]\bigr]=0,
+\]
+and similarly for its transpose. Expanding $I(\theta_0)=\mathbb{E}_{\theta_0}[(s_V+s_{H\mid V})(s_V+s_{H\mid V})^\top]$ gives \eqref{eq:G-fisher-split}. The final sentence is the standard local quadratic expansion of KL under regularity.
+\end{proof}
+
+\begin{remark}[Hierarchy and limits]\label{rem:G-hierarchy}
+Proposition~\ref{prop:G-to-A} makes one part of the hierarchy exact:
+\[
+\text{Instance~G (KL chain rule)} \xrightarrow{\text{local quadratic expansion}} \text{Instance~A (Fisher descent)}.
+\]
+When the parameter splits as $\theta=(\alpha,\beta)$ into visible and nuisance blocks and $I_{\beta\beta}$ is invertible, efficient elimination of the nuisance block produces the Schur complement
+\[
+I^{\mathrm{eff}}_{\alpha\alpha}=I_{\alpha\alpha}-I_{\alpha\beta}I_{\beta\beta}^{-1}I_{\beta\alpha},
+\]
+which is the Fisher-side antecedent of Instance~D in Gaussian families.
+
+Two cautions matter. First, Instance~0 is not literally a KL chain rule: the Donsker-Varadhan functional is not, in general, the ordinary relative entropy of the empirical measure against stationarity. The relation to Instance~G is therefore structural and local, not an equality of full functionals. Second, Instance~B should not presently be placed on the same Taylor ladder. Its cubic shadow is a generator-level obstruction term, not a proved third-order coefficient of a KL decomposition on path space.
+\end{remark}
+
+\begin{remark}[Quantum boundary of Instance~G]\label{rem:G-quantum}
+For density matrices and a quantum channel $\Phi$, the Umegaki relative entropy satisfies the monotonicity inequality
+\[
+S(\rho\|\sigma)\ge S(\Phi(\rho)\|\Phi(\sigma)).
+\]
+So the monotonicity part of Instance~G survives in the quantum setting. What fails in general is the classical exact decomposition
+\[
+D_{\mathrm{KL}}(P\|Q)=D_{\mathrm{KL}}(P_V\|Q_V)+R
+\]
+with a positive conditional remainder built from classical disintegrations. The obstruction is broader than entanglement alone: noncommutativity already prevents a classical conditional-probability calculus, and exact additive remainders survive only under additional commuting or classical-quantum structure. Entanglement is one important source of failure, but not the unique one.
+\end{remark}
+
+\begin{example}\label{ex:bridge-G-toy}
+Let $V = \{1\}$, $H = \{2\}$, $P = \mathcal{N}\bigl(\binom{0}{0}, \bigl(\begin{smallmatrix} 1 & \rho \\ \rho & 1 \end{smallmatrix}\bigr)\bigr)$, $Q = \mathcal{N}\bigl(\binom{0}{0}, I_2\bigr)$, so $P$ and $Q$ differ only in the correlation $\rho$ between visible and hidden. The marginal KL is $D_{\mathrm{KL}}(P_V \| Q_V) = 0$ (both marginals are $\mathcal{N}(0,1)$). All the divergence lives in the conditional:
+\[
+R = \tfrac{1}{2}\bigl[-\log(1 - \rho^2) - 1 + (1 - \rho^2) + \rho^2\bigr] = -\tfrac{1}{2}\log(1 - \rho^2),
+\]
+which is positive for $\rho \neq 0$. The hidden-visible correlation is invisible to the marginal but fully captured by the conditional remainder.
+\end{example}
+
+%======================================================================
+\section{Instance H: Law of total covariance}
+\label{sec:bridge-H}
+%======================================================================
+
+\subsection{Setting}
+
+Let $Y \in L^2(\Omega \to \R^p)$ be a square-integrable random vector and $X: \Omega \to \mathcal{X}$ a random variable on a common probability space. Write $\mu(x) := \mathbb{E}[Y \mid X = x]$ for the conditional mean and $\Sigma(x) := \mathrm{Cov}(Y \mid X = x)$ for the conditional covariance.
+
+\subsection{The total covariance theorem}
+
+\begin{theorem}[Covariance descent under conditioning]\label{thm:bridge-H}
+Under the finite second-moment hypothesis $\mathbb{E}[\|Y\|^2] < \infty$:
+\begin{equation}\label{eq:H-eve}
+\mathrm{Cov}(Y) = \mathrm{Cov}(\mu(X)) + \mathbb{E}[\Sigma(X)],
+\end{equation}
+where $\mathrm{Cov}(\mu(X))$ is the \emph{between-group covariance} (variance of the conditional mean) and $\mathbb{E}[\Sigma(X)]$ is the \emph{within-group covariance} (expected conditional covariance). Moreover:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \textbf{Uniqueness.} Both terms in \eqref{eq:H-eve} are uniquely determined by the joint distribution of $(X, Y)$.
+
+\item \textbf{Positivity.} $\mathrm{Cov}(\mu(X)) \succeq 0$ and $\mathbb{E}[\Sigma(X)] \succeq 0$.
+
+\item \textbf{Gram factorisation.} Setting $f(X) := \mu(X) - \mathbb{E}[Y]$ and $\varepsilon := Y - \mu(X)$:
+\begin{align}
+\mathrm{Cov}(\mu(X)) &= \mathbb{E}[f(X)\,f(X)^\top], \label{eq:H-gram-between} \\
+\mathbb{E}[\Sigma(X)] &= \mathbb{E}[\varepsilon\,\varepsilon^\top]. \label{eq:H-gram-within}
+\end{align}
+Both are integral Gram forms (expectations of outer products). For discrete $X$ taking $k$ values, $\rank(\mathrm{Cov}(\mu(X))) \leq \min(k{-}1, p)$.
+
+\item \textbf{Gaussian specialisation.} If $(X, Y)$ is jointly Gaussian with $X \in \R^q$, $Y \in \R^p$, block covariance $\Sigma_{YX}$, etc., then:
+\begin{align}
+\mathbb{E}[\Sigma(X)] &= \Sigma_{YY} - \Sigma_{YX}\,\Sigma_{XX}^{-1}\,\Sigma_{XY} \quad \text{(Schur complement of covariance)}, \label{eq:H-gauss-within} \\
+\mathrm{Cov}(\mu(X)) &= \Sigma_{YX}\,\Sigma_{XX}^{-1}\,\Sigma_{XY} = B_H B_H^\top, \quad B_H := \Sigma_{YX}\,\Sigma_{XX}^{-1/2}. \label{eq:H-gauss-between}
+\end{align}
+The Gram factor $B_H$ has $\rank(B_H) = \rank(\Sigma_{YX}) \leq \min(p, q)$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Write $Y = \mu(X) + \varepsilon$ where $\varepsilon := Y - \mu(X)$ satisfies $\mathbb{E}[\varepsilon \mid X] = 0$. Then:
+\begin{align*}
+\mathrm{Cov}(Y) &= \mathrm{Cov}(\mu(X) + \varepsilon) \\
+&= \mathrm{Cov}(\mu(X)) + \mathrm{Cov}(\varepsilon) + \mathrm{Cov}(\mu(X), \varepsilon) + \mathrm{Cov}(\varepsilon, \mu(X)).
+\end{align*}
+The cross terms vanish: $\mathrm{Cov}(\mu(X), \varepsilon) = \mathbb{E}[\mu(X)\varepsilon^\top] - \mathbb{E}[\mu(X)]\mathbb{E}[\varepsilon]^\top$. By iterated expectation,
+\[
+\mathbb{E}[\mu(X)\varepsilon^\top] = \mathbb{E}[\mu(X)\,\mathbb{E}[\varepsilon^\top \mid X]] = 0,
+\]
+and $\mathbb{E}[\varepsilon] = \mathbb{E}[\mathbb{E}[\varepsilon \mid X]] = 0$. So $\mathrm{Cov}(Y) = \mathrm{Cov}(\mu(X)) + \mathrm{Cov}(\varepsilon)$. Finally, $\mathrm{Cov}(\varepsilon) = \mathbb{E}[\varepsilon\varepsilon^\top] = \mathbb{E}[\mathbb{E}[\varepsilon\varepsilon^\top \mid X]] = \mathbb{E}[\Sigma(X)]$, giving \eqref{eq:H-eve}.
+
+(i): Both terms depend only on the joint distribution of $(X, Y)$.
+
+(ii): $\mathrm{Cov}(\mu(X)) = \mathbb{E}[f(X)f(X)^\top] \succeq 0$ as an expectation of PSD matrices. Similarly $\mathbb{E}[\Sigma(X)] \succeq 0$.
+
+(iii): Equations \eqref{eq:H-gram-between} to \eqref{eq:H-gram-within} are immediate from the proof. For discrete $X$ taking values $\{x_1, \ldots, x_k\}$ with probabilities $\{p_1, \ldots, p_k\}$, the between-group covariance is $\sum_{i=1}^k p_i (m_i - \bar{m})(m_i - \bar{m})^\top$ where $m_i = \mu(x_i)$ and $\bar{m} = \mathbb{E}[Y]$. This is the covariance of a distribution supported on at most $k$ points in $\R^p$, so its rank is at most $\min(k{-}1, p)$ (the centring reduces the effective support by one dimension).
+
+(iv): For jointly Gaussian $(X, Y)$, $\mu(X) = \mathbb{E}[Y] + \Sigma_{YX}\Sigma_{XX}^{-1}(X - \mathbb{E}[X])$ is affine in $X$, so $\mathrm{Cov}(\mu(X)) = \Sigma_{YX}\Sigma_{XX}^{-1}\Sigma_{XY}$. The conditional covariance $\Sigma(x) = \Sigma_{YY} - \Sigma_{YX}\Sigma_{XX}^{-1}\Sigma_{XY}$ is constant in $x$, so $\mathbb{E}[\Sigma(X)] = \Sigma_{YY} - \Sigma_{YX}\Sigma_{XX}^{-1}\Sigma_{XY}$, the covariance-space Schur complement.
+\end{proof}
+
+\subsection{Refinement}
+
+\begin{proposition}[Refinement under additional conditioning]\label{prop:bridge-H-refine}
+Let $Z$ be an additional random variable. Then:
+\begin{equation}\label{eq:H-refine}
+\mathbb{E}[\mathrm{Cov}(Y \mid X, Z)] \preceq \mathbb{E}[\mathrm{Cov}(Y \mid X)]
+\end{equation}
+in the Loewner order. That is, conditioning on more variables can only reduce the expected residual covariance.
+\end{proposition}
+
+\begin{proof}
+Apply the law of total covariance \eqref{eq:H-eve} within the $X$-conditional:
+\[
+\mathrm{Cov}(Y \mid X) = \mathrm{Cov}(\mathbb{E}[Y \mid X, Z] \mid X) + \mathbb{E}[\mathrm{Cov}(Y \mid X, Z) \mid X].
+\]
+Taking expectations:
+\[
+\mathbb{E}[\mathrm{Cov}(Y \mid X)] = \mathbb{E}[\mathrm{Cov}(\mathbb{E}[Y \mid X, Z] \mid X)] + \mathbb{E}[\mathrm{Cov}(Y \mid X, Z)].
+\]
+Since $\mathbb{E}[\mathrm{Cov}(\mathbb{E}[Y \mid X, Z] \mid X)] \succeq 0$, we obtain \eqref{eq:H-refine}.
+\end{proof}
+
+\textbf{Quotient descent reading:}
+\begin{itemize}[leftmargin=2em]
+\item $\mathcal{M}$: the space of jointly distributed random vectors $(X, Y)$ with $Y \in L^2$.
+\item $B = \mathrm{Cov}(Y)$: the total covariance (PSD matrix).
+\item $\pi$: conditioning on $X$ (the observation).
+\item $\bar{B} = \mathbb{E}[\mathrm{Cov}(Y \mid X)]$: the expected conditional covariance (what remains after observation). $\bar{B} \preceq B$.
+\item $R = \mathrm{Cov}(\mu(X))$: the between-group covariance (variance explained by $X$), with integral Gram form, rank $\leq$ cardinality/dimension of $X$.
+\item Refinement: Proposition~\ref{prop:bridge-H-refine} (more conditioning reduces $\bar{B}$).
+\item Boundary: $\bar{B} = 0$ iff $Y$ is $X$-measurable (no residual uncertainty).
+\end{itemize}
+
+\begin{proposition}[Exact Gaussian duality of Instances~H and~D]\label{prop:H-D-duality}
+Let $X=(X_V,X_H)$ be jointly Gaussian with covariance
+\[
+\Sigma=\begin{pmatrix}\Sigma_{VV}&\Sigma_{VH}\\ \Sigma_{HV}&\Sigma_{HH}\end{pmatrix}
+\]
+and precision $\Omega=\Sigma^{-1}$, partitioned conformally as
+\[
+\Omega=\begin{pmatrix}\Omega_{VV}&\Omega_{VH}\\ \Omega_{HV}&\Omega_{HH}\end{pmatrix}.
+\]
+Then the covariance-side and precision-side descended objects are exact dual Schur quantities:
+\begin{align}
+\Sigma_{V\mid H}
+&:=\Sigma_{VV}-\Sigma_{VH}\Sigma_{HH}^{-1}\Sigma_{HV}
+=\Omega_{VV}^{-1}, \label{eq:H-D-cov-dual}\\
+\bar\Omega_V
+&:=\Sigma_{VV}^{-1}
+=\Omega_{VV}-\Omega_{VH}\Omega_{HH}^{-1}\Omega_{HV}. \label{eq:H-D-prec-dual}
+\end{align}
+So conditioning in covariance space and marginalisation in precision space are dual operations linked by block inversion.
+\end{proposition}
+
+\begin{proof}
+For jointly Gaussian vectors, the conditional covariance of $X_V$ given $X_H$ is the covariance-space Schur complement
+\[
+\Sigma_{V\mid H}=\Sigma_{VV}-\Sigma_{VH}\Sigma_{HH}^{-1}\Sigma_{HV}.
+\]
+The block inverse formula for $\Sigma^{-1}=\Omega$ shows that the $(V,V)$ block of $\Omega$ is exactly $\Sigma_{V\mid H}^{-1}$, proving \eqref{eq:H-D-cov-dual}. The same block inverse formula, applied in the opposite direction, gives
+\[
+\Sigma_{VV}^{-1}=\Omega_{VV}-\Omega_{VH}\Omega_{HH}^{-1}\Omega_{HV},
+\]
+which is \eqref{eq:H-D-prec-dual}. The final sentence is just the interpretation of these two identities.
+\end{proof}
+
+\begin{remark}[Duality with Instance~D and foundation for the Schur complement]\label{rem:H-dual}
+Instance~D shows that the marginal \emph{precision} of $X_V$ is the Schur complement of the joint \emph{precision} matrix. Instance~H shows that the conditional \emph{covariance} of $Y$ given $X$ is the Schur complement of the joint \emph{covariance} matrix. These are dual operations on dual objects: one acts on the precision (information), the other on the covariance (uncertainty). In the Gaussian case, both reduce to exact Schur identities, but they produce different quantities: Instance~D gives a marginal precision, while Instance~H gives a conditional covariance.
+
+Crucially, Instance~H is \emph{more general} than Instance~D: the law of total covariance holds for \emph{all} distributions with finite second moments, not just Gaussians. The Schur complement that drives Instance~D is the Gaussian specialisation of the conditional expectation projection that drives Instance~H. This shows that the QDP is not fundamentally about the Schur complement; it is about orthogonal decomposition in $L^2$, of which the Schur complement is a Gaussian shadow.
+\end{remark}
+
+\begin{example}\label{ex:bridge-H-toy}
+Let $X$ take values $\{1, 2, 3\}$ with equal probability, and let $Y \in \R^2$ have conditional distributions:
+\[
+Y \mid X{=}1 \sim \mathcal{N}\bigl(\binom{1}{0}, 0.1 I\bigr), \quad
+Y \mid X{=}2 \sim \mathcal{N}\bigl(\binom{0}{1}, 0.1 I\bigr), \quad
+Y \mid X{=}3 \sim \mathcal{N}\bigl(\binom{-1}{-1}, 0.1 I\bigr).
+\]
+The between-group covariance has rank $\min(3{-}1, 2) = 2$ (the three conditional means are not collinear in $\R^2$). The within-group covariance is $\mathbb{E}[\Sigma(X)] = 0.1 I$ (homoscedastic noise). The total covariance $\mathrm{Cov}(Y) = \mathrm{Cov}(\mu(X)) + 0.1 I$ is the sum of cluster structure and isotropic noise, a decomposition familiar from Gaussian mixture models.
+\end{example}
+
+\subsection{A common Hilbert-space root behind G, A, and H}
+
+\begin{proposition}[Hilbert-space projection root]\label{prop:hilbert-root}
+Let $\mathcal{H}$ be a real Hilbert space, let $V \subseteq \mathcal{H}$ be a closed subspace with orthogonal projection $P$, and let $E$ be a finite-dimensional real Hilbert space. For a linear map $T : E \to \mathcal{H}$ define quadratic forms on $E$ by
+\begin{equation}\label{eq:hilbert-root-def}
+Q(u) := \|Tu\|_{\mathcal{H}}^2, \qquad
+Q_P(u) := \|PTu\|_{\mathcal{H}}^2, \qquad
+Q_{P^\perp}(u) := \|(I-P)Tu\|_{\mathcal{H}}^2.
+\end{equation}
+Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \textbf{Exact orthogonal split.}
+\begin{equation}\label{eq:hilbert-root-split}
+Q = Q_P + Q_{P^\perp}.
+\end{equation}
+
+\item \textbf{Positivity.} Both $Q_P$ and $Q_{P^\perp}$ are positive semidefinite quadratic forms, represented by the positive semidefinite operators
+\[
+T^*PT \qquad \text{and} \qquad T^*(I-P)T.
+\]
+
+\item \textbf{Refinement.} If $V_1 \subseteq V_2 \subseteq \mathcal{H}$ with orthogonal projections $P_1,P_2$, then for every $u \in E$,
+\begin{equation}\label{eq:hilbert-root-refine}
+Q_{P_2^\perp}(u) \le Q_{P_1^\perp}(u), \qquad
+Q_{P_1}(u) \le Q_{P_2}(u).
+\end{equation}
+Equivalently, enlarging the visible subspace decreases the orthogonal remainder and increases the projected part in the Loewner order on quadratic forms.
+
+\item \textbf{Boundary.} $Q_{P^\perp} \equiv 0$ if and only if $\Ran(T) \subseteq V$.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+For every $u \in E$, orthogonality of $PTu$ and $(I-P)Tu$ gives the Pythagorean identity
+\[
+\|Tu\|_{\mathcal{H}}^2 = \|PTu\|_{\mathcal{H}}^2 + \|(I-P)Tu\|_{\mathcal{H}}^2,
+\]
+which is \eqref{eq:hilbert-root-split}. Positivity in (ii) is immediate from the norm-square representation. For (iii), $Q_{P_i^\perp}(u)$ is the squared distance from $Tu$ to the closed subspace $V_i$. Since $V_1 \subseteq V_2$, distance to $V_2$ is no larger than distance to $V_1$, proving the first inequality in \eqref{eq:hilbert-root-refine}. The second then follows from $Q = Q_{P_i} + Q_{P_i^\perp}$. Finally, $Q_{P^\perp} \equiv 0$ holds if and only if $(I-P)Tu = 0$ for all $u$, which is equivalent to $Tu \in V$ for all $u$, that is, $\Ran(T) \subseteq V$.
+\end{proof}
+
+\begin{corollary}[Instances A and H as shadows of Proposition~\ref{prop:hilbert-root}]\label{cor:hilbert-root-instances}
+The clean classical branches G $\to$ A and H arise from Proposition~\ref{prop:hilbert-root} by two different choices of $(\mathcal{H},V,T)$.
+
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \textbf{Fisher branch.} In Proposition~\ref{prop:G-to-A}, take $\mathcal{H}=L^2(P_{\theta_0})$, let $V=L^2(\sigma(X))$ be the closed subspace of $X$-measurable square-integrable functions, and define $T(v)=S_v$ for the score in direction $v \in T_{\theta_0}\Theta$. Then
+\[
+Q(v)=I_{\mathrm{full}}(v,v), \qquad
+Q_P(v)=I_{\mathrm{marg}}(v,v), \qquad
+Q_{P^\perp}(v)=I_{\mathrm{cond}}(v,v),
+\]
+so Proposition~\ref{prop:G-to-A} is exactly the quadratic-form pullback of \eqref{eq:hilbert-root-split}.
+
+\item \textbf{Covariance branch.} In Instance~H, take $\mathcal{H}=L^2(\Omega)$, let $V=L^2(\sigma(X))$, and define
+\[
+T(a)=a^\top\bigl(Y-\mathbb{E}[Y]\bigr), \qquad a \in \R^p.
+\]
+Then
+\[
+Q(a)=a^\top \mathrm{Cov}(Y)a,
+\]
+while the projection and orthogonal remainder are
+\[
+Q_P(a)=a^\top \mathrm{Cov}(\mu(X))a, \qquad
+Q_{P^\perp}(a)=a^\top \mathbb{E}[\Sigma(X)]a.
+\]
+So Theorem~\ref{thm:bridge-H} is the covariance shadow of the same Hilbert projection identity. In the quotient-descent convention of Instance~H, the descended residual covariance is the orthogonal remainder $Q_{P^\perp}$, while the projected part $Q_P$ is the explained covariance carried by the observation.
+\end{enumerate}
+\end{corollary}
+
+\begin{remark}[The exact classical compression]\label{rem:hilbert-compression}
+The strongest compression achieved in the present note is now more exact than before. Proposition~\ref{prop:hilbert-root} gives the compression side of the classical core, while Theorem~\ref{thm:hilbert-quotient-root} gives the quotient side. Remark~\ref{rem:hilbert-visible-structure} identifies them as dual faces of one induced visible Hilbert structure. Instance~D then appears as the coordinate Gaussian case of the quotient theorem, Instance~F as its grounded semidefinite boundary-energy version, and Proposition~\ref{prop:C-gradient-quotient} shows that the gradient subcase of Instance~C is the same quotient geometry applied frequency by frequency. Proposition~\ref{prop:dv-hilbert-lift} shows that Instance~0 also admits an exact local lift into this broad geometry, though at present only after canonical tangent-space doubling. This is a real compression of the note, not a slogan.
+\end{remark}
+
+
+\subsection{A common Hilbert-quotient root behind \emph{Quotient}, D, F, and gradient C}
+
+\begin{theorem}[Hilbert quotient root and canonical minimal lift]\label{thm:hilbert-quotient-root}
+Let $E$ and $Y$ be finite-dimensional real inner-product spaces, let $H \in \Sym_{++}(E)$, and let $C : E \to Y$ be a surjective linear map. Define
+\begin{equation}\label{eq:hilbert-quotient-phi}
+\Phi_C(H):=(CH^{-1}C^{\mathsf T})^{-1}
+\end{equation}
+and the $H$-minimal lift
+\begin{equation}\label{eq:hilbert-quotient-lift}
+L_{C,H}:=H^{-1}C^{\mathsf T}\Phi_C(H).
+\end{equation}
+Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \textbf{Unique minimal lift.} For every $y \in Y$, the constrained problem
+\begin{equation}\label{eq:hilbert-quotient-primal}
+\min\{x^{\mathsf T}Hx : Cx=y\}
+\end{equation}
+has the unique minimiser $x_*=L_{C,H}y$.
+
+\item \textbf{Canonical visible subspace.} One has
+\begin{equation}\label{eq:hilbert-quotient-right-inverse}
+CL_{C,H}=I_Y,
+\end{equation}
+and
+\begin{equation}\label{eq:hilbert-quotient-range}
+\Ran(L_{C,H})=(\ker C)^{\perp_H}.
+\end{equation}
+So the visible space is identified with the $H$-orthogonal complement of the hidden fibre.
+
+\item \textbf{Visible quadratic form.} The visible form is exactly the upstairs form restricted to the canonical lift:
+\begin{equation}\label{eq:hilbert-quotient-pullback}
+\Phi_C(H)=L_{C,H}^{\mathsf T}HL_{C,H},
+\end{equation}
+and for every $y \in Y$,
+\begin{equation}\label{eq:hilbert-quotient-min-value}
+y^{\mathsf T}\Phi_C(H)y=\min_{Cx=y} x^{\mathsf T}Hx.
+\end{equation}
+
+\item \textbf{Hidden projector.} If
+\begin{equation}\label{eq:hilbert-quotient-projector}
+P_{C,H}:=I_E-L_{C,H}C,
+\end{equation}
+then $P_{C,H}^2=P_{C,H}$, $\Ran(P_{C,H})=\ker C$, and $\Ran(L_{C,H})$ is $H$-orthogonal to $\Ran(P_{C,H})$. Thus $P_{C,H}$ is the $H$-orthogonal projector onto the hidden fibre.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Let $y \in Y$. The functional $x \mapsto x^{\mathsf T}Hx$ is strictly convex because $H \succ 0$, so any feasible critical point is the unique minimiser. Introduce a Lagrange multiplier $\lambda \in Y$ and set
+\[
+\mathcal{L}(x,\lambda)=x^{\mathsf T}Hx-2\lambda^{\mathsf T}(Cx-y).
+\]
+Criticality gives $Hx=C^{\mathsf T}\lambda$, hence $x=H^{-1}C^{\mathsf T}\lambda$. Imposing the constraint yields
+\[
+CH^{-1}C^{\mathsf T}\lambda=y,
+\]
+so $\lambda=\Phi_C(H)y$ and therefore $x=L_{C,H}y$. This proves (i). Equation \eqref{eq:hilbert-quotient-right-inverse} is immediate:
+\[
+CL_{C,H}=CH^{-1}C^{\mathsf T}\Phi_C(H)=I_Y.
+\]
+For any $z \in \ker C$ and $y \in Y$,
+\[
+\langle L_{C,H}y,z\rangle_H = y^{\mathsf T}\Phi_C(H)Cz=0,
+\]
+so $\Ran(L_{C,H})\subseteq (\ker C)^{\perp_H}$. Both spaces have dimension $\dim Y$, because $C$ is surjective, so \eqref{eq:hilbert-quotient-range} follows.
+
+For (iii),
+\[
+L_{C,H}^{\mathsf T}HL_{C,H}
+=\Phi_C(H)CH^{-1}HH^{-1}C^{\mathsf T}\Phi_C(H)
+=\Phi_C(H)(CH^{-1}C^{\mathsf T})\Phi_C(H)
+=\Phi_C(H),
+\]
+which is \eqref{eq:hilbert-quotient-pullback}. Since $x_*=L_{C,H}y$ is the unique minimiser, \eqref{eq:hilbert-quotient-min-value} follows.
+
+For (iv),
+\[
+P_{C,H}^2=(I_E-L_{C,H}C)^2=I_E-2L_{C,H}C+L_{C,H}(CL_{C,H})C=I_E-L_{C,H}C=P_{C,H},
+\]
+using \eqref{eq:hilbert-quotient-right-inverse}. Also $CP_{C,H}=C-CL_{C,H}C=0$, so $\Ran(P_{C,H})\subseteq \ker C$. Conversely, if $z \in \ker C$, then $P_{C,H}z=z$, hence $\Ran(P_{C,H})=\ker C$. Finally, by \eqref{eq:hilbert-quotient-range}, $\Ran(L_{C,H})=(\ker C)^{\perp_H}=(\Ran(P_{C,H}))^{\perp_H}$.
+\end{proof}
+
+\begin{proposition}[First visible response and quartic hidden leakage]\label{prop:hilbert-quotient-calculus}
+In the setting of Theorem~\ref{thm:hilbert-quotient-root}, let $\Delta \in \Sym(E)$. Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \textbf{First visible response.}
+\begin{equation}\label{eq:hilbert-quotient-first-derivative}
+D\Phi_C(H)[\Delta]=L_{C,H}^{\mathsf T}\,\Delta\,L_{C,H}.
+\end{equation}
+
+\item \textbf{Quartic hidden leakage.} Define
+\begin{equation}\label{eq:hilbert-quotient-q}
+Q_{C,H}(\Delta):=-\tfrac12 D^2\Phi_C(H)[\Delta,\Delta].
+\end{equation}
+Then
+\begin{equation}\label{eq:hilbert-quotient-q-hidden}
+Q_{C,H}(\Delta)=L_{C,H}^{\mathsf T}\,\Delta\,P_{C,H}H^{-1}\Delta\,L_{C,H},
+\end{equation}
+and, equivalently,
+\begin{equation}\label{eq:hilbert-quotient-q-gram}
+Q_{C,H}(\Delta)=\bigl(H^{-1/2}P_{C,H}^{\mathsf T}\Delta L_{C,H}\bigr)^{\mathsf T}\bigl(H^{-1/2}P_{C,H}^{\mathsf T}\Delta L_{C,H}\bigr)\succeq 0.
+\end{equation}
+In particular,
+\begin{equation}\label{eq:hilbert-quotient-q-zero}
+Q_{C,H}(\Delta)=0 \quad\Longleftrightarrow\quad P_{C,H}^{\mathsf T}\Delta L_{C,H}=0.
+\end{equation}
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Write $A:=H^{-1}$ and $K(H):=CA C^{\mathsf T}$, so $\Phi_C(H)=K(H)^{-1}$. Along the line $H+t\Delta$ one has
+\[
+\frac{d}{dt}A(t)\Big|_{t=0}=-A\Delta A,
+\qquad
+\frac{d^2}{dt^2}A(t)\Big|_{t=0}=2A\Delta A\Delta A.
+\]
+Hence
+\[
+DK(H)[\Delta]=-CA\Delta AC^{\mathsf T},
+\qquad
+D^2K(H)[\Delta,\Delta]=2CA\Delta A\Delta AC^{\mathsf T}.
+\]
+Using $D(K^{-1})[\dot K]=-K^{-1}\dot K K^{-1}$ gives
+\[
+D\Phi_C(H)[\Delta]
+=\Phi_C(H)CA\Delta AC^{\mathsf T}\Phi_C(H)
+=L_{C,H}^{\mathsf T}\Delta L_{C,H},
+\]
+which proves \eqref{eq:hilbert-quotient-first-derivative}.
+
+For the second derivative,
+\[
+D^2\Phi_C(H)[\Delta,\Delta]
+=2\Phi_C(H)DK(H)[\Delta]\Phi_C(H)DK(H)[\Delta]\Phi_C(H)-\Phi_C(H)D^2K(H)[\Delta,\Delta]\Phi_C(H).
+\]
+Substituting the formulas above and rearranging yields
+\[
+-\tfrac12 D^2\Phi_C(H)[\Delta,\Delta]
+=\Phi_C(H)CA\Delta\bigl(A-AC^{\mathsf T}\Phi_C(H)CA\bigr)\Delta AC^{\mathsf T}\Phi_C(H).
+\]
+Since $L_{C,H}=AC^{\mathsf T}\Phi_C(H)$ and $P_{C,H}=I_E-L_{C,H}C=I_E-AC^{\mathsf T}\Phi_C(H)C$, this is exactly \eqref{eq:hilbert-quotient-q-hidden}. Moreover
+\[
+HP_{C,H}=H-C^{\mathsf T}\Phi_C(H)C=P_{C,H}^{\mathsf T}H,
+\]
+so $P_{C,H}H^{-1}=H^{-1}P_{C,H}^{\mathsf T}$. Therefore
+\[
+Q_{C,H}(\Delta)
+=L_{C,H}^{\mathsf T}\Delta H^{-1}P_{C,H}^{\mathsf T}\Delta L_{C,H}
+=\bigl(H^{-1/2}P_{C,H}^{\mathsf T}\Delta L_{C,H}\bigr)^{\mathsf T}\bigl(H^{-1/2}P_{C,H}^{\mathsf T}\Delta L_{C,H}\bigr),
+\]
+which proves \eqref{eq:hilbert-quotient-q-gram}. The vanishing criterion \eqref{eq:hilbert-quotient-q-zero} is immediate from the Gram form.
+\end{proof}
+
+\begin{corollary}[Tower laws for minimal lifts and quartic defects]\label{cor:hilbert-quotient-tower}
+Let $C_1 : E \to Y_1$ and $C_2 : Y_1 \to Y_2$ be surjective, and write $C:=C_2C_1$. Set
+\[
+H_1:=\Phi_{C_1}(H),
+\qquad
+L_1:=L_{C_1,H},
+\qquad
+L_2:=L_{C_2,H_1},
+\qquad
+L:=L_{C,H}.
+\]
+Then:
+\begin{enumerate}[label=\textup{(\roman*)}]
+\item \textbf{Minimal lifts compose.}
+\begin{equation}\label{eq:hilbert-quotient-lift-compose}
+L=L_1L_2.
+\end{equation}
+
+\item \textbf{Visible first response composes.} For every $\Delta \in \Sym(E)$,
+\begin{equation}\label{eq:hilbert-quotient-deriv-compose}
+D\Phi_C(H)[\Delta]=L_2^{\mathsf T}\,D\Phi_{C_1}(H)[\Delta]L_2.
+\end{equation}
+Equivalently, if $\Delta_1:=D\Phi_{C_1}(H)[\Delta]$, then
+\begin{equation}\label{eq:hilbert-quotient-deriv-compose2}
+D\Phi_C(H)[\Delta]=D\Phi_{C_2}(H_1)[\Delta_1].
+\end{equation}
+
+\item \textbf{Quartic defect has a tower law.}
+\begin{equation}\label{eq:hilbert-quotient-q-compose}
+Q_{C,H}(\Delta)=L_2^{\mathsf T}Q_{C_1,H}(\Delta)L_2+Q_{C_2,H_1}(\Delta_1).
+\end{equation}
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+Since $C=C_2C_1$ and $H_1^{-1}=C_1H^{-1}C_1^{\mathsf T}$,
+\[
+\Phi_C(H)=\bigl(C_2H_1^{-1}C_2^{\mathsf T}\bigr)^{-1}=\Phi_{C_2}(H_1).
+\]
+Then
+\[
+L_1L_2=H^{-1}C_1^{\mathsf T}\Phi_{C_1}(H)H_1^{-1}C_2^{\mathsf T}\Phi_{C_2}(H_1)=H^{-1}C_1^{\mathsf T}C_2^{\mathsf T}\Phi_C(H)=H^{-1}C^{\mathsf T}\Phi_C(H)=L,
+\]
+proving \eqref{eq:hilbert-quotient-lift-compose}. Equation \eqref{eq:hilbert-quotient-deriv-compose} now follows from Proposition~\ref{prop:hilbert-quotient-calculus}(i):
+\[
+D\Phi_C(H)[\Delta]=L^{\mathsf T}\Delta L=L_2^{\mathsf T}L_1^{\mathsf T}\Delta L_1L_2=L_2^{\mathsf T}D\Phi_{C_1}(H)[\Delta]L_2.
+\]
+Since Proposition~\ref{prop:hilbert-quotient-calculus}(i) also gives $D\Phi_{C_2}(H_1)[\Delta_1]=L_2^{\mathsf T}\Delta_1L_2$, this is exactly \eqref{eq:hilbert-quotient-deriv-compose2}.
+
+For the second-order statement, use the composition identity $\Phi_C=\Phi_{C_2}\circ\Phi_{C_1}$ and differentiate twice along $H+t\Delta$. The chain rule gives
+\[
+D^2\Phi_C(H)[\Delta,\Delta]
+=D\Phi_{C_2}(H_1)\bigl[D^2\Phi_{C_1}(H)[\Delta,\Delta]\bigr]
++D^2\Phi_{C_2}(H_1)[\Delta_1,\Delta_1].
+\]
+Applying Proposition~\ref{prop:hilbert-quotient-calculus}(i) to the first term and the definition of $Q$ to both terms yields \eqref{eq:hilbert-quotient-q-compose}.
+\end{proof}
+
+\begin{remark}[Induced visible Hilbert structure: compression and quotient]\label{rem:hilbert-visible-structure}
+Proposition~\ref{prop:hilbert-root} and Theorem~\ref{thm:hilbert-quotient-root} are two faces of one classical mechanism. Proposition~\ref{prop:hilbert-root} describes the compression side: one starts with an ambient Hilbert space and projects onto a visible subspace. Theorem~\ref{thm:hilbert-quotient-root} describes the quotient side: one starts with an upstairs precision geometry and minimises over the hidden fibre. The two are dual under Riesz inversion:
+\begin{equation}\label{eq:hilbert-visible-dual}
+\Phi_C(H)^{-1}=CH^{-1}C^{\mathsf T}.
+\end{equation}
+So quotient on the primal-state side is compression on the dual-observable side.
+
+This identifies several earlier instances more sharply than before. Instance~D is the coordinate Gaussian case of Theorem~\ref{thm:hilbert-quotient-root}. After grounding one node, or equivalently quotienting out the constant mode, Instance~F is the semidefinite boundary-energy version of the same theorem. In the gradient subcase of Instance~C, the dynamic Schur kernel is the same quotient theorem applied frequency by frequency to $H_s=sI+B$.
+\end{remark}
+
+\begin{proposition}[Gradient Instance~C as frequencywise Hilbert quotient]\label{prop:C-gradient-quotient}
+In the gradient subcase of Theorem~\ref{thm:bridge-C}(iv), let $C_r(r,h):=r$ be the coordinate projection onto the resolved variables and set
+\begin{equation}\label{eq:C-gradient-Hs}
+H_s:=sI+B, \qquad s>0.
+\end{equation}
+Then
+\begin{equation}\label{eq:C-gradient-phi}
+\Sigma_r(s)=\Phi_{C_r}(H_s)=sI_r+B_{rr}-B_{rh}(sI_h+B_{hh})^{-1}B_{hr},
+\end{equation}
+and therefore
+\begin{equation}\label{eq:C-gradient-transfer-phi}
+H(s)=G_r^{\mathsf T}\Phi_{C_r}(H_s)^{-1}G_r.
+\end{equation}
+Thus the gradient hidden-elimination theorem is exact Hilbert quotient descent applied at each frequency.
+\end{proposition}
+
+\begin{proof}
+Write $H_s$ in the $(r,h)$ block decomposition:
+\[
+H_s=\begin{pmatrix}sI_r+B_{rr} & B_{rh}\\ B_{hr} & sI_h+B_{hh}\end{pmatrix}.
+\]
+The coordinate projection $C_r$ selects the $r$-block, so Theorem~\ref{thm:hilbert-quotient-root} gives
+\[
+\Phi_{C_r}(H_s)=H_{s,rr}-H_{s,rh}H_{s,hh}^{-1}H_{s,hr},
+\]
+which is exactly \eqref{eq:C-gradient-phi}. The transfer representation \eqref{eq:C-gradient-transfer-phi} is then the formula already proved in Theorem~\ref{thm:bridge-C}(iv).
+\end{proof}
+
+%======================================================================
+\section{Synthesis: the common structure}
+\label{sec:synthesis}
+%======================================================================
+
+\begin{theorem}[Synthesis]\label{thm:synthesis}
+The nine explicit instances in this document satisfy the quotient descent principle (Definition~\ref{def:qdp}). Their common structure is:
+\begin{center}
+\renewcommand{\arraystretch}{1.4}
+\small
+\begin{tabularx}{\textwidth}{@{}lYYYY@{}}
+\hline
+& \textbf{Full form} & \textbf{Descent} & \textbf{Hidden factorisation} & \textbf{Boundary} \\
+\hline
+\textbf{0} (DV bridge) & $H_{DV}$ & Var.\ contraction & $\tfrac{1}{4}\widehat{J}H_0^{-1}\widehat{J}^T$ (Gram) & $\widehat{J} = 0$ (DB) \\
+\textbf{A} (Fisher) & $I_E(\theta)$ & Chain rule & Vertical degeneracy & Exp.\ class \\
+\textbf{B} (CME/CLE) & $(b, D)$ & Taylor trunc. & Cubic remainder (sign-indef.) & 3rd order \\
+\textbf{C} (Dissipative) & $H(s)$ & Resolvent Schur & \shortstack{Dynamic memory kernel\\and, in gradient form,\\frequencywise quotient lift} & Memory kernel \\
+\textbf{D} (Graphical) & $\Omega$ & Marginal Schur & Low-rank hidden Schur term & Fill-in \\
+\textbf{E} (Gramian) & $W_C$ & Lyapunov add. & $W_{C_{\mathrm{new}}}$ (integral Gram) & Unobs.\ subspace \\
+\textbf{F} (Network) & $L$ & Interior Schur & Boundary-energy hidden term & Fill-in \\
+\textbf{G} (KL) & $D_{\mathrm{KL}}$ & Marg.\ chain rule & \shortstack{$\mathbb{E}[D_{\mathrm{KL}}(P_{H|v}\|Q_{H|v})]$} & Cond.\ agreement \\
+\textbf{H} (Tot.\ cov.) & $\mathrm{Cov}(Y)$ & $L^2$ projection & $\mathrm{Cov}(\mu(X))$ (Gram) & $Y$ is $X$-meas. \\
+\hline
+\end{tabularx}
+\end{center}
+In each case:
+\begin{enumerate}[label=\textup{(S\arabic*)}]
+\item The descended object is uniquely determined by the full form and the observation.
+\item Positivity of the full form implies positivity of the descended form.
+\item The hidden contribution admits an explicit factorisation or remainder representation, with rank or rank bound measuring hidden complexity when that notion is available.
+\item Further observation is compatible with descent, either by pullback, monotonicity, data processing, or staged elimination, depending on the instance.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+Each property is verified instance by instance. We give the key reference for each.
+
+(S1) \textit{Uniqueness}: Instance~0 by Legendre contraction; A by Theorem~\ref{thm:bridge-A}(i); B by Theorem~\ref{thm:bridge-B}(i); C by Theorem~\ref{thm:bridge-C}(ii); D by Theorem~\ref{thm:bridge-D}(i); E by Theorem~\ref{thm:bridge-E}(i) (Lyapunov uniqueness); F by Theorem~\ref{thm:bridge-F}(ii); G by Theorem~\ref{thm:bridge-G}(i); H by Theorem~\ref{thm:bridge-H}(i).
+
+(S2) \textit{Positivity}: Instance~0 by $\Delta_{DV} \succeq 0$; A by Fisher nonnegativity; B by $D_\Pi \succeq 0$; C by positive-realness; D by Haynsworth inertia (Theorem~\ref{thm:bridge-D}(ii)); E by integral representation (Theorem~\ref{thm:bridge-E}(ii)); F by Theorem~\ref{thm:bridge-F}(i); G by Gibbs' inequality (Theorem~\ref{thm:bridge-G}(ii) and (iii)); H by Theorem~\ref{thm:bridge-H}(ii).
+
+(S3) \textit{Controlled hidden structure}: Instance~0 by Proposition~\ref{prop:dv-hilbert-lift} together with $\rank(\Delta_{DV}) = \rank(\widehat{J})$; A by the vertical kernel $\ker dq$; B by the exact cubic remainder; C by the hidden memory kernel and, in the gradient case, Proposition~\ref{prop:C-gradient-quotient}; D by Theorem~\ref{thm:bridge-D}(iii) together with Theorem~\ref{thm:hilbert-quotient-root}; E by the integral Gram form (Theorem~\ref{thm:bridge-E}(iv)); F by Theorem~\ref{thm:bridge-F}(iv) together with Remark~\ref{rem:hilbert-visible-structure}; G by Theorem~\ref{thm:bridge-G}(iv) together with Proposition~\ref{prop:G-to-A}; H by Theorem~\ref{thm:bridge-H}(iii) (integral Gram form, rank $\leq \min(k{-}1, p)$).
+
+(S4) \textit{Compatibility under refinement}: Instance~0 by the converter formula; A by Proposition~\ref{prop:bridge-A-refine}; B by Proposition~\ref{prop:bridge-B-refine}; C by Proposition~\ref{prop:bridge-C-refine}; D by Proposition~\ref{prop:bridge-D-refine}; E by Theorem~\ref{thm:bridge-E}(v); F by Proposition~\ref{prop:bridge-F-refine}; G by Proposition~\ref{prop:bridge-G-refine} (data processing inequality); H by Proposition~\ref{prop:bridge-H-refine} (Loewner monotonicity).
+\end{proof}
+
+\begin{remark}[Why this was not found before]\label{rem:why-not}
+The nine explicit instances span eight communities: large deviations (Instance~0), statistical inference (A), chemical kinetics (B), control/systems theory (C, E), graphical models (D), network science (F), information theory (G), and probability/statistics (H). Each community had its own version of hidden elimination. What was missing was the recognition that they all share a common abstract pattern with the same four structural properties. The reason is that the descent mechanisms are superficially different (variational contraction, chain rule, Taylor truncation, resolvent Schur complement, $L^2$ projection, marginalisation), so the unity is visible only after one identifies the common role of the nonnegative bilinear form and the observation quotient. The DV bridge theorem of Instance~0 was the key that revealed this structure, because it sits at the intersection of large deviations (the rate function), information geometry (Fisher coordinates), and linear algebra (the Schur complement), and its proof is elementary enough to make the abstract pattern unmistakable.
+\end{remark}
+
+\begin{remark}[The hierarchy of instances]\label{rem:hierarchy}
+The reliable hierarchy is now sharper than before because the exact classical core has two dual faces.
+\[
+\text{Induced visible Hilbert structure}
+\rightsquigarrow
+\begin{cases}
+\text{Compression side: } \text{G} \to \text{A},\ \text{H},\ \text{E},\\[0.3em]
+\text{Quotient side: } \Phi,\ \text{D},\ \text{F},\ \text{gradient C}.
+\end{cases}
+\]
+On the compression side, Proposition~\ref{prop:hilbert-root} and Corollary~\ref{cor:hilbert-root-instances} show that the KL, Fisher, covariance, and observability branches arise from orthogonal projection in an ambient Hilbert space. On the quotient side, Theorem~\ref{thm:hilbert-quotient-root} shows that quotient-visible precision is the canonical minimal-lift form induced by the upstairs precision geometry, Proposition~\ref{prop:hilbert-quotient-calculus} identifies its first visible response and quartic hidden leakage, and Corollary~\ref{cor:hilbert-quotient-tower} gives the tower laws. Proposition~\ref{prop:C-gradient-quotient} shows that the gradient subcase of Instance~C belongs to this quotient sector frequencywise.
+
+The two sides are dual by Riesz inversion through \eqref{eq:hilbert-visible-dual}. So the recurring Schur algebra in the note is not a primitive starting point. It is one coordinate shadow of a more basic induced visible Hilbert structure.
+
+Instance~0 now sits closer to this picture than before. Proposition~\ref{prop:dv-hilbert-lift} gives an exact \emph{local} Hilbert lift of the Donsker-Varadhan bridge after canonical doubling of the tangent space. What remains open is whether that bridge already comes from an intrinsic upstairs carrier whose quotient-visible descendant is the closed object of \emph{Quotient Observation}. This still does \emph{not} justify collapsing every instance into one Taylor ladder, and in particular it does not identify Instance~B with Instance~G.
+\end{remark}
+
+\begin{remark}[What is not claimed]\label{rem:not-claimed}
+This document does not assert one abstract theorem covering all hidden-to-visible reductions. It does not identify a single invariant class containing all nine explicit instances. It does not claim that every reduction problem must fall into one of these forms. What it does provide is a precise characterisation of the common structure, with each instance proved at a uniform standard, and a clear identification of where the boundaries lie.
+\end{remark}
+
+%======================================================================
+
+\section{What this feeds back into \emph{Quotient Observation}}
+\label{sec:feedback-quotient}
+%======================================================================
+
+\begin{remark}[Four exact feedback points for \emph{Quotient Observation}]\label{rem:feedback-quotient}
+The present note does feed back into \emph{Quotient Observation}, but in a disciplined way.
+
+\textbf{First, it clarifies why the positive-cone level is the right global level.} Theorem~\ref{thm:hilbert-quotient-root} shows that quotient-visible precision is the Riesz operator of the quotient norm induced by the upstairs precision geometry. So the passage from tangent bridge data to the intrinsic visible precision is not an ad hoc replacement. It is the quotient-side face of the exact classical Hilbert structure.
+
+\textbf{Second, it clarifies why Schur mediation is not an isolated matrix trick.} Proposition~\ref{prop:H-D-duality} and Remark~\ref{rem:hilbert-visible-structure} show that the Gaussian precision-side Schur object is dual to conditional covariance descent and sits inside one induced visible Hilbert geometry. In that sense the Schur structure that dominates \emph{Quotient Observation} is not a primitive starting point. It is the coordinate shadow of a more basic quotient-versus-compression mechanism.
+
+\textbf{Third, it sharpens the derivative and quartic defect package.} Proposition~\ref{prop:hilbert-quotient-calculus} shows that the first visible response is the upstairs perturbation pulled back to the canonical minimal visible lifts, while the quartic defect is the hidden-projector norm of that perturbation. So the sign-definite quartic term in \emph{Quotient Observation} is exactly a hidden-leakage law, not merely a convenient positive correction.
+
+\textbf{Fourth, it sharpens the global hidden-load interpretation.} The determinant clock in \emph{Quotient Observation} is most naturally read as the log-volume loss between the tangent ceiling and the true descended visible law on the active support. The present note does not reprove that theorem, but the minimal-lift and hidden-projector picture explains why such a scalar should sit naturally above the local quartic defect.
+
+What is \emph{not} claimed is that the present note subsumes \emph{Quotient Observation}. The positive-cone transport law, hidden-load cone, determinant clock, and closure analysis of $\Phi$ remain stronger structures specific to that paper.
+\end{remark}
+
+\subsection{Immediate internal targets}
+
+The most important next wins suggested by the present note are now sharper than before.
+
+\textbf{1. Identify the intrinsic upstairs carrier behind the Donsker-Varadhan bridge.} Proposition~\ref{prop:dv-hilbert-lift} gives an exact local lift of the bridge, but still extrinsically. The right next question is no longer only whether the bridge can be made to look more Hilbert-like. It is whether there exists an intrinsic upstairs positive carrier whose quotient-visible descendant is the closed object of \emph{Quotient Observation} and whose local tangent shadow is the Donsker-Varadhan bridge data.
+
+\textbf{2. Attack the true non-selfadjoint frontier directly.} Proposition~\ref{prop:C-gradient-quotient} shows that the gradient subcase of Instance~C already belongs to the quotient sector frequencywise, and Instance~E already belongs to the compression sector. So the real unresolved frontier is narrower: the non-gradient positive-real or passive sector. The right target is an operator-valued minimal-lift or hidden-projector theorem in a Hardy, Herglotz, or storage-function setting.
+
+\textbf{3. Relate the global hidden-load theory to local hidden leakage.} Proposition~\ref{prop:hilbert-quotient-calculus} identifies the quartic defect as hidden leakage through the hidden projector. The next exact bridge back into \emph{Quotient Observation} is to determine whether the determinant clock and hidden-load cone are the nonlinear integrated version of that same geometry.
+
+\textbf{4. Formalise first-obstruction order as a reusable notion.} Instance~B and the defect package in \emph{Quotient Observation} suggest a common methodology: after exact descent is identified, define the first algebraic or analytic order at which non-descended structure reappears. A precise formulation of that question now looks more valuable than adding many more borderline examples.
+
+%======================================================================
+\section{Transfer boundaries and candidate domains}
+\label{sec:applications}
+%======================================================================
+
+This section is deliberately separated from the proved core of the note. The items below are not claimed as instances; they are candidate domains where the same hidden-to-visible pattern may be worth testing. They are ordered by proximity to the proved material.
+
+\subsection{Near-transfer domains}
+
+\textbf{Quantum state tomography with restricted measurements.} The quantum case should be treated as a boundary test, not as an automatic transfer. Monotonicity of quantum relative entropy under channels is robust, but the classical chain-rule decomposition of Instance~G generally fails without extra commuting or classical-quantum structure. The right question is therefore which parts of quotient descent survive under noncommutativity, and which require a genuinely classical conditional calculus.
+
+\textbf{Latent-variable graphical models.} The work of Chandrasekaran, Parrilo, and Willsky on latent variable selection via convex optimisation is a direct instance of hidden-to-visible Schur complement structure on precision matrices. The proved Gaussian algebra in Instance~D suggests testing whether the hidden contribution (the latent variables' effect on the observed precision) admits a low-rank Gram factorisation governed by the number of effective latent variables.
+
+\textbf{Causal inference with hidden confounders.} The presence of unmeasured confounders in a causal graph creates a structural quotient: two causal models are observationally equivalent if they induce the same distribution on observed variables. Instance~A suggests looking for a descended observational Fisher object that characterises what is identifiable, together with a controlled hidden contribution.
+
+\subsection{Medium-transfer domains}
+
+\textbf{Renormalisation group flows.} The RG flow eliminates UV degrees of freedom, defining a quotient from the full theory to the effective theory. The structural analogy is that effective actions inherit constrained positivity from the full theory, while integrated-out modes enter through a Wilsonian elimination mechanism. Whether that can be cast as a genuine quotient-descent theorem is open here.
+
+\textbf{Passive and positive-real model reduction.} The sharp internal frontier now sits here. The selfadjoint quotient geometry already covers the gradient subcase of Instance~C, while the genuinely unresolved case is non-selfadjoint positive-real hidden elimination. The right test is whether reduced transfer functions inherit a canonical minimal-lift or hidden-projector structure in a Hardy, Herglotz, or storage-function setting.
+
+\textbf{Neural network compression and pruning.} A trained neural network defines a map from inputs to outputs through a high-dimensional hidden representation. Pruning or compressing the network defines a quotient. A plausible test is whether Fisher information with respect to parameters descends to the pruned network, with the hidden contribution identifying which parameters are structurally invisible.
+
+\subsection{Far-transfer domains}
+
+\textbf{Evolutionary population genetics with unobserved alleles.} Observed allele frequencies in a population are a linear projection of the full allele frequency vector. A concrete test would be whether the drift and diffusion of the Wright-Fisher or Moran process, projected onto observed alleles, exhibit a quadratic shadow analogous to Instance~B.
+
+\textbf{Cosmological parameter estimation with unobserved fields.} The CMB power spectrum is determined by cosmological parameters, some of which are degenerate under observation. A natural question is whether the structural quotient of the parameter space carries a descended Fisher form characterising what is measurable.
+
+\textbf{Protein folding with hidden degrees of freedom.} The observable (e.g.\ FRET-measured) degrees of freedom of a protein are a linear projection of its full conformational state. A natural test case is whether the observed fluctuation structure decomposes into a backbone contribution and a hidden-load correction.
+
+\begin{thebibliography}{10}
+
+\bibitem{Dunkley2026}
+J.~R. Dunkley,
+\emph{Finite Observation: A Spectral Theory of Nonequilibrium Visibility},
+Preprint, 2026.
+
+\bibitem{Dunkley2026b}
+J.~R. Dunkley,
+\emph{Quotient Observation},
+Preprint, 2026.
+
+\end{thebibliography}
+
+\end{document}

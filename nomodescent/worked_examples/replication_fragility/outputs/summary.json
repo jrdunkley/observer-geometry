@@ -1,0 +1,9 @@
+{
+  "protocol_relation": "non_nested_observers",
+  "bhattacharyya_mismatch_score": 0.028851163717077077,
+  "refinement_winner": "panel_3",
+  "refinement_scores": {
+    "panel_3": -2.895437337528866,
+    "full_4": -3.426065588591036
+  }
+}

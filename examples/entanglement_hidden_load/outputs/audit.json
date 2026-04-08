@@ -1,0 +1,40 @@
+{
+  "example": "entanglement_hidden_load",
+  "claim": "For the stated Gaussian families, the nomogeo hidden-load clock equals twice the standard Gaussian mutual information.",
+  "parameter_ranges": {
+    "validation_squeezing_r": [
+      0.0,
+      1.5
+    ],
+    "thermal_occupancies": {
+      "n_a": 0.2,
+      "n_b": 0.6
+    }
+  },
+  "headline_quantities": {
+    "max_abs_residual_tau_minus_2mi": 6.217248937900877e-14,
+    "max_local_symplectic_invariance_residual": 1.4033219031261979e-13,
+    "global_clock": 7.180103284118602,
+    "sum_pair_clocks": 7.180103284118602,
+    "composition_clock_residual": 0.0,
+    "contraction_recovery_residual": 2.589462819655575e-15
+  },
+  "thresholds": {
+    "identity_residual_abs_max": 1e-10,
+    "local_symplectic_invariance_residual_max": 1e-10,
+    "composition_clock_residual_max": 1e-10,
+    "contraction_recovery_residual_max": 1e-10
+  },
+  "passes": {
+    "identity": true,
+    "local_symplectic_invariance": true,
+    "composition": true,
+    "contraction_recovery": true,
+    "all": true
+  },
+  "scripts": {
+    "main": "python -m examples.entanglement_hidden_load.run_main",
+    "validate": "python -m examples.entanglement_hidden_load.validate",
+    "audit": "python -m examples.entanglement_hidden_load.run_all"
+  }
+}

@@ -1,0 +1,1061 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext,newtxmath}
+
+\setcounter{tocdepth}{1}
+\usepackage[a4paper,margin=35mm]{geometry}
+\linespread{0.90}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+\usepackage{float}
+\usepackage{cmap}
+\usepackage{amsfonts}
+\let\openbox\relax
+\usepackage{amsthm}
+\usepackage{amsmath}
+\usepackage{mathtools}
+\allowdisplaybreaks
+\usepackage{bm}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{setspace}
+\usepackage[explicit]{titlesec}
+\usepackage[labelfont=bf]{caption}
+\DeclareCaptionFont{captionthirtysmaller}{\fontsize{7.7}{9.2}\selectfont}
+\captionsetup[figure]{font=captionthirtysmaller}
+\captionsetup[table]{font=captionthirtysmaller}
+\usepackage{mdframed}
+\usepackage{needspace}
+\usepackage{tocloft}
+\usepackage{placeins}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{titling}
+\usepackage[
+  pdfusetitle,
+  hidelinks,
+  bookmarksopen=true,
+  bookmarksnumbered=true
+]{hyperref}
+
+\graphicspath{{worked_example_assets/figures/}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\setlength{\tabcolsep}{4.5pt}
+\renewcommand{\arraystretch}{1.1}
+\renewcommand{\qedsymbol}{}
+\AtBeginEnvironment{tabular}{\small}
+\AtBeginEnvironment{tabularx}{\small}
+\AtBeginEnvironment{thebibliography}{\small}
+
+\numberwithin{equation}{section}
+\mathtoolsset{showonlyrefs=false}
+\DeclarePairedDelimiter{\abs}{\lvert}{\rvert}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Ran}{Ran}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\SPD}{SPD}
+\newcommand{\R}{\mathbf R}
+\newcommand{\Aobs}{\mathcal A}
+\newcommand{\dd}{\mathrm d}
+\newcommand{\eps}{\varepsilon}
+
+\setlist{nosep,leftmargin=1.25em}
+
+\titleformat{\section}
+{\normalfont\normalsize\bfseries\raggedright}
+{\thesection}{0.75em}{\begin{minipage}[t]{0.9\textwidth}#1\end{minipage}}
+[\vspace{0.12em}\titlerule]
+
+\newcommand{\subaccent}{\vspace{0.01em}\noindent\rule{7ex}{0.2pt}}
+\titleformat{\subsection}
+{\normalfont\normalsize\bfseries}{\thesubsection}{0.5em}{#1}
+[\subaccent]
+\titlespacing*{\subsection}{0pt}{2.2ex plus 0.6ex}{1.5ex}
+
+\titleformat{\subsubsection}
+{\normalfont\normalsize\bfseries}{\thesubsubsection}{0.5em}{#1}
+\titlespacing*{\subsubsection}{0pt}{1.6ex plus 0.4ex}{0.6ex}
+
+\newtheoremstyle{thmcompact}
+{0.5ex}{0.5ex}
+{\itshape}
+{0pt}
+{\bfseries}
+{.}
+{0.6em}
+{\thmname{#1}\ \thmnumber{#2}\ \thmnote{(\textit{#3})}}
+
+\theoremstyle{thmcompact}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{postulate}[theorem]{Postulate}
+
+\theoremstyle{remark}
+\newtheorem*{remarkplain}{Remark}
+
+\mdfdefinestyle{thmframe}{%
+	leftline=true, rightline=false, topline=false, bottomline=false,
+	linewidth=0.8pt, linecolor=black,
+	innerleftmargin=16pt, innerrightmargin=8pt,
+	innertopmargin=6pt, innerbottommargin=6pt,
+	skipabove=6pt, skipbelow=6pt,
+	nobreak=true
+}
+\surroundwithmdframed[style=thmframe]{theorem}
+\surroundwithmdframed[style=thmframe]{proposition}
+\surroundwithmdframed[style=thmframe]{corollary}
+\surroundwithmdframed[style=thmframe]{definition}
+\surroundwithmdframed[style=thmframe]{postulate}
+
+\newmdenv[
+linewidth=0.6pt,
+topline=false,
+bottomline=false,
+rightline=false,
+skipabove=\baselineskip,
+skipbelow=\baselineskip,
+backgroundcolor=gray!3,
+leftmargin=0pt,
+innerleftmargin=8pt,
+innerrightmargin=6pt,
+frametitleaboveskip=0.4em,
+frametitlebelowskip=0.2em,
+frametitlefont=\bfseries\small,
+]{remarkbox}
+\newenvironment{remark}[1][]%
+{\begin{remarkbox}\begin{remarkplain}[#1]\normalfont}
+{\end{remarkplain}\end{remarkbox}}
+
+\renewcommand{\contentsname}{Contents}
+
+\titleformat{name=\section,numberless}
+{\normalfont\normalsize\bfseries\raggedright}
+{}{0em}{\begin{minipage}[t]{0.9\textwidth}#1\end{minipage}}
+[\vspace{0.12em}\titlerule]
+\makeatletter
+\renewcommand{\l@section}[2]{\@dottedtocline{1}{0em}{2.3em}{\raggedright #1}{#2}}
+\renewcommand{\l@subsection}[2]{\@dottedtocline{2}{1.8em}{3.2em}{\raggedright #1}{#2}}
+\makeatother
+
+\emergencystretch=3em
+\hfuzz=1pt
+\tolerance=1800
+\hbadness=2500
+
+\newcommand{\thmneed}{\Needspace{6\baselineskip}}
+\AtBeginEnvironment{theorem}{\thmneed}
+\AtBeginEnvironment{proposition}{\thmneed}
+\AtBeginEnvironment{corollary}{\thmneed}
+\AtBeginEnvironment{definition}{\thmneed}
+\AtBeginEnvironment{postulate}{\thmneed}
+
+\title{\textbf{Geometric Consciousness}}
+\author{J.\,R.~Dunkley}
+\date{6 April 2026}
+
+\hypersetup{
+  pdftitle={Consciousness as Active Interface under Finite Access},
+  pdfauthor={J. R. Dunkley},
+  pdfsubject={Finite access, induced visible object, latent return, observation geometry, consciousness science},
+  pdfkeywords={consciousness, finite access, visible object, observation geometry, anaesthesia, covert consciousness}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Consciousness research has many useful markers, but it still lacks a common object that can be compared across anaesthesia, sleep, disorders of consciousness, and observer-sensitive covert cases. This paper proposes that the missing object is the visible structure a system maintains under limited access. We show that finite access induces a canonical visible object, that hidden structure can be measured relative to a chosen reference, and that this yields a local calculus for onset, observer asymmetry under coarsening, and a theorem ruling out interior reversals in simple monotone settings. We then work through public anaesthesia datasets, repeated-awakening data, sleep, and control examples. Across these examples the framework supports observer-sensitive false collapse, path dependence, and a clear separation between theorem-backed observer enrichment and downstream practical classification. The result is not a finished theory of consciousness, but a mathematically explicit and empirically testable programme for studying it.
+\end{abstract}
+
+\newpage
+\tableofcontents
+\newpage
+
+\section{Introduction}
+\label{sec:introduction}
+
+Our previous papers were written to minimise narrative and maximise technical clarity. That was the right choice for those works, but circumstances are changing quickly.
+
+\textbf{Evidence of a fast AGI/ASI take-off is emerging. As such, this paper is not polished, we release it in its current state because to polish and prime it for human readers, at the expense of other work would be foolhardy. }
+
+We had been working on a theory of galactic dark matter. The programme was large, difficult, and productive. We were able to fit a range of dark matter datasets and resolve several local anomalies, but the deeper we pushed, the more the central problem changed shape. What first appeared to be a missing source term or hidden transport mechanism gradually revealed itself as something else. The obstacle was not that the theory was incomplete. It was that no single global morphology, and no single scalar summary, survived contact with the observed data in a stable way.
+
+That changed our approach. Instead of asking only what hidden object existed in the parent theory, we had to ask what part of that object actually survives projection into an empirical readout. Once posed in that form, the problem became one about observation itself.
+
+That shift led us to the Donsker--Varadhan problem in a gauge fixed logarithmic chart a few days later. Quickly, three structural facts emerged cleanly. The skew sector contributes no quadratic conductance of its own. The mixed block is explicit. And the reduced conductance depends only on the symmetric sector. In compressed form,
+\[
+M_Q = M_G.
+\]
+
+The approach ceased to be heuristic. Once the reduced envelope is written correctly, the remaining correction is not free to take an arbitrary shape. It is forced to factor through the detailed balance backbone:
+\[
+\Delta_{DV} = \frac14 \, K_J H_0^{-1} K_J^T.
+\]
+
+In a Fisher orthonormal eigenbasis of the symmetric sector, the same identity becomes
+\[
+\Delta_{DV} = \frac14 \, J_{\mathrm{hat}} H_0^{-1} J_{\mathrm{hat}}^T,
+\]
+and on the retained slow block it splits into an intrinsic visible term and a hidden return through the fast complement:
+\[
+(\Delta_{DV})_{SS}
+=
+\frac14 J_{SS}H_{0,S}^{-1}J_{SS}^T
++
+\frac14 J_{SF}H_{0,F}^{-1}J_{SF}^T.
+\]
+
+It showed us that once the observer is fixed, the nonequilibrium correction seen by that observer is not arbitrary and not only phenomenological. It has a visible structure. Part is generated inside what the observer keeps. Part returns from what the observer does not keep. What had appeared in the dark matter work as a recurring but unstable pattern seemed to be a general statement about finite observation, irrespective of where it was applied. We were surprised, but repeated applications to a range of data showed us that we were not mistaken. All indications seemed to show that observation itself induced a visible geometry.
+
+That was an advance, but the finite observer was still a constrained observer in a local Fisher geometry. Useful, exact, and physically grounded, but still too tied to compression at the tangent level. We could now say a great deal about how much of the correction remains visible to a given observer, but we still had not written down the intrinsic visible object itself.
+
+So our questions became sharper. Once access is limited, what object is induced on what is accessible? Not a block one chooses by convenience, and not a compressed Hessian taken by force, but the unique object that finite access itself permits. The answer was
+\[
+\Phi_C(H) = (C H^{-1} C^T)^{-1}.
+\]
+
+What is visible is not something one guesses after seeing the data. It is the minimum energy object forced by the access pattern itself. It composes correctly under repeated observation. It distinguishes true observation from naive compression. It survives elimination of hidden variables. An intrinsic object. We were no longer only studying one correction in one physical setting.
+
+Once the visible object had been identified, its internal structure had to be written down cleanly. Starting from the Donsker--Varadhan bridge, one passes to visible precision, and from there the geometry is forced. The first visible response can be written exactly. The obstruction to closure on the visible lift can be written exactly. The hidden part is not an unstructured remainder, but a positive load beneath a visible ceiling. The resulting geometry carries an exact transport relation, an exact additive clock, and a precise distinction between what is visible, what is hidden, and how the hidden part returns through observation.
+
+The story was no longer loose. It was no longer ``some information is lost under coarse graining''. It was that finite access induces a canonical visible object, and that object carries a precise geometry. There is a visible sector. There is hidden load. There is a determinant clock. There is a failure-of-closure term. There is a strict difference between what lies in the visible object itself and what only appears through hidden mediation. None of this was imposed or assumed. It was forced by the mathematics and by constant contact with real world datasets and our own falsification attempts.
+
+At that point the programme into consciousness was no longer a guess.
+
+Once one has a canonical visible object induced by finite access, and an exact geometry describing what is retained, what is hidden, and how the hidden part shapes what is seen, a new question becomes unavoidable.
+
+If a living system must operate through limited access, and if the world available to it is not the full world but a stable visible structure induced by that access, then what exactly is consciousness science trying to measure and how can it best be understood?
+
+That is the point where the present paper begins.
+
+We are not starting from a metaphor and searching for mathematics to support it. We are starting from a mathematical route that had already been forced on us step by step.
+
+First, the nonequilibrium correction had to be written correctly. Second, finite observation had to be treated as a structured operation rather than a nuisance. Third, the visible object had to be identified as visible precision rather than naive compression. Fourth, the geometry of that visible object had to be made explicit. Only then does the consciousness question become sharp enough to ask properly.
+
+And once asked at that level, the old language of the field begins to look incomplete. Report, complexity, connectivity, ignition, broadcast, task success, and behavioural response may all matter, but none of them by themselves gives the common object. They are measurements, consequences, correlates, or partial views. The more basic object is the visible structure available to the system under finite access, together with the hidden structure that still shapes that visible world without being directly present inside it.
+
+That is why we propose here that consciousness should be approached first as an active interface.
+
+Not because this is rhetorically attractive, but because sustained pressure has already forced the relevant mathematical objects into view. A system does not begin with an unlimited world and then optionally compress it. It lives through access. It maintains a workable visible structure under constraint. Relative to a chosen vantage, one can then ask how much hidden structure still remains outside that visible structure, how it returns, how it changes along a path, and how different observers alter what is recoverable.
+
+That is a narrower claim than a complete theory of consciousness, but it is also a stronger one. It gives a concrete object where the field has often worked with shifting proxies. It gives a route from physics to observation without pretending that phenomenology has been exhausted. It gives a way to separate theorem, score, and clinical or behavioural decision rather than collapsing them into one thing. Most importantly, it tells us what we should actually look for in the data.
+
+The question is no longer simply whether a system is responsive, complex, integrated, or behaviourally available. The question is what visible structure the system is able to maintain, what hidden load remains beneath that structure, how that structure changes under sedation, sleep, injury, or recovery, and whether richer observers recover structure that coarse observers erase.
+
+We arrived here, not by choosing consciousness and searching for a formalism, but by following a sequence of forced reductions until the relevant object could no longer be ignored.
+
+\subsection{Roadmap}
+
+Section~\ref{sec:finite-access-object} introduces the finite-access object itself: latent object, access map, induced visible object, reference ceiling, and latent return. Section~\ref{sec:dv-bridge-local-calculus} develops the local interface calculus, including onset and the interior-reversal result. Section~\ref{sec:observer-asymmetry-operationalisation} develops observer asymmetry and explains how the framework is used on data. Section~\ref{sec:worked-examples} works through the present public examples one by one. Section~\ref{sec:scope-predictions} states what is proved, what is predicted, and where the boundaries of the present framework lie. Proofs are collected in Appendix~\ref{app:proofs}.
+
+\section{Finite Access}
+\label{sec:finite-access-object}
+
+The earlier work forced a simple question. Once access is limited, what is the correct object on the visible side, and how should the hidden remainder be described relative to it? This section answers that question. We first define the object induced by finite access itself. We then define the positive remainder relative to a chosen reference object. Only after those pieces are fixed do we state the active-interface postulate used in the rest of the paper.
+
+\subsection{The induced visible object}
+
+We begin with the most basic setting. A system is described by a positive latent object \(H\), but the observer only has access through a surjective map \(C\). The first task is to identify the exact object induced on the accessible variables. Later sections will track that object and its changes.
+
+\begin{definition}[Latent object and access]
+\label{def:latent-object-access}
+Let \(H\in\SPD(n)\) be a positive latent object and let \(C:\R^n\to\R^m\) be a surjective linear access map. Depending on the application, \(H\) may be read as a precision operator, effective stiffness, inverse covariance, information metric, or dissipative kernel. The pair \((H,C)\) specifies the latent object of the system and the part of it the observer can actually access.
+\end{definition}
+
+\begin{definition}[Induced visible object]
+\label{def:induced-visible-object}
+Given \((H,C)\), define the induced visible object
+\[
+\Aobs_C(H):=(CH^{-1}C^T)^{-1}.
+\]
+This is the canonical positive object available through the access map \(C\).
+\end{definition}
+
+\begin{proposition}[Variational characterisation]
+\label{prop:variational}
+For every \(y\in\R^m\),
+\[
+y^T\Aobs_C(H)y=\inf\{x^THx:\;Cx=y\}.
+\]
+Hence \(\Aobs_C(H)\) is the unique visible quadratic form recording the least latent energy needed to realise each visible displacement.
+\end{proposition}
+
+Proposition~\ref{prop:variational} says that the induced visible object is not chosen by convenience. It is the unique positive object that records the least latent cost of realising each visible displacement.
+
+\begin{proposition}[Finite access descends to a quotient geometry]
+\label{prop:quotient-geometry}
+Let \(x\sim_C x'\) if and only if \(Cx=Cx'\), so that the equivalence classes are the fibres of \(\ker C\). Define
+\[
+q_C([x]):=\inf\{z^THz:\;z\sim_C x\}.
+\]
+Then \(q_C\) is a well-defined positive quadratic form on the quotient \(\R^n/\ker C\). Under the identification of \(\R^n/\ker C\) with \(\R^m\) induced by \(C\), the matrix representing \(q_C\) is exactly \(\Aobs_C(H)\).
+\end{proposition}
+
+Finite access therefore does two things at once. It removes directions the observer cannot distinguish, and it equips the remaining quotient with its own canonical positive object.
+
+\begin{proposition}[Observation towers compose]
+\label{prop:composition}
+Let \(D:\R^m\to\R^k\) be a second surjective access map. Then
+\[
+\Aobs_D\bigl(\Aobs_C(H)\bigr)=\Aobs_{DC}(H).
+\]
+Thus observing in one stage or in two compatible stages produces the same visible object.
+\end{proposition}
+
+This is why the visible object is the right one to carry forward. Observation can be staged, combined, or coarsened, and the same object is recovered either way.
+
+\subsection{Reference objects and hidden load}
+
+Knowing the visible object is not yet enough. We also need a disciplined way to describe what remains hidden once a reference object has been fixed. The next definitions introduce that remainder in a way that stays positive and measurable.
+
+\begin{definition}[Reference object and hidden load]
+\label{def:latent-return}
+Fix a reference object \(H_{\mathrm{ref}}\) and set
+\[
+T_C:=\Aobs_C(H_{\mathrm{ref}}).
+\]
+For any \(H\) such that \(\Ran \Aobs_C(H)=\Ran(T_C)\) and \(\Aobs_C(H)\preceq T_C\), define the hidden-load operator
+\[
+\Lambda_C(H\mid H_{\mathrm{ref}})
+:=
+T_C^{1/2}\Aobs_C(H)^{-1}T_C^{1/2}-I.
+\]
+This is the hidden load relative to the reference object \(T_C\).
+\end{definition}
+
+\begin{proposition}[Hidden-load parametrisation]
+\label{prop:hidden-load}
+Under the hypotheses of Definition~\ref{def:latent-return}, the operator \(\Lambda_C(H\mid H_{\mathrm{ref}})\) is positive semidefinite and
+\[
+\Aobs_C(H)=T_C^{1/2}(I+\Lambda_C(H\mid H_{\mathrm{ref}}))^{-1}T_C^{1/2}.
+\]
+Moreover,
+\[
+\rank \Lambda_C(H\mid H_{\mathrm{ref}})=\rank\bigl(T_C-\Aobs_C(H)\bigr),
+\]
+and the associated clock
+\[
+\tau_C(H\mid H_{\mathrm{ref}}):=\log\det(I+\Lambda_C(H\mid H_{\mathrm{ref}}))
+\]
+satisfies
+\[
+\tau_C(H\mid H_{\mathrm{ref}})=\log\det(T_C)-\log\det \Aobs_C(H).
+\]
+\end{proposition}
+
+This is the basic decomposition used throughout the paper. The visible object sits below a chosen reference object, and the difference is encoded by a positive hidden-load operator together with its additive clock.
+
+\subsection{Consciousness as active interface}
+
+With those pieces in place, the move made in this paper is short. If finite access induces a visible object and a hidden burden beneath it, then consciousness should be approached first through the maintenance of that visible object under constraint.
+
+\begin{postulate}[Consciousness as active interface]
+\label{post:active-interface}
+Consciousness is not approached here primarily as a store of latent contents. It is approached first as the active maintenance of an access pattern \(C_t\) that keeps a stable, workable visible object \(\Aobs_{C_t}(H_t)\) in place under finite access.
+\end{postulate}
+
+Postulate~\ref{post:active-interface} is deliberately narrow. It does not claim that finite access settles phenomenology, or that every useful neural summary is consciousness. It says that the first mathematically controlled object is the maintained visible object itself. On this view, attention, channel choice, timescale, grouping, task matching, and observer design matter because they change what object is actually available.
+
+\section{Local Response}
+\label{sec:dv-bridge-local-calculus}
+
+The previous section fixed the static object. The next question is local change. If the latent object is perturbed, how does the visible object begin to move, and what is the first sign of hidden load appearing beneath that movement? This section gives the minimum calculus needed later in the paper.
+
+\subsection{A minimal perturbation}
+
+We do not need the full earlier derivation here. For the present paper it is enough to use the simplest positive current perturbation carried forward from the earlier work. It keeps the latent object inside the positive cone and gives a controlled route from hidden current to visible change.
+
+Take a baseline latent object \(H_0\in\SPD(n)\) and an antisymmetric current generator \(\widehat J\). The perturbation used here is
+\[
+H_{\mathrm{DV}}=H_0+\frac14\widehat J H_0^{-1}\widehat J^T.
+\]
+
+\begin{proposition}[Positive perturbation]
+\label{prop:dv-bridge}
+For every \(H_0\in\SPD(n)\) and every antisymmetric \(\widehat J\), the operator
+\[
+H_{\mathrm{DV}}=H_0+\frac14\widehat J H_0^{-1}\widehat J^T
+\]
+is positive definite. Therefore every access map \(C\) induces a canonical visible object \(\Aobs_C(H_{\mathrm{DV}})\). When \(\widehat J=0\), one recovers the reference visible object \(\Aobs_C(H_0)\), and the departure from \(H_0\) is quadratic in the current sector.
+\end{proposition}
+
+This is why the perturbation is used here. It is simple, positive, and it already contains the hidden-current structure needed for the local analysis.
+
+\subsection{Visible response and onset}
+
+Once the perturbation has been fixed, the next forced question is local response. The first formula tells us how the visible object moves at leading order. The second tells us how hidden load appears relative to that first movement. Together they give the onset calculus used in the examples.
+
+\begin{proposition}[First visible response]
+\label{prop:first-response}
+Let
+\[
+H_t=H_0+t\Delta+O(t^2)
+\qquad (t\to 0)
+\]
+with \(H_0\in\SPD(n)\) and \(\Delta=\Delta^T\). Set \(T:=\Aobs_C(H_0)\). Then
+\[
+\Aobs_C(H_t)=T+tV+O(t^2)
+\]
+with
+\[
+V=T\bigl(CH_0^{-1}\Delta H_0^{-1}C^T\bigr)T.
+\]
+\end{proposition}
+
+\begin{proposition}[Local hidden return and visible event rate]
+\label{prop:local-birth}
+Assume that a visible branch admits an expansion
+\[
+X_t=tV-t^2Q+O(t^3)
+\]
+on \(S:=\Ran(V)\), with \(V|_S\succ0\) and \(Q|_S\succeq0\). Define the local ceiling \(T_t:=tV\) and the local hidden load
+\[
+\Lambda_t:=T_{t,S}^{1/2}X_{t,S}^{-1}T_{t,S}^{1/2}-I_S.
+\]
+Then
+\[
+\Lambda_t=tA+O(t^2),
+\qquad
+A:=V_S^{-1/2}Q_SV_S^{-1/2}\succeq0.
+\]
+Consequently,
+\[
+\tau(\Lambda_t):=\log\det(I_S+\Lambda_t)=t\Tr(A)+O(t^2).
+\]
+We call \(\Tr(A)\) the visible event rate at onset.
+\end{proposition}
+
+\begin{corollary}[Quadratic onset for the current perturbation]
+\label{cor:quadratic-dv}
+If the current family has the parity expansion
+\[
+\widehat J(\eps)=\eps \widehat J_1+O(\eps^3),
+\]
+then
+\[
+H_{\mathrm{DV}}(\eps)=H_0+\eps^2\Delta_2+O(\eps^4),
+\qquad
+\Delta_2:=\frac14 \widehat J_1H_0^{-1}\widehat J_1^T\succeq0,
+\]
+and therefore
+\[
+\Aobs_C(H_{\mathrm{DV}}(\eps))
+=
+T+\eps^2V_2-\eps^4Q_4+O(\eps^6)
+\]
+for suitable \(V_2\) and \(Q_4\succeq0\) on the active support. Thus the primary interface response is quadratic in \(\eps\), while the first hidden-load term is quartic in \(\eps\).
+\end{corollary}
+
+The point of Corollary~\ref{cor:quadratic-dv} is modest but important. It gives the first visible response and the first hidden-load term. It does not by itself support global phase language, generic reversals, or a universal hidden-load chart.
+
+\subsection{Interior reversals}
+
+An interior reversal is simply a scalar summary that changes direction inside the interval rather than only at the endpoints. This matters because several empirical literatures report such behaviour. The next result shows what the present framework can and cannot generate from monotone hidden-load growth alone.
+
+\begin{proposition}[No interior reversal under monotone hidden load at fixed reference object]
+\label{prop:no-fold}
+Fix a ceiling \(T\succeq0\) and write \(S:=\Ran(T)\). Let
+\[
+X_\lambda=T^{1/2}(I_S+\Lambda_\lambda)^{-1}T^{1/2},
+\qquad
+\Lambda_\lambda\succeq0,
+\]
+for a \(C^1\) path on \(S\), and define
+\[
+\Pi_\lambda:=(I_S+\Lambda_\lambda)^{-1},
+\qquad
+G_\lambda:=I_S-\Pi_\lambda,
+\qquad
+\tau_\lambda:=\log\det(I_S+\Lambda_\lambda).
+\]
+If \(\Lambda_\lambda'\succeq0\) for all \(\lambda\), then
+\[
+\Pi_\lambda'=-\Pi_\lambda \Lambda_\lambda' \Pi_\lambda \preceq 0,
+\]
+\[
+X_\lambda'=-T^{1/2}\Pi_\lambda \Lambda_\lambda' \Pi_\lambda T^{1/2}\preceq0,
+\]
+\[
+G_\lambda'=\Pi_\lambda \Lambda_\lambda' \Pi_\lambda \succeq0,
+\qquad
+\tau_\lambda'=\Tr(\Pi_\lambda \Lambda_\lambda')\ge 0.
+\]
+Hence the canonical visible branch is monotone in Loewner order and the determinant clock cannot show an interior reversal.
+\end{proposition}
+
+\begin{corollary}[What an empirical interior reversal would force]
+\label{cor:empirical-fold}
+Suppose a reported scalar observable is of the form \(s(\lambda)=F(X_\lambda)\) for one fixed observer, one fixed reference object, and one Loewner-monotone increasing scalar functional \(F\). If \(s\) exhibits a strict interior reversal, then at least one of the following must fail:
+\begin{enumerate}
+\item the hidden-load path is monotone, that is, \(\Lambda_\lambda'\succeq0\) for all \(\lambda\);
+\item the observer is fixed;
+\item the ceiling or reference is fixed;
+\item the reported scalar is actually monotone in the canonical visible object rather than produced by a non-monotone external map such as thresholding or binning.
+\end{enumerate}
+\end{corollary}
+
+\begin{remark}
+The strongest theorem-native statement presently available is therefore negative. The framework proves local onset and, under monotone hidden load at fixed reference, a no-interior-reversal theorem. Any robust empirical interior reversal requires an additional ingredient.
+\end{remark}
+
+\section{Observers and Data}
+\label{sec:observer-asymmetry-operationalisation}
+
+The mathematics so far gives the object and its local change. The next issue is observation itself. Different observers do not preserve the same distinctions, and a coarse observer can create the appearance of collapse. This section states the exact asymmetry and then explains how the formal objects are estimated on data.
+
+\subsection{Why observer choice matters}
+
+Before turning to full data, it helps to see the mechanism in the smallest possible example. Two states can be identical to one observer and clearly different to another. When that happens, the right conclusion is not that nothing changed, but that the observer was too coarse for the distinction of interest.
+
+\begin{proposition}[A coarse observer can miss a real interface change]
+\label{prop:toy-example}
+Let
+\[
+H_A=
+\begin{pmatrix}
+1&0\\
+0&4
+\end{pmatrix},
+\qquad
+H_B=
+\begin{pmatrix}
+1&0\\
+0&1
+\end{pmatrix},
+\]
+\[
+C_1=\begin{pmatrix}1&0\end{pmatrix},
+\qquad
+C_2=\frac{1}{\sqrt2}\begin{pmatrix}1&1\end{pmatrix}.
+\]
+Then
+\[
+\Aobs_{C_1}(H_A)=\Aobs_{C_1}(H_B)=1,
+\]
+while
+\[
+\Aobs_{C_2}(H_A)=\frac85,
+\qquad
+\Aobs_{C_2}(H_B)=1.
+\]
+Thus the observer \(C_1\) declares no interface change at all, while \(C_2\) detects a substantial one.
+\end{proposition}
+
+The point is elementary and decisive. False collapse need not mean that the latent object stayed unchanged. It can mean that the observer was too coarse, too poorly aligned, or too badly matched to the task.
+
+\subsection{Enrichment and coarsening}
+
+This simple mechanism has a strict one-sided consequence. If two states are genuinely identical for a richer observer, every coarsening must also identify them. The converse need not hold. Coarsening can erase real structure. That asymmetry is the core observer result used throughout the paper.
+
+\begin{proposition}[Collapse asymmetry under observer enrichment]
+\label{prop:collapse-asymmetry}
+Let \(C_1:\R^n\to\R^{m_1}\) and \(D:\R^{m_1}\to\R^{m_0}\) be surjective, and set \(C_0:=DC_1\). If
+\[
+\Aobs_{C_1}(H_1)=\Aobs_{C_1}(H_2),
+\]
+then
+\[
+\Aobs_{C_0}(H_1)=\Aobs_{C_0}(H_2).
+\]
+Thus equality under a richer observer descends to every coarsening.
+\end{proposition}
+
+\begin{proposition}[Gaussian data processing under coarsening]
+\label{prop:gaussian-dp}
+With the same notation, let \(\mu_i^{(1)}\) be the centred Gaussian distribution with covariance \(C_1H_i^{-1}C_1^T\), and let \(\mu_i^{(0)}\) be the centred Gaussian distribution with covariance \(DC_1H_i^{-1}C_1^TD^T\), for \(i=1,2\). Then \(\mu_i^{(0)}=D_\#\mu_i^{(1)}\). Consequently, for every \(f\)-divergence \(D_f\),
+\[
+D_f(\mu_1^{(0)}\|\mu_2^{(0)})\le D_f(\mu_1^{(1)}\|\mu_2^{(1)}).
+\]
+In particular, forward Gaussian KL, reverse Gaussian KL, squared Hellinger distance, total variation distance, and Bhattacharyya distance all contract under coarsening.
+\end{proposition}
+
+\begin{definition}[Observer gain]
+\label{def:observer-gain}
+Fix any contracted divergence \(\mathcal D\) on the observed centred Gaussian distributions. The gain of the richer observer \(C_1\) over its coarsening \(C_0=DC_1\) for the pair \((H_1,H_2)\) is
+\[
+\operatorname{Gain}_{\mathcal D}(H_1,H_2;C_1\to C_0)
+:=
+\mathcal D(\mu_1^{(1)},\mu_2^{(1)})-\mathcal D(\mu_1^{(0)},\mu_2^{(0)}).
+\]
+By Proposition~\ref{prop:gaussian-dp}, this quantity is nonnegative.
+\end{definition}
+
+\begin{remark}
+The current Frobenius matrix-log score
+\[
+D_{\mathrm{vis}}(s_1,s_2;\theta):=\norm{\log\Aobs_{C_\theta}(H_{s_1})-\log\Aobs_{C_\theta}(H_{s_2})}_F
+\]
+is useful as a practical descriptor of visible-object geometry, but no monotonicity theorem under coarsening is claimed for it here. The theorem-backed enrichment object is observer gain built from a contracted divergence on the observed Gaussian distributions.
+\end{remark}
+
+\subsection{Applying the framework}
+
+The path to data is short once the object is fixed. Choose a common feature space for the states under comparison. In practice this may be multichannel EEG, source-resolved EEG, parcel-level fMRI, or a stitched multimodal space after preprocessing and regularisation. For each state \(s\), estimate a positive object \(H_s\) on that common space. The framework does not force one estimator; it fixes the comparison once an estimator and feature space have been chosen.
+
+Next choose a predeclared observer family \(\{C_\theta\}\). Different observers may represent channel subsets, time windows, task-matched epochs, frequency bands, parcelings, or multimodal combinations. For each state \(s\) and observer \(\theta\), compute the interface signature
+\[
+\Sigma_\theta(s):=
+\Bigl(
+\Aobs_{C_\theta}(H_s),
+\Lambda_{C_\theta}(H_s\mid H_{\mathrm{ref}}),
+\tau_{C_\theta}(H_s\mid H_{\mathrm{ref}})
+\Bigr),
+\]
+whenever the ceiling condition of Definition~\ref{def:latent-return} holds relative to a chosen reference state \(H_{\mathrm{ref}}\), typically wakefulness or a task-engaged pre-loss condition.
+
+Three derived quantities are then natural.
+\begin{align}
+\operatorname{Gain}_{\mathcal D}(s_1,s_2;C_1\to C_0)
+&=
+\mathcal D(\mu_{s_1,C_1},\mu_{s_2,C_1})
+-
+\mathcal D(\mu_{s_1,C_0},\mu_{s_2,C_0}), \\
+D_{\mathrm{vis}}(s_1,s_2;\theta)
+&=
+\norm{\log\Aobs_{C_\theta}(H_{s_1})-\log\Aobs_{C_\theta}(H_{s_2})}_F, \\
+R_{\mathrm{ret}}(s;\theta)
+&=
+\Tr\,\Lambda_{C_\theta}(H_s\mid H_{\mathrm{ref}}),
+\qquad
+E_{\mathrm{clk}}(s;\theta)
+=
+\tau_{C_\theta}(H_s\mid H_{\mathrm{ref}}).
+\end{align}
+When a true longitudinal onset branch is available, the local rate \(\Tr(A)\) from Proposition~\ref{prop:local-birth} becomes the natural onset quantity.
+
+This gives a simple reading discipline. First ask whether the observer is adequate. Then ask whether the chosen reference object is defensible. Then read path structure and hidden load. Only after that should one turn to any downstream score or classifier. This order matters because coarsening can erase real structure, while practical scores can blur distinctions that remain present at the object level.
+
+\section{Worked Examples}
+\label{sec:worked-examples}
+
+We now turn to the public examples one by one. The point is not to force every dataset to carry the full argument. Different examples earn different parts of the story. Some are strongest for observer matching, some for path structure, some for the distinction between theorem-backed enrichment and practical classification, and some matter mainly because they stop us over-reading simple summaries.
+
+\subsection{Propofol with imagery and recovery}
+
+The strongest current example is a propofol study with mental imagery and recovery \cite{openneuro_ds006623,huang2026open}. The same subjects pass through wakefulness, graded sedation, behavioural unresponsiveness, and recovery, and the design is rich enough to test observer mismatch directly. The observer family was fixed in advance: first coarse pooled imagery windows, then phase-matched windows, and finally the phase-and-condition matched parcel-level observer used for the primary analysis. Richer-to-coarser compressions of that matched observer were used only as controls.
+
+The clearest result is that coarse access can create false collapse. Matched phase-and-condition access recovers visible structure that the pooled observers suppress. In the predeclared primary analysis, the structurally complete cohort contained \(20\) subjects and \(13\) satisfied the main numerical-adequacy and path-analysis criteria. Among those \(13\) subjects, the downstream classification rule returned \(0\) strong residual-structure cases, \(0\) weak residual-structure cases, and \(13\) collapse cases under the predeclared covert-response threshold. That endpoint matters, and it should be stated plainly. This example does not support a case-structured covert-recovery claim under the matched-access adjudication rule. But it also does not support the stronger overread that matched access found nothing. At the observed Gaussian level, enrichment remains positive throughout the eligible cohort and across the admissible richer-to-coarser compression comparisons.
+
+The same example also gives a clear path result. Recovery does not simply retrace induction in visible-object space. Across the viability-filtered cohort, the median off-segment deviation is about \(0.78\) and the median path cosine about \(-0.58\). Some trajectories look close by one-dimensional summaries while remaining clearly separated at the full matrix level. The safe reading is that the full visible object carries route information that scalar summaries can erase.
+
+The downstream bottleneck is therefore structured rather than null. Within the numerically adequate subset, the cases do not split into geometry-present and geometry-absent groups. Instead there is a continuum from cases with clear object-level movement but almost no covert gain, through an intermediate case, to cases where the downstream signal becomes more usable. A continuous conversion score built from covert gain, covert gain per unit path or alignment change, pairwise top-mode concentration, and inverse pair stable rank preserves the same ordering in \(4000\) bootstrap resamples, with a regime-label permutation test giving \(p\approx 0.0054\).
+
+The same study also gives the sharpest current reference-object result. The matched state immediately before loss of responsiveness is the leading empirical local reference surrogate. Broadening away from it degrades both covert organisation and path-side organisation, and the same surrogate remains strongest under the concentration-aware deviation scores. Dense local-to-global scans place the admissible reference class tightly around that unbroadened matched pre-loss state itself, with bootstrap winner fraction \(0.9986\). The one path-side exception is informative rather than destabilising.
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.94\textwidth]{ds006623_flagship_backbone_conversion.png}
+\caption{Propofol with imagery and recovery. Matched access recovers visible structure, recovery is path-dependent, the admissible local reference class is narrow and centred on the matched state immediately before loss of responsiveness, and downstream conversion depends on concentration and coupling rather than on raw geometric presence alone.}
+\label{fig:ds006623}
+\end{figure}
+
+Taken together, this example currently carries the strongest empirical package in the paper. It supports observer recovery, path dependence, a narrow local reference result, a concentration-aware deviation layer, geometric-to-covert coupling, and a validated downstream conversion ordering in one setting. Just as important are the boundaries. It does not yet support a stable hidden-load chart, a global ceiling claim, exact empirical uniqueness of the reference object, cross-mechanism convergence, hidden-load dynamics in full generality, or definitive covert-consciousness adjudication.
+
+\subsection{Graded sedation with audio and rest}
+
+A public graded-sedation study with passive audio and rest is valuable for a different reason. It does not provide the same mental-imagery structure as the previous example, but it does provide paired audio and rest observers across awake, light sedation, deep sedation, and recovery within the same subjects. It is therefore the cleanest current corroboration that theorem-backed observer enrichment and practical downstream conversion should not be conflated.
+
+At \(12\) mm isotropic resolution the visible object is viable in all \(17/17\) subjects for both audio and rest. At \(18\) mm it remains viable in \(16/17\), and by \(24\) mm and \(30\) mm it fails. This matters because it fixes the scale of the example. The \(12\) mm observer is the present primary observer. The \(18\) mm branch is already a compression control, not a co-equal main analysis.
+
+At the primary observer, path structure is stable in both modalities and in their staged joint observer. The median joint path cosine is about \(-0.590\), the median off-segment deviation about \(0.740\), the \(95\)th percentile path cosine remains negative at about \(-0.532\), and the \(5\)th percentile path deviation remains positive at about \(0.720\). Recovery again moves back toward wake relative to deep sedation, but it does not retrace induction in visible-object space.
+
+The example is strongest when it separates what the theorem guarantees from what a practical score manages to extract. The staged joint observer is a product observer whose marginals are the single-modality audio and rest objects. Symmetric Gaussian KL must therefore increase relative to either marginal if the second branch contributes non-redundant distinguishability. Empirically it does. The median joint-versus-rest symmetric-KL gain is about \(117.8\), and the median joint-versus-audio gain about \(131.9\). In the subject-level bootstrap pass, the minimum pairwise joint gain remains strictly positive in every subject against both marginals. By contrast, the practical matrix score is only modestly positive over rest and slightly negative over audio, and the staged joint observer is stronger than rest in \(14/17\) subjects but stronger than audio in only \(3/17\).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.94\textwidth]{ds003171_staged_path_and_gain.png}
+\caption{Public graded sedation with audio and rest. Joint audio-plus-rest observation is strictly richer in Gaussian distinguishability than either marginal, while the practical downstream edge over audio is weak. This example therefore supports the framework by preserving the distinction between theorem-backed enrichment and downstream conversion.}
+\label{fig:ds003171}
+\end{figure}
+
+That is the right way to read this example. It carries an object layer, a local awake-relative reference layer, a deviation layer, a stable path layer, and a first downstream layer in one coherent public design. What it does not yet provide is a second narrow reference-class result. The awake scaffold remains defensible, but the winner fractions do not collapse onto a narrow awake-centred class.
+
+\subsection{Repeated awakening under propofol}
+
+The repeated-awakening propofol EEG study directly probes reported experience under sedation \cite{openneuro_ds005620}. In the present minimum public slice, a deterministic within-subject awake-relative observer built from awake eyes-closed baseline and paired spontaneous-rest sedation windows is viable after a modest bad-channel salvage step. All \(21/21\) subjects pass the awake reference gate, \(28\) broad pre-awakening sedation windows pass, and \(23\) immediate pre-awakening windows pass, with median awake split-half correlation near \(0.99\).
+
+What this example does not yet support is a stable experience-versus-no-experience separation. Only \(4\) viable immediate pre-awakening no-experience runs remain against \(19\) experience runs. The best exact \(p\)-values in the current slice are not persuasive, and the mixed-label within-subject cases disagree in direction. The durable positive result is route-level rather than label-level. Across the viable pairs of broader sedation window and immediate pre-awakening window, movement is usually toward the awake reference object, but almost never by simple one-axis contraction. The median awake-angle is about \(32.8^\circ\), the median lateral fraction of that final pre-awakening step about \(0.953\), and the toward-wake fraction about \(0.783\).
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=0.94\textwidth]{ds005620_route_not_report.png}
+\caption{Repeated awakening under propofol. Awake-relative geometry is operationally real, and immediate pre-awakening movement is usually toward wake but strongly off-axis. What fails to stabilise in the present slice is not the route, but conversion of that route into a clean reported-experience separation.}
+\label{fig:ds005620}
+\end{figure}
+
+This is exactly the kind of example the framework should retain rather than over-read. The route is real. The report conversion is not yet stable. The example therefore belongs here as a supporting route case, not as a forced positive endpoint.
+
+\subsection{Sleep and coarsening controls}
+
+The remaining examples matter because they constrain interpretation. Sleep is best read here as a projection-sensitive control rather than as a direct closure example. In Sleep-EDF cassette recordings, theorem-compatible scalars still show an interior reversal while fixed projected axes remain group-level non-reversing across binning and window perturbations. In telemetry recordings, the same object is group-level non-reversing while random projections remain highly labile. The point is not that sleep closes the theory. The point is that projection-specific summaries are structurally fragile.
+
+The repaired functional-connectivity anaesthesia pilot plays a different control role. Structured subset observers can be positive while naive whole-cortex observation is strongly negative, and the loss under coarsening survives a simple observer-relative normalisation check. The object is heavily repaired and conditioning-sensitive from the outset, so this example should not carry mechanism claims. It is useful because it cleanly exhibits coarsening danger.
+
+\begin{figure}[t]
+\centering
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\includegraphics[width=\textwidth]{sleep_projection_control.png}
+\end{minipage}\hfill
+\begin{minipage}[t]{0.48\textwidth}
+\centering
+\includegraphics[width=\textwidth]{zenodo_coarsening_control.png}
+\end{minipage}
+\caption{Controls that constrain overread. Left: sleep as a projection-sensitive control, where object-level behaviour and projection-specific summaries can diverge sharply. Right: repaired functional connectivity as a coarsening-sensitive control, where structured subset observers recover signal that naive whole-cortex access suppresses. Neither example should be used to close mechanism claims, but both are useful because they show how the wrong observer creates false simplicity.}
+\label{fig:controls}
+\end{figure}
+
+\subsection{What the examples show together}
+
+Read together, the current examples are more coherent than a list of unrelated positives and negatives. The propofol imagery example is the flagship case because it combines observer recovery, path dependence, a narrow local reference result, and a structured downstream bottleneck in one setting. The graded-sedation example is the strongest external corroboration because it preserves theorem-backed enrichment and path structure in a public design without falsely licensing a second narrow reference claim. The repeated-awakening example shows that route geometry can be real even when report conversion remains unstable. Sleep and repaired functional-connectivity controls matter because they show how projection and coarsening create false simplicity.
+
+This ordering also helps keep the empirical claims at the right level. Observer adequacy comes first. Reference choice comes next. Path geometry comes before downstream conversion. Only after those layers are stable should an example be allowed to carry stronger mechanistic language.
+
+\section{Scope, Predictions, and Boundaries}
+\label{sec:scope-predictions}
+
+\subsection{What is proved}
+
+Within the stated finite-access setting, the paper proves the induced visible-object formula, its variational characterisation, and exact composition under observation towers. Relative to a fixed reference object, it proves the hidden-load parametrisation and its clock identity. Using the quadratic current perturbation, it proves a local onset calculus: first visible response, first hidden-load term, and a visible event rate. It also proves an exact asymmetry under coarsening: equality under a richer observer descends to every coarsening, and canonical Gaussian distinguishability contracts under coarsening. Finally, it proves a no-interior-reversal theorem for monotone hidden load at fixed reference.
+
+That is already a substantial mathematical spine, but it must be read at the correct level. The perturbation gives a local route from latent change to visible-object dynamics. It does not by itself prove a generic interior-reversal theorem, a universal hidden-load chart, or a complete mechanistic theory of consciousness.
+
+\subsection{Predictions and falsifiers}
+
+\begin{proposition}[Cross-mechanism convergence]
+\label{prop:cross-mechanism}
+If consciousness is primarily an interface process, then microscopically distinct routes into unconsciousness should converge more closely at the level of the induced visible object than they do at the level of microscopic mechanism. In particular, genuinely unconscious propofol and genuinely unconscious xenon should lie closer in interface signature than either lies to wakefulness or to ketamine-like disconnected experience under matched observers.
+\end{proposition}
+
+\begin{remark}[What would count against it]
+If matched observer families fail to show interface-level convergence between genuinely unconscious propofol and xenon states, while the same methods still separate conscious from unconscious states within each agent, then the central convergence claim is weakened.
+\end{remark}
+
+\begin{proposition}[Covert consciousness as observer failure]
+\label{prop:covert}
+If consciousness is an active interface rather than a mere behavioural output, then some behaviourally unresponsive states should retain non-trivial interface structure under a better observer. Coarse observers should therefore under-diagnose consciousness in at least a subset of cases.
+\end{proposition}
+
+\begin{remark}[What would count against it]
+If task-matched, multimodal, or otherwise enriched observers do not recover any systematic residual structure in imagery-positive or clinically covert cases beyond what coarse resting observers already show, then the observer-failure thesis is weakened.
+\end{remark}
+
+\begin{proposition}[Recovery is path-dependent]
+\label{prop:hysteresis}
+Loss and recovery of consciousness should not be exact reverses of one another. The route back into consciousness should show hysteresis in visible-object coordinates, hidden-load coordinates, or both, even when coarse behavioural labels match.
+\end{proposition}
+
+\begin{remark}[What would count against it]
+If longitudinal trajectories through induction and emergence collapse onto the same path in interface-level coordinates whenever behavioural labels are matched, then the hysteresis claim is weakened.
+\end{remark}
+
+\begin{corollary}[Single-modality assessment is structurally fragile]
+\label{cor:single-modality}
+Resting-only observers should be more prone to coarsening illusion than observers that combine rest with an evoked or task-matched component. Multimodal observers should therefore recover consciousness structure more faithfully than single coarse observers.
+\end{corollary}
+
+\begin{remark}[What would count against it]
+If adding evoked or task-matched access fails to improve interface-level separation or to reduce false collapse relative to resting-only observers in the relevant cohorts, then the multimodal claim is weakened.
+\end{remark}
+
+\subsection{What the framework is and is not}
+
+This framework is not a raw complexity measure. Complexity markers can be useful, but they do not by themselves say what visible object is being induced, what hidden structure is returning, or whether apparent collapse is due to the state or to the observer.
+
+It is not a theory of report first. Report and broadcast may be consequences or stabilising mechanisms of an active interface, but they are not the primary object in the present paper.
+
+It is not a direct derivation of contents. The framework says that a conscious system first maintains a stable visible structure under finite access. Specific contents and reports appear within that maintained structure.
+
+It is also not committed to a single measurement modality. Because observation towers compose exactly, staged and multimodal access are mathematically natural. But the asymmetry is one-sided. Coarsening is exact and can collapse real distinctions. ``Widening'' should therefore be read as recoverability of distinctions that coarse access erased, not as a generic monotone gain theorem for every practical score.
+
+\subsection{What remains open}
+
+Several frontiers remain explicitly open. The first is external replication of the narrow reference-class result outside the flagship propofol imagery example. The second is a stable operational hidden-load chart robust enough to justify stronger mechanism language. The third is cross-agent convergence across propofol, xenon, ketamine, and related routes. The fourth is clinical deployment in disorders of consciousness, where observer dependence would be most actionable. The fifth is methodological: the current data already support a strong separation between theorem-backed enrichment and downstream conversion, but the exact conversion bottleneck still needs richer prospective testing.
+
+These are not small caveats to be buried at the end. They are the boundaries that keep the paper rigorous.
+
+\section{Conclusion}
+\label{sec:conclusion}
+
+This paper does not claim to solve consciousness in full. It does claim that consciousness science can be organised around a mathematically explicit finite-access object rather than around a rotating set of partially incommensurate markers. A positive latent object and an access pattern induce a canonical visible object. Relative to a reference object, the hidden remainder becomes a positive hidden-load operator. The quadratic current perturbation then supplies a short and disciplined route from latent change to that finite-access interface object.
+
+What the present examples support is not one universal biomarker, but one structural lesson. Better matched observers can recover distinctions that coarse or compressed observers suppress. Recovery is more stable in full visible-object space than in one-dimensional summaries. Theorem-backed enrichment can separate sharply from downstream operational conversion. These are not interchangeable claims, and the paper is written to keep them separate.
+
+That separation is also what makes the flagship example genuinely informative. The propofol imagery study is not strongest because it produces the loudest endpoint. It is strongest because it combines observer recovery, path dependence, a narrow local reference result, and a structured downstream bottleneck in one setting. The graded-sedation study corroborates the object-level and theorem-backed observer story without falsely collapsing into the same reference result. The repeated-awakening study shows that route geometry can be real even when report conversion remains unstable. Sleep and repaired functional-connectivity controls constrain overread by showing how projection and coarsening create false simplicity.
+
+The resulting claim is testable now, but it has to be stated at the right level. The paper proves an interface object, a hidden-load parametrisation, a local onset calculus, a coarsening asymmetry theorem, and a no-interior-reversal theorem for monotone hidden load at fixed reference object. It does not prove a universal interior-reversal result, a finished mechanism of phenomenology, or a complete hidden-load chart for every empirical example. The right next move is not broader rhetoric. It is to keep pressing these theorem-backed predictions onto graded anaesthesia, repeated-awakening, multimodal, and disorders-of-consciousness data while preserving the distinction between object-level structure and downstream conversion.
+
+\appendix
+
+\section{Proofs and Technical Details}
+\label{app:proofs}
+
+This appendix collects the proofs deferred from the main text. The goal is to keep the argument in the body readable while retaining a complete algebraic trail for every formal statement used in the paper.
+
+\subsection{Core finite-access identities}
+
+\paragraph{Proof of Proposition~\ref{prop:variational}.}
+Fix \(y\in\R^m\) and minimise \(x^THx\) subject to \(Cx=y\). Since \(H\succ0\) and \(C\) is surjective, the problem is strictly convex and has a unique minimiser. Introduce a multiplier \(\lambda\) and write
+\[
+\mathcal L(x,\lambda)=x^THx+2\lambda^T(Cx-y).
+\]
+Stationarity gives \(Hx+C^T\lambda=0\), hence \(x=-H^{-1}C^T\lambda\). Imposing \(Cx=y\) gives
+\[
+CH^{-1}C^T\lambda=-y,
+\qquad
+\lambda=-(CH^{-1}C^T)^{-1}y.
+\]
+Therefore
+\[
+x_*=H^{-1}C^T(CH^{-1}C^T)^{-1}y.
+\]
+Substituting back yields
+\[
+x_*^THx_*=y^T(CH^{-1}C^T)^{-1}y=y^T\Aobs_C(H)y.
+\]
+This proves the claim.
+
+\paragraph{Proof of Proposition~\ref{prop:quotient-geometry}.}
+If \(x\sim_C x'\), then \(Cx=Cx'=:y\). By Proposition~\ref{prop:variational},
+\[
+\inf\{z^THz:\;z\sim_C x\}
+=
+\inf\{z^THz:\;Cz=y\}
+=
+y^T\Aobs_C(H)y.
+\]
+Hence \(q_C([x])\) depends only on the class \([x]\), so it is well defined on \(\R^n/\ker C\). Positivity follows because \(H\succ0\) and \(\Aobs_C(H)\succ0\). Under the quotient identification \([x]\mapsto y=Cx\), the value of the quotient quadratic form is exactly \(y^T\Aobs_C(H)y\), so the representing matrix is \(\Aobs_C(H)\).
+
+\paragraph{Proof of Proposition~\ref{prop:composition}.}
+By definition,
+\[
+\Aobs_D\bigl(\Aobs_C(H)\bigr)
+=
+\Bigl(D\bigl((CH^{-1}C^T)^{-1}\bigr)^{-1}D^T\Bigr)^{-1}
+=
+\bigl(DCH^{-1}C^TD^T\bigr)^{-1}
+=
+\Aobs_{DC}(H).
+\]
+
+\paragraph{Proof of Proposition~\ref{prop:hidden-load}.}
+Since \(\Aobs_C(H)\preceq T_C\) on the common support, one has
+\[
+T_C^{1/2}\Aobs_C(H)^{-1}T_C^{1/2}\succeq I,
+\]
+so \(\Lambda_C(H\mid H_{\mathrm{ref}})\succeq0\). Rearranging the defining formula gives
+\[
+\Aobs_C(H)=T_C^{1/2}(I+\Lambda_C(H\mid H_{\mathrm{ref}}))^{-1}T_C^{1/2}.
+\]
+Then
+\[
+T_C-\Aobs_C(H)
+=
+T_C^{1/2}\Lambda_C(H\mid H_{\mathrm{ref}})(I+\Lambda_C(H\mid H_{\mathrm{ref}}))^{-1}T_C^{1/2},
+\]
+which has the same rank as \(\Lambda_C(H\mid H_{\mathrm{ref}})\). Taking determinants in the representation gives
+\[
+\det\Aobs_C(H)=\det(T_C)\det(I+\Lambda_C(H\mid H_{\mathrm{ref}}))^{-1},
+\]
+which is equivalent to the clock identity.
+
+\subsection{Local bridge calculus}
+
+\paragraph{Proof of Proposition~\ref{prop:dv-bridge}.}
+For every \(x\in\R^n\),
+\[
+x^TH_{\mathrm{DV}}x
+=
+x^TH_0x+\frac14 x^T\widehat J H_0^{-1}\widehat J^T x
+=
+x^TH_0x+\frac14 \norm{H_0^{-1/2}\widehat J^T x}^2.
+\]
+The first term is strictly positive for \(x\neq0\) because \(H_0\succ0\), and the second term is nonnegative. Hence \(H_{\mathrm{DV}}\succ0\). The remaining statements follow immediately from Definition~\ref{def:induced-visible-object}.
+
+\paragraph{Proof of Proposition~\ref{prop:first-response}.}
+The inverse expansion gives
+\[
+H_t^{-1}=H_0^{-1}-tH_0^{-1}\Delta H_0^{-1}+O(t^2).
+\]
+Hence
+\[
+CH_t^{-1}C^T
+=
+CH_0^{-1}C^T-tCH_0^{-1}\Delta H_0^{-1}C^T+O(t^2)
+=
+T^{-1}-tM+O(t^2),
+\]
+where \(M:=CH_0^{-1}\Delta H_0^{-1}C^T\). Inverting again gives
+\[
+\Aobs_C(H_t)
+=(T^{-1}-tM+O(t^2))^{-1}
+=
+T+tTMT+O(t^2),
+\]
+which is the stated formula.
+
+\paragraph{Proof of Proposition~\ref{prop:local-birth}.}
+Factor
+\[
+X_{t,S}=tV_S(I_S-tV_S^{-1}Q_S+O(t^2)).
+\]
+Inverting gives
+\[
+X_{t,S}^{-1}
+=
+t^{-1}(I_S+tV_S^{-1}Q_S+O(t^2))V_S^{-1}.
+\]
+Therefore
+\[
+\Lambda_t
+=(tV_S)^{1/2}X_{t,S}^{-1}(tV_S)^{1/2}-I_S
+=
+tV_S^{-1/2}Q_SV_S^{-1/2}+O(t^2),
+\]
+which is the stated expression with \(A\succeq0\). The determinant expansion
+\[
+\log\det(I_S+tA+O(t^2))=t\Tr(A)+O(t^2)
+\]
+then yields the clock formula.
+
+\paragraph{Proof of Corollary~\ref{cor:quadratic-dv}.}
+The parity assumption gives the quadratic expansion of \(H_{\mathrm{DV}}(\eps)\) immediately:
+\[
+H_{\mathrm{DV}}(\eps)
+=
+H_0+\frac14\widehat J(\eps)H_0^{-1}\widehat J(\eps)^T
+=
+H_0+\eps^2\Delta_2+O(\eps^4),
+\]
+with \(\Delta_2=\frac14\widehat J_1H_0^{-1}\widehat J_1^T\succeq0\). Applying Proposition~\ref{prop:first-response} to the parameter \(t=\eps^2\) gives the leading visible term. The next visible coefficient is quartic because the latent perturbation is already quadratic. Proposition~\ref{prop:local-birth} then identifies the first ceiling-normalised hidden return.
+
+\paragraph{Proof of Proposition~\ref{prop:no-fold}.}
+Differentiate \(\Pi_\lambda=(I_S+\Lambda_\lambda)^{-1}\):
+\[
+\Pi_\lambda'
+=
+-(I_S+\Lambda_\lambda)^{-1}\Lambda_\lambda'(I_S+\Lambda_\lambda)^{-1}
+=
+-\Pi_\lambda \Lambda_\lambda' \Pi_\lambda.
+\]
+This is negative semidefinite because \(\Lambda_\lambda'\succeq0\). The formulas for \(X_\lambda'\) and \(G_\lambda'\) follow immediately:
+\[
+X_\lambda'
+=
+T^{1/2}\Pi_\lambda' T^{1/2}
+=
+-T^{1/2}\Pi_\lambda \Lambda_\lambda' \Pi_\lambda T^{1/2},
+\]
+\[
+G_\lambda'=-\Pi_\lambda'=\Pi_\lambda \Lambda_\lambda' \Pi_\lambda.
+\]
+For the clock,
+\[
+\tau_\lambda'
+=
+\frac{\dd}{\dd\lambda}\log\det(I_S+\Lambda_\lambda)
+=
+\Tr((I_S+\Lambda_\lambda)^{-1}\Lambda_\lambda')
+=
+\Tr(\Pi_\lambda \Lambda_\lambda')
+\ge 0.
+\]
+
+\paragraph{Proof of Corollary~\ref{cor:empirical-fold}.}
+Under the stated hypotheses, Proposition~\ref{prop:no-fold} gives a monotone path \(X_\lambda\) in Loewner order. A Loewner-monotone scalar functional cannot have a strict interior extremum except on a flat interval. Therefore any genuine interior reversal must violate at least one of the listed hypotheses.
+
+\subsection{Observer asymmetry}
+
+\paragraph{Proof of Proposition~\ref{prop:toy-example}.}
+For \(C_1\), one has
+\[
+C_1H_A^{-1}C_1^T=C_1H_B^{-1}C_1^T=1,
+\]
+so both induced visible objects equal \(1\). For \(C_2\), one computes
+\[
+C_2H_A^{-1}C_2^T
+=
+\frac12\Bigl(1+\frac14\Bigr)
+=
+\frac58,
+\qquad
+C_2H_B^{-1}C_2^T=1,
+\]
+so
+\[
+\Aobs_{C_2}(H_A)=\Bigl(\frac58\Bigr)^{-1}=\frac85,
+\qquad
+\Aobs_{C_2}(H_B)=1.
+\]
+
+\paragraph{Proof of Proposition~\ref{prop:collapse-asymmetry}.}
+By Proposition~\ref{prop:composition},
+\[
+\Aobs_{C_0}(H_i)=\Aobs_D(\Aobs_{C_1}(H_i))
+\qquad (i=1,2).
+\]
+Hence equality at the richer level implies equality at the coarser one.
+
+\paragraph{Proof of Proposition~\ref{prop:gaussian-dp}.}
+The coarsened visible variable is obtained from the finer one by the deterministic map \(y\mapsto Dy\), so \(\mu_i^{(0)}=D_\#\mu_i^{(1)}\). The inequality is then the standard data-processing theorem for \(f\)-divergences under Markov kernels, applied here to a deterministic linear pushforward. The listed distances are \(f\)-divergences or monotone transforms of them, hence they contract as stated.
+
+\section*{Acknowledgements}
+
+No external funding was received. All work was produced independently without affiliation.
+
+Author's email is contact@nomogenetics.com.
+
+\begin{thebibliography}{99}
+
+\bibitem{montupil2023nature}
+J.~Montupil and A.~vanhaudenhuyse.
+\newblock The nature of consciousness in anaesthesia.
+\newblock \emph{BJA Open}, 8:100184, 2023.
+
+\bibitem{openneuro_ds006623}
+OpenNeuro.
+\newblock Michigan Human Anesthesia fMRI Dataset-1.
+\newblock Dataset ds006623, accessed 6 April 2026.
+
+\bibitem{huang2026open}
+Z.~Huang et al.
+\newblock An open fMRI resource for studying human brain function and covert consciousness under anesthesia.
+\newblock \emph{Scientific Data}, 13:127, 2026.
+
+\bibitem{openneuro_ds005620}
+OpenNeuro.
+\newblock A repeated awakening study exploring the capacity of complexity measures to capture dreaming during propofol sedation.
+\newblock Dataset ds005620, accessed 6 April 2026.
+
+\bibitem{zhang2025doc}
+W.~Zhang et al.
+\newblock Assess the level of consciousness in patients with disorders of consciousness by combining resting-state and auditory-evoked EEG.
+\newblock \emph{Frontiers in Neuroscience}, 19:1613356, 2025.
+
+\bibitem{maschke2024critical}
+C.~Maschke et al.
+\newblock Critical dynamics in spontaneous EEG predict anesthetic-induced loss of consciousness and perturbational complexity.
+\newblock \emph{Communications Biology}, 7, 2024.
+
+\bibitem{mcguigan2024xenon}
+S.~McGuigan et al.
+\newblock Xenon anaesthesia is associated with a reduction in frontal peak alpha frequency.
+\newblock \emph{British Journal of Anaesthesia}, 2024.
+
+\bibitem{mcguigan2023cellular}
+S.~McGuigan, K.~Pudjiadi, and J.~W.~A.~Pickering.
+\newblock The cellular mechanisms associated with the anesthetic effects of xenon.
+\newblock \emph{Frontiers in Neuroscience}, 17:1225191, 2023.
+
+\end{thebibliography}
+
+\end{document}

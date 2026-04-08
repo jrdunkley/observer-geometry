@@ -1,0 +1,367 @@
+{
+  "name": "leaderboard_benchmark_slice",
+  "latent_dim": 4,
+  "text_claims": [],
+  "table_observations": [
+    {
+      "name": "leaderboard_score_slice",
+      "columns": [
+        "ifeval",
+        "bbh",
+        "math_lvl5",
+        "mmlu_pro"
+      ],
+      "rows": [
+        "01-ai/Yi-1.5-6B",
+        "01-ai/Yi-1.5-6B-Chat",
+        "01-ai/Yi-1.5-34B-Chat"
+      ],
+      "values": [
+        [
+          26.166017,
+          22.027905,
+          6.646526,
+          23.823508
+        ],
+        [
+          51.452701,
+          23.678723,
+          16.238671,
+          24.368351
+        ],
+        [
+          60.667584,
+          44.262826,
+          27.719033,
+          39.116061
+        ]
+      ],
+      "source_ref": {
+        "source": "open_llm_leaderboard_public_page",
+        "location": "manual 3x4 score slice",
+        "quote": "",
+        "note": "selection provenance: manual transcription of three public leaderboard rows and four task columns"
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "units": "score",
+      "notes": ""
+    }
+  ],
+  "matrix_observations": [
+    {
+      "name": "cov_chat",
+      "matrix_role": "visible_object",
+      "matrix_kind": "covariance",
+      "matrix": [
+        [
+          319.114763645839,
+          166.42723842227798
+        ],
+        [
+          166.42723842227798,
+          153.47036804332893
+        ]
+      ],
+      "observer_name": "chat_suite",
+      "source_ref": {
+        "source": "leaderboard_benchmark_slice",
+        "location": "derived chat covariance",
+        "quote": "",
+        "note": "selection provenance: sample covariance computed from the exact score slice over IFEval and BBH"
+      },
+      "extraction": {
+        "extraction_mode": "encoded_inference",
+        "epistemic_status": "inferred",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": ""
+    },
+    {
+      "name": "cov_reasoning",
+      "matrix_role": "visible_object",
+      "matrix_kind": "covariance",
+      "matrix": [
+        [
+          153.47036804332893,
+          107.4160876881695
+        ],
+        [
+          107.4160876881695,
+          75.27566356609302
+        ]
+      ],
+      "observer_name": "reasoning_suite",
+      "source_ref": {
+        "source": "leaderboard_benchmark_slice",
+        "location": "derived reasoning covariance",
+        "quote": "",
+        "note": "selection provenance: sample covariance computed from the exact score slice over BBH and MMLU-PRO"
+      },
+      "extraction": {
+        "extraction_mode": "encoded_inference",
+        "epistemic_status": "inferred",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": ""
+    }
+  ],
+  "protocol_observations": [
+    {
+      "name": "chat_suite",
+      "facts": [
+        "ifeval",
+        "bbh"
+      ],
+      "candidate_family": [
+        "chat_direct",
+        "chat_blurred"
+      ],
+      "source_ref": {
+        "source": "open_llm_leaderboard_public_page",
+        "location": "task inclusion",
+        "quote": "",
+        "note": "selection provenance: manual benchmark-suite encoding from task subset"
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": ""
+    },
+    {
+      "name": "reasoning_suite",
+      "facts": [
+        "bbh",
+        "mmlu_pro"
+      ],
+      "candidate_family": [
+        "reasoning_direct",
+        "reasoning_blurred"
+      ],
+      "source_ref": {
+        "source": "open_llm_leaderboard_public_page",
+        "location": "task inclusion",
+        "quote": "",
+        "note": "selection provenance: manual benchmark-suite encoding from task subset"
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": ""
+    }
+  ],
+  "observer_hypotheses": [
+    {
+      "name": "chat_direct",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "protocol_name": "chat_suite",
+      "features": [
+        "ifeval",
+        "bbh"
+      ],
+      "source_ref": {
+        "source": "leaderboard_benchmark_slice",
+        "location": "candidate family",
+        "quote": "",
+        "note": ""
+      },
+      "extraction": {
+        "extraction_mode": "encoded_inference",
+        "epistemic_status": "inferred",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "assumption_statements": [
+        "chat suite is modelled as direct observation of IFEval and BBH directions"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "chat_blurred",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.4,
+          0.6,
+          0.0,
+          0.0
+        ]
+      ],
+      "protocol_name": "chat_suite",
+      "features": [
+        "ifeval",
+        "bbh",
+        "style"
+      ],
+      "source_ref": {
+        "source": "leaderboard_benchmark_slice",
+        "location": "candidate family",
+        "quote": "",
+        "note": ""
+      },
+      "extraction": {
+        "extraction_mode": "encoded_inference",
+        "epistemic_status": "inferred",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "assumption_statements": [
+        "chat suite is modelled as an instruction axis plus a blurred chat-quality axis"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "reasoning_direct",
+      "matrix": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "protocol_name": "reasoning_suite",
+      "features": [
+        "bbh",
+        "mmlu_pro"
+      ],
+      "source_ref": {
+        "source": "leaderboard_benchmark_slice",
+        "location": "candidate family",
+        "quote": "",
+        "note": ""
+      },
+      "extraction": {
+        "extraction_mode": "encoded_inference",
+        "epistemic_status": "inferred",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "assumption_statements": [
+        "reasoning suite is modelled as direct observation of BBH and MMLU-PRO directions"
+      ],
+      "notes": ""
+    },
+    {
+      "name": "reasoning_blurred",
+      "matrix": [
+        [
+          0.0,
+          0.5,
+          0.5,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "protocol_name": "reasoning_suite",
+      "features": [
+        "bbh",
+        "math_lvl5",
+        "mmlu_pro"
+      ],
+      "source_ref": {
+        "source": "leaderboard_benchmark_slice",
+        "location": "candidate family",
+        "quote": "",
+        "note": ""
+      },
+      "extraction": {
+        "extraction_mode": "encoded_inference",
+        "epistemic_status": "inferred",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "assumption_statements": [
+        "reasoning suite is modelled as a blurred reasoning-plus-math axis with an MMLU-PRO axis"
+      ],
+      "notes": ""
+    }
+  ],
+  "constraint_candidates": [],
+  "notes": [
+    {
+      "name": "latent_axis_choice",
+      "statement": "The latent ambient space is identified with the four task-score directions of the reconstructed score slice.",
+      "load_bearing": true,
+      "source_ref": {
+        "source": "leaderboard_benchmark_slice",
+        "location": "bundle design",
+        "quote": "",
+        "note": ""
+      },
+      "extraction": {
+        "extraction_mode": "encoded_inference",
+        "epistemic_status": "inferred",
+        "confidence": 1.0,
+        "authoritative": false,
+        "parser": "",
+        "notes": ""
+      }
+    }
+  ],
+  "description": "Tiny public leaderboard score slice with explicit benchmark-observer ambiguity",
+  "provenance": "Manual reconstruction from public leaderboard numeric facts",
+  "tags": [
+    "micro-real",
+    "benchmark"
+  ]
+}

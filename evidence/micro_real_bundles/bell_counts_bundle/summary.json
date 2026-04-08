@@ -1,0 +1,6 @@
+{
+  "projected_best_psd_margin": 0.22587652699193295,
+  "projected_downstream_classification": "approximate_common_descent",
+  "raw_downstream_classification": "incompatible_by_linear_inconsistency",
+  "raw_linear_residual": 0.00040513821448218135
+}

@@ -1,0 +1,632 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage[a4paper,margin=33mm]{geometry}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\let\openbox\relax
+\usepackage{amsmath,amsthm,mathtools}
+\usepackage{needspace}
+\usepackage[explicit]{titlesec}
+\usepackage{titling}
+\usepackage[
+  pdfusetitle,
+  hidelinks,
+  bookmarksopen=true,
+  bookmarksnumbered=true
+]{hyperref}
+
+\linespread{0.94}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.5pt}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Ran}{Ran}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\pdet}{pdet}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\newcommand{\R}{\mathbf R}
+\newcommand{\geomboxed}[1]{%
+  \setlength{\fboxsep}{8pt}%
+  \setlength{\fboxrule}{0.9pt}%
+  \fbox{\scalebox{1.5}{$\displaystyle #1$}}%
+}
+
+\titleformat{\section}
+{\normalfont\normalsize\bfseries\raggedright}
+{\thesection}{0.75em}{\begin{minipage}[t]{0.9\textwidth}#1\end{minipage}}
+[\vspace{0.12em}\titlerule]
+
+\newcommand{\subaccent}{\vspace{0.01em}\noindent\rule{7ex}{0.2pt}}
+\titleformat{\subsection}
+{\normalfont\normalsize\bfseries}{\thesubsection}{0.5em}{#1}
+[\subaccent]
+\titlespacing*{\subsection}{0pt}{2.1ex plus 0.5ex}{1.2ex}
+
+\newtheoremstyle{thmcompact}
+{0.5ex}{0.5ex}
+{\itshape}
+{0pt}
+{\bfseries}
+{.}
+{0.6em}
+{\thmname{#1}\ \thmnumber{#2}\ \thmnote{(\textit{#3})}}
+
+\theoremstyle{thmcompact}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem*{remarkplain}{Remark}
+
+\mdfdefinestyle{thmframe}{%
+leftline=true, rightline=false, topline=false, bottomline=false,
+linewidth=0.8pt, linecolor=black,
+innerleftmargin=16pt, innerrightmargin=8pt,
+innertopmargin=6pt, innerbottommargin=6pt,
+skipabove=6pt, skipbelow=6pt,
+nobreak=true
+}
+\surroundwithmdframed[style=thmframe]{theorem}
+\surroundwithmdframed[style=thmframe]{proposition}
+\surroundwithmdframed[style=thmframe]{corollary}
+\surroundwithmdframed[style=thmframe]{definition}
+
+\newmdenv[
+linewidth=0.6pt,
+topline=false,
+bottomline=false,
+rightline=false,
+skipabove=\baselineskip,
+skipbelow=\baselineskip,
+backgroundcolor=gray!3,
+leftmargin=0pt,
+innerleftmargin=8pt,
+innerrightmargin=6pt,
+frametitleaboveskip=0.4em,
+frametitlebelowskip=0.2em,
+frametitlefont=\bfseries\small,
+]{remarkbox}
+\newenvironment{remark}[1][]%
+{\begin{remarkbox}\begin{remarkplain}[#1]\normalfont}
+{\end{remarkplain}\end{remarkbox}}
+
+\renewcommand{\qedsymbol}{}
+\newcommand{\thmneed}{\Needspace{6\baselineskip}}
+\AtBeginEnvironment{theorem}{\thmneed}
+\AtBeginEnvironment{proposition}{\thmneed}
+\AtBeginEnvironment{corollary}{\thmneed}
+\AtBeginEnvironment{definition}{\thmneed}
+\newcommand{\proofappendix}{\par{\hfill\scriptsize\emph{Proof in Appendix~A.}}\par}
+
+\title{\textbf{Geometric Observation}}
+\author{J.\,R.~Dunkley}
+\date{31 March 2026}
+
+\hypersetup{
+  pdftitle={Geometric Observation},
+  pdfauthor={J. R. Dunkley},
+  pdfsubject={Visible precision and hidden-load geometry},
+  pdfkeywords={Donsker-Varadhan, Schur complement, observation geometry, hidden variables}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We derive geometric observation. Starting from the Donsker-Varadhan bridge, we pass to visible precision and obtain the geometry in closed form.
+\end{abstract}
+
+\section{Introduction}
+
+Observation induces a canonical geometry.
+
+Let $C:\R^n\to\R^m$ be a surjective observation map and let $H\in\Sym_{++}(n)$ be a latent precision.
+
+The induced visible precision is
+\begin{equation}
+\Phi_C(H):=(CH^{-1}C^{\mathsf T})^{-1}.
+\label{eq:phi-def}
+\end{equation}
+Applied to the Donsker-Varadhan quadratic bridge, \eqref{eq:phi-def} forces the route developed below.
+
+\section{Bridge to visible precision}
+\label{sec:route}
+
+We first isolate the standard local Donsker-Varadhan bridge in reduced coordinates. This produces the latent quadratic form. The new step is to pass that form through the canonical visible map \eqref{eq:phi-def}; from there the visible calculus and the geometry are forced.
+
+Let $x\in\R^n$ be the reduced empirical-measure coordinate and $y\in\R^n$ the reduced current coordinate. Assume
+\begin{equation}
+\mathcal L(x,y)
+=
+-y^{\mathsf T}Sy+x^{\mathsf T}(S-\widehat J)y+O(\|(x,y)\|^3),
+\label{eq:reduced-envelope}
+\end{equation}
+with $S\in\Sym_{++}(n)$ and $\widehat J^{\mathsf T}=-\widehat J$. Define the local Donsker-Varadhan rate by
+\begin{equation}
+I_{DV}(x)=\sup_y \mathcal L(x,y)=\frac12 x^{\mathsf T}H_{DV}x+O(\|x\|^3),
+\label{eq:dv-rate}
+\end{equation}
+and set
+\begin{equation}
+H_0:=\frac12 S.
+\label{eq:H0-def}
+\end{equation}
+
+\begin{theorem}[Donsker--Varadhan bridge]
+\label{thm:dv-bridge}
+Under \eqref{eq:reduced-envelope} and \eqref{eq:dv-rate},
+\begin{equation}
+H_{DV}=H_0+\Delta_{DV},
+\qquad
+\Delta_{DV}=\frac14\,\widehat J\,H_0^{-1}\widehat J^{\mathsf T}\succeq 0.
+\label{eq:dv-bridge}
+\end{equation}
+Equivalently,
+\begin{equation}
+\Delta_{DV}=\frac14\bigl(\widehat JH_0^{-1/2}\bigr)\bigl(\widehat JH_0^{-1/2}\bigr)^{\mathsf T}.
+\label{eq:dv-gram}
+\end{equation}
+\end{theorem}
+
+\proofappendix
+
+Now let $C:\R^n\to\R^m$ be surjective. The passage from latent precision to visible precision is canonical: for $z\in\R^m$, define the constrained quadratic energy
+\begin{equation}
+\mathcal E_H(z):=\inf\{x^{\mathsf T}Hx:Cx=z\}.
+\label{eq:energy-def}
+\end{equation}
+
+\begin{proposition}[Visible precision]
+\label{prop:visible-precision}
+For every $H\in\Sym_{++}(n)$,
+\begin{equation}
+\mathcal E_H(z)=z^{\mathsf T}\Phi_C(H)z
+\qquad (z\in\R^m),
+\label{eq:visible-variational}
+\end{equation}
+with $\Phi_C(H)$ given by \eqref{eq:phi-def}. If $C=C_2C_1$ with $C_1:\R^n\to\R^k$
+
+and $C_2:\R^k\to\R^m$ both surjective, then
+\begin{equation}
+\Phi_C(H)=\Phi_{C_2}(\Phi_{C_1}(H)).
+\label{eq:tower-law}
+\end{equation}
+In a visible-hidden block splitting,
+\begin{equation}
+H=
+\begin{pmatrix}
+H_{vv} & H_{vh}\\
+H_{hv} & H_{hh}
+\end{pmatrix},
+\qquad
+\Phi_C(H)=H_{vv}-H_{vh}H_{hh}^{-1}H_{hv}.
+\label{eq:schur-form}
+\end{equation}
+\end{proposition}
+
+\proofappendix
+
+The first variation and the first nonlinear correction are then forced by \eqref{eq:phi-def}. Define the canonical lift and complementary projector by
+\begin{equation}
+L_{C,H}:=H^{-1}C^{\mathsf T}\Phi_C(H),
+\qquad
+P_{C,H}:=I-L_{C,H}C.
+\label{eq:lift-projector}
+\end{equation}
+Here $L_{C,H}$ is the canonical lift of a visible covector back to the latent space, and $P_{C,H}$ projects onto the latent directions not represented by that lift.
+Let $\Phi:=\Phi_C(H)$, $L:=L_{C,H}$, and $P:=P_{C,H}$.
+
+\begin{theorem}[Local visible calculus]
+\label{thm:local-calculus}
+For $\Delta\in\Sym(n)$,
+\begin{equation}
+\Phi_C(H+t\Delta)=\Phi+tV-t^2Q+O(t^3),
+\label{eq:local-expansion}
+\end{equation}
+where
+\begin{equation}
+V=L^{\mathsf T}\Delta L,
+\qquad
+Q=L^{\mathsf T}\Delta P\,H^{-1}\Delta L.
+\label{eq:VQ-def}
+\end{equation}
+Moreover,
+\begin{equation}
+Q=
+\bigl(H^{-1/2}P^{\mathsf T}\Delta L\bigr)^{\mathsf T}
+\bigl(H^{-1/2}P^{\mathsf T}\Delta L\bigr)
+\succeq 0.
+\label{eq:Q-gram}
+\end{equation}
+If
+\begin{equation}
+\kappa_C(H):=-\log\det\Phi_C(H),
+\label{eq:kappa-def}
+\end{equation}
+then
+\begin{equation}
+D^2\kappa_C(H)[\Delta,\Delta]
+=
+\norm{\Phi^{-1/2}V\Phi^{-1/2}}_F^2+2\Tr(\Phi^{-1}Q).
+\label{eq:det-split}
+\end{equation}
+\end{theorem}
+
+\proofappendix
+
+\begin{remark}
+The operator $Q$ measures the failure of the perturbation to remain closed on the canonical visible lift. By \eqref{eq:Q-gram},
+\[
+Q=0
+\iff
+P^{\mathsf T}\Delta L=0,
+\]
+so $Q$ vanishes exactly when the perturbation closes on the canonical visible lift to second order.
+\end{remark}
+
+We now apply Theorem~\ref{thm:local-calculus} to a small perturbative family. Assume
+\begin{equation}
+\widehat J(\varepsilon)=\varepsilon\widehat J_1+O(\varepsilon^3).
+\label{eq:J-small}
+\end{equation}
+We consider perturbative families with this parity.
+Then Theorem~\ref{thm:dv-bridge} gives
+\begin{equation}
+H_{DV}(\varepsilon)=H_0+\varepsilon^2\Delta_2+O(\varepsilon^4),
+\qquad
+\Delta_2:=\frac14\widehat J_1H_0^{-1}\widehat J_1^{\mathsf T}\succeq 0.
+\label{eq:H-small}
+\end{equation}
+Define the visible branch
+\begin{equation}
+X_{\varepsilon}:=\Phi_C(H_{DV}(\varepsilon))-\Phi_C(H_0).
+\label{eq:visible-branch}
+\end{equation}
+
+\begin{corollary}[Quadratic onset and quartic defect]
+\label{cor:quartic-defect}
+Let $L_0:=L_{C,H_0}$ and $P_0:=P_{C,H_0}$. Then
+\begin{equation}
+X_{\varepsilon}=\varepsilon^2V_2-\varepsilon^4Q_4+O(\varepsilon^6),
+\label{eq:quartic-expansion}
+\end{equation}
+with
+\begin{equation}
+V_2=L_0^{\mathsf T}\Delta_2L_0,
+\qquad
+Q_4=L_0^{\mathsf T}\Delta_2P_0H_0^{-1}\Delta_2L_0\succeq 0.
+\label{eq:V2Q4-def}
+\end{equation}
+Thus the visible response appears at order $\varepsilon^2$, while the first hidden defect appears at order $\varepsilon^4$.
+\end{corollary}
+
+\proofappendix
+
+\section{The geometry}
+\label{sec:geometry}
+
+Fix a visible ceiling $T\succeq 0$ and let $S:=\Ran(T)$. Let $X$ satisfy $0\prec X|_S\le T|_S$ on $S$. Define the hidden-load operator by
+\begin{equation}
+\label{eq:hidden-load-def}
+\geomboxed{\Lambda:=(T|_S)^{1/2}(X|_S)^{-1}(T|_S)^{1/2}-I_S.}
+\end{equation}
+
+\begin{theorem}[Hidden-load geometry]
+\label{thm:hidden-load}
+The operator $\Lambda$ is positive semidefinite and
+\begin{equation}
+\label{eq:X-from-Lambda}
+\geomboxed{X|_S=(T|_S)^{1/2}(I_S+\Lambda)^{-1}(T|_S)^{1/2}.}
+\end{equation}
+Conversely, every $\Lambda\succeq 0$ on $S$ determines a unique $X$ by \eqref{eq:X-from-Lambda}. The canonical hidden realisation is
+\begin{equation}
+\label{eq:canonical-hidden}
+\geomboxed{\mathcal H_{\mathrm{can}}(T,X)=
+\begin{pmatrix}
+T|_S & (T|_S)^{1/2}\Lambda^{1/2}\\[2pt]
+\Lambda^{1/2}(T|_S)^{1/2} & I_S+\Lambda
+\end{pmatrix}.}
+\end{equation}
+Then $\mathcal H_{\mathrm{can}}(T,X)\succ 0$, and its visible Schur complement is $X|_S$. If $\Lambda=BB^{\mathsf T}$ has rank $r$, then
+\begin{equation}
+\label{eq:min-hidden}
+\geomboxed{\mathcal H_{\min}(T,X)=
+\begin{pmatrix}
+T|_S & (T|_S)^{1/2}B\\[2pt]
+B^{\mathsf T}(T|_S)^{1/2} & I_r+B^{\mathsf T}B
+\end{pmatrix}.}
+\end{equation}
+This is a minimal hidden realisation, unique up to $B\mapsto BQ$ with $Q\in O(r)$. Finally,
+\begin{equation}
+\rank(\Lambda)=\rank(T-X),
+\qquad
+\log\pdet(T)-\log\det(X|_S)=\log\det(I_S+\Lambda).
+\label{eq:rank-and-clock}
+\end{equation}
+\end{theorem}
+
+\proofappendix
+
+\begin{remark}
+The support-preserving visible class beneath a fixed ceiling is exactly parametrised by the positive cone $\Lambda\succeq 0$. The quantity $\rank(\Lambda)=\rank(T-X)$ is the minimal hidden dimension, so the minimal realisation already defines an intrinsic model-selection criterion.
+\end{remark}
+
+The hidden loads compose exactly.
+
+\begin{proposition}[Transport law and determinant clock]
+\label{prop:transport}
+Let $\Lambda,M\succeq 0$ on $S$ and set
+\begin{equation}
+\Pi=(I_S+\Lambda)^{-1},
+\qquad
+\Xi=(I_S+M)^{-1}.
+\label{eq:Pi-Xi}
+\end{equation}
+Define the sequential visible product by
+\begin{equation}
+\Pi\circ\Xi:=\Pi^{1/2}\Xi\Pi^{1/2}.
+\label{eq:seq-product}
+\end{equation}
+Then
+\begin{equation}
+\label{eq:transport-law}
+\geomboxed{\begin{aligned}
+\Pi\circ\Xi&=(I_S+\Lambda_{\mathrm{tot}})^{-1},\\
+I_S+\Lambda_{\mathrm{tot}}&=(I_S+\Lambda)^{1/2}(I_S+M)(I_S+\Lambda)^{1/2}.
+\end{aligned}}
+\end{equation}
+The scalar clock
+\begin{equation}
+\tau(\Lambda):=\log\det(I_S+\Lambda)
+\label{eq:clock-def}
+\end{equation}
+is additive under this transport:
+\begin{equation}
+\tau(\Lambda_{\mathrm{tot}})=\tau(\Lambda)+\tau(M).
+\label{eq:clock-add}
+\end{equation}
+\end{proposition}
+
+\proofappendix
+
+\begin{remark}
+Equation~\eqref{eq:transport-law} is the algebra of sequential observation, while the clock $\tau$ is its scalar entropy-type coordinate. If $\Lambda_t=tA+O(t^2)$, then
+\begin{equation}
+\tau(\Lambda_t)=t\,\Tr(A)+O(t^2).
+\label{eq:clock-local}
+\end{equation}
+Accordingly, stagewise hidden births add at first order and interact only at higher order.
+\end{remark}
+
+The local calculus of Section~\ref{sec:route} is the infinitesimal form of this geometry.
+
+\begin{theorem}[Local hidden return as hidden-load birth]
+\label{thm:birth}
+Let
+\begin{equation}
+X_t:=\Phi_C(H+t\Delta)-\Phi_C(H)=tV-t^2Q+O(t^3)
+\label{eq:Xt-def}
+\end{equation}
+on $S:=\Ran(V)$, and set $T_t:=tV$. Then the hidden load of $X_t$ beneath the ceiling $T_t$ satisfies
+\begin{equation}
+\label{eq:birth-law}
+\geomboxed{\begin{aligned}
+\Lambda_t&:=T_{t,S}^{1/2}X_{t,S}^{-1}T_{t,S}^{1/2}-I_S\\
+&=tA+O(t^2),\\
+A&:=V_S^{-1/2}Q_SV_S^{-1/2}\succeq 0.
+\end{aligned}}
+\end{equation}
+\end{theorem}
+
+\proofappendix
+
+\begin{remark}
+Theorem~\ref{thm:birth} identifies the local hidden return exactly: $Q$ is the infinitesimal generator of the nonlinear hidden-load cone after ceiling normalisation.
+\end{remark}
+
+Combining Corollary~\ref{cor:quartic-defect} with Theorem~\ref{thm:birth} gives the final identification.
+
+\begin{corollary}[The quartic defect is the first hidden birth]
+\label{cor:final}
+For the bridge family \eqref{eq:H-small}, after ceiling normalisation by $T_{\varepsilon}:=\varepsilon^2V_2$ on $S:=\Ran(V_2)$,
+\begin{equation}
+\label{eq:final-birth}
+\geomboxed{\Lambda_{\varepsilon}
+=
+\varepsilon^2V_{2,S}^{-1/2}Q_{4,S}V_{2,S}^{-1/2}+O(\varepsilon^4).}
+\end{equation}
+Thus the quartic visible defect is exactly the first hidden-load birth.
+\end{corollary}
+
+\proofappendix
+
+Equations \eqref{eq:dv-bridge}, \eqref{eq:phi-def}, \eqref{eq:local-expansion}, \eqref{eq:X-from-Lambda}, and \eqref{eq:final-birth} complete the route from the bridge to the full geometry of observation. The transport law points toward sequential observation, the clock toward entropy, and the minimal realisation toward model selection.
+
+\section{Conclusion}
+
+We record the geometry here and go no further, with one worked example in Appendix~B. To unfold its implications and the identities it brings into view would require a much longer treatment. In the Gaussian case alone, the hidden-load operator identifies the determinant clock with twice the mutual information, the minimal hidden dimension with the number of active canonical correlations, and the gauge freedom of the minimal realisation with the orthogonal indeterminacy of factor analysis.
+
+\newpage
+
+\appendix
+\section{Proofs}
+
+\subsection*{Proof of Theorem~\ref{thm:dv-bridge}}
+Complete the square in $y$:
+\[
+\mathcal L(x,y)
+=
+-\Bigl(y-\frac12S^{-1}(S+\widehat J)x\Bigr)^{\mathsf T}
+S
+\Bigl(y-\frac12S^{-1}(S+\widehat J)x\Bigr)
++\frac14 x^{\mathsf T}(S+\widehat J)^{\mathsf T}S^{-1}(S+\widehat J)x
++O(\|(x,y)\|^3).
+\]
+Taking the supremum over $y$ gives
+\[
+I_{DV}(x)
+=
+\frac14 x^{\mathsf T}(S+\widehat J)^{\mathsf T}S^{-1}(S+\widehat J)x+O(\|x\|^3).
+\]
+Since $\widehat J^{\mathsf T}=-\widehat J$,
+\[
+(S+\widehat J)^{\mathsf T}S^{-1}(S+\widehat J)
+=
+(S-\widehat J)S^{-1}(S+\widehat J)
+=
+S-\widehat J S^{-1}\widehat J
+=
+S+\widehat J S^{-1}\widehat J^{\mathsf T}.
+\]
+Using $H_0=\tfrac12S$, hence $H_0^{-1}=2S^{-1}$, yields \eqref{eq:dv-bridge}. The Gram form \eqref{eq:dv-gram} is immediate.
+
+\subsection*{Proof of Proposition~\ref{prop:visible-precision}}
+A Lagrange multiplier calculation for \eqref{eq:energy-def} gives the minimiser
+\[
+x=H^{-1}C^{\mathsf T}(CH^{-1}C^{\mathsf T})^{-1}z,
+\]
+which yields \eqref{eq:visible-variational}. For \eqref{eq:tower-law},
+\[
+z^{\mathsf T}\Phi_C(H)z
+=
+\inf_{Cx=z}x^{\mathsf T}Hx
+=
+\inf_{C_2u=z}\inf_{C_1x=u}x^{\mathsf T}Hx
+=
+\inf_{C_2u=z}u^{\mathsf T}\Phi_{C_1}(H)u
+=
+z^{\mathsf T}\Phi_{C_2}(\Phi_{C_1}(H))z.
+\]
+The block formula is the Schur complement form of \eqref{eq:phi-def}.
+
+\subsection*{Proof of Theorem~\ref{thm:local-calculus}}
+Write $M(t):=C(H+t\Delta)^{-1}C^{\mathsf T}$. The resolvent expansion gives
+\[
+M(t)=\Phi^{-1}-t\,\Phi^{-1}V\Phi^{-1}+t^2\,\Phi^{-1}(V\Phi^{-1}V-Q)\Phi^{-1}+O(t^3),
+\]
+which inverts to \eqref{eq:local-expansion}. Identity \eqref{eq:Q-gram} follows from $P=I-LC$ and $HL=C^{\mathsf T}\Phi$ after regrouping terms. Substituting \eqref{eq:local-expansion} into $-\log\det$ yields \eqref{eq:det-split}.
+
+\subsection*{Proof of Corollary~\ref{cor:quartic-defect}}
+Apply Theorem~\ref{thm:local-calculus} with $H=H_0$, $t=\varepsilon^2$, and $\Delta=\Delta_2$.
+
+\subsection*{Proof of Theorem~\ref{thm:hidden-load}}
+Set $\Pi:=(T|_S)^{-1/2}(X|_S)(T|_S)^{-1/2}$. Then $0\prec\Pi\le I_S$, so $\Lambda=\Pi^{-1}-I_S\succeq 0$ and $\Pi=(I_S+\Lambda)^{-1}$, which gives \eqref{eq:X-from-Lambda}. Conversely, every $\Lambda\succeq 0$ produces such a $\Pi$ and hence such an $X$.
+
+For \eqref{eq:canonical-hidden}, the Schur complement is
+\[
+T|_S-(T|_S)^{1/2}\Lambda^{1/2}(I_S+\Lambda)^{-1}\Lambda^{1/2}(T|_S)^{1/2}
+=(T|_S)^{1/2}(I_S+\Lambda)^{-1}(T|_S)^{1/2}.
+\]
+If $\Lambda=BB^{\mathsf T}$, the same calculation gives \eqref{eq:min-hidden}, and the orthogonal gauge is the usual freedom of Gram factorisation. Finally,
+\[
+T-X=T^{1/2}\Lambda(I_S+\Lambda)^{-1}T^{1/2},
+\]
+which gives the rank identity, and the determinant identity follows by taking determinants on $S$.
+
+\subsection*{Proof of Proposition~\ref{prop:transport}}
+Since $\Pi^{-1/2}=(I_S+\Lambda)^{1/2}$ and $\Xi^{-1}=I_S+M$,
+\[
+(\Pi\circ\Xi)^{-1}
+=
+\Pi^{-1/2}\Xi^{-1}\Pi^{-1/2}
+=
+(I_S+\Lambda)^{1/2}(I_S+M)(I_S+\Lambda)^{1/2},
+\]
+which is \eqref{eq:transport-law}. Taking determinants gives \eqref{eq:clock-add}.
+
+\subsection*{Proof of Theorem~\ref{thm:birth}}
+On $S$,
+\[
+X_{t,S}=tV_S\bigl(I_S-tV_S^{-1/2}Q_SV_S^{-1/2}+O(t^2)\bigr).
+\]
+Invert by a Neumann expansion and conjugate by $T_{t,S}^{1/2}=t^{1/2}V_S^{1/2}$.
+
+\subsection*{Proof of Corollary~\ref{cor:final}}
+Apply Theorem~\ref{thm:birth} with $t=\varepsilon^2$, $V=V_2$, and $Q=Q_4$.
+
+\section{Gaussian coarse-graining and canonical correlations}
+
+In the Gaussian equilibrium case, the hidden-load geometry reduces to canonical correlation structure in closed form.
+
+Let $(v,h)$ be a centred joint Gaussian vector with block precision
+\[
+H=
+\begin{pmatrix}
+H_{vv} & H_{vh}\\
+H_{hv} & H_{hh}
+\end{pmatrix},
+\qquad
+C=(I_m\;\;0),
+\]
+where $H_{vv}\in\Sym_{++}(m)$ and $H_{hh}\in\Sym_{++}(r)$. The visible precision is the Schur complement
+\[
+X:=\Phi_C(H)=H_{vv}-H_{vh}H_{hh}^{-1}H_{hv},
+\]
+and the natural ceiling is $T:=H_{vv}$. Define
+\[
+R:=H_{vv}^{-1/2}H_{vh}H_{hh}^{-1}H_{hv}H_{vv}^{-1/2}.
+\]
+Then $0\preceq R\prec I_m$ and
+\[
+X=T^{1/2}(I_m-R)T^{1/2}.
+\]
+Therefore the hidden load is
+\[
+\Lambda
+=
+T^{1/2}X^{-1}T^{1/2}-I_m
+=
+(I_m-R)^{-1}-I_m
+=
+R(I_m-R)^{-1}.
+\]
+
+The nonzero eigenvalues of $R$ coincide with the squared canonical correlations $\rho_1^2,\dots,\rho_q^2$ between the visible and hidden sectors, where $q:=\rank(R)$. Hence the nonzero hidden-load eigenvalues are
+\[
+\lambda_k=\frac{\rho_k^2}{1-\rho_k^2},
+\qquad
+k=1,\dots,q.
+\]
+Thus each hidden-load eigenvalue is the odds ratio associated with a squared canonical correlation.
+
+The determinant clock becomes
+\[
+\tau(\Lambda)=\log\det(I_m+\Lambda)=-\sum_{k=1}^q\log(1-\rho_k^2).
+\]
+For a joint Gaussian vector,
+\[
+I(v;h)=-\frac12\sum_{k=1}^q\log(1-\rho_k^2),
+\]
+so in this equilibrium setting
+\[
+\tau(\Lambda)=2I(v;h).
+\]
+The rank theorem gives
+\[
+\rank(\Lambda)=\rank(R)=q,
+\]
+so the hidden-load rank is the number of nonzero canonical correlations, equivalently the minimal latent dimension in the canonical hidden realisation.
+
+For sequential Gaussian coarse-grainings, the transport law reads
+\[
+I+\Lambda_{\mathrm{tot}}
+=
+(I+\Lambda_1)^{1/2}(I+\Lambda_2)(I+\Lambda_1)^{1/2},
+\qquad
+\tau(\Lambda_{\mathrm{tot}})=\tau(\Lambda_1)+\tau(\Lambda_2).
+\]
+Thus the stagewise Gaussian clocks add exactly, while the operator-valued transport records how the directional hidden loads compose.
+
+This is the static equilibrium case; the load is carried entirely by correlation. The general construction retains the same geometry and adds the dynamical hidden load induced by the Donsker--Varadhan bridge.
+
+\end{document}

@@ -1,0 +1,28 @@
+{
+  "completion": {
+    "certificates": [
+      "affine_family_underdetermined"
+    ],
+    "classification": "underdetermined_affine_family",
+    "residuals": {
+      "linear_residual": 4.440892098500626e-16,
+      "psd_margin_at_lstsq_point": 0.018987377822153984
+    },
+    "theorem_layer": "exact affine Gaussian completion family detection"
+  },
+  "refinement": {
+    "scores": {
+      "full_iris": -7.644010016524851
+    },
+    "theorem_layer": "exact finite-family refinement ranking",
+    "winner": "full_iris"
+  },
+  "relation": {
+    "classification": "non_nested_observers",
+    "residuals": {
+      "a_through_b_residual": 1.0,
+      "b_through_a_residual": 1.0
+    },
+    "theorem_layer": "exact Quotient Descent observer relation classification"
+  }
+}

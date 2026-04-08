@@ -1,0 +1,436 @@
+{
+  "name": "bell_counts_raw_gaussian_surrogate",
+  "latent_dim": 4,
+  "text_claims": [
+    {
+      "name": "bell_count_summary",
+      "statement": "00: alpha=0, beta=5pi/8, counts=(431677, 2686277, 2582292, 445574) | 01: alpha=0, beta=7pi/8, counts=(2717644, 278966, 462270, 2697783) | 10: alpha=pi/4, beta=5pi/8, counts=(2737664, 260304, 436359, 2714601) | 11: alpha=pi/4, beta=7pi/8, counts=(271509, 2648232, 2673657, 475530)",
+      "source_ref": {
+        "source": "SciPostPhys.10.1.017",
+        "location": "Appendix C / Table A2",
+        "quote": "",
+        "note": "selection provenance: manual Bell count table transcription"
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "tags": []
+    }
+  ],
+  "table_observations": [],
+  "matrix_observations": [
+    {
+      "name": "cov_00",
+      "matrix_role": "visible_object",
+      "matrix_kind": "covariance",
+      "matrix": [
+        [
+          0.9997851307746428,
+          -0.7142399283319064
+        ],
+        [
+          -0.7142399283319064,
+          0.9996320953150295
+        ]
+      ],
+      "observer_name": "00",
+      "source_ref": {
+        "source": "SciPostPhys.10.1.017",
+        "location": "derived from counts 00",
+        "quote": "",
+        "note": "selection provenance: exact covariance of +/-1 outcomes derived from explicit counts"
+      },
+      "extraction": {
+        "extraction_mode": "encoded_inference",
+        "epistemic_status": "inferred",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": "binary-law covariance used as Gaussian surrogate visible object"
+    },
+    {
+      "name": "cov_01",
+      "matrix_role": "visible_object",
+      "matrix_kind": "covariance",
+      "matrix": [
+        [
+          0.9992952389625123,
+          0.760084560333341
+        ],
+        [
+          0.760084560333341,
+          0.9989110523027058
+        ]
+      ],
+      "observer_name": "01",
+      "source_ref": {
+        "source": "SciPostPhys.10.1.017",
+        "location": "derived from counts 01",
+        "quote": "",
+        "note": "selection provenance: exact covariance of +/-1 outcomes derived from explicit counts"
+      },
+      "extraction": {
+        "extraction_mode": "encoded_inference",
+        "epistemic_status": "inferred",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": "binary-law covariance used as Gaussian surrogate visible object"
+    },
+    {
+      "name": "cov_10",
+      "matrix_role": "visible_object",
+      "matrix_kind": "covariance",
+      "matrix": [
+        [
+          0.9993809316110589,
+          0.7742091421261857
+        ],
+        [
+          0.7742091421261857,
+          0.99895137012273
+        ]
+      ],
+      "observer_name": "10",
+      "source_ref": {
+        "source": "SciPostPhys.10.1.017",
+        "location": "derived from counts 10",
+        "quote": "",
+        "note": "selection provenance: exact covariance of +/-1 outcomes derived from explicit counts"
+      },
+      "extraction": {
+        "extraction_mode": "encoded_inference",
+        "epistemic_status": "inferred",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": "binary-law covariance used as Gaussian surrogate visible object"
+    },
+    {
+      "name": "cov_11",
+      "matrix_role": "visible_object",
+      "matrix_kind": "covariance",
+      "matrix": [
+        [
+          0.998570655182095,
+          -0.7549277436257088
+        ],
+        [
+          -0.7549277436257088,
+          0.9991339968230222
+        ]
+      ],
+      "observer_name": "11",
+      "source_ref": {
+        "source": "SciPostPhys.10.1.017",
+        "location": "derived from counts 11",
+        "quote": "",
+        "note": "selection provenance: exact covariance of +/-1 outcomes derived from explicit counts"
+      },
+      "extraction": {
+        "extraction_mode": "encoded_inference",
+        "epistemic_status": "inferred",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": "binary-law covariance used as Gaussian surrogate visible object"
+    }
+  ],
+  "protocol_observations": [
+    {
+      "name": "00",
+      "facts": [
+        "A0",
+        "B0"
+      ],
+      "candidate_family": [
+        "00"
+      ],
+      "source_ref": {
+        "source": "SciPostPhys.10.1.017",
+        "location": "Table A2 context 00",
+        "quote": "",
+        "note": "selection provenance: manual context extraction from Table A2"
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": "alpha=0, beta=5pi/8"
+    },
+    {
+      "name": "01",
+      "facts": [
+        "A0",
+        "B1"
+      ],
+      "candidate_family": [
+        "01"
+      ],
+      "source_ref": {
+        "source": "SciPostPhys.10.1.017",
+        "location": "Table A2 context 01",
+        "quote": "",
+        "note": "selection provenance: manual context extraction from Table A2"
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": "alpha=0, beta=7pi/8"
+    },
+    {
+      "name": "10",
+      "facts": [
+        "A1",
+        "B0"
+      ],
+      "candidate_family": [
+        "10"
+      ],
+      "source_ref": {
+        "source": "SciPostPhys.10.1.017",
+        "location": "Table A2 context 10",
+        "quote": "",
+        "note": "selection provenance: manual context extraction from Table A2"
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": "alpha=pi/4, beta=5pi/8"
+    },
+    {
+      "name": "11",
+      "facts": [
+        "A1",
+        "B1"
+      ],
+      "candidate_family": [
+        "11"
+      ],
+      "source_ref": {
+        "source": "SciPostPhys.10.1.017",
+        "location": "Table A2 context 11",
+        "quote": "",
+        "note": "selection provenance: manual context extraction from Table A2"
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": "alpha=pi/4, beta=7pi/8"
+    }
+  ],
+  "observer_hypotheses": [
+    {
+      "name": "00",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "protocol_name": "00",
+      "features": [
+        "A0",
+        "B0"
+      ],
+      "source_ref": {
+        "source": "bell_counts_bundle",
+        "location": "context selector table",
+        "quote": "",
+        "note": ""
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "assumption_statements": [],
+      "notes": ""
+    },
+    {
+      "name": "01",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "protocol_name": "01",
+      "features": [
+        "A0",
+        "B1"
+      ],
+      "source_ref": {
+        "source": "bell_counts_bundle",
+        "location": "context selector table",
+        "quote": "",
+        "note": ""
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "assumption_statements": [],
+      "notes": ""
+    },
+    {
+      "name": "10",
+      "matrix": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "protocol_name": "10",
+      "features": [
+        "A1",
+        "B0"
+      ],
+      "source_ref": {
+        "source": "bell_counts_bundle",
+        "location": "context selector table",
+        "quote": "",
+        "note": ""
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "assumption_statements": [],
+      "notes": ""
+    },
+    {
+      "name": "11",
+      "matrix": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "protocol_name": "11",
+      "features": [
+        "A1",
+        "B1"
+      ],
+      "source_ref": {
+        "source": "bell_counts_bundle",
+        "location": "context selector table",
+        "quote": "",
+        "note": ""
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "assumption_statements": [],
+      "notes": ""
+    }
+  ],
+  "constraint_candidates": [],
+  "notes": [
+    {
+      "name": "gaussian_surrogate",
+      "statement": "Binary pair covariances are treated as Gaussian surrogate visible objects downstream.",
+      "load_bearing": true,
+      "source_ref": {
+        "source": "bell_counts_bundle",
+        "location": "bundle design",
+        "quote": "",
+        "note": ""
+      },
+      "extraction": {
+        "extraction_mode": "encoded_inference",
+        "epistemic_status": "inferred",
+        "confidence": 1.0,
+        "authoritative": false,
+        "parser": "",
+        "notes": ""
+      }
+    }
+  ],
+  "description": "Exact Bell counts with raw finite-sample Gaussian-surrogate pair covariances",
+  "provenance": "SciPost Phys. 10, 017 (2021), Table A2 count transcription",
+  "tags": [
+    "micro-real",
+    "bell"
+  ]
+}

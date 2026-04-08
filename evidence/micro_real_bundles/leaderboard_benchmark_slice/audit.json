@@ -1,0 +1,468 @@
+{
+  "assembled": {
+    "audit": {
+      "ambiguity_collapse_route": [
+        "add an exact source item that distinguishes between the remaining observer hypotheses",
+        "promote only one observer hypothesis per protocol into authoritative downstream use"
+      ],
+      "ambiguous_items": [],
+      "authoritative_items": [
+        "chat_blurred",
+        "chat_direct",
+        "chat_suite",
+        "cov_chat",
+        "cov_reasoning",
+        "leaderboard_score_slice",
+        "reasoning_blurred",
+        "reasoning_direct",
+        "reasoning_suite"
+      ],
+      "exact_items": [
+        "chat_suite",
+        "leaderboard_score_slice",
+        "reasoning_suite"
+      ],
+      "falsification_route": [
+        "supply an explicit observer matrix or remove a conflicting authoritative item",
+        "mark any modelling choice as encoded_inference instead of exact_extraction if it is not directly stated"
+      ],
+      "inferred_items": [
+        "chat_blurred",
+        "chat_direct",
+        "cov_chat",
+        "cov_reasoning",
+        "latent_axis_choice",
+        "reasoning_blurred",
+        "reasoning_direct"
+      ],
+      "load_bearing_ambiguous_items": [],
+      "load_bearing_assumptions": [
+        "The latent ambient space is identified with the four task-score directions of the reconstructed score slice.",
+        "chat suite is modelled as direct observation of IFEval and BBH directions",
+        "reasoning suite is modelled as direct observation of BBH and MMLU-PRO directions"
+      ],
+      "load_bearing_exact_items": [],
+      "load_bearing_inferred_items": [
+        "chat_direct",
+        "cov_chat",
+        "cov_reasoning",
+        "latent_axis_choice",
+        "reasoning_direct"
+      ],
+      "load_bearing_items": [
+        "chat_direct",
+        "cov_chat",
+        "cov_reasoning",
+        "latent_axis_choice",
+        "reasoning_direct"
+      ],
+      "notes": [
+        "observer hypotheses were promoted into ProblemSpec observers only after explicit selection"
+      ],
+      "residuals": {
+        "exact_flag": 0.0,
+        "unresolved_count": 0.0
+      },
+      "theorem_layer": "assembled evidence-to-problem encoding; exact only where extraction_mode is exact_extraction",
+      "unresolved_items": []
+    },
+    "classification": "assembled_problem_spec",
+    "details": {
+      "observer_selection": {
+        "chat_suite": "chat_direct",
+        "reasoning_suite": "reasoning_direct"
+      }
+    },
+    "exact": false,
+    "required_human_decisions": [],
+    "selected_observers": [
+      "chat_direct",
+      "reasoning_direct"
+    ],
+    "unresolved_observer_groups": []
+  },
+  "completion": {
+    "audit": {
+      "approximate_assumptions": [
+        "The latent ambient space is identified with the four task-score directions of the reconstructed score slice.",
+        "chat suite is modelled as direct observation of IFEval and BBH directions",
+        "reasoning suite is modelled as direct observation of BBH and MMLU-PRO directions"
+      ],
+      "authoritative_inputs": [
+        "cov_chat",
+        "cov_reasoning"
+      ],
+      "exact_assumptions": [],
+      "falsification_route": [
+        "Either produce a positive definite member of the affine family or prove none exists.",
+        "Reduce the nullity by supplying additional exact observer evidence."
+      ],
+      "notes": [
+        "current engine deliberately returns 'underdetermined' instead of guessing across a higher-dimensional affine PSD family"
+      ],
+      "residuals": {
+        "linear_residual": 2.842170943040401e-14,
+        "psd_margin_at_lstsq_point": -32.4373884195166
+      },
+      "theorem_layer": "exact affine Gaussian completion family detection"
+    },
+    "certificates": [
+      {
+        "details": {
+          "nullity": 5,
+          "psd_margin_at_lstsq_point": -32.4373884195166
+        },
+        "exact": true,
+        "kind": "affine_family_underdetermined",
+        "summary": "linear constraints define an affine completion family that is not resolved exactly in v0.2"
+      }
+    ],
+    "classification": "underdetermined_affine_family",
+    "details": {
+      "nullity": 5
+    },
+    "exact": true,
+    "residuals": {
+      "linear_residual": 2.842170943040401e-14,
+      "psd_margin_at_lstsq_point": -32.4373884195166
+    }
+  },
+  "ingestion": {
+    "ambiguity_collapse_route": [
+      "add one more curated excerpt that distinguishes between the remaining candidate families"
+    ],
+    "ambiguous_items": [],
+    "authoritative_items": [
+      "chat_suite",
+      "cov_chat",
+      "cov_reasoning",
+      "leaderboard_score_slice",
+      "reasoning_suite"
+    ],
+    "exact_items": [
+      "chat_suite",
+      "leaderboard_score_slice",
+      "reasoning_suite"
+    ],
+    "falsification_route": [
+      "replace an encoded inference excerpt with an exact excerpt from the source if the encoding is too strong",
+      "downgrade any item to open_ambiguity if the source does not determine it cleanly"
+    ],
+    "inferred_items": [
+      "cov_chat",
+      "cov_reasoning"
+    ],
+    "load_bearing_ambiguous_items": [],
+    "load_bearing_assumptions": [
+      "The latent ambient space is identified with the four task-score directions of the reconstructed score slice."
+    ],
+    "load_bearing_exact_items": [
+      "chat_suite",
+      "leaderboard_score_slice",
+      "reasoning_suite"
+    ],
+    "load_bearing_inferred_items": [
+      "cov_chat",
+      "cov_reasoning"
+    ],
+    "load_bearing_items": [
+      "chat_suite",
+      "cov_chat",
+      "cov_reasoning",
+      "leaderboard_score_slice",
+      "reasoning_suite"
+    ],
+    "notes": [
+      "curated ingestion keeps exact, inferred, and ambiguous material separate before ProblemSpec assembly"
+    ],
+    "residuals": {
+      "ambiguous_excerpt_count": 0.0
+    },
+    "theorem_layer": "curated ingestion preserves epistemic status but does not itself make a descent conclusion",
+    "unresolved_items": []
+  },
+  "relation": {
+    "audit": {
+      "approximate_assumptions": [],
+      "authoritative_inputs": [
+        "observer A matrix",
+        "observer B matrix"
+      ],
+      "exact_assumptions": [
+        "observer relation test is purely linear"
+      ],
+      "falsification_route": [
+        "Show an exact factorisation in one direction if a non-nested classification is wrong.",
+        "Show both directions factor if an equivalent classification is claimed."
+      ],
+      "notes": [],
+      "residuals": {
+        "a_through_b_residual": 1.0,
+        "b_through_a_residual": 1.0
+      },
+      "theorem_layer": "exact linear observer relation classification"
+    },
+    "certificates": [
+      {
+        "details": {
+          "factorisation_residual": 1.0,
+          "kernel_obstruction": 1.0
+        },
+        "exact": true,
+        "kind": "factorisation_failure",
+        "summary": "coarse observer does not factor through fine observer"
+      },
+      {
+        "details": {
+          "factorisation_residual": 1.0,
+          "kernel_obstruction": 1.0
+        },
+        "exact": true,
+        "kind": "factorisation_failure",
+        "summary": "coarse observer does not factor through fine observer"
+      }
+    ],
+    "classification": "non_nested_observers",
+    "details": {},
+    "exact": true,
+    "residuals": {
+      "a_through_b_residual": 1.0,
+      "b_through_a_residual": 1.0
+    }
+  },
+  "suggestion_chat": {
+    "assumptions": [
+      "observer hypothesis 'chat_direct' encodes protocol 'chat_suite' via features ['bbh', 'ifeval']",
+      "observer hypothesis 'chat_blurred' encodes protocol 'chat_suite' via features ['bbh', 'ifeval', 'style']"
+    ],
+    "audit": {
+      "ambiguity_collapse_route": [
+        "record one more exact protocol fact that only one candidate family satisfies"
+      ],
+      "ambiguous_items": [
+        "chat_blurred"
+      ],
+      "authoritative_items": [
+        "chat_suite"
+      ],
+      "exact_items": [
+        "chat_suite"
+      ],
+      "falsification_route": [
+        "supply an explicit observer matrix from the source and bypass finite-family suggestion",
+        "add protocol facts that distinguish between the tied candidate hypotheses"
+      ],
+      "inferred_items": [
+        "chat_direct",
+        "chat_blurred"
+      ],
+      "load_bearing_ambiguous_items": [
+        "chat_blurred"
+      ],
+      "load_bearing_assumptions": [
+        "observer hypothesis 'chat_direct' encodes protocol 'chat_suite' via features ['bbh', 'ifeval']",
+        "observer hypothesis 'chat_blurred' encodes protocol 'chat_suite' via features ['bbh', 'ifeval', 'style']"
+      ],
+      "load_bearing_exact_items": [
+        "chat_suite"
+      ],
+      "load_bearing_inferred_items": [],
+      "load_bearing_items": [
+        "chat_suite"
+      ],
+      "notes": [
+        "candidate ranking is deterministic and finite-family only"
+      ],
+      "residuals": {
+        "score_gap_top2": 0.10000000000000009
+      },
+      "theorem_layer": "finite-family evidence suggestion; not a theorem-grade descent conclusion",
+      "unresolved_items": [
+        "chat_blurred"
+      ]
+    },
+    "details": {
+      "chat_blurred": {
+        "extra_features": [
+          "style"
+        ],
+        "matched_features": [
+          "bbh",
+          "ifeval"
+        ],
+        "missing_facts": []
+      },
+      "chat_direct": {
+        "extra_features": [],
+        "matched_features": [
+          "bbh",
+          "ifeval"
+        ],
+        "missing_facts": []
+      }
+    },
+    "ranked_candidates": [
+      "chat_direct",
+      "chat_blurred"
+    ],
+    "scores": {
+      "chat_blurred": 1.9,
+      "chat_direct": 2.0
+    },
+    "target": "chat_suite"
+  },
+  "suggestion_reasoning": {
+    "assumptions": [
+      "observer hypothesis 'reasoning_direct' encodes protocol 'reasoning_suite' via features ['bbh', 'mmlu_pro']",
+      "observer hypothesis 'reasoning_blurred' encodes protocol 'reasoning_suite' via features ['bbh', 'math_lvl5', 'mmlu_pro']"
+    ],
+    "audit": {
+      "ambiguity_collapse_route": [
+        "record one more exact protocol fact that only one candidate family satisfies"
+      ],
+      "ambiguous_items": [
+        "reasoning_blurred"
+      ],
+      "authoritative_items": [
+        "reasoning_suite"
+      ],
+      "exact_items": [
+        "reasoning_suite"
+      ],
+      "falsification_route": [
+        "supply an explicit observer matrix from the source and bypass finite-family suggestion",
+        "add protocol facts that distinguish between the tied candidate hypotheses"
+      ],
+      "inferred_items": [
+        "reasoning_direct",
+        "reasoning_blurred"
+      ],
+      "load_bearing_ambiguous_items": [
+        "reasoning_blurred"
+      ],
+      "load_bearing_assumptions": [
+        "observer hypothesis 'reasoning_direct' encodes protocol 'reasoning_suite' via features ['bbh', 'mmlu_pro']",
+        "observer hypothesis 'reasoning_blurred' encodes protocol 'reasoning_suite' via features ['bbh', 'math_lvl5', 'mmlu_pro']"
+      ],
+      "load_bearing_exact_items": [
+        "reasoning_suite"
+      ],
+      "load_bearing_inferred_items": [],
+      "load_bearing_items": [
+        "reasoning_suite"
+      ],
+      "notes": [
+        "candidate ranking is deterministic and finite-family only"
+      ],
+      "residuals": {
+        "score_gap_top2": 0.10000000000000009
+      },
+      "theorem_layer": "finite-family evidence suggestion; not a theorem-grade descent conclusion",
+      "unresolved_items": [
+        "reasoning_blurred"
+      ]
+    },
+    "details": {
+      "reasoning_blurred": {
+        "extra_features": [
+          "math_lvl5"
+        ],
+        "matched_features": [
+          "bbh",
+          "mmlu_pro"
+        ],
+        "missing_facts": []
+      },
+      "reasoning_direct": {
+        "extra_features": [],
+        "matched_features": [
+          "bbh",
+          "mmlu_pro"
+        ],
+        "missing_facts": []
+      }
+    },
+    "ranked_candidates": [
+      "reasoning_direct",
+      "reasoning_blurred"
+    ],
+    "scores": {
+      "reasoning_blurred": 1.9,
+      "reasoning_direct": 2.0
+    },
+    "target": "reasoning_suite"
+  },
+  "unresolved_assembly": {
+    "audit": {
+      "ambiguity_collapse_route": [
+        "add an exact source item that distinguishes between the remaining observer hypotheses",
+        "promote only one observer hypothesis per protocol into authoritative downstream use"
+      ],
+      "ambiguous_items": [],
+      "authoritative_items": [
+        "chat_blurred",
+        "chat_direct",
+        "chat_suite",
+        "cov_chat",
+        "cov_reasoning",
+        "leaderboard_score_slice",
+        "reasoning_blurred",
+        "reasoning_direct",
+        "reasoning_suite"
+      ],
+      "exact_items": [
+        "chat_suite",
+        "leaderboard_score_slice",
+        "reasoning_suite"
+      ],
+      "falsification_route": [
+        "supply an explicit observer matrix or remove a conflicting authoritative item",
+        "mark any modelling choice as encoded_inference instead of exact_extraction if it is not directly stated"
+      ],
+      "inferred_items": [
+        "chat_blurred",
+        "chat_direct",
+        "cov_chat",
+        "cov_reasoning",
+        "latent_axis_choice",
+        "reasoning_blurred",
+        "reasoning_direct"
+      ],
+      "load_bearing_ambiguous_items": [],
+      "load_bearing_assumptions": [],
+      "load_bearing_exact_items": [],
+      "load_bearing_inferred_items": [
+        "latent_axis_choice"
+      ],
+      "load_bearing_items": [
+        "latent_axis_choice"
+      ],
+      "notes": [
+        "assembly refused because at least one protocol observer family remained unresolved"
+      ],
+      "residuals": {
+        "exact_flag": 0.0,
+        "unresolved_count": 2.0
+      },
+      "theorem_layer": "evidence assembly stopped before ProblemSpec construction",
+      "unresolved_items": [
+        "chat_suite",
+        "reasoning_suite"
+      ]
+    },
+    "classification": "underdetermined_evidence",
+    "details": {
+      "observer_selection": {}
+    },
+    "exact": false,
+    "required_human_decisions": [
+      "choose one observer hypothesis for protocol 'chat_suite' from ['chat_direct', 'chat_blurred']",
+      "choose one observer hypothesis for protocol 'reasoning_suite' from ['reasoning_direct', 'reasoning_blurred']"
+    ],
+    "selected_observers": [],
+    "unresolved_observer_groups": [
+      "chat_suite",
+      "reasoning_suite"
+    ]
+  }
+}

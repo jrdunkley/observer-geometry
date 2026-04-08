@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="860" height="520" viewBox="0 0 860 520">
+<rect x="0" y="0" width="100%" height="100%" fill="#ffffff"/>
+<text x="430.0" y="28" text-anchor="middle" font-size="20" font-family="monospace">Observer Mismatch In Visible Precision</text>
+<rect x="148.04" y="85.45" width="241.92" height="354.55" fill="#2a9d8f" stroke="#355c7d"/>
+<text x="269.00" y="464" text-anchor="middle" font-size="12" font-family="monospace">protocol_A</text>
+<text x="269.00" y="79.45" text-anchor="middle" font-size="12" font-family="monospace">2.11</text>
+<rect x="526.04" y="198.22" width="241.92" height="241.78" fill="#2a9d8f" stroke="#355c7d"/>
+<text x="647.00" y="464" text-anchor="middle" font-size="12" font-family="monospace">protocol_B</text>
+<text x="647.00" y="192.22" text-anchor="middle" font-size="12" font-family="monospace">1.44</text>
+<text x="18" y="245.0" text-anchor="middle" transform="rotate(-90 18 245.0)" font-size="14" font-family="monospace">log det visible precision</text>
+</svg>

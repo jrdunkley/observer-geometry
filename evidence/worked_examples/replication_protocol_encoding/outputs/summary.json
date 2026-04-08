@@ -1,0 +1,10 @@
+{
+  "assembly_classification": "assembled_problem_spec",
+  "selected_observers": {
+    "protocol_a": "protocol_a_direct",
+    "protocol_b": "protocol_b_sum13"
+  },
+  "downstream_relation": "non_nested_observers",
+  "mismatch_score": 0.028851163717077077,
+  "refinement_winner": "panel_3"
+}

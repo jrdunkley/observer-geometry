@@ -1,0 +1,5 @@
+{
+  "epistemic_boundary": "This comparison is exact but stays entirely inside the free Gaussian regime.",
+  "what_external_method_certifies": "Schur-complement elimination reproduces the retained-mode free Gaussian precision exactly.",
+  "what_qd_adds": "QD recovers the same elimination result and also classifies alternative coarse observers by exact relation and common-refinement structure."
+}

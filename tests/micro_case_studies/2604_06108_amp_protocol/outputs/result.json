@@ -1,0 +1,16 @@
+{
+  "code_surface": "tests\\micro_case_studies\\2604_06108_amp_protocol\\run_main.py",
+  "epistemic_status": "Quotes and table entries are exact. Observer family and descriptive covariances are inferred from the excerpted slice.",
+  "paper_id": "2604.06108",
+  "paper_title": "Investigating ACS/WFC Amp-to-Amp Sensitivities",
+  "result": {
+    "recommended_completion": "incompatible_by_linear_inconsistency",
+    "recommended_relation": "non_nested_observers",
+    "residual_improvement_factor": 35.80668257756497,
+    "richer_blue_linear_residual": 1.551851851851891e-06,
+    "same_observer_completion": "incompatible_by_linear_inconsistency",
+    "same_observer_linear_residual": 5.556666666666704e-05
+  },
+  "what_we_did": "Compared a forced same-observer encoding against a richer blue observer with extra nuisance structure.",
+  "what_we_took": "An exact red-filter / blue-filter table slice from the paper."
+}

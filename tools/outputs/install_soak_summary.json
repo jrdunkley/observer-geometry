@@ -1,0 +1,80 @@
+﻿{
+  "editable_install": {
+    "root": {
+      "status": "passed",
+      "command": "python -m pip install -e ."
+    },
+    "nomodescent": {
+      "status": "passed",
+      "command": "python -m pip install -e ."
+    },
+    "evidence": {
+      "status": "passed",
+      "command": "python -m pip install -e ."
+    }
+  },
+  "test_runs": {
+    "root": {
+      "status": "passed",
+      "summary": "48 passed"
+    },
+    "nomodescent": {
+      "status": "passed",
+      "summary": "14 passed"
+    },
+    "evidence": {
+      "status": "passed",
+      "summary": "18 passed"
+    }
+  },
+  "example_runs": {
+    "examples": {
+      "status": "passed",
+      "commands": [
+        "python -m examples.entanglement_hidden_load.run_all",
+        "python -m examples.bell_common_gluing.run_all",
+        "python -m examples.arrow_rank_deficiency.run_all"
+      ]
+    },
+    "nomodescent_worked_examples": {
+      "status": "passed",
+      "commands": [
+        "python -m worked_examples.bell_descent.run_main",
+        "python -m worked_examples.free_gaussian_rg.run_main",
+        "python -m worked_examples.replication_fragility.run_main"
+      ]
+    },
+    "evidence_worked_examples": {
+      "status": "passed",
+      "commands": [
+        "python -m worked_examples.bell_evidence_encoding.run_main",
+        "python -m worked_examples.replication_protocol_encoding.run_main",
+        "python -m worked_examples.benchmark_blindness_encoding.run_main"
+      ]
+    },
+    "micro_real_bundles": {
+      "status": "passed",
+      "commands": [
+        "python -m micro_real_bundles.bell_counts_bundle.validate",
+        "python -m micro_real_bundles.iris_protocol_mismatch.validate",
+        "python -m micro_real_bundles.leaderboard_benchmark_slice.validate"
+      ]
+    }
+  },
+  "wheel_build": {
+    "status": "passed",
+    "mode": "required escalated wheel-build step because sandboxed pip wheel failed with Windows temp permission errors",
+    "artifacts": [
+      "tools/outputs/wheel_dist/nomogeo-0.1.0-py3-none-any.whl",
+      "tools/outputs/wheel_dist/nomodescent-0.2.0-py3-none-any.whl",
+      "tools/outputs/wheel_dist/evidence-0.3.0-py3-none-any.whl"
+    ]
+  },
+  "wheel_install_smoke": {
+    "status": "passed",
+    "venv": "tools/outputs/wheeltest_env_clean",
+    "smoke_output": "1.94 underdetermined_affine_family assembled_problem_spec"
+  },
+  "install_soak_script_note": "tools/install_soak.py exists, but Python-subprocess pip invocations hit sandbox temp-permission failures. Direct command execution plus escalated wheel builds completed the package soak."
+}
+

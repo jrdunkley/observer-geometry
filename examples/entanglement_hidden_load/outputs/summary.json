@@ -1,0 +1,22 @@
+{
+  "claim": "tau = 2 I(A:B) for the explicit Gaussian families in this example",
+  "parameter_ranges": {
+    "vacuum_squeezing_r": [
+      0.0,
+      1.6
+    ],
+    "thermal_squeezing_r": [
+      0.0,
+      1.6
+    ]
+  },
+  "tmsv_max_residual_abs": 9.059419880941277e-14,
+  "thermal_max_residual_abs": 1.1723955140041653e-13,
+  "tmsv_monotone_tau": true,
+  "additive_composition": {
+    "tau_pair_1": 2.713990045630899,
+    "tau_pair_2": 4.164792268038439,
+    "tau_composed": 6.878782313669339,
+    "composition_residual_abs": 8.881784197001252e-16
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "example": "arrow_rank_deficiency",
+  "claim": "In this synthetic observer-geometry example, plurality, approval, and ranked choice erase different latent preference directions, and the hidden-load clocks quantify that loss.",
+  "headline_quantities": {
+    "composition_residual_abs": 8.881784197001252e-16,
+    "clock_plurality": 0.6431293578142273,
+    "clock_approval": 0.32993491349249165,
+    "clock_ranked_choice": 1.8873791418627638e-15,
+    "clock_ordering_plurality_ge_approval_ge_ranked": true,
+    "plurality_clock_minus_direct_gap_abs": 1.1102230246251565e-16,
+    "approval_clock_minus_direct_gap_abs": 9.43689570931383e-16,
+    "ranked_clock_minus_direct_gap_abs": 1.4432899320127011e-15,
+    "rank_deficiencies": {
+      "plurality": 2,
+      "approval": 1,
+      "ranked_choice": 0
+    },
+    "hidden_ranks": {
+      "plurality": 1,
+      "approval": 1,
+      "ranked_choice": 0
+    }
+  },
+  "thresholds": {
+    "composition_residual_abs_max": 1e-10,
+    "clock_minus_direct_gap_abs_max": 1e-10,
+    "ranked_choice_clock_abs_max": 1e-10
+  },
+  "passes": {
+    "composition": true,
+    "determinant_gap_cross_check": true,
+    "clock_ordering": true,
+    "ranked_choice_hidden_load_vanishes": true,
+    "all": true
+  },
+  "scripts": {
+    "main": "python -m examples.arrow_rank_deficiency.run_main",
+    "validate": "python -m examples.arrow_rank_deficiency.validate",
+    "audit": "python -m examples.arrow_rank_deficiency.run_all"
+  }
+}

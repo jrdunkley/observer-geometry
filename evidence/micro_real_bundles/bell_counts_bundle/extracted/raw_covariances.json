@@ -1,0 +1,126 @@
+{
+  "00": {
+    "extraction": {
+      "authoritative": true,
+      "confidence": 1.0,
+      "epistemic_status": "inferred",
+      "extraction_mode": "encoded_inference",
+      "notes": "",
+      "parser": ""
+    },
+    "matrix": [
+      [
+        0.9997851307746428,
+        -0.7142399283319064
+      ],
+      [
+        -0.7142399283319064,
+        0.9996320953150295
+      ]
+    ],
+    "matrix_kind": "covariance",
+    "matrix_role": "visible_object",
+    "name": "cov_00",
+    "notes": "binary-law covariance used as Gaussian surrogate visible object",
+    "observer_name": "00",
+    "source_ref": {
+      "location": "derived from counts 00",
+      "note": "selection provenance: exact covariance of +/-1 outcomes derived from explicit counts",
+      "quote": "",
+      "source": "SciPostPhys.10.1.017"
+    }
+  },
+  "01": {
+    "extraction": {
+      "authoritative": true,
+      "confidence": 1.0,
+      "epistemic_status": "inferred",
+      "extraction_mode": "encoded_inference",
+      "notes": "",
+      "parser": ""
+    },
+    "matrix": [
+      [
+        0.9992952389625123,
+        0.760084560333341
+      ],
+      [
+        0.760084560333341,
+        0.9989110523027058
+      ]
+    ],
+    "matrix_kind": "covariance",
+    "matrix_role": "visible_object",
+    "name": "cov_01",
+    "notes": "binary-law covariance used as Gaussian surrogate visible object",
+    "observer_name": "01",
+    "source_ref": {
+      "location": "derived from counts 01",
+      "note": "selection provenance: exact covariance of +/-1 outcomes derived from explicit counts",
+      "quote": "",
+      "source": "SciPostPhys.10.1.017"
+    }
+  },
+  "10": {
+    "extraction": {
+      "authoritative": true,
+      "confidence": 1.0,
+      "epistemic_status": "inferred",
+      "extraction_mode": "encoded_inference",
+      "notes": "",
+      "parser": ""
+    },
+    "matrix": [
+      [
+        0.9993809316110589,
+        0.7742091421261857
+      ],
+      [
+        0.7742091421261857,
+        0.99895137012273
+      ]
+    ],
+    "matrix_kind": "covariance",
+    "matrix_role": "visible_object",
+    "name": "cov_10",
+    "notes": "binary-law covariance used as Gaussian surrogate visible object",
+    "observer_name": "10",
+    "source_ref": {
+      "location": "derived from counts 10",
+      "note": "selection provenance: exact covariance of +/-1 outcomes derived from explicit counts",
+      "quote": "",
+      "source": "SciPostPhys.10.1.017"
+    }
+  },
+  "11": {
+    "extraction": {
+      "authoritative": true,
+      "confidence": 1.0,
+      "epistemic_status": "inferred",
+      "extraction_mode": "encoded_inference",
+      "notes": "",
+      "parser": ""
+    },
+    "matrix": [
+      [
+        0.998570655182095,
+        -0.7549277436257088
+      ],
+      [
+        -0.7549277436257088,
+        0.9991339968230222
+      ]
+    ],
+    "matrix_kind": "covariance",
+    "matrix_role": "visible_object",
+    "name": "cov_11",
+    "notes": "binary-law covariance used as Gaussian surrogate visible object",
+    "observer_name": "11",
+    "source_ref": {
+      "location": "derived from counts 11",
+      "note": "selection provenance: exact covariance of +/-1 outcomes derived from explicit counts",
+      "quote": "",
+      "source": "SciPostPhys.10.1.017"
+    }
+  }
+}

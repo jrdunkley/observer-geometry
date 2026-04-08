@@ -1,0 +1,455 @@
+{
+  "name": "bell_counts_projected_gaussian_surrogate",
+  "latent_dim": 4,
+  "text_claims": [
+    {
+      "name": "bell_count_summary",
+      "statement": "00: alpha=0, beta=5pi/8, counts=(431677, 2686277, 2582292, 445574) | 01: alpha=0, beta=7pi/8, counts=(2717644, 278966, 462270, 2697783) | 10: alpha=pi/4, beta=5pi/8, counts=(2737664, 260304, 436359, 2714601) | 11: alpha=pi/4, beta=7pi/8, counts=(271509, 2648232, 2673657, 475530)",
+      "source_ref": {
+        "source": "SciPostPhys.10.1.017",
+        "location": "Appendix C / Table A2",
+        "quote": "",
+        "note": "selection provenance: manual Bell count table transcription"
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "tags": []
+    }
+  ],
+  "table_observations": [],
+  "matrix_observations": [
+    {
+      "name": "cov_00",
+      "matrix_role": "visible_object",
+      "matrix_kind": "covariance",
+      "matrix": [
+        [
+          0.9999646634098908,
+          -0.7144818506096031
+        ],
+        [
+          -0.7144818506096031,
+          0.9999564286899983
+        ]
+      ],
+      "observer_name": "00",
+      "source_ref": {
+        "source": "bell_counts_bundle",
+        "location": "projected covariance 00",
+        "quote": "",
+        "note": "selection provenance: no-signalling marginal projection after exact count extraction"
+      },
+      "extraction": {
+        "extraction_mode": "encoded_inference",
+        "epistemic_status": "inferred",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": "local means averaged across matching settings before Gaussian common-descent test"
+    },
+    {
+      "name": "cov_01",
+      "matrix_role": "visible_object",
+      "matrix_kind": "covariance",
+      "matrix": [
+        [
+          0.9999646634098908,
+          0.7592191339407088
+        ],
+        [
+          0.7592191339407088,
+          0.9999968114976345
+        ]
+      ],
+      "observer_name": "01",
+      "source_ref": {
+        "source": "bell_counts_bundle",
+        "location": "projected covariance 01",
+        "quote": "",
+        "note": "selection provenance: no-signalling marginal projection after exact count extraction"
+      },
+      "extraction": {
+        "extraction_mode": "encoded_inference",
+        "epistemic_status": "inferred",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": "local means averaged across matching settings before Gaussian common-descent test"
+    },
+    {
+      "name": "cov_10",
+      "matrix_role": "visible_object",
+      "matrix_kind": "covariance",
+      "matrix": [
+        [
+          0.9990175611282798,
+          0.7736103254888756
+        ],
+        [
+          0.7736103254888756,
+          0.9999564286899983
+        ]
+      ],
+      "observer_name": "10",
+      "source_ref": {
+        "source": "bell_counts_bundle",
+        "location": "projected covariance 10",
+        "quote": "",
+        "note": "selection provenance: no-signalling marginal projection after exact count extraction"
+      },
+      "extraction": {
+        "extraction_mode": "encoded_inference",
+        "epistemic_status": "inferred",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": "local means averaged across matching settings before Gaussian common-descent test"
+    },
+    {
+      "name": "cov_11",
+      "matrix_role": "visible_object",
+      "matrix_kind": "covariance",
+      "matrix": [
+        [
+          0.9990175611282798,
+          -0.7537592024932701
+        ],
+        [
+          -0.7537592024932701,
+          0.9999968114976345
+        ]
+      ],
+      "observer_name": "11",
+      "source_ref": {
+        "source": "bell_counts_bundle",
+        "location": "projected covariance 11",
+        "quote": "",
+        "note": "selection provenance: no-signalling marginal projection after exact count extraction"
+      },
+      "extraction": {
+        "extraction_mode": "encoded_inference",
+        "epistemic_status": "inferred",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": "local means averaged across matching settings before Gaussian common-descent test"
+    }
+  ],
+  "protocol_observations": [
+    {
+      "name": "00",
+      "facts": [
+        "A0",
+        "B0"
+      ],
+      "candidate_family": [
+        "00"
+      ],
+      "source_ref": {
+        "source": "SciPostPhys.10.1.017",
+        "location": "Table A2 context 00",
+        "quote": "",
+        "note": "selection provenance: manual context extraction from Table A2"
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": "alpha=0, beta=5pi/8"
+    },
+    {
+      "name": "01",
+      "facts": [
+        "A0",
+        "B1"
+      ],
+      "candidate_family": [
+        "01"
+      ],
+      "source_ref": {
+        "source": "SciPostPhys.10.1.017",
+        "location": "Table A2 context 01",
+        "quote": "",
+        "note": "selection provenance: manual context extraction from Table A2"
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": "alpha=0, beta=7pi/8"
+    },
+    {
+      "name": "10",
+      "facts": [
+        "A1",
+        "B0"
+      ],
+      "candidate_family": [
+        "10"
+      ],
+      "source_ref": {
+        "source": "SciPostPhys.10.1.017",
+        "location": "Table A2 context 10",
+        "quote": "",
+        "note": "selection provenance: manual context extraction from Table A2"
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": "alpha=pi/4, beta=5pi/8"
+    },
+    {
+      "name": "11",
+      "facts": [
+        "A1",
+        "B1"
+      ],
+      "candidate_family": [
+        "11"
+      ],
+      "source_ref": {
+        "source": "SciPostPhys.10.1.017",
+        "location": "Table A2 context 11",
+        "quote": "",
+        "note": "selection provenance: manual context extraction from Table A2"
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "notes": "alpha=pi/4, beta=7pi/8"
+    }
+  ],
+  "observer_hypotheses": [
+    {
+      "name": "00",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "protocol_name": "00",
+      "features": [
+        "A0",
+        "B0"
+      ],
+      "source_ref": {
+        "source": "bell_counts_bundle",
+        "location": "context selector table",
+        "quote": "",
+        "note": ""
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "assumption_statements": [],
+      "notes": ""
+    },
+    {
+      "name": "01",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "protocol_name": "01",
+      "features": [
+        "A0",
+        "B1"
+      ],
+      "source_ref": {
+        "source": "bell_counts_bundle",
+        "location": "context selector table",
+        "quote": "",
+        "note": ""
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "assumption_statements": [],
+      "notes": ""
+    },
+    {
+      "name": "10",
+      "matrix": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "protocol_name": "10",
+      "features": [
+        "A1",
+        "B0"
+      ],
+      "source_ref": {
+        "source": "bell_counts_bundle",
+        "location": "context selector table",
+        "quote": "",
+        "note": ""
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "assumption_statements": [],
+      "notes": ""
+    },
+    {
+      "name": "11",
+      "matrix": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "protocol_name": "11",
+      "features": [
+        "A1",
+        "B1"
+      ],
+      "source_ref": {
+        "source": "bell_counts_bundle",
+        "location": "context selector table",
+        "quote": "",
+        "note": ""
+      },
+      "extraction": {
+        "extraction_mode": "exact_extraction",
+        "epistemic_status": "exact",
+        "confidence": 1.0,
+        "authoritative": true,
+        "parser": "",
+        "notes": ""
+      },
+      "assumption_statements": [],
+      "notes": ""
+    }
+  ],
+  "constraint_candidates": [],
+  "notes": [
+    {
+      "name": "gaussian_surrogate",
+      "statement": "Binary pair covariances are treated as Gaussian surrogate visible objects downstream.",
+      "load_bearing": true,
+      "source_ref": {
+        "source": "bell_counts_bundle",
+        "location": "bundle design",
+        "quote": "",
+        "note": ""
+      },
+      "extraction": {
+        "extraction_mode": "encoded_inference",
+        "epistemic_status": "inferred",
+        "confidence": 1.0,
+        "authoritative": false,
+        "parser": "",
+        "notes": ""
+      }
+    },
+    {
+      "name": "no_signalling_projection",
+      "statement": "Repeated local means are averaged across matching settings to remove finite-sample signalling before Gaussian common-descent testing.",
+      "load_bearing": true,
+      "source_ref": {
+        "source": "bell_counts_bundle",
+        "location": "projection layer",
+        "quote": "",
+        "note": ""
+      },
+      "extraction": {
+        "extraction_mode": "encoded_inference",
+        "epistemic_status": "inferred",
+        "confidence": 1.0,
+        "authoritative": false,
+        "parser": "",
+        "notes": ""
+      }
+    }
+  ],
+  "description": "Bell counts with explicit no-signalling marginal projection before Gaussian-surrogate descent",
+  "provenance": "SciPost Phys. 10, 017 (2021), Table A2 transcription plus encoded no-signalling projection",
+  "tags": [
+    "micro-real",
+    "bell"
+  ]
+}

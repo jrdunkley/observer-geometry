@@ -1,0 +1,16 @@
+{
+  "code_surface": "tests\\micro_case_studies\\2604_06099_robustness_views\\run_main.py",
+  "epistemic_status": "Tables and retention numerics are exact. Observer matrices and descriptive covariances are inferred from the published benchmark surfaces.",
+  "paper_id": "2604.06099",
+  "paper_title": "Extending to Robust Medical Imaging: Corruption and Adversarial Stress Testing in Low-Data Regimes",
+  "result": {
+    "best_clean_model": "ZACH-ViT",
+    "best_corruption_model": "ZACH-ViT",
+    "best_pgd_model": "ABMIL",
+    "completion": "underdetermined_affine_family",
+    "pgd_retention_gap": 0.12,
+    "relation": "non_nested_observers"
+  },
+  "what_we_did": "Treated realistic-shift and adversarial-stress regimes as separate observers and checked whether one common scalar view survives.",
+  "what_we_took": "Exact benchmark summary tables and retention numbers."
+}

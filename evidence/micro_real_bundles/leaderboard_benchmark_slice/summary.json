@@ -1,0 +1,9 @@
+{
+  "completion_classification": "underdetermined_affine_family",
+  "initial_assembly_classification": "underdetermined_evidence",
+  "relation_classification": "non_nested_observers",
+  "selected_observers": {
+    "chat_suite": "chat_direct",
+    "reasoning_suite": "reasoning_direct"
+  }
+}

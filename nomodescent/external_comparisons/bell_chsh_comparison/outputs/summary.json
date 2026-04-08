@@ -1,0 +1,10 @@
+{
+  "arcsine_margin": 1.3295800513274803,
+  "comparison_relation": "distinguished",
+  "data_source": "evidence\\micro_real_bundles\\bell_counts_bundle\\raw\\counts_by_context.csv",
+  "external_method": "correlator-level CHSH / arcsine compatibility",
+  "external_method_result": "non_obstructed",
+  "false_collapse_classification": "false_collapse_detected",
+  "projected_qd_classification": "approximate_common_descent",
+  "raw_qd_classification": "incompatible_by_linear_inconsistency"
+}

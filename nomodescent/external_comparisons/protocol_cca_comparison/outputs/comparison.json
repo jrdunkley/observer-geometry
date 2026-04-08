@@ -1,0 +1,5 @@
+{
+  "epistemic_boundary": "The covariances are exact sample covariances of the tiny real row slice, so the result is a tiny-bundle comparison rather than a broad empirical claim.",
+  "what_external_method_certifies": "CCA finds a strong cross-panel dependence but does not classify observer relation or decide common completion.",
+  "what_qd_adds": "QD certifies that the two panels are exactly non-nested observers and that the current evidence remains exactly underdetermined rather than resolved."
+}

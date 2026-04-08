@@ -1,0 +1,438 @@
+{
+  "projected_assembly": {
+    "audit": {
+      "ambiguity_collapse_route": [
+        "add an exact source item that distinguishes between the remaining observer hypotheses",
+        "promote only one observer hypothesis per protocol into authoritative downstream use"
+      ],
+      "ambiguous_items": [],
+      "authoritative_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "bell_count_summary",
+        "cov_00",
+        "cov_01",
+        "cov_10",
+        "cov_11"
+      ],
+      "exact_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "bell_count_summary"
+      ],
+      "falsification_route": [
+        "supply an explicit observer matrix or remove a conflicting authoritative item",
+        "mark any modelling choice as encoded_inference instead of exact_extraction if it is not directly stated"
+      ],
+      "inferred_items": [
+        "cov_00",
+        "cov_01",
+        "cov_10",
+        "cov_11",
+        "gaussian_surrogate",
+        "no_signalling_projection"
+      ],
+      "load_bearing_ambiguous_items": [],
+      "load_bearing_assumptions": [
+        "Binary pair covariances are treated as Gaussian surrogate visible objects downstream.",
+        "Repeated local means are averaged across matching settings to remove finite-sample signalling before Gaussian common-descent testing."
+      ],
+      "load_bearing_exact_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11"
+      ],
+      "load_bearing_inferred_items": [
+        "cov_00",
+        "cov_01",
+        "cov_10",
+        "cov_11",
+        "gaussian_surrogate",
+        "no_signalling_projection"
+      ],
+      "load_bearing_items": [
+        "00",
+        "01",
+        "10",
+        "11",
+        "cov_00",
+        "cov_01",
+        "cov_10",
+        "cov_11",
+        "gaussian_surrogate",
+        "no_signalling_projection"
+      ],
+      "notes": [
+        "observer hypotheses were promoted into ProblemSpec observers only after explicit selection"
+      ],
+      "residuals": {
+        "exact_flag": 0.0,
+        "unresolved_count": 0.0
+      },
+      "theorem_layer": "assembled evidence-to-problem encoding; exact only where extraction_mode is exact_extraction",
+      "unresolved_items": []
+    },
+    "classification": "assembled_problem_spec",
+    "details": {
+      "observer_selection": {}
+    },
+    "exact": false,
+    "required_human_decisions": [],
+    "selected_observers": [
+      "00",
+      "01",
+      "10",
+      "11"
+    ],
+    "unresolved_observer_groups": []
+  },
+  "projected_downstream": {
+    "audit": {
+      "approximate_assumptions": [
+        "Binary pair covariances are treated as Gaussian surrogate visible objects downstream.",
+        "Repeated local means are averaged across matching settings to remove finite-sample signalling before Gaussian common-descent testing.",
+        "deterministic affine PSD search"
+      ],
+      "authoritative_inputs": [
+        "cov_00",
+        "cov_01",
+        "cov_10",
+        "cov_11"
+      ],
+      "exact_assumptions": [],
+      "falsification_route": [
+        "Produce a better affine parameter with a larger PSD margin if the current search is wrong.",
+        "Show that no positive definite point exists in the affine family."
+      ],
+      "notes": [],
+      "residuals": {
+        "best_psd_margin": 0.22587652699193295,
+        "linear_residual": 4.440892098500626e-16
+      },
+      "theorem_layer": "audited approximate PSD-feasibility search on an exact affine family"
+    },
+    "certificates": [],
+    "classification": "approximate_common_descent",
+    "details": {
+      "nullity": 2,
+      "psd_search_grid_size": 61,
+      "psd_search_radius": 2.0
+    },
+    "exact": false,
+    "residuals": {
+      "best_psd_margin": 0.22587652699193295,
+      "linear_residual": 4.440892098500626e-16
+    }
+  },
+  "projected_ingestion": {
+    "ambiguity_collapse_route": [
+      "add one more curated excerpt that distinguishes between the remaining candidate families"
+    ],
+    "ambiguous_items": [],
+    "authoritative_items": [
+      "00",
+      "01",
+      "10",
+      "11",
+      "bell_count_summary",
+      "cov_00",
+      "cov_01",
+      "cov_10",
+      "cov_11"
+    ],
+    "exact_items": [
+      "00",
+      "01",
+      "10",
+      "11",
+      "bell_count_summary"
+    ],
+    "falsification_route": [
+      "replace an encoded inference excerpt with an exact excerpt from the source if the encoding is too strong",
+      "downgrade any item to open_ambiguity if the source does not determine it cleanly"
+    ],
+    "inferred_items": [
+      "cov_00",
+      "cov_01",
+      "cov_10",
+      "cov_11"
+    ],
+    "load_bearing_ambiguous_items": [],
+    "load_bearing_assumptions": [
+      "Binary pair covariances are treated as Gaussian surrogate visible objects downstream.",
+      "Repeated local means are averaged across matching settings to remove finite-sample signalling before Gaussian common-descent testing."
+    ],
+    "load_bearing_exact_items": [
+      "00",
+      "01",
+      "10",
+      "11",
+      "bell_count_summary"
+    ],
+    "load_bearing_inferred_items": [
+      "cov_00",
+      "cov_01",
+      "cov_10",
+      "cov_11"
+    ],
+    "load_bearing_items": [
+      "00",
+      "01",
+      "10",
+      "11",
+      "bell_count_summary",
+      "cov_00",
+      "cov_01",
+      "cov_10",
+      "cov_11"
+    ],
+    "notes": [
+      "curated ingestion keeps exact, inferred, and ambiguous material separate before ProblemSpec assembly"
+    ],
+    "residuals": {
+      "ambiguous_excerpt_count": 0.0
+    },
+    "theorem_layer": "curated ingestion preserves epistemic status but does not itself make a descent conclusion",
+    "unresolved_items": []
+  },
+  "raw_assembly": {
+    "audit": {
+      "ambiguity_collapse_route": [
+        "add an exact source item that distinguishes between the remaining observer hypotheses",
+        "promote only one observer hypothesis per protocol into authoritative downstream use"
+      ],
+      "ambiguous_items": [],
+      "authoritative_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "bell_count_summary",
+        "cov_00",
+        "cov_01",
+        "cov_10",
+        "cov_11"
+      ],
+      "exact_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "bell_count_summary"
+      ],
+      "falsification_route": [
+        "supply an explicit observer matrix or remove a conflicting authoritative item",
+        "mark any modelling choice as encoded_inference instead of exact_extraction if it is not directly stated"
+      ],
+      "inferred_items": [
+        "cov_00",
+        "cov_01",
+        "cov_10",
+        "cov_11",
+        "gaussian_surrogate"
+      ],
+      "load_bearing_ambiguous_items": [],
+      "load_bearing_assumptions": [
+        "Binary pair covariances are treated as Gaussian surrogate visible objects downstream."
+      ],
+      "load_bearing_exact_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11"
+      ],
+      "load_bearing_inferred_items": [
+        "cov_00",
+        "cov_01",
+        "cov_10",
+        "cov_11",
+        "gaussian_surrogate"
+      ],
+      "load_bearing_items": [
+        "00",
+        "01",
+        "10",
+        "11",
+        "cov_00",
+        "cov_01",
+        "cov_10",
+        "cov_11",
+        "gaussian_surrogate"
+      ],
+      "notes": [
+        "observer hypotheses were promoted into ProblemSpec observers only after explicit selection"
+      ],
+      "residuals": {
+        "exact_flag": 0.0,
+        "unresolved_count": 0.0
+      },
+      "theorem_layer": "assembled evidence-to-problem encoding; exact only where extraction_mode is exact_extraction",
+      "unresolved_items": []
+    },
+    "classification": "assembled_problem_spec",
+    "details": {
+      "observer_selection": {}
+    },
+    "exact": false,
+    "required_human_decisions": [],
+    "selected_observers": [
+      "00",
+      "01",
+      "10",
+      "11"
+    ],
+    "unresolved_observer_groups": []
+  },
+  "raw_downstream": {
+    "audit": {
+      "approximate_assumptions": [
+        "Binary pair covariances are treated as Gaussian surrogate visible objects downstream."
+      ],
+      "authoritative_inputs": [
+        "cov_00",
+        "cov_01",
+        "cov_10",
+        "cov_11"
+      ],
+      "exact_assumptions": [],
+      "falsification_route": [
+        "Exhibit a symmetric covariance matching all visible constraints exactly.",
+        "Re-encode the evidence with distinct observers if repeated-marginal mismatch was a modelling error."
+      ],
+      "notes": [
+        "classification is exact because the linear constraints already fail"
+      ],
+      "residuals": {
+        "linear_residual": 0.00040513821448218135
+      },
+      "theorem_layer": "exact Gaussian linear compatibility test"
+    },
+    "certificates": [
+      {
+        "details": {
+          "row": "[1.,0.,0.,0.]",
+          "variance_1": 0.9997851307746428,
+          "variance_2": 0.9992952389625123
+        },
+        "exact": true,
+        "kind": "repeated_marginal_inconsistency",
+        "summary": "the same observed linear functional carries incompatible marginal variance data"
+      },
+      {
+        "details": {
+          "linear_residual": 0.00040513821448218135
+        },
+        "exact": true,
+        "kind": "linear_constraint_inconsistency",
+        "summary": "no symmetric covariance satisfies the visible linear constraints"
+      }
+    ],
+    "classification": "incompatible_by_linear_inconsistency",
+    "details": {
+      "nullity": 2
+    },
+    "exact": true,
+    "residuals": {
+      "linear_residual": 0.00040513821448218135
+    }
+  },
+  "raw_ingestion": {
+    "ambiguity_collapse_route": [
+      "add one more curated excerpt that distinguishes between the remaining candidate families"
+    ],
+    "ambiguous_items": [],
+    "authoritative_items": [
+      "00",
+      "01",
+      "10",
+      "11",
+      "bell_count_summary",
+      "cov_00",
+      "cov_01",
+      "cov_10",
+      "cov_11"
+    ],
+    "exact_items": [
+      "00",
+      "01",
+      "10",
+      "11",
+      "bell_count_summary"
+    ],
+    "falsification_route": [
+      "replace an encoded inference excerpt with an exact excerpt from the source if the encoding is too strong",
+      "downgrade any item to open_ambiguity if the source does not determine it cleanly"
+    ],
+    "inferred_items": [
+      "cov_00",
+      "cov_01",
+      "cov_10",
+      "cov_11"
+    ],
+    "load_bearing_ambiguous_items": [],
+    "load_bearing_assumptions": [
+      "Binary pair covariances are treated as Gaussian surrogate visible objects downstream."
+    ],
+    "load_bearing_exact_items": [
+      "00",
+      "01",
+      "10",
+      "11",
+      "bell_count_summary"
+    ],
+    "load_bearing_inferred_items": [
+      "cov_00",
+      "cov_01",
+      "cov_10",
+      "cov_11"
+    ],
+    "load_bearing_items": [
+      "00",
+      "01",
+      "10",
+      "11",
+      "bell_count_summary",
+      "cov_00",
+      "cov_01",
+      "cov_10",
+      "cov_11"
+    ],
+    "notes": [
+      "curated ingestion keeps exact, inferred, and ambiguous material separate before ProblemSpec assembly"
+    ],
+    "residuals": {
+      "ambiguous_excerpt_count": 0.0
+    },
+    "theorem_layer": "curated ingestion preserves epistemic status but does not itself make a descent conclusion",
+    "unresolved_items": []
+  }
+}

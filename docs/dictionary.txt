@@ -1,0 +1,68 @@
+**Nomogenetics**
+The umbrella project. The full programme.
+
+**Nomo**
+The short identity for the project.
+
+**nomogeo**
+The exact geometry kernel for observed law.
+
+**Visible precision**
+(\Phi_C(H)=(CH^{-1}C^\top)^{-1}).
+The canonical quadratic object seen by an observer.
+
+**Minimum-energy lift**
+(L_{C,H}).
+The latent representative of a visible state with the smallest (H)-energy among all latent states matching that observation.
+
+**Hidden projector**
+(P_{C,H}=I-L_{C,H}C).
+The projector onto the hidden sector relative to the observer.
+
+**First visible response**
+(V).
+The first-order change in visible precision under perturbation.
+
+**Quartic leakage**
+(Q).
+The first genuinely hidden defect appearing in the local visible calculus.
+
+**Ceiling**
+(T).
+The richer or limiting visible object relative to which hidden loss is measured.
+
+**Hidden load**
+(\Lambda).
+The positive operator encoding what remains hidden beneath a fixed ceiling.
+
+**Clock**
+(\tau(\Lambda)=\log\det(I+\Lambda)).
+The total hidden coupling beneath a ceiling.
+
+**Hidden contraction**
+The associative contraction object built from a hidden load, used for long exact composition.
+
+**Tower law**
+(\Phi_{C_2C_1}(H)=\Phi_{C_2}(\Phi_{C_1}(H))).
+Repeated observation descends exactly in stages.
+
+**Quotient descent**
+The principle that coarse observation induces exact descended visible law.
+
+**Common descent**
+When multiple visible objects arise from one richer latent object.
+
+**Common refinement**
+A richer observer through which multiple observers factor.
+
+**Obstruction certificate**
+An exact reason why factorisation, compatibility, or common descent fails.
+
+**Inverse theorem beneath a fixed ceiling**
+For fixed (T), visible objects beneath (T) are in exact bijection with PSD hidden loads on active support.
+
+**Assumption ledger**
+The explicit record of what was exact, inferred, approximate, or conjectural in an analysis.
+
+**Falsification route**
+The clearest next step that would break the current conclusion if it is wrong.

@@ -1,0 +1,112 @@
+{
+  "name": "iris_protocol_mismatch",
+  "latent_dim": 4,
+  "observers": [
+    {
+      "name": "sepal_panel",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "provenance": "uci_iris:measurement columns",
+      "notes": ""
+    },
+    {
+      "name": "petal_panel",
+      "matrix": [
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "provenance": "uci_iris:measurement columns",
+      "notes": ""
+    }
+  ],
+  "evidence": [
+    {
+      "name": "cov_sepal",
+      "observer": "sepal_panel",
+      "kind": "covariance",
+      "matrix": [
+        [
+          0.8324242424242426,
+          0.004393939393939396
+        ],
+        [
+          0.004393939393939396,
+          0.09537878787878791
+        ]
+      ],
+      "exact": false,
+      "tolerance": null,
+      "authoritative": true,
+      "provenance": "iris_protocol_mismatch:derived sepal covariance",
+      "notes": ""
+    },
+    {
+      "name": "cov_petal",
+      "observer": "petal_panel",
+      "kind": "covariance",
+      "matrix": [
+        [
+          3.6135606060606063,
+          1.5506060606060605
+        ],
+        [
+          1.5506060606060605,
+          0.6878787878787878
+        ]
+      ],
+      "exact": false,
+      "tolerance": null,
+      "authoritative": true,
+      "provenance": "iris_protocol_mismatch:derived petal covariance",
+      "notes": ""
+    }
+  ],
+  "ceilings": [],
+  "constraints": [],
+  "assumptions": {
+    "entries": [
+      {
+        "label": "sample_covariance_note",
+        "statement": "Visible covariances are exact sample covariances of the extracted rows, not matrices written explicitly in the source table.",
+        "exact": false,
+        "provenance": "iris_protocol_mismatch:bundle design"
+      }
+    ]
+  },
+  "goals": [
+    {
+      "kind": "common_completion",
+      "target": null,
+      "candidates": [],
+      "notes": ""
+    }
+  ],
+  "description": "Real measurement-panel mismatch bundle from a tiny Iris slice",
+  "provenance": "UCI Iris 12-row curated slice",
+  "tags": [
+    "micro-real",
+    "protocol-mismatch"
+  ]
+}

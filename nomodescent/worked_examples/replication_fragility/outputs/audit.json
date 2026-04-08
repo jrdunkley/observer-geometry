@@ -1,0 +1,11 @@
+{
+  "theorem_layer": "exact observer relation tests and exact finite-family refinement search",
+  "residuals": {
+    "protocol_a_through_b_residual": 1.0,
+    "protocol_b_through_a_residual": 1.0
+  },
+  "falsification_route": [
+    "Add a candidate observer with a strictly smaller audited score.",
+    "Show that the reported winner does not factor every target observer."
+  ]
+}

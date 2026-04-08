@@ -1,0 +1,6 @@
+{
+  "assembly_classification": "assembled_problem_spec",
+  "completion_classification": "underdetermined_affine_family",
+  "refinement_winner": "full_iris",
+  "relation_classification": "non_nested_observers"
+}

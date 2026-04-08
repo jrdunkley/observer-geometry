@@ -1,0 +1,26 @@
+{
+  "refinement": {
+    "classification": "exact_common_refinement",
+    "residuals": {
+      "block4_through_refinement_residual": 0.0,
+      "max_refinement_residual": 0.0,
+      "mode2_through_refinement_residual": 0.0
+    },
+    "theorem_layer": "exact common refinement in linear observer space"
+  },
+  "relation": {
+    "classification": "non_nested_observers",
+    "residuals": {
+      "a_through_b_residual": 1.0,
+      "b_through_a_residual": 1.0
+    },
+    "theorem_layer": "exact Quotient Descent observer relation classification"
+  },
+  "tower": {
+    "classification": "exact_tower_agreement",
+    "residuals": {
+      "tower_residual": 0.0
+    },
+    "theorem_layer": "exact quotient tower law"
+  }
+}

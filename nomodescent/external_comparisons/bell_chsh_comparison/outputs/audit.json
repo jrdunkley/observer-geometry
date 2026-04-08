@@ -1,0 +1,28 @@
+{
+  "false_collapse": {
+    "classification": "false_collapse_detected",
+    "coarse_certified_compatible": true,
+    "coarse_summary_max_gap": 0.0,
+    "theorem_layer": "false-collapse diagnostic comparing coarse summary agreement with richer Quotient Descent compatibility"
+  },
+  "projected_qd": {
+    "certificates": [],
+    "classification": "approximate_common_descent",
+    "residuals": {
+      "best_psd_margin": 0.22587652699193295,
+      "linear_residual": 4.440892098500626e-16
+    },
+    "theorem_layer": "audited approximate PSD-feasibility search on an exact affine family"
+  },
+  "raw_qd": {
+    "certificates": [
+      "repeated_marginal_inconsistency",
+      "linear_constraint_inconsistency"
+    ],
+    "classification": "incompatible_by_linear_inconsistency",
+    "residuals": {
+      "linear_residual": 0.00040513821448218135
+    },
+    "theorem_layer": "exact Gaussian linear compatibility test"
+  }
+}

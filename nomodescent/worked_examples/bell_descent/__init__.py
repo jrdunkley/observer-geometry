@@ -1,0 +1,1 @@
+"""Bell compatibility example."""

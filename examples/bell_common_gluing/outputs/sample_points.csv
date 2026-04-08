@@ -1,0 +1,4 @@
+sample,delta,rho,class_label,correlator_matches_compatible,variance_gap,arcsine_chsh_margin,linear_completion_residual,best_psd_gap
+compatible,0.0,0.6,compatible,True,0.0,0.5675882184166556,2.220446049250313e-16,0.15147186257614292
+variance_only,0.22,0.6,variance-only obstruction,True,0.21999999999999997,0.5675882184166556,0.11000000000000032,nan
+correlator_only,0.0,0.82,correlator-only obstruction,False,0.0,-0.7040514214666129,3.3306690738754696e-16,-0.15965512114593777

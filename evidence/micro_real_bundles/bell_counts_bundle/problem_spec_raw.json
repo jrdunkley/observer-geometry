@@ -1,0 +1,190 @@
+{
+  "name": "bell_counts_raw_gaussian_surrogate",
+  "latent_dim": 4,
+  "observers": [
+    {
+      "name": "00",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "provenance": "bell_counts_bundle:context selector table",
+      "notes": ""
+    },
+    {
+      "name": "01",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "provenance": "bell_counts_bundle:context selector table",
+      "notes": ""
+    },
+    {
+      "name": "10",
+      "matrix": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          1.0,
+          0.0
+        ]
+      ],
+      "provenance": "bell_counts_bundle:context selector table",
+      "notes": ""
+    },
+    {
+      "name": "11",
+      "matrix": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "provenance": "bell_counts_bundle:context selector table",
+      "notes": ""
+    }
+  ],
+  "evidence": [
+    {
+      "name": "cov_00",
+      "observer": "00",
+      "kind": "covariance",
+      "matrix": [
+        [
+          0.9997851307746428,
+          -0.7142399283319064
+        ],
+        [
+          -0.7142399283319064,
+          0.9996320953150295
+        ]
+      ],
+      "exact": false,
+      "tolerance": null,
+      "authoritative": true,
+      "provenance": "SciPostPhys.10.1.017:derived from counts 00",
+      "notes": "binary-law covariance used as Gaussian surrogate visible object"
+    },
+    {
+      "name": "cov_01",
+      "observer": "01",
+      "kind": "covariance",
+      "matrix": [
+        [
+          0.9992952389625123,
+          0.760084560333341
+        ],
+        [
+          0.760084560333341,
+          0.9989110523027058
+        ]
+      ],
+      "exact": false,
+      "tolerance": null,
+      "authoritative": true,
+      "provenance": "SciPostPhys.10.1.017:derived from counts 01",
+      "notes": "binary-law covariance used as Gaussian surrogate visible object"
+    },
+    {
+      "name": "cov_10",
+      "observer": "10",
+      "kind": "covariance",
+      "matrix": [
+        [
+          0.9993809316110589,
+          0.7742091421261857
+        ],
+        [
+          0.7742091421261857,
+          0.99895137012273
+        ]
+      ],
+      "exact": false,
+      "tolerance": null,
+      "authoritative": true,
+      "provenance": "SciPostPhys.10.1.017:derived from counts 10",
+      "notes": "binary-law covariance used as Gaussian surrogate visible object"
+    },
+    {
+      "name": "cov_11",
+      "observer": "11",
+      "kind": "covariance",
+      "matrix": [
+        [
+          0.998570655182095,
+          -0.7549277436257088
+        ],
+        [
+          -0.7549277436257088,
+          0.9991339968230222
+        ]
+      ],
+      "exact": false,
+      "tolerance": null,
+      "authoritative": true,
+      "provenance": "SciPostPhys.10.1.017:derived from counts 11",
+      "notes": "binary-law covariance used as Gaussian surrogate visible object"
+    }
+  ],
+  "ceilings": [],
+  "constraints": [],
+  "assumptions": {
+    "entries": [
+      {
+        "label": "gaussian_surrogate",
+        "statement": "Binary pair covariances are treated as Gaussian surrogate visible objects downstream.",
+        "exact": false,
+        "provenance": "bell_counts_bundle:bundle design"
+      }
+    ]
+  },
+  "goals": [
+    {
+      "kind": "common_completion",
+      "target": null,
+      "candidates": [],
+      "notes": ""
+    }
+  ],
+  "description": "Exact Bell counts with raw finite-sample Gaussian-surrogate pair covariances",
+  "provenance": "SciPost Phys. 10, 017 (2021), Table A2 count transcription",
+  "tags": [
+    "micro-real",
+    "bell"
+  ]
+}

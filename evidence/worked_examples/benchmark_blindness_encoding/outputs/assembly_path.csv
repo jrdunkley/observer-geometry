@@ -1,0 +1,3 @@
+stage,classification,required_decisions
+unresolved,underdetermined_evidence,"choose one observer hypothesis for protocol 'benchmark_A' from ['A_balanced', 'A_math_only']; choose one observer hypothesis for protocol 'benchmark_B' from ['B_balanced', 'B_reasoning_only']"
+resolved,non_nested_observers,

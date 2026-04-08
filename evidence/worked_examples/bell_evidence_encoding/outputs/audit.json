@@ -1,0 +1,487 @@
+{
+  "compatible": {
+    "full_assembly_audit": {
+      "exact_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "compatible_correlators",
+        "latent_dim",
+        "sigma_compatible_00",
+        "sigma_compatible_01",
+        "sigma_compatible_10",
+        "sigma_compatible_11"
+      ],
+      "inferred_items": [
+        "coarse_not_full_law"
+      ],
+      "ambiguous_items": [],
+      "authoritative_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "latent_dim",
+        "sigma_compatible_00",
+        "sigma_compatible_01",
+        "sigma_compatible_10",
+        "sigma_compatible_11"
+      ],
+      "load_bearing_items": [
+        "00",
+        "01",
+        "10",
+        "11",
+        "coarse_not_full_law",
+        "sigma_compatible_00",
+        "sigma_compatible_01",
+        "sigma_compatible_10",
+        "sigma_compatible_11"
+      ],
+      "load_bearing_exact_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "sigma_compatible_00",
+        "sigma_compatible_01",
+        "sigma_compatible_10",
+        "sigma_compatible_11"
+      ],
+      "load_bearing_inferred_items": [
+        "coarse_not_full_law"
+      ],
+      "load_bearing_ambiguous_items": [],
+      "load_bearing_assumptions": [
+        "Normalized correlator summaries are preserved separately from full Gaussian law evidence."
+      ],
+      "unresolved_items": [],
+      "residuals": {
+        "unresolved_count": 0.0,
+        "exact_flag": 1.0
+      },
+      "theorem_layer": "assembled evidence-to-problem encoding; exact only where extraction_mode is exact_extraction",
+      "falsification_route": [
+        "supply an explicit observer matrix or remove a conflicting authoritative item",
+        "mark any modelling choice as encoded_inference instead of exact_extraction if it is not directly stated"
+      ],
+      "ambiguity_collapse_route": [
+        "add an exact source item that distinguishes between the remaining observer hypotheses",
+        "promote only one observer hypothesis per protocol into authoritative downstream use"
+      ],
+      "notes": [
+        "observer hypotheses were promoted into ProblemSpec observers only after explicit selection"
+      ]
+    },
+    "coarse_assembly_audit": {
+      "exact_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "compatible_coarse_only_correlators",
+        "latent_dim"
+      ],
+      "inferred_items": [
+        "coarse_not_full_law"
+      ],
+      "ambiguous_items": [],
+      "authoritative_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "latent_dim"
+      ],
+      "load_bearing_items": [
+        "00",
+        "01",
+        "10",
+        "11",
+        "coarse_not_full_law"
+      ],
+      "load_bearing_exact_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11"
+      ],
+      "load_bearing_inferred_items": [
+        "coarse_not_full_law"
+      ],
+      "load_bearing_ambiguous_items": [],
+      "load_bearing_assumptions": [],
+      "unresolved_items": [
+        "visible_object"
+      ],
+      "residuals": {
+        "unresolved_count": 1.0,
+        "exact_flag": 0.0
+      },
+      "theorem_layer": "evidence assembly stopped because no visible object survived authoritative filtering",
+      "falsification_route": [
+        "supply an explicit observer matrix or remove a conflicting authoritative item",
+        "mark any modelling choice as encoded_inference instead of exact_extraction if it is not directly stated"
+      ],
+      "ambiguity_collapse_route": [
+        "add an exact source item that distinguishes between the remaining observer hypotheses",
+        "promote only one observer hypothesis per protocol into authoritative downstream use"
+      ],
+      "notes": [
+        "assembly refused because the bundle did not contain enough visible matrix evidence"
+      ]
+    },
+    "downstream_theorem_layer": "audited approximate PSD-feasibility search on an exact affine family",
+    "downstream_certificates": []
+  },
+  "variance_only": {
+    "full_assembly_audit": {
+      "exact_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "latent_dim",
+        "sigma_variance_only_00",
+        "sigma_variance_only_01",
+        "sigma_variance_only_10",
+        "sigma_variance_only_11",
+        "variance_only_correlators"
+      ],
+      "inferred_items": [
+        "coarse_not_full_law"
+      ],
+      "ambiguous_items": [],
+      "authoritative_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "latent_dim",
+        "sigma_variance_only_00",
+        "sigma_variance_only_01",
+        "sigma_variance_only_10",
+        "sigma_variance_only_11"
+      ],
+      "load_bearing_items": [
+        "00",
+        "01",
+        "10",
+        "11",
+        "coarse_not_full_law",
+        "sigma_variance_only_00",
+        "sigma_variance_only_01",
+        "sigma_variance_only_10",
+        "sigma_variance_only_11"
+      ],
+      "load_bearing_exact_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "sigma_variance_only_00",
+        "sigma_variance_only_01",
+        "sigma_variance_only_10",
+        "sigma_variance_only_11"
+      ],
+      "load_bearing_inferred_items": [
+        "coarse_not_full_law"
+      ],
+      "load_bearing_ambiguous_items": [],
+      "load_bearing_assumptions": [
+        "Normalized correlator summaries are preserved separately from full Gaussian law evidence."
+      ],
+      "unresolved_items": [],
+      "residuals": {
+        "unresolved_count": 0.0,
+        "exact_flag": 1.0
+      },
+      "theorem_layer": "assembled evidence-to-problem encoding; exact only where extraction_mode is exact_extraction",
+      "falsification_route": [
+        "supply an explicit observer matrix or remove a conflicting authoritative item",
+        "mark any modelling choice as encoded_inference instead of exact_extraction if it is not directly stated"
+      ],
+      "ambiguity_collapse_route": [
+        "add an exact source item that distinguishes between the remaining observer hypotheses",
+        "promote only one observer hypothesis per protocol into authoritative downstream use"
+      ],
+      "notes": [
+        "observer hypotheses were promoted into ProblemSpec observers only after explicit selection"
+      ]
+    },
+    "coarse_assembly_audit": {
+      "exact_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "latent_dim",
+        "variance_only_coarse_only_correlators"
+      ],
+      "inferred_items": [
+        "coarse_not_full_law"
+      ],
+      "ambiguous_items": [],
+      "authoritative_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "latent_dim"
+      ],
+      "load_bearing_items": [
+        "00",
+        "01",
+        "10",
+        "11",
+        "coarse_not_full_law"
+      ],
+      "load_bearing_exact_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11"
+      ],
+      "load_bearing_inferred_items": [
+        "coarse_not_full_law"
+      ],
+      "load_bearing_ambiguous_items": [],
+      "load_bearing_assumptions": [],
+      "unresolved_items": [
+        "visible_object"
+      ],
+      "residuals": {
+        "unresolved_count": 1.0,
+        "exact_flag": 0.0
+      },
+      "theorem_layer": "evidence assembly stopped because no visible object survived authoritative filtering",
+      "falsification_route": [
+        "supply an explicit observer matrix or remove a conflicting authoritative item",
+        "mark any modelling choice as encoded_inference instead of exact_extraction if it is not directly stated"
+      ],
+      "ambiguity_collapse_route": [
+        "add an exact source item that distinguishes between the remaining observer hypotheses",
+        "promote only one observer hypothesis per protocol into authoritative downstream use"
+      ],
+      "notes": [
+        "assembly refused because the bundle did not contain enough visible matrix evidence"
+      ]
+    },
+    "downstream_theorem_layer": "exact Gaussian linear compatibility test",
+    "downstream_certificates": [
+      "repeated_marginal_inconsistency",
+      "linear_constraint_inconsistency"
+    ]
+  },
+  "correlator_only": {
+    "full_assembly_audit": {
+      "exact_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "correlator_only_correlators",
+        "latent_dim",
+        "sigma_correlator_only_00",
+        "sigma_correlator_only_01",
+        "sigma_correlator_only_10",
+        "sigma_correlator_only_11"
+      ],
+      "inferred_items": [
+        "coarse_not_full_law"
+      ],
+      "ambiguous_items": [],
+      "authoritative_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "latent_dim",
+        "sigma_correlator_only_00",
+        "sigma_correlator_only_01",
+        "sigma_correlator_only_10",
+        "sigma_correlator_only_11"
+      ],
+      "load_bearing_items": [
+        "00",
+        "01",
+        "10",
+        "11",
+        "coarse_not_full_law",
+        "sigma_correlator_only_00",
+        "sigma_correlator_only_01",
+        "sigma_correlator_only_10",
+        "sigma_correlator_only_11"
+      ],
+      "load_bearing_exact_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "sigma_correlator_only_00",
+        "sigma_correlator_only_01",
+        "sigma_correlator_only_10",
+        "sigma_correlator_only_11"
+      ],
+      "load_bearing_inferred_items": [
+        "coarse_not_full_law"
+      ],
+      "load_bearing_ambiguous_items": [],
+      "load_bearing_assumptions": [
+        "Normalized correlator summaries are preserved separately from full Gaussian law evidence."
+      ],
+      "unresolved_items": [],
+      "residuals": {
+        "unresolved_count": 0.0,
+        "exact_flag": 1.0
+      },
+      "theorem_layer": "assembled evidence-to-problem encoding; exact only where extraction_mode is exact_extraction",
+      "falsification_route": [
+        "supply an explicit observer matrix or remove a conflicting authoritative item",
+        "mark any modelling choice as encoded_inference instead of exact_extraction if it is not directly stated"
+      ],
+      "ambiguity_collapse_route": [
+        "add an exact source item that distinguishes between the remaining observer hypotheses",
+        "promote only one observer hypothesis per protocol into authoritative downstream use"
+      ],
+      "notes": [
+        "observer hypotheses were promoted into ProblemSpec observers only after explicit selection"
+      ]
+    },
+    "coarse_assembly_audit": {
+      "exact_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "correlator_only_coarse_only_correlators",
+        "latent_dim"
+      ],
+      "inferred_items": [
+        "coarse_not_full_law"
+      ],
+      "ambiguous_items": [],
+      "authoritative_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11",
+        "latent_dim"
+      ],
+      "load_bearing_items": [
+        "00",
+        "01",
+        "10",
+        "11",
+        "coarse_not_full_law"
+      ],
+      "load_bearing_exact_items": [
+        "00",
+        "00",
+        "01",
+        "01",
+        "10",
+        "10",
+        "11",
+        "11"
+      ],
+      "load_bearing_inferred_items": [
+        "coarse_not_full_law"
+      ],
+      "load_bearing_ambiguous_items": [],
+      "load_bearing_assumptions": [],
+      "unresolved_items": [
+        "visible_object"
+      ],
+      "residuals": {
+        "unresolved_count": 1.0,
+        "exact_flag": 0.0
+      },
+      "theorem_layer": "evidence assembly stopped because no visible object survived authoritative filtering",
+      "falsification_route": [
+        "supply an explicit observer matrix or remove a conflicting authoritative item",
+        "mark any modelling choice as encoded_inference instead of exact_extraction if it is not directly stated"
+      ],
+      "ambiguity_collapse_route": [
+        "add an exact source item that distinguishes between the remaining observer hypotheses",
+        "promote only one observer hypothesis per protocol into authoritative downstream use"
+      ],
+      "notes": [
+        "assembly refused because the bundle did not contain enough visible matrix evidence"
+      ]
+    },
+    "downstream_theorem_layer": "audited approximate PSD-feasibility search on an exact affine family",
+    "downstream_certificates": [
+      "approximate_psd_search_failure"
+    ]
+  }
+}

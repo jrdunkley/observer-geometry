@@ -1,0 +1,280 @@
+{
+  "assembly": {
+    "audit": {
+      "ambiguity_collapse_route": [
+        "add an exact source item that distinguishes between the remaining observer hypotheses",
+        "promote only one observer hypothesis per protocol into authoritative downstream use"
+      ],
+      "ambiguous_items": [],
+      "authoritative_items": [
+        "cov_petal",
+        "cov_sepal",
+        "iris_slice",
+        "petal_panel",
+        "petal_panel",
+        "sepal_panel",
+        "sepal_panel"
+      ],
+      "exact_items": [
+        "iris_slice",
+        "petal_panel",
+        "petal_panel",
+        "sepal_panel",
+        "sepal_panel"
+      ],
+      "falsification_route": [
+        "supply an explicit observer matrix or remove a conflicting authoritative item",
+        "mark any modelling choice as encoded_inference instead of exact_extraction if it is not directly stated"
+      ],
+      "inferred_items": [
+        "cov_full",
+        "cov_petal",
+        "cov_sepal",
+        "sample_covariance_note"
+      ],
+      "load_bearing_ambiguous_items": [],
+      "load_bearing_assumptions": [
+        "Visible covariances are exact sample covariances of the extracted rows, not matrices written explicitly in the source table."
+      ],
+      "load_bearing_exact_items": [
+        "petal_panel",
+        "petal_panel",
+        "sepal_panel",
+        "sepal_panel"
+      ],
+      "load_bearing_inferred_items": [
+        "cov_petal",
+        "cov_sepal",
+        "sample_covariance_note"
+      ],
+      "load_bearing_items": [
+        "cov_petal",
+        "cov_sepal",
+        "petal_panel",
+        "sample_covariance_note",
+        "sepal_panel"
+      ],
+      "notes": [
+        "observer hypotheses were promoted into ProblemSpec observers only after explicit selection"
+      ],
+      "residuals": {
+        "exact_flag": 0.0,
+        "unresolved_count": 0.0
+      },
+      "theorem_layer": "assembled evidence-to-problem encoding; exact only where extraction_mode is exact_extraction",
+      "unresolved_items": []
+    },
+    "classification": "assembled_problem_spec",
+    "details": {
+      "observer_selection": {}
+    },
+    "exact": false,
+    "required_human_decisions": [],
+    "selected_observers": [
+      "sepal_panel",
+      "petal_panel"
+    ],
+    "unresolved_observer_groups": []
+  },
+  "completion": {
+    "audit": {
+      "approximate_assumptions": [
+        "Visible covariances are exact sample covariances of the extracted rows, not matrices written explicitly in the source table."
+      ],
+      "authoritative_inputs": [
+        "cov_sepal",
+        "cov_petal"
+      ],
+      "exact_assumptions": [],
+      "falsification_route": [
+        "Either produce a positive definite member of the affine family or prove none exists.",
+        "Reduce the nullity by supplying additional exact observer evidence."
+      ],
+      "notes": [
+        "current engine deliberately returns 'underdetermined' instead of guessing across a higher-dimensional affine PSD family"
+      ],
+      "residuals": {
+        "linear_residual": 4.440892098500626e-16,
+        "psd_margin_at_lstsq_point": 0.018987377822153984
+      },
+      "theorem_layer": "exact affine Gaussian completion family detection"
+    },
+    "certificates": [
+      {
+        "details": {
+          "nullity": 4,
+          "psd_margin_at_lstsq_point": 0.018987377822153984
+        },
+        "exact": true,
+        "kind": "affine_family_underdetermined",
+        "summary": "linear constraints define an affine completion family that is not resolved exactly in v0.2"
+      }
+    ],
+    "classification": "underdetermined_affine_family",
+    "details": {
+      "nullity": 4
+    },
+    "exact": true,
+    "residuals": {
+      "linear_residual": 4.440892098500626e-16,
+      "psd_margin_at_lstsq_point": 0.018987377822153984
+    }
+  },
+  "ingestion": {
+    "ambiguity_collapse_route": [
+      "add one more curated excerpt that distinguishes between the remaining candidate families"
+    ],
+    "ambiguous_items": [],
+    "authoritative_items": [
+      "cov_petal",
+      "cov_sepal",
+      "iris_slice",
+      "petal_panel",
+      "sepal_panel"
+    ],
+    "exact_items": [
+      "iris_slice",
+      "petal_panel",
+      "sepal_panel"
+    ],
+    "falsification_route": [
+      "replace an encoded inference excerpt with an exact excerpt from the source if the encoding is too strong",
+      "downgrade any item to open_ambiguity if the source does not determine it cleanly"
+    ],
+    "inferred_items": [
+      "cov_full",
+      "cov_petal",
+      "cov_sepal"
+    ],
+    "load_bearing_ambiguous_items": [],
+    "load_bearing_assumptions": [
+      "Visible covariances are exact sample covariances of the extracted rows, not matrices written explicitly in the source table."
+    ],
+    "load_bearing_exact_items": [
+      "iris_slice",
+      "petal_panel",
+      "sepal_panel"
+    ],
+    "load_bearing_inferred_items": [
+      "cov_full",
+      "cov_petal",
+      "cov_sepal"
+    ],
+    "load_bearing_items": [
+      "cov_full",
+      "cov_petal",
+      "cov_sepal",
+      "iris_slice",
+      "petal_panel",
+      "sepal_panel"
+    ],
+    "notes": [
+      "curated ingestion keeps exact, inferred, and ambiguous material separate before ProblemSpec assembly"
+    ],
+    "residuals": {
+      "ambiguous_excerpt_count": 0.0
+    },
+    "theorem_layer": "curated ingestion preserves epistemic status but does not itself make a descent conclusion",
+    "unresolved_items": []
+  },
+  "refinement": {
+    "audit": {
+      "approximate_assumptions": [],
+      "authoritative_inputs": [
+        "latent precision H",
+        "target observer family",
+        "candidate observer family"
+      ],
+      "exact_assumptions": [
+        "latent precision H is treated as authoritative",
+        "candidate family is finite and explicit"
+      ],
+      "falsification_route": [
+        "Add a candidate observer with a strictly smaller audited score.",
+        "Show that the reported winner does not factor every target observer."
+      ],
+      "notes": [],
+      "residuals": {
+        "dimension_full_iris": 4.0,
+        "score_full_iris": -7.644010016524851
+      },
+      "theorem_layer": "exact finite-family refinement ranking"
+    },
+    "certificates": [
+      {
+        "details": {
+          "candidate": "sepal_panel"
+        },
+        "exact": true,
+        "kind": "candidate_not_common_refinement",
+        "summary": "candidate 'sepal_panel' does not refine every target observer"
+      },
+      {
+        "details": {
+          "candidate": "petal_panel"
+        },
+        "exact": true,
+        "kind": "candidate_not_common_refinement",
+        "summary": "candidate 'petal_panel' does not refine every target observer"
+      }
+    ],
+    "details": {
+      "candidate_count": 3,
+      "target_count": 2
+    },
+    "objective": "min_dimension_then_logdet",
+    "scores": {
+      "full_iris": -7.644010016524851
+    },
+    "winner": "full_iris"
+  },
+  "relation": {
+    "audit": {
+      "approximate_assumptions": [],
+      "authoritative_inputs": [
+        "observer A matrix",
+        "observer B matrix"
+      ],
+      "exact_assumptions": [
+        "observer relation test is purely linear"
+      ],
+      "falsification_route": [
+        "Show an exact factorisation in one direction if a non-nested classification is wrong.",
+        "Show both directions factor if an equivalent classification is claimed."
+      ],
+      "notes": [],
+      "residuals": {
+        "a_through_b_residual": 1.0,
+        "b_through_a_residual": 1.0
+      },
+      "theorem_layer": "exact linear observer relation classification"
+    },
+    "certificates": [
+      {
+        "details": {
+          "factorisation_residual": 1.0,
+          "kernel_obstruction": 1.0
+        },
+        "exact": true,
+        "kind": "factorisation_failure",
+        "summary": "coarse observer does not factor through fine observer"
+      },
+      {
+        "details": {
+          "factorisation_residual": 1.0,
+          "kernel_obstruction": 1.0
+        },
+        "exact": true,
+        "kind": "factorisation_failure",
+        "summary": "coarse observer does not factor through fine observer"
+      }
+    ],
+    "classification": "non_nested_observers",
+    "details": {},
+    "exact": true,
+    "residuals": {
+      "a_through_b_residual": 1.0,
+      "b_through_a_residual": 1.0
+    }
+  }
+}

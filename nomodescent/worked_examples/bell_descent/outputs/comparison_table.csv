@@ -1,0 +1,4 @@
+sample,delta,rho,classification,exact,correlator_matches_compatible,linear_residual,psd_margin_or_search_margin,certificate_kinds
+compatible,0.0,0.6,approximate_common_descent,False,True,2.220446049250313e-16,0.15147186257614298,
+variance_only,0.22,0.6,incompatible_by_linear_inconsistency,True,True,0.11000000000000032,nan,"repeated_marginal_inconsistency,linear_constraint_inconsistency"
+correlator_only,0.0,0.82,incompatible_by_approximate_psd_search,False,False,3.3306690738754696e-16,-0.1596551211459381,approximate_psd_search_failure

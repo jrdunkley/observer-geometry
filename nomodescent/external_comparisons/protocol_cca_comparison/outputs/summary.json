@@ -1,0 +1,9 @@
+{
+  "comparison_relation": "distinguished",
+  "data_source": "evidence\\micro_real_bundles\\iris_protocol_mismatch\\raw\\iris_slice.csv",
+  "external_method": "canonical correlation analysis",
+  "first_canonical_correlation": 0.9621850989918453,
+  "qd_completion_classification": "underdetermined_affine_family",
+  "qd_refinement_winner": "full_iris",
+  "qd_relation_classification": "non_nested_observers"
+}

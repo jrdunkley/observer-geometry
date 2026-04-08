@@ -1,0 +1,165 @@
+{
+  "assembly_audit": {
+    "exact_items": [
+      "cov_protocol_a",
+      "cov_protocol_b",
+      "protocol_a",
+      "protocol_b"
+    ],
+    "inferred_items": [
+      "observer_family_choice",
+      "protocol_a_direct",
+      "protocol_a_sum13",
+      "protocol_b_direct",
+      "protocol_b_sum13"
+    ],
+    "ambiguous_items": [],
+    "authoritative_items": [
+      "cov_protocol_a",
+      "cov_protocol_b",
+      "protocol_a",
+      "protocol_a_direct",
+      "protocol_a_sum13",
+      "protocol_b",
+      "protocol_b_direct",
+      "protocol_b_sum13"
+    ],
+    "load_bearing_items": [
+      "cov_protocol_a",
+      "cov_protocol_b",
+      "observer_family_choice",
+      "protocol_a_direct",
+      "protocol_b_sum13"
+    ],
+    "load_bearing_exact_items": [
+      "cov_protocol_a",
+      "cov_protocol_b"
+    ],
+    "load_bearing_inferred_items": [
+      "observer_family_choice",
+      "protocol_a_direct",
+      "protocol_b_sum13"
+    ],
+    "load_bearing_ambiguous_items": [],
+    "load_bearing_assumptions": [
+      "Protocol descriptions do not directly state observer matrices; they are encoded from a finite candidate family.",
+      "protocol A is encoded as direct observation of x1 and x2",
+      "protocol B is encoded as an aggregate x1+x3 panel with x2"
+    ],
+    "unresolved_items": [],
+    "residuals": {
+      "unresolved_count": 0.0,
+      "exact_flag": 0.0
+    },
+    "theorem_layer": "assembled evidence-to-problem encoding; exact only where extraction_mode is exact_extraction",
+    "falsification_route": [
+      "supply an explicit observer matrix or remove a conflicting authoritative item",
+      "mark any modelling choice as encoded_inference instead of exact_extraction if it is not directly stated"
+    ],
+    "ambiguity_collapse_route": [
+      "add an exact source item that distinguishes between the remaining observer hypotheses",
+      "promote only one observer hypothesis per protocol into authoritative downstream use"
+    ],
+    "notes": [
+      "observer hypotheses were promoted into ProblemSpec observers only after explicit selection"
+    ]
+  },
+  "suggestion_audit": {
+    "protocol_a": {
+      "exact_items": [
+        "protocol_a"
+      ],
+      "inferred_items": [
+        "protocol_a_direct",
+        "protocol_a_sum13"
+      ],
+      "ambiguous_items": [
+        "protocol_a_sum13"
+      ],
+      "authoritative_items": [
+        "protocol_a"
+      ],
+      "load_bearing_items": [
+        "protocol_a"
+      ],
+      "load_bearing_exact_items": [
+        "protocol_a"
+      ],
+      "load_bearing_inferred_items": [],
+      "load_bearing_ambiguous_items": [
+        "protocol_a_sum13"
+      ],
+      "load_bearing_assumptions": [
+        "observer hypothesis 'protocol_a_direct' encodes protocol 'protocol_a' via features ['measure_x1', 'measure_x2']",
+        "observer hypothesis 'protocol_a_sum13' encodes protocol 'protocol_a' via features ['aggregate_x1_x3', 'measure_x2']"
+      ],
+      "unresolved_items": [
+        "protocol_a_sum13"
+      ],
+      "residuals": {
+        "score_gap_top2": 1.6
+      },
+      "theorem_layer": "finite-family evidence suggestion; not a theorem-grade descent conclusion",
+      "falsification_route": [
+        "supply an explicit observer matrix from the source and bypass finite-family suggestion",
+        "add protocol facts that distinguish between the tied candidate hypotheses"
+      ],
+      "ambiguity_collapse_route": [
+        "record one more exact protocol fact that only one candidate family satisfies"
+      ],
+      "notes": [
+        "candidate ranking is deterministic and finite-family only"
+      ]
+    },
+    "protocol_b": {
+      "exact_items": [
+        "protocol_b"
+      ],
+      "inferred_items": [
+        "protocol_b_sum13",
+        "protocol_b_direct"
+      ],
+      "ambiguous_items": [
+        "protocol_b_direct"
+      ],
+      "authoritative_items": [
+        "protocol_b"
+      ],
+      "load_bearing_items": [
+        "protocol_b"
+      ],
+      "load_bearing_exact_items": [
+        "protocol_b"
+      ],
+      "load_bearing_inferred_items": [],
+      "load_bearing_ambiguous_items": [
+        "protocol_b_direct"
+      ],
+      "load_bearing_assumptions": [
+        "observer hypothesis 'protocol_b_sum13' encodes protocol 'protocol_b' via features ['aggregate_x1_x3', 'measure_x2']",
+        "observer hypothesis 'protocol_b_direct' encodes protocol 'protocol_b' via features ['measure_x1', 'measure_x2']"
+      ],
+      "unresolved_items": [
+        "protocol_b_direct"
+      ],
+      "residuals": {
+        "score_gap_top2": 1.6
+      },
+      "theorem_layer": "finite-family evidence suggestion; not a theorem-grade descent conclusion",
+      "falsification_route": [
+        "supply an explicit observer matrix from the source and bypass finite-family suggestion",
+        "add protocol facts that distinguish between the tied candidate hypotheses"
+      ],
+      "ambiguity_collapse_route": [
+        "record one more exact protocol fact that only one candidate family satisfies"
+      ],
+      "notes": [
+        "candidate ranking is deterministic and finite-family only"
+      ]
+    }
+  },
+  "refinement_falsification_route": [
+    "Add a candidate observer with a strictly smaller audited score.",
+    "Show that the reported winner does not factor every target observer."
+  ]
+}

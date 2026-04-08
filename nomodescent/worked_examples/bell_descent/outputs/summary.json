@@ -1,0 +1,8 @@
+{
+  "compatible_vs_variance_only_correlator_residual": 0.0,
+  "sample_classifications": {
+    "compatible": "approximate_common_descent",
+    "variance_only": "incompatible_by_linear_inconsistency",
+    "correlator_only": "incompatible_by_approximate_psd_search"
+  }
+}

@@ -1,0 +1,124 @@
+{
+  "name": "leaderboard_benchmark_slice",
+  "latent_dim": 4,
+  "observers": [
+    {
+      "name": "chat_direct",
+      "matrix": [
+        [
+          1.0,
+          0.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ]
+      ],
+      "provenance": "leaderboard_benchmark_slice:candidate family",
+      "notes": ""
+    },
+    {
+      "name": "reasoning_direct",
+      "matrix": [
+        [
+          0.0,
+          1.0,
+          0.0,
+          0.0
+        ],
+        [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      ],
+      "provenance": "leaderboard_benchmark_slice:candidate family",
+      "notes": ""
+    }
+  ],
+  "evidence": [
+    {
+      "name": "cov_chat",
+      "observer": "chat_direct",
+      "kind": "covariance",
+      "matrix": [
+        [
+          319.114763645839,
+          166.42723842227798
+        ],
+        [
+          166.42723842227798,
+          153.47036804332893
+        ]
+      ],
+      "exact": false,
+      "tolerance": null,
+      "authoritative": true,
+      "provenance": "leaderboard_benchmark_slice:derived chat covariance",
+      "notes": ""
+    },
+    {
+      "name": "cov_reasoning",
+      "observer": "reasoning_direct",
+      "kind": "covariance",
+      "matrix": [
+        [
+          153.47036804332893,
+          107.4160876881695
+        ],
+        [
+          107.4160876881695,
+          75.27566356609302
+        ]
+      ],
+      "exact": false,
+      "tolerance": null,
+      "authoritative": true,
+      "provenance": "leaderboard_benchmark_slice:derived reasoning covariance",
+      "notes": ""
+    }
+  ],
+  "ceilings": [],
+  "constraints": [],
+  "assumptions": {
+    "entries": [
+      {
+        "label": "latent_axis_choice",
+        "statement": "The latent ambient space is identified with the four task-score directions of the reconstructed score slice.",
+        "exact": false,
+        "provenance": "leaderboard_benchmark_slice:bundle design"
+      },
+      {
+        "label": "chat_direct_assumption_0",
+        "statement": "chat suite is modelled as direct observation of IFEval and BBH directions",
+        "exact": false,
+        "provenance": "leaderboard_benchmark_slice:candidate family"
+      },
+      {
+        "label": "reasoning_direct_assumption_0",
+        "statement": "reasoning suite is modelled as direct observation of BBH and MMLU-PRO directions",
+        "exact": false,
+        "provenance": "leaderboard_benchmark_slice:candidate family"
+      }
+    ]
+  },
+  "goals": [
+    {
+      "kind": "common_completion",
+      "target": null,
+      "candidates": [],
+      "notes": ""
+    }
+  ],
+  "description": "Tiny public leaderboard score slice with explicit benchmark-observer ambiguity",
+  "provenance": "Manual reconstruction from public leaderboard numeric facts",
+  "tags": [
+    "micro-real",
+    "benchmark"
+  ]
+}
