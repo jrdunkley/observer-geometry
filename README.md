@@ -1,5 +1,9 @@
 ﻿# nomogeo
 
+```bash
+python -m pip install nomogeo
+```
+
 Agent-facing observer-geometry workspace.
 
 This workspace turns messy scientific evidence into exact geometry, auditable descent, and explicit hidden structure. Hand it partial views, protocol differences, benchmark slices, or published tables, and it will tell you what is compatible, what is hidden, what is obstructed, and what richer observation would resolve it.
