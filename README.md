@@ -28,6 +28,8 @@ Supporting surfaces:
 - [LICENSE](LICENSE)
 - [CITATIONS.md](CITATIONS.md)
 
+Public docs: https://docs.nomogenetics.com/
+
 ## Exact Domain
 
 This workspace is disciplined around:
