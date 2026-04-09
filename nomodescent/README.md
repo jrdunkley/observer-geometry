@@ -58,7 +58,7 @@ Deferred in `v0.2`:
 
 ## Install
 
-`nomogeo v0.1.0` must already be installed or available in the environment.
+`nomogeo v0.25.0` must already be installed or available in the environment.
 
 ```bash
 pip install -e nomodescent
@@ -103,8 +103,8 @@ The narrow operational Quotient Descent core is documented in:
 ## Docs
 
 - [docs/DOMAIN.md](docs/DOMAIN.md)
-- [docs/HOW_TO_USE_THIS_ON_VAGUE_SCIENTIFIC_MATERIAL_WITHOUT_LYING_TO_YOURSELF.md](docs/HOW_TO_USE_THIS_ON_VAGUE_SCIENTIFIC_MATERIAL_WITHOUT_LYING_TO_YOURSELF.md)
-- [docs/HOW_TO_COMPARE_QUOTIENT_DESCENT_AGAINST_EXTERNAL_METHODS_HONESTLY.md](docs/HOW_TO_COMPARE_QUOTIENT_DESCENT_AGAINST_EXTERNAL_METHODS_HONESTLY.md)
+- [docs/VAGUE_MATERIAL_GUIDE.md](docs/VAGUE_MATERIAL_GUIDE.md)
+- [docs/EXTERNAL_COMPARISON_GUIDE.md](docs/EXTERNAL_COMPARISON_GUIDE.md)
 - [docs/QD_CERTIFICATES.md](docs/QD_CERTIFICATES.md)
 - [docs/QD_CORE_SCOPE.md](docs/QD_CORE_SCOPE.md)
 - [docs/RELEASE_NOTE.md](docs/RELEASE_NOTE.md)

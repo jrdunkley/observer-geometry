@@ -69,4 +69,6 @@ def test_encoded_inference_records_assumptions_and_ranks_deterministically() -> 
     assert result.audit.theorem_layer.startswith("finite-family evidence suggestion")
     assert result.assumptions
     assert result.audit.inferred_items == ("h1", "h2")
+    assert any("heuristic" in note for note in result.audit.notes)
+    assert any("top-ranked candidate" in step for step in result.audit.falsification_route)
 

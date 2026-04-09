@@ -55,13 +55,17 @@ def infer_observer_candidates(
         residuals={"score_gap_top2": _top_gap(scores)},
         theorem_layer="finite-family evidence suggestion; not a theorem-grade descent conclusion",
         falsification_route=(
+            "do not treat the top-ranked candidate as authoritative without an explicit observer-level justification",
             "supply an explicit observer matrix from the source and bypass finite-family suggestion",
             "add protocol facts that distinguish between the tied candidate hypotheses",
         ),
         ambiguity_collapse_route=(
             "record one more exact protocol fact that only one candidate family satisfies",
         ),
-        notes=("candidate ranking is deterministic and finite-family only",),
+        notes=(
+            "candidate ranking is deterministic and finite-family only",
+            "the score is a lightweight feature-overlap heuristic, not a scientific selector",
+        ),
     )
     return SuggestionResult(
         target=protocol_name,

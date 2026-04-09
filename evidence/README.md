@@ -62,6 +62,13 @@ pip install -e evidence
 4. Pass the result to `nomodescent`.
 5. Read the audit trail before reading the conclusion.
 
+Finite-family observer suggestion is intentionally light:
+
+- `infer_observer_candidates(...)` is a deterministic ranking aid
+- it is not an automatic scientific selector
+- the top-ranked observer hypothesis is never authoritative by itself
+- downstream assembly should still be treated as conditional on the chosen observer encoding
+
 ## Curated Ingestion
 
 `evidence` now also exposes a narrow curated-ingestion surface for manually
@@ -93,6 +100,6 @@ See [docs/CURATED_INGESTION.md](docs/CURATED_INGESTION.md).
 - [docs/PROBLEM_ASSEMBLY.md](docs/PROBLEM_ASSEMBLY.md)
 - [docs/AUDIT_LAYER.md](docs/AUDIT_LAYER.md)
 - [docs/CURATED_INGESTION.md](docs/CURATED_INGESTION.md)
-- [docs/HOW_TO_ENCODE_MESSY_SCIENTIFIC_MATERIAL_WITHOUT_LYING_TO_YOURSELF.md](docs/HOW_TO_ENCODE_MESSY_SCIENTIFIC_MATERIAL_WITHOUT_LYING_TO_YOURSELF.md)
+- [docs/MESSY_MATERIAL_ENCODING_GUIDE.md](docs/MESSY_MATERIAL_ENCODING_GUIDE.md)
 
 

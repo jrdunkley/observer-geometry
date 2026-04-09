@@ -24,3 +24,9 @@ references:
   - type: generic
     title: "Local paper DOI list"
     scope: "See papers/DOIs.txt for the current DOI set used by the local paper collection."
+  - type: generic
+    title: "Closure_Adapted_Observers"
+    doi: 10.5281/zenodo.19488712
+  - type: generic
+    title: "Connection_Flatness"
+    doi: 10.5281/zenodo.19488722

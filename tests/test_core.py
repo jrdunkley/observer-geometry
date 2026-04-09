@@ -87,4 +87,3 @@ def test_local_visible_calculus_matches_finite_differences_and_q_gram() -> None:
     assert np.allclose(result.Q, q_gram, atol=1e-9, rtol=1e-9)
     assert np.min(np.linalg.eigvalsh(result.Q)) >= -1e-8
     assert result.det_split >= -1e-8
-

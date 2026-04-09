@@ -1,12 +1,8 @@
 ﻿# nomogeo
 
-```bash
-python -m pip install nomogeo
-```
-
 Agent-facing observer-geometry workspace.
 
-This workspace turns messy scientific evidence into exact geometry, auditable descent, and explicit hidden structure. Hand it partial views, protocol differences, benchmark slices, or published tables, and it will tell you what is compatible, what is hidden, what is obstructed, and what richer observation would resolve it.
+Public docs: https://docs.nomogenetics.com/
 
 Use this repo as a three-layer stack:
 
@@ -19,6 +15,8 @@ Use this repo as a three-layer stack:
 
 Supporting surfaces:
 
+- https://docs.nomogenetics.com/
+  - public documentation for install, API overview, examples, and validation
 - [examples/README.md](examples/README.md)
   - public demonstrations and runnable examples
 - [tests/micro_case_studies/README.md](tests/micro_case_studies/README.md)
@@ -27,8 +25,6 @@ Supporting surfaces:
   - epistemic split across exact, audited approximate, synthetic, and micro-real outputs
 - [LICENSE](LICENSE)
 - [CITATIONS.md](CITATIONS.md)
-
-Public docs: https://docs.nomogenetics.com/
 
 ## Exact Domain
 
@@ -48,6 +44,11 @@ It is not a generic scientific assistant, generic PDF reader, or unconstrained s
 - exact visible precision `Phi_C(H) = (C H^{-1} C^T)^{-1}`
 - canonical lift and hidden projector
 - local visible calculus `(V, Q)` and determinant-curvature split
+- exact closure-adapted whitening, leakage / visibility scores, leakage-channel
+  diagnostics, same-rank observer comparison, and commuting-family observer
+  synthesis
+- exact fixed-observer chart coordinates `(Phi, R, K)`, chart reconstruction,
+  observer-transition law, and fixed-observer current / forcing diagnostics
 - support-aware hidden-load parametrisation beneath a ceiling
 - fixed-ceiling inverse theorem
 - hidden-load transport and determinant clock
@@ -107,6 +108,7 @@ load = hidden_load(T, X)
 
 ```bash
 python -m pytest -q
+python tools/install_surface_smoke.py
 python tools/validation_sweep.py
 python tools/stack_soak.py
 ```
@@ -114,6 +116,7 @@ python tools/stack_soak.py
 For theorem and validation maps, start with:
 
 - [docs/theorem_map.md](docs/theorem_map.md)
+- [docs/release_scope_0_25.md](docs/release_scope_0_25.md)
 - [docs/inverse_theorem.md](docs/inverse_theorem.md)
 - [docs/validation_note.md](docs/validation_note.md)
 - [docs/stack_validation_note.md](docs/stack_validation_note.md)

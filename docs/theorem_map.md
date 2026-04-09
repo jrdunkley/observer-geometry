@@ -106,6 +106,72 @@ This map uses exact theorem / proposition / definition labels from the TeX sourc
   - consciousness confirmation: `Geometric_Consciousness_MASTER.tex`, Corollary `cor:quadratic-dv`
   - tests: [`tests/test_bridge.py`](../tests/test_bridge.py)
 
+## Closure-Adapted Layer
+
+- `whitened_perturbation`
+  - source: `Closure_Adapted_Observers.tex`, Theorem `[H-whitened observer normal form]`, label `thm:whitened-normal-form`
+  - formulas: `eq:Delta-tilde`, `eq:normal-form-VQ`
+  - tests: [`tests/test_adapted.py`](../tests/test_adapted.py), [`tests/test_release_gate_adapted.py`](../tests/test_release_gate_adapted.py)
+
+- `observer_from_subspace`
+  - source: `Closure_Adapted_Observers.tex`, Theorem `thm:whitened-normal-form`
+  - formula: `eq:C-from-B`
+  - tests: [`tests/test_adapted.py`](../tests/test_adapted.py)
+
+- `closure_scores`
+  - source: `Closure_Adapted_Observers.tex`, Definition `[Closure-adapted observer]`, label `def:closure-adapted`
+  - formulas: `eq:L-pi-def`, `eq:eta-def`, `eq:energy-split`
+  - theorem role: exact leakage `L`, retained visible score `S`, and hidden fraction `eta` on the whitened family
+  - tests: [`tests/test_adapted.py`](../tests/test_adapted.py), [`tests/test_release_gate_adapted.py`](../tests/test_release_gate_adapted.py)
+
+- `leakage_channels`
+  - source: `Closure_Adapted_Observers.tex`, section `Operational consequences`
+  - formula: `eq:Qa-op`
+  - theorem role: exposes the canonical leakage Gram operator and its singular leakage channels for one perturbation
+  - tests: [`tests/test_adapted.py`](../tests/test_adapted.py), [`tests/test_release_gate_adapted.py`](../tests/test_release_gate_adapted.py)
+
+- `closure_adapted_observer`
+  - source: `Closure_Adapted_Observers.tex`, Theorem `[Commuting family]`, label `thm:commuting-family`
+  - source: `Closure_Adapted_Observers.tex`, Corollary `[Optimal exact closure in the commuting case]`, label `cor:optimal-commuting`
+  - domain note: current public mode is exact commuting-family synthesis only
+  - non-claim: this does not expose the noncommuting frontier optimiser or the `sum_a D_a^2` rule as a final observer
+  - tests: [`tests/test_adapted.py`](../tests/test_adapted.py), [`tests/test_release_gate_adapted.py`](../tests/test_release_gate_adapted.py)
+
+- `compare_observers`
+  - source fallback: exact score comparison built from `def:closure-adapted`, `eq:L-pi-def`, and `eq:eta-def`
+  - role: same-rank exact comparison / inefficiency witness on one task family
+  - non-claim: this is not a frontier optimiser; it compares already-specified observers only
+  - tests: [`tests/test_adapted.py`](../tests/test_adapted.py), [`tests/test_release_gate_adapted.py`](../tests/test_release_gate_adapted.py)
+
+## Fixed-Observer Connection Layer
+
+- `fixed_observer_coordinates`
+  - source: `Connection_Flatness.tex`, fixed-observer factorisation / chart section
+  - formulas: observer-fixed adapted basis with exact coordinates `(Phi, R, K)` and reconstruction `H = U^{-T} T_K diag(Phi, R) T_K^T U^{-1}`
+  - domain note: the public chart uses an observer-fixed adapted basis; it does not rebuild the basis from `H`
+  - tests: [`tests/test_connection.py`](../tests/test_connection.py), [`tests/test_connection_flatness_hardening.py`](../tests/test_connection_flatness_hardening.py)
+
+- `reconstruct_precision_from_fixed_observer_coordinates`
+  - source: `Connection_Flatness.tex`, same fixed-observer factorisation formulas
+  - role: exact inverse of the public fixed-observer chart when the adapted basis is supplied
+  - tests: [`tests/test_connection.py`](../tests/test_connection.py)
+
+- `observer_transition`
+  - source: `Connection_Flatness.tex`, observer-to-observer transition law for fixed observers
+  - formulas: block transform law for `(Phi, R, K)` under the adapted-basis change `U_1^{-1} U_2`
+  - tests: [`tests/test_connection.py`](../tests/test_connection.py), [`tests/test_connection_flatness_hardening.py`](../tests/test_connection_flatness_hardening.py)
+
+- `connection_current`
+  - source: `Connection_Flatness.tex`, fixed-observer current / forcing identities
+  - formulas: `J = Phi^{-1} dot(K) R`, `Q = Phi J R^{-1} J^T Phi`
+  - role: exact current and forcing diagnostics for one tangent direction at fixed observer
+  - tests: [`tests/test_connection.py`](../tests/test_connection.py), [`tests/test_connection_flatness_hardening.py`](../tests/test_connection_flatness_hardening.py)
+
+- `forcing_from_current`
+  - source: `Connection_Flatness.tex`, current-to-forcing identity
+  - formula: `Q = Phi J R^{-1} J^T Phi`
+  - tests: [`tests/test_connection.py`](../tests/test_connection.py)
+
 ## Quotient Adapter Layer
 
 - `observed_covariance` and Gaussian divergences

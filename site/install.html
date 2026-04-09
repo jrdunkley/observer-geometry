@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Install | nomogeo</title>
+  <meta name="description" content="Install nomogeo from PyPI, set up a source checkout, and run a minimal visible-precision example.">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="canonical" href="https://docs.nomogenetics.com/install.html">
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-copy"><strong>nomogeo</strong><span>Observer-geometry kernel</span></span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Overview</a>
+        <a class="active" href="install.html">Install</a>
+        <a href="docs.html">Documentation</a>
+        <a href="examples.html">Examples</a>
+        <a href="validation.html">Validation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="shell">
+        <div class="eyebrow">Install</div>
+        <h1>Install the package and run a first check.</h1>
+        <p class="lede">The released package is small and straightforward to install. It requires Python 3.11 or newer and depends only on NumPy and SciPy.</p>
+        <div class="badge-row">
+          <span class="tag">Package: nomogeo</span>
+          <span class="tag">Python &gt;= 3.11</span>
+          <span class="tag">PyPI</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell card-grid">
+        <article class="code-card span-6">
+          <div class="card-label">From PyPI</div>
+          <h3>Install the released package</h3>
+          <pre><code>python -m pip install nomogeo</code></pre>
+          <p>This is the fastest way to use the public kernel.</p>
+        </article>
+        <article class="code-card span-6">
+          <div class="card-label">From source</div>
+          <h3>Clone the repository</h3>
+          <pre><code>git clone https://github.com/jrdunkley/observer-geometry.git
+cd observer-geometry
+python -m pip install -e .</code></pre>
+          <p>Use this if you want the tests, examples, and documentation sources as well.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell split-grid">
+        <div class="span-7">
+          <div class="section-header">
+            <div class="eyebrow">First check</div>
+            <h2>Run a minimal visible-precision example</h2>
+          </div>
+          <div class="code-card">
+            <pre><code>import numpy as np
+from nomogeo import visible_precision
+
+H = np.array([[3.0, 1.0], [1.0, 2.0]])
+C = np.array([[1.0, 0.0]])
+
+phi = visible_precision(H, C)
+print(phi)</code></pre>
+          </div>
+        </div>
+        <div class="span-5">
+          <div class="callout">
+            <div class="card-label">Included</div>
+            <ul class="clean-list">
+              <li>Visible precision and local visible calculus.</li>
+              <li>Fixed-ceiling hidden-load geometry.</li>
+              <li>Hidden transport, contraction factors, and clock.</li>
+              <li>Thin bridge and quotient-side Gaussian utilities.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-header">
+          <div class="eyebrow">Common commands</div>
+          <h2>Useful repo-level commands</h2>
+        </div>
+        <div class="card-grid">
+          <div class="code-card span-6"><div class="card-label">Tests</div><pre><code>python -m pytest -q</code></pre></div>
+          <div class="code-card span-6"><div class="card-label">Validation sweep</div><pre><code>python tools/validation_sweep.py</code></pre></div>
+          <div class="code-card span-6"><div class="card-label">Released example</div><pre><code>python -m examples.entanglement_hidden_load.run_all</code></pre></div>
+          <div class="code-card span-6"><div class="card-label">Stack soak</div><pre><code>python tools/stack_soak.py</code></pre></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-inner">
+      <p><strong>nomogeo install</strong></p>
+      <p class="subtle">Help: <a class="muted-link" href="mailto:contact@nomogenetics.com">contact@nomogenetics.com</a> - PyPI: <a class="muted-link" href="https://pypi.org/project/nomogeo/">pypi.org/project/nomogeo</a></p>
+    </div>
+  </footer>
+</body>
+</html>

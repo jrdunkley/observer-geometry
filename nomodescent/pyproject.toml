@@ -13,7 +13,7 @@ authors = [{name = "J. R. Dunkley"}]
 dependencies = [
   "numpy>=2.0",
   "scipy>=1.15",
-  "nomogeo>=0.1.0"
+  "nomogeo>=0.25.0"
 ]
 
 [project.optional-dependencies]

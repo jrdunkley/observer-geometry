@@ -1,0 +1,42 @@
+{
+  "conditioning_acceptance": {
+    "cond_1e4": 12,
+    "cond_1e6": 12,
+    "cond_1e8": 12
+  },
+  "conditioning_max_metric_residual": {
+    "cond_1e4": 7.4214767664670944e-09,
+    "cond_1e6": 0.00011301483027637005,
+    "cond_1e8": 0.30396246910095215
+  },
+  "empirical_current_variation": {
+    "bell": 4.837864332514964e-12,
+    "iris": 3.1217208887094455e-11,
+    "leaderboard": 6.5634551298446964e-09
+  },
+  "empirical_q_from_current_residual": {
+    "bell": 3.521265900121269e-15,
+    "iris": 1.3287996536007748e-13,
+    "leaderboard": 1.9760359885434644e-11
+  },
+  "empirical_transition_residuals": {
+    "bell": 3.3766115072321297e-16,
+    "iris": 2.1305003386368745e-15,
+    "leaderboard": 4.652834361350216e-13
+  },
+  "max_current_variation": 2.3912073859439315e-11,
+  "max_factorisation_residual": 7.831495233975462e-14,
+  "max_fixed_k_free_sector_q": 1.2437892252937074e-19,
+  "max_geodesic_deviation_t3_scaled": 0.012406676132084364,
+  "max_hidden_gauge_residual": 6.0980281216719036e-12,
+  "max_horizontal_projection_residual": 3.12194714524594e-13,
+  "max_metric_split_residual": 1.1084466677857563e-12,
+  "max_phi_recovery_residual": 2.2021215722901927e-12,
+  "max_q_from_current_residual": 4.0216885315413696e-11,
+  "max_q_from_dk_residual": 3.258117188662978e-12,
+  "max_transition_residual": 4.793695669218904e-14,
+  "max_visible_gauge_residual": 8.562720583885776e-14,
+  "min_fixed_k_nonhorizontal_cross_norm": 0.08883998015941479,
+  "seed": 20260409,
+  "synthetic_trials": 40
+}

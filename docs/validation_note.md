@@ -5,6 +5,12 @@
 - exact visible precision, variational character, tower law, and Schur form
 - canonical lift and hidden projector
 - local visible calculus with the positive Gram form of `Q`
+- exact closure-adapted whitening, observer-from-subspace construction, closure
+  scores `(L, S, eta)`, leakage-channel diagnostics, same-rank observer
+  comparison, and commuting-family observer synthesis
+- exact fixed-observer chart coordinates `(Phi, R, K)`, exact chart
+  reconstruction, observer-transition law, and fixed-observer current / forcing
+  identities from `Connection_Flatness`
 - support-aware hidden-load parametrisation beneath a ceiling
 - visible reconstruction from hidden load with explicit representation rules in
   ambiguous full-rank cases
@@ -22,6 +28,7 @@
 ## Deliberately Deferred
 
 - full finite-observer optimisation layer from `Finite_Observation`
+- noncommuting closure-adapted frontier optimisation and selector policy
 - full quotient-observation framework beyond the thin contraction adapter
 - downstream consciousness analysis and empirical pipelines
 - plotting, notebooks, data ingestion, benchmarks, and application-specific
@@ -91,6 +98,38 @@ Track B:
 - input immutability checks
 - batch determinism, failure propagation, and forced process-fallback checks
 - seeded validation-sweep harness smoke test
+- malformed closure-adapted basis and family rejection
+- commuting-only rejection for noncommuting closure-adapted input
+- malformed fixed-observer chart, transition, and current inputs with explicit
+  exception types
+
+Closure-adapted release-gate checks:
+
+- exact whitening and observer normal-form round-trips
+- exact closure on invariant-subspace families
+- exact leakage-channel / Gram-operator recovery checks
+- exact same-rank observer comparison / dominance checks
+- exhaustive commuting-family agreement against all common-eigenspace subsets in
+  small dimensions
+- bridge-adapted exact observer checks for vanishing `Q`, vanishing `eta`, and
+  quartic-residual suppression
+- explicit `Tr(Pi M) = L + S` identity checks
+- explicit `R^3` tower-obstruction witness checks
+- empirical hardening checks against the local micro-real Iris, leaderboard,
+  and Bell bundles, verifying that real noncommuting families are rejected
+  loudly while data-shaped exact commuting families still solve exactly
+
+Connection release-gate checks:
+
+- exact fixed-observer chart round-trips and `Phi_C(H)` recovery
+- exact observer-transition-law recovery against direct recomputation
+- exact current-to-forcing identity checks `Q = Phi J R^(-1) J^T Phi`
+- fixed-`K` zero-forcing edge checks
+- explicit full-visible zero-hidden-sector checks
+- empirical hardening checks against the local micro-real Iris, leaderboard,
+  and Bell bundles
+- hostile conditioning checks up through rotated families with
+  `cond(H) ~ 1e8`, with explicit warning thresholds rather than silent failure
 
 ## Fixes Triggered By This Campaign
 
@@ -104,6 +143,32 @@ Track B:
   [src/nomogeo/hidden.py](../src/nomogeo/hidden.py)
   - this does not widen the kernel; it promotes the already-valid fixed-ceiling
     inverse theorem into an explicit public surface
+- added exact closure-adapted kernel surfaces in
+  [src/nomogeo/adapted.py](../src/nomogeo/adapted.py)
+  - this promotion is intentionally limited to the exact commuting/invariant-subspace center
+  - noncommuting frontier optimisation remains deferred
+  - the layer now also exposes exact leakage-channel diagnostics and same-rank
+    observer inefficiency witnesses
+- added empirical and conditioning hardening harness in
+  [tools/adapted_hardening.py](../tools/adapted_hardening.py)
+  - this pushes the exact closure-adapted slice against local real bundles and hostile conditioning rather than only synthetic theorem fixtures
+- added exact fixed-observer chart surfaces in
+  [src/nomogeo/connection.py](../src/nomogeo/connection.py)
+  - this promotion is intentionally limited to the fixed-observer exact chart
+    and current identities from `Connection_Flatness`
+  - varying-observer geometry is still deferred
+- added connection hardening harness in
+  [tools/connection_flatness_hardening.py](../tools/connection_flatness_hardening.py)
+  - this pushes the fixed-observer chart against synthetic gauge checks,
+    hostile conditioning, and local micro-real bundles
+- made `BatchTaskError` process-pool round-trip safe in
+  [src/nomogeo/exceptions.py](../src/nomogeo/exceptions.py)
+  - the full-suite rerun exposed that remote batch failures were breaking process-backend failure propagation
+  - the fix preserves the existing exception surface while making it pickle-safe
+- added install-surface smoke in
+  [tools/install_surface_smoke.py](../tools/install_surface_smoke.py)
+  - this verifies that a user-style import resolves to this workspace and that
+    the public fixed-observer connection API survives direct import/use
 - no theorem domains were widened
 - no application-layer features were added
 
@@ -112,13 +177,14 @@ Track B:
 Current smoke result:
 
 ```text
-47 passed
+67 passed
 ```
 
 Install surface verified:
 
 - `python -m pip install -e .`
 - `pytest`
+- `python tools/install_surface_smoke.py`
 - direct execution of all files in
   [examples](../examples) against the
   installed package, without `sys.path` edits

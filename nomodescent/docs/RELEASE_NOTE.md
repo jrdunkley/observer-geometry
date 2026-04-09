@@ -1,7 +1,7 @@
 # Release Note
 
 `nomodescent v0.2` is the first exact scientific workbench layer above the
-frozen `nomogeo v0.1.0` kernel.
+frozen `nomogeo v0.25.0` kernel.
 
 ## What It Is
 

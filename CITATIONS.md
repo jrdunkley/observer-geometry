@@ -3,9 +3,9 @@
 ## How To Cite This Workspace
 
 If you use the code, tests, demonstrations, or evidence bundles from this
-workspace, cite: https://doi.org/10.5281/zenodo.19474899
+workspace, cite:
 
-- the `nomogeo` kernel 
+- the `nomogeo` kernel
 - the `nomodescent` layer if you use descent / compatibility results
 - the `evidence` layer if you use evidence encoding, micro-real bundles, or
   curated ingestion
@@ -27,6 +27,8 @@ Current DOI entries:
 - `10.5281/zenodo.19361501`
 - `10.5281/zenodo.19473828`
 - `10.5281/zenodo.19473822`
+- `10.5281/zenodo.19488712` — `Closure_Adapted_Observers`
+- `10.5281/zenodo.19488722` — `Connection_Flatness`
 
 Key workspace docs:
 

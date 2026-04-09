@@ -1,0 +1,131 @@
+{
+  "commuting_solver_stress": {
+    "trials": 40,
+    "exact_match_rate": 1.0,
+    "adapted_eta_max": 1.4562534881301321e-15,
+    "random_eta_median_over_trials": 0.717774396162761,
+    "signal_gain_vs_random_median_median": 5.6555042988667505,
+    "signal_gain_vs_random_max_median": 1.7208242063635093,
+    "beats_sampled_random_max_rate": 1.0,
+    "representative_case": {
+      "n": 9,
+      "m": 2,
+      "task_count": 4,
+      "top_idx": [
+        2,
+        0
+      ],
+      "mu_top": [
+        19.423982502078307,
+        8.86418246756886,
+        5.583504339036962,
+        1.9019598746587898,
+        0.0,
+        0.0
+      ],
+      "adapted_scores": {
+        "S": 28.28816496964715,
+        "H": -2.9670838728614156e-15,
+        "eta": -1.0488781707986575e-16
+      },
+      "best_exact_subset": [
+        0,
+        2
+      ],
+      "random_summary": {
+        "eta_median": 0.8417976324933996,
+        "eta_min": 0.4089583355168925,
+        "S_median": 2.1372285786672505,
+        "S_max": 13.872527362256303
+      },
+      "gain_vs_random_median": 13.235909931209745
+    }
+  },
+  "bridge_stress": {
+    "trials": 50,
+    "adapted_Q_max": 1.3429366038326383e-28,
+    "adapted_eta_max": 1.939817999601472e-15,
+    "adapted_scaled_residual_median": 1.1435997695396042e-12,
+    "random_eta_median_over_trials": 0.6131027014759618,
+    "signal_gain_vs_random_median_median": 6.528345124372237,
+    "signal_gain_vs_random_max_median": 1.6962209429738908,
+    "beats_sampled_random_max_rate": 1.0,
+    "representative_case": {
+      "ambient_dim": 9,
+      "top_abs_eigenvalues": [
+        2.991081548334025,
+        2.9910815483340065
+      ],
+      "adapted_scores": {
+        "S": 17.893137657568417,
+        "H": 5.53037048856167e-15,
+        "eta": 3.0907773663846144e-16
+      },
+      "adapted_Q_norm": 1.9768795631460743e-29,
+      "adapted_scaled_residual": 1.3822603040580408e-12,
+      "random_summary": {
+        "eta_median": 0.7668116060100097,
+        "eta_min": 0.28513486030662566,
+        "S_median": 1.4342700053952826,
+        "S_max": 10.5122021064642
+      },
+      "gain_vs_random_median": 12.475431815669252
+    }
+  },
+  "approximate_compatibility_sweep": {
+    "ambient_dim": 10,
+    "observer_dim": 3,
+    "task_count": 2,
+    "rows": [
+      {
+        "theta": 0.0,
+        "commutator_norm_median": 1.6718589335039013e-15,
+        "designed_eta_median": -5.14360828028536e-16,
+        "designed_eta_max": 1.5752318616628078e-15,
+        "designed_signal_median": 38.190000000000026,
+        "random_eta_median": 0.6160534016497186
+      },
+      {
+        "theta": 0.08,
+        "commutator_norm_median": 0.612693818501278,
+        "designed_eta_median": 0.0007313791750422364,
+        "designed_eta_max": 0.001482659733404984,
+        "designed_signal_median": 38.16077761113679,
+        "random_eta_median": 0.6174884303822641
+      },
+      {
+        "theta": 0.16,
+        "commutator_norm_median": 1.2320755499893443,
+        "designed_eta_median": 0.003058983519087957,
+        "designed_eta_max": 0.005854979053441032,
+        "designed_signal_median": 38.06907362571095,
+        "random_eta_median": 0.616093801681896
+      },
+      {
+        "theta": 0.28,
+        "commutator_norm_median": 2.395429435404636,
+        "designed_eta_median": 0.010692594618603175,
+        "designed_eta_max": 0.014641250022319757,
+        "designed_signal_median": 37.76977377932075,
+        "random_eta_median": 0.6183823131992421
+      },
+      {
+        "theta": 0.42,
+        "commutator_norm_median": 3.074894813558961,
+        "designed_eta_median": 0.02070639532126215,
+        "designed_eta_max": 0.037130049865400125,
+        "designed_signal_median": 37.36041299658335,
+        "random_eta_median": 0.6151157866067894
+      },
+      {
+        "theta": 0.65,
+        "commutator_norm_median": 5.4525163115011335,
+        "designed_eta_median": 0.06360604716614067,
+        "designed_eta_max": 0.08794581585865054,
+        "designed_signal_median": 35.6404275938553,
+        "random_eta_median": 0.6137844783831832
+      }
+    ],
+    "interpretation": "For the aggregate-mode design heuristic, eta is exactly zero in the commuting limit and rises as the commutator grows. This makes eta a practical compatibility diagnostic even when exact closure is unavailable."
+  }
+}

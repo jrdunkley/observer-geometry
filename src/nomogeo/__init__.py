@@ -1,5 +1,20 @@
+from .adapted import (
+    closure_adapted_observer,
+    closure_scores,
+    compare_observers,
+    leakage_channels,
+    observer_from_subspace,
+    whitened_perturbation,
+)
 from .batch import batch_map
 from .bridge import dv_bridge
+from .connection import (
+    connection_current,
+    fixed_observer_coordinates,
+    forcing_from_current,
+    observer_transition,
+    reconstruct_precision_from_fixed_observer_coordinates,
+)
 from .core import (
     canonical_lift,
     hidden_projector,
@@ -29,34 +44,57 @@ from .quotient import (
     observer_collapse_descends,
 )
 from .types import (
+    ClosureAdaptedObserverResult,
+    ClosureScoresResult,
+    ConnectionCurrentResult,
     DVBridgeResult,
+    FixedObserverCoordinatesResult,
     GaussianContractionResult,
     HiddenLoadResult,
+    LeakageChannelsResult,
     LinearAlgebraMetadata,
     LocalCalculusResult,
+    ObserverComparisonResult,
+    ObserverTransitionResult,
     RealisationResult,
     VisibleGeometryResult,
 )
 from .validation import Tolerances
 
+__version__ = "0.25.0"
+
 __all__ = [
     "BatchTaskError",
+    "ClosureAdaptedObserverResult",
+    "ClosureScoresResult",
+    "ConnectionCurrentResult",
     "DVBridgeResult",
+    "FixedObserverCoordinatesResult",
     "GaussianContractionResult",
     "HiddenLoadResult",
     "InputValidationError",
+    "LeakageChannelsResult",
     "LinearAlgebraMetadata",
     "LocalCalculusResult",
     "NomogeoError",
+    "ObserverComparisonResult",
+    "ObserverTransitionResult",
     "RealisationResult",
     "SupportError",
     "Tolerances",
     "VisibleGeometryResult",
+    "__version__",
     "batch_map",
     "canonical_hidden_realisation",
     "canonical_lift",
     "clock",
+    "closure_adapted_observer",
+    "closure_scores",
+    "compare_observers",
+    "connection_current",
     "dv_bridge",
+    "fixed_observer_coordinates",
+    "forcing_from_current",
     "gaussian_bhattacharyya_distance",
     "gaussian_data_processing_contraction",
     "gaussian_forward_kl",
@@ -68,11 +106,16 @@ __all__ = [
     "inverse_visible_class",
     "load_from_hidden_contraction",
     "local_visible_calculus",
+    "leakage_channels",
     "minimal_hidden_realisation",
     "observed_covariance",
+    "observer_from_subspace",
+    "observer_transition",
     "observer_collapse_descends",
+    "reconstruct_precision_from_fixed_observer_coordinates",
     "transport_hidden_load",
     "visible_from_hidden_load",
     "visible_geometry",
     "visible_precision",
+    "whitened_perturbation",
 ]

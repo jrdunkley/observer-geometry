@@ -1,0 +1,840 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage[a4paper,margin=31mm]{geometry}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\let\openbox\relax
+\usepackage{amsmath,amsthm,mathtools}
+\usepackage{needspace}
+\usepackage[explicit]{titlesec}
+\usepackage{titling}
+\usepackage[
+  pdfusetitle,
+  hidelinks,
+  bookmarksopen=true,
+  bookmarksnumbered=true
+]{hyperref}
+
+\linespread{0.96}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.3pt}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\SPD}{SPD}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\St}{St}
+\DeclareMathOperator{\Ran}{Ran}
+\newcommand{\R}{\mathbf R}
+\newcommand{\F}{\mathcal F}
+\newcommand{\geomboxed}[1]{%
+  \setlength{\fboxsep}{8pt}%
+  \setlength{\fboxrule}{0.9pt}%
+  \fbox{\scalebox{1.22}{$\displaystyle #1$}}%
+}
+
+\titleformat{\section}
+{\normalfont\normalsize\bfseries\raggedright}
+{\thesection}{0.75em}{\begin{minipage}[t]{0.9\textwidth}#1\end{minipage}}
+[\vspace{0.12em}\titlerule]
+
+\newcommand{\subaccent}{\vspace{0.01em}\noindent\rule{7ex}{0.2pt}}
+\titleformat{\subsection}
+{\normalfont\normalsize\bfseries}{\thesubsection}{0.5em}{#1}
+[\subaccent]
+\titlespacing*{\subsection}{0pt}{2.1ex plus 0.5ex}{1.2ex}
+
+\newtheoremstyle{thmcompact}
+{0.5ex}{0.5ex}
+{\itshape}
+{0pt}
+{\bfseries}
+{.}
+{0.6em}
+{\thmname{#1}\ \thmnumber{#2}\ \thmnote{(\textit{#3})}}
+
+\theoremstyle{thmcompact}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{remarkplain}{Remark}
+
+\mdfdefinestyle{thmframe}{%
+leftline=true, rightline=false, topline=false, bottomline=false,
+linewidth=0.8pt, linecolor=black,
+innerleftmargin=16pt, innerrightmargin=8pt,
+innertopmargin=6pt, innerbottommargin=6pt,
+skipabove=6pt, skipbelow=6pt,
+nobreak=true
+}
+\surroundwithmdframed[style=thmframe]{theorem}
+\surroundwithmdframed[style=thmframe]{proposition}
+\surroundwithmdframed[style=thmframe]{corollary}
+\surroundwithmdframed[style=thmframe]{definition}
+\surroundwithmdframed[style=thmframe]{lemma}
+
+\newmdenv[
+linewidth=0.6pt,
+topline=false,
+bottomline=false,
+rightline=false,
+skipabove=\baselineskip,
+skipbelow=\baselineskip,
+backgroundcolor=gray!3,
+leftmargin=0pt,
+innerleftmargin=8pt,
+innerrightmargin=6pt,
+frametitleaboveskip=0.4em,
+frametitlebelowskip=0.2em,
+frametitlefont=\bfseries\small,
+]{remarkbox}
+\newenvironment{remark}[1][]%
+{\begin{remarkbox}\begin{remarkplain}[#1]\normalfont}
+{\end{remarkplain}\end{remarkbox}}
+
+\renewcommand{\qedsymbol}{}
+\newcommand{\thmneed}{\Needspace{6\baselineskip}}
+\AtBeginEnvironment{theorem}{\thmneed}
+\AtBeginEnvironment{proposition}{\thmneed}
+\AtBeginEnvironment{corollary}{\thmneed}
+\AtBeginEnvironment{definition}{\thmneed}
+\AtBeginEnvironment{lemma}{\thmneed}
+\newcommand{\proofappendix}{\par{\hfill\scriptsize\emph{Proof in Appendix~A.}}\par}
+
+\title{\textbf{Global Geometry of Observation\\
+\large{Fixed-observer structure, dynamics, and observer transition laws}}}
+\author{J.\,R.~Dunkley}
+\date{9 April 2026}
+
+\hypersetup{
+  pdftitle={Global Geometry of Observation},
+  pdfauthor={J. R. Dunkley},
+  pdfsubject={Visible precision, fixed-observer geometry, and dynamics},
+  pdfkeywords={observation geometry, visible precision, Fisher-Rao geometry, cross-defect, metric decomposition, conserved current}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+For a fixed surjective observer $C$, the visible precision map $\Phi_C(H)=(CH^{-1}C^{\mathsf T})^{-1}$ on $\SPD(n)$ carries a coherent geometric-dynamical structure. The map is a Riemannian submersion for the Fisher-Rao metrics, its Fisher-orthogonal Ehresmann connection is flat, and in $C$-adapted coordinates every ambient precision splits globally as
+\[
+H=T_K\diag(\Phi,H_{hh})T_K^{\mathsf T},
+\qquad
+T_K=\begin{pmatrix}I&K\\0&I\end{pmatrix}.
+\]
+In these coordinates the primary obstruction is the visible-hidden cross-defect, whose quadratic form is
+\[
+Q=L^{\mathsf T}\Delta P H^{-1}\Delta L=B^{\mathsf T}A(I-\Pi)AB.
+\]
+Its spectrum gives canonical leakage channels, its trace is the commutator energy, and it vanishes exactly when the coupling coordinate $K$ is frozen. The Fisher-Rao metric decomposes orthogonally into visible, hidden, and coupling sectors,
+\[
+ds^2=\tfrac12\Tr((\Phi^{-1}d\Phi)^2)+\tfrac12\Tr((H_{hh}^{-1}dH_{hh})^2)+\Tr(\Phi^{-1}dK\,H_{hh}dK^{\mathsf T}),
+\]
+which yields the exact visible equation of motion
+\[
+\Phi''=\Phi'\Phi^{-1}\Phi'-Q=\Phi'\Phi^{-1}\Phi'-K'H_{hh}K'^{\mathsf T}.
+\]
+We then derive the observer-to-observer transition law between two fixed observers, identify the special gauge cases, and show that the coupling coordinate is cyclic for the geodesic energy. Its conjugate momentum
+\[
+J=\Phi^{-1}K'H_{hh}
+\]
+is conserved, so the forcing term takes the conserved-current form
+\[
+Q=\Phi J H_{hh}^{-1}J^{\mathsf T}\Phi.
+\]
+This yields a reduced observer-relative action on $(\Phi,H_{hh};J)$ and identifies the precise stopping point of the fixed-observer theory.
+\end{abstract}
+
+\section{Introduction}
+
+The programme built around visible precision, quotient geometry, and closure-adapted observers has now reached a natural fixed-observer endpoint. The visible precision
+\begin{equation}
+\Phi_C(H):=(CH^{-1}C^{\mathsf T})^{-1}
+\label{eq:phi-def}
+\end{equation}
+on $\SPD(n)$ already came with its first derivative, its quartic defect, its hidden-mediated commutator, and the observer-design problem on the Grassmannian. What was missing was a single note in which these objects live together as one geometry.
+
+That geometry has three layers.
+
+The first is the fixed-observer fibration. For fixed surjective $C$, the map $\Phi_C:\SPD(n)\to\SPD(m)$ is a Riemannian submersion for the Fisher-Rao metrics, and its Fisher-orthogonal Ehresmann connection is flat.
+
+The second is the extrinsic obstruction. The quartic defect is not intrinsic connection curvature. It is the quadratic form associated to the visible-hidden cross-defect. This is the object that controls static leakage, channel-level leakage, and visible forcing.
+
+The third is the adapted global coordinate system. In $C$-adapted block coordinates every $H\in\SPD(n)$ admits a global factorisation in terms of the visible precision $\Phi$, the hidden precision block $H_{hh}$, and a visible-hidden regression coefficient $K$. In those coordinates the Fisher-Rao metric splits orthogonally, the visible equation of motion closes, the coupling coordinate is cyclic, and the exact forcing term becomes explicit.
+
+This note freezes that fixed-observer structure. It also goes one step beyond the current package by deriving the observer-to-observer transition law for two observers of the same visible rank, identifying the special gauge cases, and extracting the conserved matrix current attached to the coupling coordinate. What remains open after this note is not the fixed-observer theory but what happens when the observer itself varies or when the precision becomes a field.
+
+\section{Setting and local visible calculus}
+
+Let $C:\R^n\to\R^m$ be surjective with $m<n$. Define
+\begin{equation}
+\Phi:=\Phi_C(H)=(CH^{-1}C^{\mathsf T})^{-1},
+\qquad
+L:=H^{-1}C^{\mathsf T}\Phi,
+\qquad
+P:=I-LC.
+\label{eq:phi-L-P}
+\end{equation}
+The matrix $P$ is not symmetric in general.
+
+The Fisher-Rao metric on $\SPD(n)$ is
+\begin{equation}
+g_H(\Delta_1,\Delta_2):=\tfrac12\Tr(H^{-1}\Delta_1 H^{-1}\Delta_2).
+\label{eq:fisher-metric}
+\end{equation}
+The tangent map of $\Phi_C$ is
+\begin{equation}
+D\Phi_C(H)[\Delta]=L^{\mathsf T}\Delta L=:V.
+\label{eq:tangent-map}
+\end{equation}
+The local visible calculus gives
+\begin{equation}
+\Phi_C(H+t\Delta)=\Phi+tV-t^2Q+O(t^3),
+\qquad
+Q:=L^{\mathsf T}\Delta P H^{-1}\Delta L\succeq 0.
+\label{eq:local-calculus}
+\end{equation}
+
+In the $H$-whitened gauge, let
+\begin{equation}
+A:=H^{-1/2}\Delta H^{-1/2},
+\qquad
+B:=H^{-1/2}C^{\mathsf T}\Phi^{1/2}\in\St(n,m),
+\qquad
+\Pi:=BB^{\mathsf T}.
+\label{eq:whitened-data}
+\end{equation}
+Then
+\begin{equation}
+V=\Phi^{1/2}B^{\mathsf T}AB\Phi^{1/2},
+\qquad
+Q=\Phi^{1/2}B^{\mathsf T}A(I-\Pi)AB\Phi^{1/2}.
+\label{eq:VQ-whitened}
+\end{equation}
+In particular,
+\begin{equation}
+Q=0
+\iff
+(I-\Pi)A\Pi=0
+\iff
+P^{\mathsf T}\Delta L=0.
+\label{eq:q-zero-cross}
+\end{equation}
+This is the corrected exact obstruction criterion: $Q$ depends on the visible-hidden cross-defect, not on generic verticality.
+
+\section{Riemannian submersion, flat connection, and global coordinates}
+
+Choose an adapted basis $U\in GL(n)$ such that
+\begin{equation}
+CU=[\,I_m\ 0\,].
+\label{eq:adapted-basis}
+\end{equation}
+Write
+\begin{equation}
+\widetilde H:=U^{\mathsf T}HU=
+\begin{pmatrix}
+H_{vv} & H_{vh}\\
+H_{hv} & H_{hh}
+\end{pmatrix}.
+\label{eq:block-H}
+\end{equation}
+Define the visible precision and coupling coordinate by
+\begin{equation}
+\Phi:=H_{vv}-H_{vh}H_{hh}^{-1}H_{hv},
+\qquad
+K:=H_{vh}H_{hh}^{-1}.
+\label{eq:Phi-K-def}
+\end{equation}
+Then
+\begin{equation}
+\widetilde H = T_K
+\begin{pmatrix}
+\Phi & 0\\
+0 & H_{hh}
+\end{pmatrix}
+T_K^{\mathsf T},
+\qquad
+T_K:=
+\begin{pmatrix}
+I & K\\
+0 & I
+\end{pmatrix}.
+\label{eq:H-factorisation}
+\end{equation}
+Equivalently,
+\begin{equation}
+H_{vv}=\Phi+K H_{hh}K^{\mathsf T},
+\qquad
+H_{vh}=K H_{hh}.
+\label{eq:reconstruction-blocks}
+\end{equation}
+
+\begin{theorem}[Fixed-observer global trivialisation]
+\label{thm:global-trivialisation}
+For fixed surjective $C$, the map
+\begin{equation}
+H\mapsto (K,\Phi,H_{hh})
+\label{eq:coord-map}
+\end{equation}
+is a global diffeomorphism
+\begin{equation}
+\SPD(n)\cong \R^{m\times(n-m)}\times\SPD(m)\times\SPD(n-m).
+\label{eq:global-diffeo}
+\end{equation}
+Moreover,
+\begin{equation}
+\det H = \det\Phi\,\det H_{hh},
+\qquad
+\log\det H = \log\det\Phi + \log\det H_{hh}.
+\label{eq:det-split}
+\end{equation}
+\end{theorem}
+
+\proofappendix
+
+\begin{definition}[Vertical and horizontal subspaces]
+\label{def:vert-horiz}
+At $H\in\SPD(n)$ define
+\begin{equation}
+\mathcal V_H:=\ker D\Phi_C(H),
+\qquad
+\mathcal H_H:=\mathcal V_H^{\perp_g}.
+\label{eq:vert-horiz}
+\end{equation}
+\end{definition}
+
+\begin{theorem}[Riemannian submersion and flat connection]
+\label{thm:riemannian-submersion}
+For fixed $C$, the visible precision map $\Phi_C:\SPD(n)\to\SPD(m)$ is a Riemannian submersion for the Fisher-Rao metrics. In adapted block coordinates the horizontal space consists exactly of pure visible-block perturbations
+\begin{equation}
+\Delta_{\mathrm{hor}}=
+\begin{pmatrix}
+\delta_{vv} & 0\\
+0 & 0
+\end{pmatrix},
+\qquad
+\delta_{vv}\in\Sym(m),
+\label{eq:horizontal-block}
+\end{equation}
+and the induced metric on the horizontal space is
+\begin{equation}
+g_H(\Delta_1,\Delta_2)=\tfrac12\Tr(\Phi^{-1}\delta_1\Phi^{-1}\delta_2).
+\label{eq:horizontal-metric}
+\end{equation}
+In particular the Fisher-orthogonal Ehresmann connection is flat.
+\end{theorem}
+
+\proofappendix
+
+\begin{remark}
+The flatness statement is a fixed-observer statement. It gives a canonical horizontal foliation for the fibration $\Phi_C$ and a preferred block chart, but it does not say that varying $C$ carries no topology or no geometry.
+\end{remark}
+
+\section{The cross-defect quadratic form and its channels}
+
+The cross-defect is the primary obstruction object for the fixed-observer theory.
+
+\begin{proposition}[Spectral and trace identities]
+\label{prop:q-spectral}
+Let $W:=(I-\Pi)AB$. Then
+\begin{equation}
+Q=\Phi^{1/2}W^{\mathsf T}W\Phi^{1/2}.
+\label{eq:Q-WTW}
+\end{equation}
+The nonzero eigenvalues of $Q$ are therefore the squared singular values of $W$, equivalently of the coupling map $(I-\Pi)A\Pi:\Ran(\Pi)\to\Ran(I-\Pi)$. Moreover,
+\begin{equation}
+\Tr(Q)=\|(I-\Pi)A\Pi\|_F^2=\tfrac12\|[A,\Pi]\|_F^2.
+\label{eq:trace-commutator}
+\end{equation}
+\end{proposition}
+
+\proofappendix
+
+\begin{remark}
+The spectral identity upgrades leakage from a scalar summary to a channel decomposition. The principal leakage directions are the right singular vectors of $W$ in the whitened visible coordinates. In a non-whitened gauge one should compute $Q$ directly and diagonalise it there rather than transporting eigenvectors through a congruence.
+\end{remark}
+
+\begin{proposition}[Hidden-mediated commutator]
+\label{prop:hidden-commutator}
+For symmetric whitened perturbations $A_1,A_2\in\Sym(n)$, let
+\begin{equation}
+V_i:=B^{\mathsf T}A_iB,
+\qquad
+C_{\mathrm{hid}}(A_1,A_2):=B^{\mathsf T}A_1(I-\Pi)A_2B-B^{\mathsf T}A_2(I-\Pi)A_1B.
+\label{eq:C-hid-def}
+\end{equation}
+Then
+\begin{equation}
+B^{\mathsf T}[A_1,A_2]B=[V_1,V_2]+C_{\mathrm{hid}}(A_1,A_2).
+\label{eq:commutator-decomp}
+\end{equation}
+The tensor $C_{\mathrm{hid}}$ is bilinear, gauge-covariant, traceless, and skew under swapping $A_1,A_2$. It is a defect tensor measuring failure of visible algebraic closure. Its status as a curvature tensor remains open.
+\end{proposition}
+
+\proofappendix
+
+\section{Geodesic deviation and exact visible dynamics}
+
+Let $H(t)$ be a Fisher-Rao geodesic on $\SPD(n)$,
+\begin{equation}
+H(t)=H_0^{1/2}\exp(tA_0)H_0^{1/2},
+\qquad
+A_0=H_0^{-1/2}\Delta_0 H_0^{-1/2},
+\label{eq:FR-geodesic}
+\end{equation}
+with geodesic equation
+\begin{equation}
+H''=H'H^{-1}H'.
+\label{eq:geodesic-equation}
+\end{equation}
+Let $\Phi(t)=\Phi_C(H(t))$.
+
+\begin{theorem}[Geodesic deviation]
+\label{thm:geodesic-deviation}
+Let $\Phi_{\mathrm{ref}}(t)$ be the Fisher-Rao geodesic in $\SPD(m)$ with the same initial data as the projected curve $\Phi(t)$. Then
+\begin{equation}
+\Phi(t)-\Phi_{\mathrm{ref}}(t)=-\tfrac12 t^2 Q_0 + O(t^3),
+\label{eq:geodesic-deviation}
+\end{equation}
+where $Q_0$ is the cross-defect quadratic form at $(H_0,\Delta_0)$. If the initial velocity is horizontal, then the projection is exactly a base geodesic, as for any Riemannian submersion.
+\end{theorem}
+
+\proofappendix
+
+\begin{theorem}[Exact visible equation of motion]
+\label{thm:exact-visible-eom}
+Along any Fisher-Rao geodesic $H(t)$, the visible precision satisfies
+\begin{equation}
+\boxed{\Phi''=\Phi'\Phi^{-1}\Phi' - Q(t).}
+\label{eq:exact-visible-eom}
+\end{equation}
+Equivalently,
+\begin{equation}
+\nabla_{\Phi'}\Phi'=-Q(t)
+\label{eq:covariant-visible-eom}
+\end{equation}
+for the Levi-Civita connection of the Fisher-Rao metric on $\SPD(m)$.
+\end{theorem}
+
+\proofappendix
+
+\begin{remark}
+The exact forcing term is the cross-defect quadratic form, not generic hiddenness. This is the dynamical sharpening of the static leakage picture.
+\end{remark}
+
+\section{Fixed-$K$ slices, orthogonal metric decomposition, and exact forcing}
+
+The next layer appears once the global coordinates are combined with the geodesic equation.
+
+\begin{theorem}[Vanishing criterion and fixed-$K$ slices]
+\label{thm:fixed-K}
+Let $H(t)$ be a smooth curve in $\SPD(n)$, written in the adapted coordinates \eqref{eq:H-factorisation}. Then
+\begin{equation}
+Q(t)=0
+\iff
+K'(t)=0.
+\label{eq:q-zero-kzero}
+\end{equation}
+For each fixed $K\in\R^{m\times(n-m)}$, the slice
+\begin{equation}
+\mathcal M_K:=\left\{T_K\diag(\Phi,H_{hh})T_K^{\mathsf T}:\ \Phi\in\SPD(m),\ H_{hh}\in\SPD(n-m)\right\}
+\label{eq:MK-def}
+\end{equation}
+is totally geodesic and isometric to $\SPD(m)\times\SPD(n-m)$ with its product Fisher-Rao metric. Consequently, if $Q(0)=0$ along a Fisher-Rao geodesic, then $Q(t)=0$ for all time.
+\end{theorem}
+
+\proofappendix
+
+\begin{remark}
+Horizontal leaves with fixed $(K,H_{hh})$ are a natural minimal family of totally geodesic free-dynamics objects. The fixed-$K$ slices are the larger natural family currently identified.
+\end{remark}
+
+\begin{theorem}[Orthogonal metric decomposition]
+\label{thm:metric-decomposition}
+In the global coordinates $(K,\Phi,H_{hh})$ the Fisher-Rao metric on $\SPD(n)$ takes the form
+\begin{equation}
+\geomboxed{ds^2=\tfrac12\Tr((\Phi^{-1}d\Phi)^2)+\tfrac12\Tr((H_{hh}^{-1}dH_{hh})^2)+\Tr(\Phi^{-1}dK\,H_{hh}\,dK^{\mathsf T}).}
+\label{eq:metric-decomposition}
+\end{equation}
+The visible, hidden, and coupling sectors are mutually orthogonal.
+\end{theorem}
+
+\proofappendix
+
+\begin{corollary}[Exact $Q$-formula in adapted coordinates]
+\label{cor:Q-K-formula}
+For any tangent variation in the global coordinates,
+\begin{equation}
+V=d\Phi,
+\qquad
+Q=dK\,H_{hh}\,dK^{\mathsf T},
+\qquad
+\Tr(\Phi^{-1}Q)=\Tr(\Phi^{-1}dK\,H_{hh}\,dK^{\mathsf T}).
+\label{eq:Q-K-formula}
+\end{equation}
+Along a Fisher-Rao geodesic,
+\begin{equation}
+Q(t)=K'(t)H_{hh}(t)K'(t)^{\mathsf T}.
+\label{eq:Q-time-K}
+\end{equation}
+Consequently the exact visible equation of motion becomes
+\begin{equation}
+\boxed{\Phi''=\Phi'\Phi^{-1}\Phi' - K'H_{hh}K'^{\mathsf T}.}
+\label{eq:adapted-eom}
+\end{equation}
+\end{corollary}
+
+\proofappendix
+
+\section{Multi-observer transition law and special gauge cases}
+
+We now fix two observers of the same visible rank and derive the exact transition law between their global coordinate systems.
+
+Let $C_1,C_2:\R^n\to\R^m$ be surjective. Choose adapted bases $U_1,U_2\in GL(n)$ such that
+\begin{equation}
+C_iU_i=[\,I_m\ 0\,].
+\label{eq:two-adapted-bases}
+\end{equation}
+Let
+\begin{equation}
+M:=U_1^{-1}U_2=
+\begin{pmatrix}
+a & b\\
+c & d
+\end{pmatrix}.
+\label{eq:M-block}
+\end{equation}
+Write the two coordinate systems as
+\begin{equation}
+U_i^{\mathsf T}HU_i = T_{K_i}
+\begin{pmatrix}
+\Phi_i & 0\\
+0 & R_i
+\end{pmatrix}
+T_{K_i}^{\mathsf T},
+\label{eq:two-coordinates}
+\end{equation}
+where $R_i\in\SPD(n-m)$ denotes the hidden block in the $i$th observer chart.
+
+\begin{theorem}[Observer-to-observer transition law]
+\label{thm:transition-law}
+Define
+\begin{equation}
+\widehat c:=c+K_1^{\mathsf T}a,
+\qquad
+\widehat d:=d+K_1^{\mathsf T}b.
+\label{eq:c-hat-d-hat}
+\end{equation}
+Then the coordinates of the second observer are given explicitly by
+\begin{align}
+A_2 &= a^{\mathsf T}\Phi_1 a + \widehat c^{\mathsf T}R_1\widehat c,
+\label{eq:A2}\\
+B_2 &= a^{\mathsf T}\Phi_1 b + \widehat c^{\mathsf T}R_1\widehat d,
+\label{eq:B2}\\
+D_2 &= b^{\mathsf T}\Phi_1 b + \widehat d^{\mathsf T}R_1\widehat d,
+\label{eq:D2}
+\end{align}
+and therefore
+\begin{equation}
+R_2=D_2,
+\qquad
+K_2=B_2D_2^{-1},
+\qquad
+\Phi_2=A_2-B_2D_2^{-1}B_2^{\mathsf T}.
+\label{eq:transition-final}
+\end{equation}
+\end{theorem}
+
+\proofappendix
+
+\begin{corollary}[Same-observer hidden gauge]
+\label{cor:hidden-gauge}
+If $C_1=C_2=C$, then every change of adapted basis has the form
+\begin{equation}
+N=
+\begin{pmatrix}
+I & 0\\
+S & T
+\end{pmatrix},
+\qquad
+T\in GL(n-m).
+\label{eq:N-same-observer}
+\end{equation}
+Under this hidden-coordinate gauge the fixed-observer coordinates transform as
+\begin{equation}
+\Phi\mapsto \Phi,
+\qquad
+R\mapsto T^{\mathsf T}RT,
+\qquad
+K\mapsto (K+S^{\mathsf T})T^{-\mathsf T}.
+\label{eq:hidden-gauge-action}
+\end{equation}
+In particular, $K$ is affine hidden-gauge data, not an intrinsic observable of the fixed observer.
+\end{corollary}
+
+\proofappendix
+
+\begin{corollary}[Visible output basis change]
+\label{cor:visible-gauge}
+If $C_2=gC_1$ with $g\in GL(m)$ and the adapted bases are chosen compatibly, then
+\begin{equation}
+\Phi\mapsto g^{-\mathsf T}\Phi g^{-1},
+\qquad
+K\mapsto g^{-\mathsf T}K,
+\qquad
+R\mapsto R.
+\label{eq:visible-gauge-action}
+\end{equation}
+\end{corollary}
+
+\proofappendix
+
+\section{Cyclic coordinate, conserved momentum, and reduced action}
+
+The orthogonal metric decomposition turns the coupling sector into a genuine cyclic coordinate for the geodesic energy.
+
+\begin{equation}
+\mathcal L
+=
+\tfrac14\Tr((\Phi^{-1}\Phi')^2)
++
+\tfrac14\Tr((R^{-1}R')^2)
++
+\tfrac12\Tr(\Phi^{-1}K'R K'^{\mathsf T}),
+\label{eq:geodesic-Lagrangian}
+\end{equation}
+where $R:=H_{hh}$.
+
+\begin{theorem}[Cyclic coordinate and conserved matrix current]
+\label{thm:cyclic-current}
+The Lagrangian \eqref{eq:geodesic-Lagrangian} depends on $K'$ but not on $K$. Hence $K$ is cyclic, and its conjugate momentum
+\begin{equation}
+\geomboxed{J:=\Phi^{-1}K'R}
+\label{eq:J-def}
+\end{equation}
+is conserved along every Fisher-Rao geodesic:
+\begin{equation}
+J'=0.
+\label{eq:J-conserved}
+\end{equation}
+The forcing term is therefore
+\begin{equation}
+Q=\Phi J R^{-1}J^{\mathsf T}\Phi.
+\label{eq:Q-J-formula}
+\end{equation}
+Consequently the visible dynamics takes the conserved-current form
+\begin{equation}
+\boxed{\Phi''=\Phi'\Phi^{-1}\Phi' - \Phi J R^{-1}J^{\mathsf T}\Phi,
+\qquad J'=0.}
+\label{eq:EOM-with-J}
+\end{equation}
+\end{theorem}
+
+\proofappendix
+
+\begin{remark}
+The free sector is the zero-current sector $J=0$, equivalently $K'=0$, equivalently $Q=0$. Horizontal motion is a sufficient special case, not the full free sector.
+\end{remark}
+
+\begin{corollary}[Gauge behaviour of the current]
+\label{cor:J-gauge}
+Under the visible output basis change \eqref{eq:visible-gauge-action}, the conserved current transforms by left multiplication,
+\begin{equation}
+J\mapsto gJ.
+\label{eq:J-visible-gauge}
+\end{equation}
+Under the hidden basis change \eqref{eq:hidden-gauge-action} with $S=0$, it transforms by right multiplication,
+\begin{equation}
+J\mapsto JT.
+\label{eq:J-hidden-gauge}
+\end{equation}
+Under a pure hidden shear ($T=I$), $J$ is unchanged.
+\end{corollary}
+
+\proofappendix
+
+\begin{proposition}[Observer-relative reduced action]
+\label{prop:reduced-action}
+Eliminating $K'$ in favour of the conserved current using $K'=\Phi J R^{-1}$ gives the reduced observer-relative action
+\begin{equation}
+\mathcal L_{\mathrm{red}}
+=
+\tfrac14\Tr((\Phi^{-1}\Phi')^2)
++
+\tfrac14\Tr((R^{-1}R')^2)
++
+\tfrac12\Tr(\Phi J R^{-1}J^{\mathsf T}),
+\qquad
+J'=0.
+\label{eq:reduced-action}
+\end{equation}
+This is a reduced action on $(\Phi,R;J)$, not yet a visible-only action on $\Phi$ alone.
+\end{proposition}
+
+\proofappendix
+
+\section{Conclusion}
+
+The fixed-observer theory is now geometrically complete enough to freeze.
+
+For fixed $C$, the visible precision map is a Riemannian submersion with flat Fisher-orthogonal connection. In adapted coordinates every precision splits globally into visible precision, hidden precision, and a visible-hidden regression coefficient. The quartic defect is the quadratic form of the visible-hidden cross-defect. Its spectrum gives leakage channels, its trace is the commutator energy, and its vanishing is equivalent to frozen coupling.
+
+The Fisher-Rao metric decomposes orthogonally into visible, hidden, and coupling sectors. This yields the exact adapted equation of motion, identifies fixed-$K$ slices as the natural larger free-dynamics class, and shows that the coupling coordinate is cyclic for the geodesic energy. The resulting conserved current gives the forcing term in closed form and leads to an observer-relative reduced action.
+
+What remains open is no longer the fixed-observer geometry. The next structural questions are observer transition geometry, observer-relative versus observer-invariant reduced dynamics, and only after that any field-theoretic extension.
+
+\appendix
+\section{Proofs}
+
+\subsection*{Proof of Theorem~\ref{thm:global-trivialisation}}
+Given $(K,\Phi,H_{hh})$ with $\Phi\in\SPD(m)$ and $H_{hh}\in\SPD(n-m)$, formula \eqref{eq:H-factorisation} produces a positive-definite block matrix. Conversely, for every block matrix \eqref{eq:block-H} with $H\in\SPD(n)$, the Schur complement gives $\Phi\in\SPD(m)$, the block $H_{hh}$ is in $\SPD(n-m)$, and $K=H_{vh}H_{hh}^{-1}$ is uniquely determined. The formulas \eqref{eq:reconstruction-blocks} invert the construction smoothly, proving the diffeomorphism. Since $\det T_K=1$, determinant factorisation follows immediately from \eqref{eq:H-factorisation}.
+
+\subsection*{Proof of Theorem~\ref{thm:riemannian-submersion}}
+In adapted block coordinates with $C=[I\ 0]$, a horizontal perturbation is exactly a pure visible block. The Schur complement derivative gives $D\Phi_C(H)[\Delta_{\mathrm{hor}}]=\delta_{vv}$. Using the block inverse
+\[
+\widetilde H^{-1}=
+\begin{pmatrix}
+\Phi^{-1} & -\Phi^{-1}K\\
+-K^{\mathsf T}\Phi^{-1} & H_{hh}^{-1}+K^{\mathsf T}\Phi^{-1}K
+\end{pmatrix},
+\]
+a direct multiplication yields
+\[
+\widetilde H^{-1}\Delta_{\mathrm{hor}}=
+\begin{pmatrix}
+\Phi^{-1}\delta_{vv} & 0\\
+-K^{\mathsf T}\Phi^{-1}\delta_{vv} & 0
+\end{pmatrix}.
+\]
+Hence
+\[
+g_H(\Delta_1,\Delta_2)=\tfrac12\Tr(\Phi^{-1}\delta_1\Phi^{-1}\delta_2),
+\]
+which depends only on the base coordinate $\Phi$. Since the horizontal space is constant in these coordinates, the Ehresmann connection is flat.
+
+\subsection*{Proof of Proposition~\ref{prop:q-spectral}}
+With $W=(I-\Pi)AB$, one has
+\[
+Q=\Phi^{1/2}W^{\mathsf T}W\Phi^{1/2},
+\]
+so the nonzero eigenvalues of $Q$ are the squared singular values of $W$. The trace identity follows from
+\[
+\Tr(Q)=\|W\|_F^2=\|(I-\Pi)A\Pi\|_F^2,
+\]
+and from the orthogonal decomposition
+\[
+[A,\Pi]=(I-\Pi)A\Pi-\Pi A(I-\Pi),
+\]
+whose two off-diagonal blocks have equal Frobenius norm.
+
+\subsection*{Proof of Proposition~\ref{prop:hidden-commutator}}
+Expand
+\[
+B^{\mathsf T}[A_1,A_2]B=B^{\mathsf T}A_1(\Pi+I-\Pi)A_2B-B^{\mathsf T}A_2(\Pi+I-\Pi)A_1B.
+\]
+The $\Pi$-terms give $[V_1,V_2]$, and the $(I-\Pi)$-terms give $C_{\mathrm{hid}}$. Bilinearity and skew-symmetry are immediate. Gauge covariance follows from $B\mapsto BU$ with $U\in O(m)$. Tracelessness follows from cyclicity of trace.
+
+\subsection*{Proof of Theorem~\ref{thm:geodesic-deviation}}
+Expand the projected curve to second order using \eqref{eq:local-calculus}. For a geodesic, the second derivative of the ambient curve at $t=0$ is $\Delta_0H_0^{-1}\Delta_0$. The induced second derivative on the base equals the visible geodesic second derivative plus the correction $-Q_0$, and comparing with the matched visible geodesic gives \eqref{eq:geodesic-deviation}. Exact projection of horizontal geodesics is the standard property of a Riemannian submersion.
+
+\subsection*{Proof of Theorem~\ref{thm:exact-visible-eom}}
+Differentiate $\Phi'=L^{\mathsf T}H'L$ along the curve and use the geodesic equation $H''=H'H^{-1}H'$. The resulting identity is
+\[
+\Phi'' = L^{\mathsf T}H'H^{-1}H'L - Q.
+\]
+The first term equals $\Phi'\Phi^{-1}\Phi'$, proving \eqref{eq:exact-visible-eom}.
+
+\subsection*{Proof of Theorem~\ref{thm:fixed-K}}
+Write $H$ in adapted block form and differentiate $K=H_{vh}H_{hh}^{-1}$. Then
+\[
+K'=(H'_{vh}-K H'_{hh})H_{hh}^{-1}.
+\]
+On the other hand, in these coordinates the condition $Q=0$ is exactly $H'_{vh}=K H'_{hh}$, hence \eqref{eq:q-zero-kzero}. For fixed $K$, the slice $\mathcal M_K$ is the image of the block-diagonal submanifold under the congruence isometry $D\mapsto T_KDT_K^{\mathsf T}$. Since block-diagonal geodesics remain block-diagonal, $\mathcal M_K$ is totally geodesic and isometric to the product space. If $Q(0)=0$, then $K'(0)=0$, so the initial velocity is tangent to $\mathcal M_{K(0)}$ and the geodesic remains there for all time.
+
+\subsection*{Proof of Theorem~\ref{thm:metric-decomposition}}
+Let $D=\diag(\Phi,H_{hh})$ and let
+\[
+X:=T_K^{-1}dT_K=
+\begin{pmatrix}
+0 & dK\\
+0 & 0
+\end{pmatrix}.
+\]
+Using $H=T_KDT_K^{\mathsf T}$,
+\[
+T_K^{-1}dH\,T_K^{-\mathsf T}=dD+XD+DX^{\mathsf T}.
+\]
+By congruence invariance of the Fisher-Rao metric,
+\[
+g=\tfrac12\Tr(Y^2),
+\qquad
+Y:=D^{-1}dD + D^{-1}XD + X^{\mathsf T}.
+\]
+A direct block computation gives
+\[
+Y=
+\begin{pmatrix}
+\Phi^{-1}d\Phi & \Phi^{-1}dK\,H_{hh}\\
+dK^{\mathsf T} & H_{hh}^{-1}dH_{hh}
+\end{pmatrix}.
+\]
+For a $2\times2$ block matrix, $\Tr(Y^2)=\Tr(A^2)+\Tr(D^2)+2\Tr(BC)$, which yields \eqref{eq:metric-decomposition}. The cross terms between the three sectors vanish.
+
+\subsection*{Proof of Corollary~\ref{cor:Q-K-formula}}
+Differentiate \eqref{eq:H-factorisation}. In adapted block coordinates,
+\[
+dH=
+\begin{pmatrix}
+d\Phi + dK H_{hh}K^{\mathsf T}+K dH_{hh}K^{\mathsf T}+K H_{hh}dK^{\mathsf T} & dK H_{hh}+K dH_{hh}\\
+dH_{hh}K^{\mathsf T}+H_{hh}dK^{\mathsf T} & dH_{hh}
+\end{pmatrix}.
+\]
+A direct calculation shows that the visible derivative is exactly $V=d\Phi$ and that the cross-defect term is $Q=dK H_{hh}dK^{\mathsf T}$. Substituting into the exact visible equation yields \eqref{eq:adapted-eom}.
+
+\subsection*{Proof of Theorem~\ref{thm:transition-law}}
+Write
+\[
+U_2^{\mathsf T}HU_2 = M^{\mathsf T}U_1^{\mathsf T}HU_1M.
+\]
+Using \eqref{eq:two-coordinates} for $i=1$ and expanding the block product gives the three blocks $A_2,B_2,D_2$ stated in \eqref{eq:A2}--\eqref{eq:D2}. Extracting the Schur complement and regression coordinate of the second observer then gives \eqref{eq:transition-final}.
+
+\subsection*{Proof of Corollary~\ref{cor:hidden-gauge}}
+If $C_1=C_2=C$ and both $U_1,U_2$ are adapted, then $[I\ 0]U_1^{-1}U_2=[I\ 0]$, which forces the block form \eqref{eq:N-same-observer}. Substitute this into Theorem~\ref{thm:transition-law}. The visible block is unchanged, the hidden block transforms by congruence, and the coupling coordinate transforms affinely.
+
+\subsection*{Proof of Corollary~\ref{cor:visible-gauge}}
+If $C_2=gC_1$ and the adapted bases are chosen compatibly, then the transition matrix has block form $\bigl(\begin{smallmatrix}g^{-1}&0\\0&I\end{smallmatrix}\bigr)$. Substituting into Theorem~\ref{thm:transition-law} yields \eqref{eq:visible-gauge-action}.
+
+\subsection*{Proof of Theorem~\ref{thm:cyclic-current}}
+The Lagrangian \eqref{eq:geodesic-Lagrangian} depends on $K'$ but not on $K$. Therefore the Euler-Lagrange equation for $K$ is
+\[
+\frac{d}{dt}\left(\frac{\partial\mathcal L}{\partial K'}\right)=0.
+\]
+Differentiating the coupling term gives
+\[
+\frac{\partial\mathcal L}{\partial K'}=\Phi^{-1}K'R=:J,
+\]
+which proves conservation. Solving for $K'$ gives $K'=\Phi J R^{-1}$, and substitution into $Q=K'RK'^{\mathsf T}$ gives \eqref{eq:Q-J-formula}. Substituting that into \eqref{eq:adapted-eom} yields \eqref{eq:EOM-with-J}.
+
+\subsection*{Proof of Corollary~\ref{cor:J-gauge}}
+The transformation of $J$ follows by combining the transformations of $\Phi$, $K'$, and $R$ from Corollaries~\ref{cor:hidden-gauge} and \ref{cor:visible-gauge}. Under a visible basis change, the factors combine to give left multiplication by $g$. Under a hidden basis change, they combine to give right multiplication by $T$. Under pure hidden shear, $K'$ is unchanged and so is $J$.
+
+\subsection*{Proof of Proposition~\ref{prop:reduced-action}}
+Use $K'=\Phi J R^{-1}$ in the coupling term of \eqref{eq:geodesic-Lagrangian}:
+\[
+\Tr(\Phi^{-1}K'RK'^{\mathsf T}) = \Tr(\Phi J R^{-1}J^{\mathsf T}).
+\]
+The remaining two terms are unchanged, and the constraint $J'=0$ comes from Theorem~\ref{thm:cyclic-current}.
+
+\end{document}

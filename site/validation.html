@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Validation | nomogeo</title>
+  <meta name="description" content="Validation for nomogeo: what is covered, selected results, and the commands used to run checks.">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="canonical" href="https://docs.nomogenetics.com/validation.html">
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-copy"><strong>nomogeo</strong><span>Observer-geometry kernel</span></span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Overview</a>
+        <a href="install.html">Install</a>
+        <a href="docs.html">Documentation</a>
+        <a href="examples.html">Examples</a>
+        <a class="active" href="validation.html">Validation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="shell">
+        <div class="eyebrow">Validation</div>
+        <h1>Validation</h1>
+        <p class="lede">This page summarizes what the current release checks, what it does not try to cover, and a few representative results from the validation notes.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell card-grid">
+        <article class="metric span-3"><span class="tiny-title">Smoke result</span><strong>47 passed</strong><span class="subtle">Current release-gate smoke run.</span></article>
+        <article class="metric span-3"><span class="tiny-title">Absolute tolerance</span><strong>1e-10</strong><span class="subtle">Central default.</span></article>
+        <article class="metric span-3"><span class="tiny-title">Relative tolerance</span><strong>1e-8</strong><span class="subtle">Central default.</span></article>
+        <article class="metric span-3"><span class="tiny-title">Contraction violation</span><strong>0.0</strong><span class="subtle">Worst observed divergence contraction violation.</span></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell split-grid">
+        <div class="span-6">
+          <div class="callout">
+            <div class="card-label">Covered</div>
+            <ul class="clean-list">
+              <li>Visible precision, lift/projector identities, and local visible calculus.</li>
+              <li>Fixed-ceiling hidden-load geometry and inverse-theorem round-trips.</li>
+              <li>Hidden transport, determinant clock, and contraction-factor composition.</li>
+              <li>Thin Donsker-Varadhan and quotient-side Gaussian contraction checks.</li>
+              <li>Input validation, boundary behavior, and deterministic batch behavior.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="span-6">
+          <div class="callout">
+            <div class="card-label">Not covered here</div>
+            <ul class="clean-list">
+              <li>Full finite-observer optimization.</li>
+              <li>Full quotient-observation beyond the thin adapter layer.</li>
+              <li>Downstream empirical pipelines and application wrappers.</li>
+              <li>Notebook, plotting, and benchmark surfaces.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-header">
+          <div class="eyebrow">Representative checks</div>
+          <h2>What the tests focus on</h2>
+        </div>
+        <div class="card-grid">
+          <article class="feature span-6">
+            <div class="card-label">Structure</div>
+            <h3>Exact identities and composition rules</h3>
+            <ul class="clean-list">
+              <li>Lift/projector identities and variational energy splitting.</li>
+              <li>Determinant-curvature checks in the local calculus.</li>
+              <li>Hidden-load support, rank, clock, and monotonicity checks.</li>
+              <li>Inverse-theorem round-trips and order-reversal checks.</li>
+            </ul>
+          </article>
+          <article class="feature span-6">
+            <div class="card-label">Robustness</div>
+            <h3>Boundary and misuse checks</h3>
+            <ul class="clean-list">
+              <li>Malformed visible, hidden, and batch inputs rejected with explicit exception types.</li>
+              <li>Near-boundary tolerance checks.</li>
+              <li>Input immutability checks.</li>
+              <li>Seeded validation-sweep and deterministic batch behavior checks.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-header">
+          <div class="eyebrow">Selected results</div>
+          <h2>Representative values from the current notes</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Metric</th><th>Observed value</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong>Max lift/projector residual</strong></td><td><code>2.674941282677552e-14</code></td></tr>
+              <tr><td><strong>Max tower-law residual</strong></td><td><code>3.284872374109682e-14</code></td></tr>
+              <tr><td><strong>Max hidden clock residual</strong></td><td><code>3.552713678800501e-15</code></td></tr>
+              <tr><td><strong>Max inverse-theorem Lambda to X to Lambda residual</strong></td><td><code>2.587909939792647e-15</code></td></tr>
+              <tr><td><strong>Max inverse-theorem X to Lambda to X residual</strong></td><td><code>2.2201725879984535e-15</code></td></tr>
+              <tr><td><strong>Max two-step transport residual</strong></td><td><code>1.8991764023475337e-14</code></td></tr>
+              <tr><td><strong>Max downstairs associativity residual</strong></td><td><code>4.292205267163458e-15</code></td></tr>
+              <tr><td><strong>Max divergence contraction violation</strong></td><td><code>0.0</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell split-grid">
+        <div class="span-6">
+          <div class="code-card">
+            <div class="card-label">Run the checks</div>
+            <pre><code>python -m pytest -q
+python tools/validation_sweep.py
+python tools/stack_soak.py</code></pre>
+          </div>
+        </div>
+        <div class="span-6">
+          <div class="quote-card">
+            <div class="card-label">How to read this</div>
+            <h3>These numbers describe current behavior, not marketing claims.</h3>
+            <p>The point of the validation notes is to show what was checked and what the observed residuals were, while keeping the package limits visible.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-inner">
+      <p><strong>nomogeo validation</strong></p>
+      <p class="subtle">Help: <a class="muted-link" href="mailto:contact@nomogenetics.com">contact@nomogenetics.com</a></p>
+    </div>
+  </footer>
+</body>
+</html>

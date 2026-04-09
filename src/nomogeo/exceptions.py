@@ -20,3 +20,5 @@ class BatchTaskError(NomogeoError):
         message = f"batch task {index} failed for task={task!r}: {original}"
         super().__init__(message)
 
+    def __reduce__(self) -> tuple[object, tuple[int, object, Exception]]:
+        return (self.__class__, (self.index, self.task, self.original))

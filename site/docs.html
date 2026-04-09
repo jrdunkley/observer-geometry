@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Documentation | nomogeo</title>
+  <meta name="description" content="Documentation for nomogeo: API overview, theorem map, and package limits.">
+  <link rel="stylesheet" href="assets/styles.css">
+  <link rel="canonical" href="https://docs.nomogenetics.com/docs.html">
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-copy"><strong>nomogeo</strong><span>Observer-geometry kernel</span></span>
+      </a>
+      <nav class="nav" aria-label="Primary">
+        <a href="index.html">Overview</a>
+        <a href="install.html">Install</a>
+        <a class="active" href="docs.html">Documentation</a>
+        <a href="examples.html">Examples</a>
+        <a href="validation.html">Validation</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="page-hero">
+      <div class="shell">
+        <div class="eyebrow">Documentation</div>
+        <h1>Documentation</h1>
+        <p class="lede">Start here for the public API, the theorem map, and the main limits of the package. The page is written to be easy to scan first and easy to inspect in detail after that.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell">
+        <div class="section-header">
+          <div class="eyebrow">API overview</div>
+          <h2>Main API groups</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Group</th><th>Key functions</th><th>Use</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Core geometry</strong></td>
+                <td><code>visible_precision</code>, <code>canonical_lift</code>, <code>hidden_projector</code>, <code>local_visible_calculus</code>, <code>visible_geometry</code></td>
+                <td>Visible precision, lift/projector structure, and local visible calculus.</td>
+              </tr>
+              <tr>
+                <td><strong>Hidden-load layer</strong></td>
+                <td><code>hidden_load</code>, <code>visible_from_hidden_load</code>, <code>inverse_visible_class</code>, <code>transport_hidden_load</code>, <code>hidden_contraction</code>, <code>load_from_hidden_contraction</code>, <code>clock</code></td>
+                <td>Fixed-ceiling hidden geometry, transport, and long-chain composition.</td>
+              </tr>
+              <tr>
+                <td><strong>Bridge and quotient</strong></td>
+                <td><code>dv_bridge</code>, <code>observed_covariance</code>, Gaussian KL and Hellinger functions, <code>gaussian_data_processing_contraction</code>, <code>observer_collapse_descends</code></td>
+                <td>Thin bridge and quotient-side Gaussian utilities.</td>
+              </tr>
+              <tr>
+                <td><strong>Batch</strong></td>
+                <td><code>batch_map</code></td>
+                <td>Deterministic wrapper for repeated tasks.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="theorem-map">
+      <div class="shell">
+        <div class="section-header">
+          <div class="eyebrow">Theorem map</div>
+          <h2>Where the public functions come from</h2>
+          <p>This is the short version of the theorem map. It is meant to orient you quickly; the full source mapping remains in the repository docs.</p>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr><th>Function</th><th>What it covers</th><th>Source note</th></tr>
+            </thead>
+            <tbody>
+              <tr><td><strong><code>visible_precision</code></strong></td><td>Visible precision with variational, tower-law, and Schur-form identities.</td><td><code>prop:visible-precision</code></td></tr>
+              <tr><td><strong><code>local_visible_calculus</code></strong></td><td>Local expansion objects and determinant-curvature split.</td><td><code>thm:local-calculus</code></td></tr>
+              <tr><td><strong><code>hidden_load</code></strong></td><td>Hidden-load geometry beneath a fixed ceiling.</td><td><code>thm:hidden-load</code></td></tr>
+              <tr><td><strong><code>inverse_visible_class</code></strong></td><td>The explicit fixed-ceiling inverse surface.</td><td>Theorem-facing alias of the same inverse map.</td></tr>
+              <tr><td><strong><code>transport_hidden_load</code></strong> and <strong><code>clock</code></strong></td><td>Transport law and determinant clock.</td><td><code>prop:transport</code></td></tr>
+              <tr><td><strong><code>dv_bridge</code></strong></td><td>Thin Donsker-Varadhan bridge.</td><td><code>thm:dv-bridge</code></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell two-up">
+        <div class="span-6">
+          <div class="quote-card" id="inverse-theorem">
+            <div class="card-label">Important note</div>
+            <h3>The inverse theorem is fixed-ceiling, not global.</h3>
+            <p><code>inverse_visible_class(T, Lambda, ...)</code> is the public inverse surface for a fixed ceiling <code>T</code>. It is not an inverse of the global map <code>(H, C) -&gt; Phi_C(H)</code>.</p>
+          </div>
+        </div>
+        <div class="span-6">
+          <div class="quote-card" id="hidden-layer">
+            <div class="card-label">Important note</div>
+            <h3>Long hidden composition uses contraction factors.</h3>
+            <p><code>transport_hidden_load</code> is the exact transport law, but long associative composition is exposed through <code>hidden_contraction</code> and <code>load_from_hidden_contraction</code>.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="shell split-grid">
+        <div class="span-6">
+          <div class="code-card">
+            <div class="card-label">Public exports</div>
+            <pre><code>visible_precision
+canonical_lift
+hidden_projector
+local_visible_calculus
+visible_geometry
+hidden_load
+visible_from_hidden_load
+inverse_visible_class
+canonical_hidden_realisation
+minimal_hidden_realisation
+transport_hidden_load
+hidden_contraction
+load_from_hidden_contraction
+clock
+dv_bridge
+observed_covariance
+gaussian_forward_kl
+gaussian_reverse_kl
+gaussian_hellinger_squared
+gaussian_bhattacharyya_distance
+gaussian_data_processing_contraction
+observer_collapse_descends
+batch_map</code></pre>
+          </div>
+        </div>
+        <div class="span-6">
+          <div class="timeline">
+            <div class="card-label">Out of scope</div>
+            <div class="timeline-item"><h3>Not a general scientific platform</h3><p>The package does not try to be a notebook layer, a document reader, or a general-purpose assistant.</p></div>
+            <div class="timeline-item"><h3>Not the whole downstream stack</h3><p>Full quotient-observation, empirical ingestion, benchmarking, and application wrappers remain outside the kernel.</p></div>
+            <div class="timeline-item"><h3>Not a widened theorem domain</h3><p>The release surface makes existing structure easier to use. It does not relax the package limits.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="shell footer-inner">
+      <p><strong>nomogeo documentation</strong></p>
+      <p class="subtle">Help: <a class="muted-link" href="mailto:contact@nomogenetics.com">contact@nomogenetics.com</a></p>
+    </div>
+  </footer>
+</body>
+</html>

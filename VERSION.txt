@@ -1,7 +1,7 @@
 workspace 0.2
-nomogeo: 0.1.0
+nomogeo: 0.25.0
 nomodescent: 0.2.0
 evidence: 0.3.0
 release_state: frozen
 freeze_date: 2026-04-08
-notes: workspace freeze after cleanup, examples merge, and release-surface sanitization
+notes: workspace freeze after cleanup, examples merge, closure-adapted integration, fixed-observer connection integration, and release-surface sanitization

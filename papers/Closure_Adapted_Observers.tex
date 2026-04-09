@@ -1,0 +1,741 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage[a4paper,margin=33mm]{geometry}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\let\openbox\relax
+\usepackage{amsmath,amsthm,mathtools}
+\usepackage{needspace}
+\usepackage[explicit]{titlesec}
+\usepackage{titling}
+\usepackage[
+  pdfusetitle,
+  hidelinks,
+  bookmarksopen=true,
+  bookmarksnumbered=true
+]{hyperref}
+
+\linespread{0.94}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.5pt}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Ran}{Ran}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\pdet}{pdet}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\spanop}{span}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\newcommand{\R}{\mathbf R}
+\newcommand{\St}{\mathrm{St}}
+\newcommand{\Gr}{\mathrm{Gr}}
+\newcommand{\geomboxed}[1]{%
+  \setlength{\fboxsep}{8pt}%
+  \setlength{\fboxrule}{0.9pt}%
+  \fbox{\scalebox{1.5}{$\displaystyle #1$}}%
+}
+
+\titleformat{\section}
+{\normalfont\normalsize\bfseries\raggedright}
+{\thesection}{0.75em}{\begin{minipage}[t]{0.9\textwidth}#1\end{minipage}}
+[\vspace{0.12em}\titlerule]
+
+\newcommand{\subaccent}{\vspace{0.01em}\noindent\rule{7ex}{0.2pt}}
+\titleformat{\subsection}
+{\normalfont\normalsize\bfseries}{\thesubsection}{0.5em}{#1}
+[\subaccent]
+\titlespacing*{\subsection}{0pt}{2.1ex plus 0.5ex}{1.2ex}
+
+\newtheoremstyle{thmcompact}
+{0.5ex}{0.5ex}
+{\itshape}
+{0pt}
+{\bfseries}
+{.}
+{0.6em}
+{\thmname{#1}\ \thmnumber{#2}\ \thmnote{(\textit{#3})}}
+
+\theoremstyle{thmcompact}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{remarkplain}{Remark}
+
+\mdfdefinestyle{thmframe}{%
+leftline=true, rightline=false, topline=false, bottomline=false,
+linewidth=0.8pt, linecolor=black,
+innerleftmargin=16pt, innerrightmargin=8pt,
+innertopmargin=6pt, innerbottommargin=6pt,
+skipabove=6pt, skipbelow=6pt,
+nobreak=true
+}
+\surroundwithmdframed[style=thmframe]{theorem}
+\surroundwithmdframed[style=thmframe]{proposition}
+\surroundwithmdframed[style=thmframe]{corollary}
+\surroundwithmdframed[style=thmframe]{definition}
+\surroundwithmdframed[style=thmframe]{lemma}
+
+\newmdenv[
+linewidth=0.6pt,
+topline=false,
+bottomline=false,
+rightline=false,
+skipabove=\baselineskip,
+skipbelow=\baselineskip,
+backgroundcolor=gray!3,
+leftmargin=0pt,
+innerleftmargin=8pt,
+innerrightmargin=6pt,
+frametitleaboveskip=0.4em,
+frametitlebelowskip=0.2em,
+frametitlefont=\bfseries\small,
+]{remarkbox}
+\newenvironment{remark}[1][]%
+{\begin{remarkbox}\begin{remarkplain}[#1]\normalfont}
+{\end{remarkplain}\end{remarkbox}}
+
+\renewcommand{\qedsymbol}{}
+\newcommand{\thmneed}{\Needspace{6\baselineskip}}
+\AtBeginEnvironment{theorem}{\thmneed}
+\AtBeginEnvironment{proposition}{\thmneed}
+\AtBeginEnvironment{corollary}{\thmneed}
+\AtBeginEnvironment{definition}{\thmneed}
+\AtBeginEnvironment{lemma}{\thmneed}
+\newcommand{\proofappendix}{\par{\hfill\scriptsize\emph{Proof in Appendix~A.}}\par}
+
+\title{\textbf{Closure-Adapted Observers}}
+\author{J.\,R.~Dunkley}
+\date{9 April 2026}
+
+\hypersetup{
+  pdftitle={Closure-Adapted Observers},
+  pdfauthor={J. R. Dunkley},
+  pdfsubject={Observer design in induced visible geometry},
+  pdfkeywords={observation geometry, visible precision, quartic defect, Grassmannian optimisation, Fisher structure}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+We isolate the observer-design problem inherent in induced visible geometry and push it to an exact $H$-whitened normal form. After whitening, choosing a surjective observer of visible dimension $m$ is equivalent to choosing an $m$-plane. In this chart the first visible response is the compression of the whitened perturbation to that plane, while the quartic defect is exactly its off-plane action. The trace of the defect is exactly half the squared commutator norm between the whitened perturbation and the observer projector, so the leakage functional is an exact hidden Fisher curvature. This yields a sharp closure criterion, closed-form solutions for single and commuting task families, an exact Grassmannian stationarity equation for approximate adaptation, a precise status theorem for the $\sum_a D_a^2$ rule, and a flag criterion for exact closure towers. On an adapted branch the first smooth spectral loss is postponed by one full even order.
+\end{abstract}
+
+\section{Introduction}
+
+Induced visible geometry already determines the visible precision
+\begin{equation}
+\Phi_C(H):=(CH^{-1}C^{\mathsf T})^{-1}
+\label{eq:phi-def}
+\end{equation}
+for a surjective observer $C:\R^n\to\R^m$ and latent precision $H\in\Sym_{++}(n)$. The local calculus then gives the first visible response and the first nonlinear hidden return.
+
+What remains is observer choice. Given a latent law $H$ and a task family of perturbations, which observer closes the task on the visible side, and which observer minimises hidden birth when exact closure is impossible?
+
+The point of this note is that this problem already has an exact normal form. After $H$-whitening, an observer is just a visible $m$-plane. In those coordinates the quartic defect becomes the off-plane action of the whitened perturbation, and its trace becomes exactly a commutator energy. This gives a precise dividing line. Exact adaptation is common invariant-subspace structure. Approximate adaptation is approximate commutation with the task family. The determinant-split theorem therefore acquires a sharper interpretation: visible curvature is Fisher curvature retained on the chosen plane, while leakage is hidden Fisher curvature generated by failure of closure.
+
+The second point of the note is module-facing. For commuting families, closure and visibility align and closed-form rules exist. For noncommuting families, they do not. The correct public interface is therefore not pure leakage minimisation but a leakage-visibility frontier. The simple $\sum_a D_a^2$ eigenspace rule also acquires a precise status: it is exact for total captured curvature, unsafe as a final observer, and good as a warm start. Finally, exact closure through an observation tower is governed by a common invariant flag, not merely a common invariant coarse subspace.
+
+\section{Setup}
+
+Let $C:\R^n\to\R^m$ be surjective and $H\in\Sym_{++}(n)$. Define the canonical lift and hidden projector by
+\begin{equation}
+L_{C,H}:=H^{-1}C^{\mathsf T}\Phi_C(H),
+\qquad
+P_{C,H}:=I-L_{C,H}C.
+\label{eq:lift-projector}
+\end{equation}
+Write $\Phi:=\Phi_C(H)$, $L:=L_{C,H}$, and $P:=P_{C,H}$.
+
+\begin{proposition}[Local visible calculus]
+\label{prop:local-calculus}
+For $\Delta\in\Sym(n)$,
+\begin{equation}
+\Phi_C(H+t\Delta)=\Phi+tV-t^2Q+O(t^3),
+\label{eq:local-expansion}
+\end{equation}
+where
+\begin{equation}
+V=L^{\mathsf T}\Delta L,
+\qquad
+Q=L^{\mathsf T}\Delta P\,H^{-1}\Delta L\succeq 0.
+\label{eq:VQ-def}
+\end{equation}
+If
+\begin{equation}
+\kappa_C(H):=-\log\det\Phi_C(H),
+\label{eq:kappa-def}
+\end{equation}
+then
+\begin{equation}
+D^2\kappa_C(H)[\Delta,\Delta]
+=
+\norm{\Phi^{-1/2}V\Phi^{-1/2}}_F^2+2\Tr(\Phi^{-1}Q).
+\label{eq:det-split}
+\end{equation}
+Moreover,
+\begin{equation}
+Q=0
+\iff
+P^{\mathsf T}\Delta L=0.
+\label{eq:Q-vanish-general}
+\end{equation}
+\end{proposition}
+
+\proofappendix
+
+We will study observer choice for a fixed $H$ and visible dimension $m$.
+
+\section{$H$-whitened normal form}
+
+The observer-design problem collapses after whitening.
+
+\begin{theorem}[$H$-whitened observer normal form]
+\label{thm:whitened-normal-form}
+Let $B\in\St(n,m)$, so $B^{\mathsf T}B=I_m$, and define
+\begin{equation}
+C:=B^{\mathsf T}H^{1/2}.
+\label{eq:C-from-B}
+\end{equation}
+Set
+\begin{equation}
+A:=\widetilde\Delta:=H^{-1/2}\Delta H^{-1/2},
+\qquad
+\Pi:=BB^{\mathsf T}.
+\label{eq:Delta-tilde}
+\end{equation}
+Then $C$ is surjective and
+\begin{equation}
+\Phi_C(H)=I_m,
+\qquad
+L_{C,H}=H^{-1/2}B,
+\qquad
+P_{C,H}=I-H^{-1/2}BB^{\mathsf T}H^{1/2}.
+\label{eq:normal-form-basic}
+\end{equation}
+The local visible response and quartic defect are
+\begin{equation}
+\label{eq:normal-form-VQ}
+\geomboxed{\begin{aligned}
+V&=B^{\mathsf T}AB,\\
+Q&=B^{\mathsf T}A(I-\Pi)AB\succeq 0.
+\end{aligned}}
+\end{equation}
+Consequently,
+\begin{equation}
+D^2\kappa_C(H)[\Delta,\Delta]
+=
+\norm{B^{\mathsf T}AB}_F^2
++
+2\Tr\!\bigl(B^{\mathsf T}A(I-\Pi)AB\bigr).
+\label{eq:det-split-whitened}
+\end{equation}
+\end{theorem}
+
+\proofappendix
+
+\begin{corollary}[Exact closure criterion]
+\label{cor:closure-criterion}
+In the setting of Theorem~\ref{thm:whitened-normal-form},
+\begin{equation}
+Q=0
+\iff
+(I-\Pi)AB=0.
+\label{eq:closure-criterion}
+\end{equation}
+Equivalently,
+\begin{equation}
+Q=0
+\iff
+A\Ran(B)\subseteq \Ran(B).
+\label{eq:invariant-subspace-criterion}
+\end{equation}
+Thus the quartic defect vanishes exactly when the visible $m$-plane is invariant under the whitened perturbation.
+\end{corollary}
+
+\proofappendix
+
+\section{Commutator form and Fisher-tightness}
+
+The hidden term admits an exact commutator representation.
+
+\begin{proposition}[Commutator identity]
+\label{prop:commutator-identity}
+In the whitened setting of Theorem~\ref{thm:whitened-normal-form},
+\begin{equation}
+\Tr(Q)=\norm{(I-\Pi)A\Pi}_F^2=\frac12\norm{[A,\Pi]}_F^2.
+\label{eq:commutator-identity}
+\end{equation}
+Hence
+\begin{equation}
+\geomboxed{D^2\kappa_C(H)[\Delta,\Delta]=\norm{B^{\mathsf T}AB}_F^2+\norm{[A,\Pi]}_F^2.}
+\label{eq:fisher-tight-split}
+\end{equation}
+In particular,
+\begin{equation}
+Q=0
+\iff
+[A,\Pi]=0
+\iff
+D^2\kappa_C(H)[\Delta,\Delta]=\norm{B^{\mathsf T}AB}_F^2.
+\label{eq:fisher-tight-equivalence}
+\end{equation}
+\end{proposition}
+
+\proofappendix
+
+\begin{remark}
+Equation~\eqref{eq:fisher-tight-split} gives the exact Fisher interpretation. The visible term is the Fisher curvature of the compressed perturbation. The commutator term is the hidden Fisher curvature generated by failure of the perturbation to close on the visible plane. Adapted observers are therefore precisely Fisher-tight observers.
+\end{remark}
+
+\section{Exact closure and commuting families}
+
+We now pass from one perturbation to a task family.
+
+\begin{definition}[Closure-adapted observer]
+\label{def:closure-adapted}
+Fix $H\in\Sym_{++}(n)$ and a finite family $\mathcal F=\{\Delta_a\}_{a\in A}\subset \Sym(n)$. For $B\in\St(n,m)$ set
+\begin{equation}
+D_a:=A_a:=\widetilde\Delta_a:=H^{-1/2}\Delta_aH^{-1/2}.
+\label{eq:family-whitened}
+\end{equation}
+We say that $B$, or equivalently the observer $C=B^{\mathsf T}H^{1/2}$, is \emph{$\mathcal F$-adapted} if
+\begin{equation}
+(I-\Pi)D_aB=0
+\qquad (a\in A).
+\label{eq:F-adapted}
+\end{equation}
+Equivalently, $\Ran(B)$ is invariant under every $D_a$.
+\end{definition}
+
+\begin{definition}[Visible and hidden curvature scores]
+\label{def:scores}
+For $B\in\St(n,m)$ define
+\begin{equation}
+\mathcal S(\Pi)=\mathsf S_{\mathcal F}(B):=\sum_{a\in A}\norm{B^{\mathsf T}D_aB}_F^2,
+\label{eq:S-def}
+\end{equation}
+\begin{equation}
+\mathcal L(\Pi)=\mathsf H_{\mathcal F}(B):=2\sum_{a\in A}\Tr\!\bigl(B^{\mathsf T}D_a(I-\Pi)D_aB\bigr)=\sum_{a\in A}\norm{[D_a,\Pi]}_F^2,
+\label{eq:H-def}
+\end{equation}
+and, whenever $\mathcal S(\Pi)+\mathcal L(\Pi)>0$,
+\begin{equation}
+\eta(\Pi)=\eta_{\mathcal F}(B):=\frac{\mathcal L(\Pi)}{\mathcal L(\Pi)+\mathcal S(\Pi)}\in[0,1].
+\label{eq:eta-def}
+\end{equation}
+\end{definition}
+
+\begin{proposition}[Single-operator exact solution]
+\label{prop:single-operator-solution}
+Let $\mathcal F=\{\Delta\}$ with whitened perturbation $D=H^{-1/2}\Delta H^{-1/2}$. Then the leakage-free rank-$m$ observers are exactly the spectral projectors of $D$ of rank $m$. Among them, the maximal visible score is attained by the span of the $m$ eigenvectors of largest $\lambda_i^2$, where $\lambda_i$ are the eigenvalues of $D$.
+\end{proposition}
+
+\proofappendix
+
+\begin{theorem}[Commuting-family reduction]
+\label{thm:commuting-family}
+Assume that the whitened family $\{D_a\}_{a\in A}$ is pairwise commuting. Then there is an orthonormal basis $u_1,\dots,u_n$ of common eigenvectors such that
+\begin{equation}
+D_a u_i=\lambda_{a,i}u_i
+\qquad (a\in A,\; 1\le i\le n).
+\label{eq:common-eigenbasis}
+\end{equation}
+For $I\subseteq\{1,\dots,n\}$ with $|I|=m$, set
+\begin{equation}
+B_I:=(u_i)_{i\in I}.
+\label{eq:BI-def}
+\end{equation}
+Then $B_I$ is $\mathcal F$-adapted, hence $\eta(B_I)=0$, and
+\begin{equation}
+\mathcal S(B_I)=\sum_{i\in I}\sum_{a\in A}\lambda_{a,i}^2.
+\label{eq:score-common-basis}
+\end{equation}
+Conversely, every $\mathcal F$-adapted observer of rank $m$ is the orthogonal sum of common eigenspaces of the family.
+\end{theorem}
+
+\proofappendix
+
+\begin{corollary}[Optimal exact closure in the commuting case]
+\label{cor:optimal-commuting}
+Under the hypotheses of Theorem~\ref{thm:commuting-family}, define the common spectral energies
+\begin{equation}
+\mu_i:=\sum_{a\in A}\lambda_{a,i}^2.
+\label{eq:mu-def}
+\end{equation}
+If $I_\star$ indexes the $m$ largest values of $\mu_i$, then $B_{I_\star}$ maximises $\mathcal S$ among all $\mathcal F$-adapted observers of rank $m$. Equivalently, among exact-closure observers, the optimal observer is obtained by selecting the $m$ common modes of largest aggregate task energy.
+\end{corollary}
+
+\proofappendix
+
+\section{Noncommuting approximate design}
+
+For noncommuting families, exact closure and task visibility no longer coincide. The correct object is the leakage-visibility frontier.
+
+\begin{proposition}[Insufficiency of pure $\eta$ minimisation]
+\label{prop:eta-insufficient}
+There exist noncommuting symmetric families with two rank-$m$ exact-closure observers, both satisfying $\eta=0$, but with distinct visible scores. Consequently pure $\eta$ minimisation is insufficient to select a task-optimal observer.
+\end{proposition}
+
+\proofappendix
+
+\begin{remark}
+The proposition is decisive at the API level. Pure $\eta$ minimisation solves the closure endpoint problem. It does not solve the general approximate-design problem. The correct public target for noncommuting families is therefore the Pareto frontier in $(\mathcal L,\mathcal S)$, or equivalently $(\eta,\mathcal S)$. A constrained selector such as maximising $\mathcal S$ subject to $\eta\le \varepsilon$ is useful, but it should sit on top of the frontier rather than replace it.
+\end{remark}
+
+\begin{theorem}[Grassmannian stationarity equation]
+\label{thm:stationarity}
+Let $\mathcal F=\{D_a\}_{a\in A}$ be a finite family of symmetric whitened perturbations and let
+\begin{equation}
+\mathcal L(\Pi):=\sum_{a\in A}\frac12\norm{[D_a,\Pi]}_F^2,
+\label{eq:L-pi-def}
+\end{equation}
+where $\Pi$ ranges over rank-$m$ orthogonal projectors. Then a stationary point of $\mathcal L$ on $\Gr(m,n)$ satisfies
+\begin{equation}
+\geomboxed{\Bigl[\Pi,\sum_{a\in A}[D_a,[D_a,\Pi]]\Bigr]=0.}
+\label{eq:stationarity-equation}
+\end{equation}
+Equivalently, the double-bracket flow
+\begin{equation}
+\dot \Pi=-\Bigl[\Pi,\sum_{a\in A}[D_a,[D_a,\Pi]]\Bigr]
+\label{eq:double-bracket-flow}
+\end{equation}
+preserves symmetry, idempotence, and rank, and is the intrinsic descent direction generated by commutator leakage.
+\end{theorem}
+
+\proofappendix
+
+\begin{proposition}[Total captured curvature identity]
+\label{prop:total-captured-curvature}
+Define
+\begin{equation}
+M:=\sum_{a\in A}D_a^2.
+\label{eq:M-def}
+\end{equation}
+Then for every rank-$m$ projector $\Pi$,
+\begin{equation}
+\geomboxed{\Tr(\Pi M)=\mathcal S(\Pi)+\mathcal L(\Pi).}
+\label{eq:energy-split}
+\end{equation}
+Hence the top $m$-eigenspace of $M$ exactly maximises total captured local curvature.
+\end{proposition}
+
+\proofappendix
+
+\begin{remark}
+Proposition~\ref{prop:total-captured-curvature} gives the exact status of the $\sum_a D_a^2$ rule. It is exact for the wrong scalar objective whenever closure and visibility pull in different directions. The rule is therefore unsafe as a final observer in the noncommuting regime, but good as a warm start for frontier optimisation.
+\end{remark}
+
+\section{Tower refinement and flag obstruction}
+
+Exact coarse closure does not automatically refine. The correct object is a common invariant flag.
+
+\begin{theorem}[Quotient-family refinement criterion]
+\label{thm:refinement-criterion}
+Let $\mathcal F=\{D_a\}_{a\in A}\subset\Sym(n)$, and let $U\subset\R^n$ be a common invariant subspace of dimension $m_1$. Let $\Pi_U$ be the orthogonal projector onto $U$, and compress the family to the quotient or orthogonal complement by
+\begin{equation}
+\widehat D_a:=(I-\Pi_U)D_a(I-\Pi_U)\big|_{U^{\perp}}.
+\label{eq:quotient-family}
+\end{equation}
+Then there exists a common invariant subspace $W$ of dimension $m_2>m_1$ with
+\begin{equation}
+U\subset W
+\label{eq:flag-inclusion}
+\end{equation}
+if and only if the quotient family $\{\widehat D_a\}$ has a common invariant subspace of dimension $m_2-m_1$.
+\end{theorem}
+
+\proofappendix
+
+\begin{remark}
+Theorem~\ref{thm:refinement-criterion} says exactly what tower language is valid. Exact closure propagates through a tower when the family admits a common invariant flag. Common invariant subspace alone is not enough.
+\end{remark}
+
+\begin{proposition}[$\R^3$ flag obstruction]
+\label{prop:R3-obstruction}
+Consider
+\begin{equation}
+D_1=
+\begin{pmatrix}
+2&0&0\\
+0&1&0\\
+0&0&-1
+\end{pmatrix},
+\qquad
+D_2=
+\begin{pmatrix}
+3&0&0\\
+0&0&1\\
+0&1&0
+\end{pmatrix}.
+\label{eq:R3-example}
+\end{equation}
+Then $U=\spanop(e_1)$ is common invariant, so rank-$1$ coarse closure is exact. However there is no common invariant $2$-plane containing $e_1$.
+\end{proposition}
+
+\proofappendix
+
+\begin{corollary}[Small-dimensional refinement test]
+\label{cor:small-dim-refinement}
+In dimension $3$, with coarse rank $1$ and desired fine rank $2$, refinement exists if and only if the quotient $2\times 2$ family has a common eigenvector. For symmetric $2\times 2$ families this is equivalent to pairwise commutation of the quotient family.
+\end{corollary}
+
+\proofappendix
+
+\section{Order gain on adapted branches}
+
+Adaptation removes the first nonlinear hidden birth and therefore postpones spectral loss.
+
+\begin{proposition}[Quartic cancellation on an adapted bridge]
+\label{prop:bridge-consequence}
+Let
+\begin{equation}
+H_{\varepsilon}=H_0+\varepsilon^2\Delta_2+O(\varepsilon^4),
+\label{eq:bridge-family}
+\end{equation}
+with $H_0\in\Sym_{++}(n)$ and $\Delta_2\in\Sym(n)$. If $B\in\St(n,m)$ is $\{\Delta_2\}$-adapted at $H_0$, then for $C=B^{\mathsf T}H_0^{1/2}$,
+\begin{equation}
+\Phi_C(H_{\varepsilon})-I_m
+=
+\varepsilon^2B^{\mathsf T}A_2B+O(\varepsilon^6),
+\label{eq:quartic-vanishes}
+\end{equation}
+where $A_2:=H_0^{-1/2}\Delta_2H_0^{-1/2}$. In particular the quartic defect vanishes.
+\end{proposition}
+
+\proofappendix
+
+\begin{corollary}[Order upgrade for smooth spectral losses]
+\label{cor:octic-upgrade}
+Let $\Sigma_{\mathrm{exact}}(\varepsilon)$ and $\Sigma_{\mathrm{tan}}(\varepsilon)$ denote the exact and tangent visible shadows along the bridge \eqref{eq:bridge-family}. Under the hypotheses of Proposition~\ref{prop:bridge-consequence},
+\begin{equation}
+\Sigma_{\mathrm{exact}}(\varepsilon)-\Sigma_{\mathrm{tan}}(\varepsilon)=O(\varepsilon^6).
+\label{eq:matrix-order-upgrade}
+\end{equation}
+If $\Psi$ is a smooth spectral functional with $\Psi(0)=0$ and $D\Psi(0)=0$, then
+\begin{equation}
+\Psi\bigl(\Sigma_{\mathrm{tan}}(\varepsilon)\bigr)-\Psi\bigl(\Sigma_{\mathrm{exact}}(\varepsilon)\bigr)=O(\varepsilon^8).
+\label{eq:octic-upgrade}
+\end{equation}
+Thus adaptation postpones the first smooth spectral loss by one full even order.
+\end{corollary}
+
+\proofappendix
+
+\section{Operational consequences}
+
+The preceding results identify the correct exact computational objects.
+
+First, each leakage operator
+\begin{equation}
+Q_a=B^{\mathsf T}D_a(I-\Pi)D_aB
+\label{eq:Qa-op}
+\end{equation}
+is a Gram operator on the visible space. Its nonzero eigenvalues are the squared singular values of the visible-to-hidden coupling map $(I-\Pi)D_a\Pi$, so $Q_a$ carries canonical leakage channels.
+
+Second, the noncommuting approximate-design problem is exact approximate commutant learning. One is not searching over arbitrary observers. One is searching for a rank-$m$ projector $\Pi$ that almost commutes with the whitened perturbation family while retaining enough visible Fisher energy to perform the task.
+
+Third, the public observer-design interface should be a frontier in $(\mathcal L,\mathcal S)$ or $(\eta,\mathcal S)$. Pure $\eta$ minimisation is a closure endpoint and diagnostic, not the generic approximate-design answer. The $\sum_a D_a^2$ rule is retained as a warm start, not promoted as a public final observer.
+
+Fourth, exact tower language should be stated only under the quotient-family refinement criterion. Coarse exact closure alone does not imply exact refinability.
+
+\section{Conclusion}
+
+The observer-design problem of induced visible geometry is exact and finite. After $H$-whitening, a visible observer is an $m$-plane, the first visible response is its compressed action, and the quartic defect is the off-plane action that escapes closure. The trace of that defect is exactly a commutator energy, so leakage is an exact hidden Fisher curvature.
+
+This yields a sharp hierarchy. Single perturbations and commuting families are closed-form. General families reduce to a Grassmannian approximate-commutant problem with an exact stationarity equation and double-bracket descent. The correct public interface in that regime is a leakage-visibility frontier. The $\sum_a D_a^2$ eigenspace rule is exact for total captured curvature and therefore useful as a warm start, but unsafe as a final observer. Exact closure through a tower is governed by a common invariant flag. Along adapted branches the first smooth spectral loss is postponed by one full even order.
+
+\newpage
+
+\appendix
+\section{Proofs}
+
+\subsection*{Proof of Proposition~\ref{prop:local-calculus}}
+Write $M(t):=C(H+t\Delta)^{-1}C^{\mathsf T}$. The resolvent expansion gives
+\[
+M(t)=\Phi^{-1}-t\,\Phi^{-1}V\Phi^{-1}+t^2\,\Phi^{-1}(V\Phi^{-1}V-Q)\Phi^{-1}+O(t^3),
+\]
+which inverts to \eqref{eq:local-expansion}. The identity \eqref{eq:Q-vanish-general} follows from the Gram form
+\[
+Q=
+\bigl(H^{-1/2}P^{\mathsf T}\Delta L\bigr)^{\mathsf T}
+\bigl(H^{-1/2}P^{\mathsf T}\Delta L\bigr).
+\]
+Substituting \eqref{eq:local-expansion} into $-\log\det$ yields \eqref{eq:det-split}.
+
+\subsection*{Proof of Theorem~\ref{thm:whitened-normal-form}}
+Since $B^{\mathsf T}B=I_m$,
+\[
+CH^{-1}C^{\mathsf T}=B^{\mathsf T}H^{1/2}H^{-1}H^{1/2}B=I_m,
+\]
+so $\Phi_C(H)=I_m$. Then
+\[
+L_{C,H}=H^{-1}C^{\mathsf T}\Phi_C(H)=H^{-1/2}B,
+\]
+and therefore
+\[
+P_{C,H}=I-L_{C,H}C=I-H^{-1/2}BB^{\mathsf T}H^{1/2}.
+\]
+Now
+\[
+V=L^{\mathsf T}\Delta L=B^{\mathsf T}H^{-1/2}\Delta H^{-1/2}B=B^{\mathsf T}AB.
+\]
+Also,
+\[
+PH^{-1}=H^{-1/2}(I-\Pi)H^{-1/2},
+\]
+so
+\[
+Q=L^{\mathsf T}\Delta PH^{-1}\Delta L
+=B^{\mathsf T}A(I-\Pi)AB.
+\]
+Equation \eqref{eq:det-split-whitened} is \eqref{eq:det-split} with $\Phi=I_m$.
+
+\subsection*{Proof of Corollary~\ref{cor:closure-criterion}}
+Since $A$ is symmetric,
+\[
+Q=
+\bigl((I-\Pi)AB\bigr)^{\mathsf T}
+\bigl((I-\Pi)AB\bigr).
+\]
+Hence $Q=0$ if and only if $(I-\Pi)AB=0$, which is equivalent to $A\Ran(B)\subseteq\Ran(B)$.
+
+\subsection*{Proof of Proposition~\ref{prop:commutator-identity}}
+Because $\Pi$ is an orthogonal projector,
+\[
+[A,\Pi]=A\Pi-\Pi A=(I-\Pi)A\Pi-\Pi A(I-\Pi).
+\]
+The two summands lie in orthogonal off-diagonal blocks, so
+\[
+\norm{[A,\Pi]}_F^2=2\norm{(I-\Pi)A\Pi}_F^2.
+\]
+On the other hand,
+\[
+\Tr(Q)=\Tr\bigl(B^{\mathsf T}A(I-\Pi)AB\bigr)=\norm{(I-\Pi)A\Pi}_F^2.
+\]
+This proves \eqref{eq:commutator-identity}. Substituting into \eqref{eq:det-split-whitened} yields \eqref{eq:fisher-tight-split}. The equivalences in \eqref{eq:fisher-tight-equivalence} follow immediately.
+
+\subsection*{Proof of Proposition~\ref{prop:single-operator-solution}}
+Leakage-free means $[D,\Pi]=0$ by Proposition~\ref{prop:commutator-identity}, hence $\Pi$ is a spectral projector of the symmetric matrix $D$. If $\Pi$ projects onto eigenvectors indexed by $I$, then
+\[
+\mathcal S(\Pi)=\Tr(\Pi D\Pi D)=\sum_{i\in I}\lambda_i^2.
+\]
+This is maximised by choosing the $m$ largest values of $\lambda_i^2$.
+
+\subsection*{Proof of Theorem~\ref{thm:commuting-family}}
+A commuting family of real symmetric matrices is simultaneously orthogonally diagonalizable, giving \eqref{eq:common-eigenbasis}. For each $I$, the span of $\{u_i:i\in I\}$ is invariant under every $D_a$, so $B_I$ is $\mathcal F$-adapted by Definition~\ref{def:closure-adapted}. Since
+\[
+B_I^{\mathsf T}D_aB_I=\diag\bigl((\lambda_{a,i})_{i\in I}\bigr),
+\]
+we obtain \eqref{eq:score-common-basis}. Conversely, if $\Ran(B)$ is invariant under every $D_a$, then because the family is simultaneously diagonalizable, $\Ran(B)$ is the orthogonal sum of common eigenspaces.
+
+\subsection*{Proof of Corollary~\ref{cor:optimal-commuting}}
+By Theorem~\ref{thm:commuting-family}, every exact-closure observer of rank $m$ is $B_I$ for some $|I|=m$, and its score is
+\[
+\mathcal S(B_I)=\sum_{i\in I}\mu_i.
+\]
+This is maximised by choosing the $m$ largest values of $\mu_i$.
+
+\subsection*{Proof of Proposition~\ref{prop:eta-insufficient}}
+Consider the noncommuting family in $\R^4$
+\[
+D_1=\diag(1,-1,3,-3),
+\qquad
+D_2=
+\begin{pmatrix}
+0&1&0&0\\
+1&0&0&0\\
+0&0&0&2\\
+0&0&2&0
+\end{pmatrix}.
+\]
+Let $U=\spanop(e_1,e_2)$ and $V=\spanop(e_3,e_4)$. Both $U$ and $V$ are common invariant subspaces, so the corresponding rank-$2$ projectors satisfy $\eta=0$. However,
+\[
+\mathcal S(U)=\norm{\diag(1,-1)}_F^2+\norm{\begin{psmallmatrix}0&1\\1&0\end{psmallmatrix}}_F^2=2+2=4,
+\]
+whereas
+\[
+\mathcal S(V)=\norm{\diag(3,-3)}_F^2+\norm{\begin{psmallmatrix}0&2\\2&0\end{psmallmatrix}}_F^2=18+8=26.
+\]
+Thus pure $\eta$ minimisation cannot distinguish two exact-closure observers with sharply different visible scores.
+
+\subsection*{Proof of Theorem~\ref{thm:stationarity}}
+Let $\Pi$ be a rank-$m$ orthogonal projector. A tangent variation on $\Gr(m,n)$ has the form
+\[
+\delta\Pi=[K,\Pi],\qquad K^{\mathsf T}=-K.
+\]
+Using
+\[
+\mathcal L(\Pi)=\frac12\sum_a\Tr([D_a,\Pi]^{\mathsf T}[D_a,\Pi])
+\]
+and the symmetry of $D_a$ and $\Pi$, one gets
+\[
+\delta\mathcal L=\sum_a\Tr([D_a,\Pi][D_a,\delta\Pi])=
+\sum_a\Tr([D_a,[D_a,\Pi]]\,\delta\Pi).
+\]
+Substituting $\delta\Pi=[K,\Pi]$ and cycling the trace gives
+\[
+\delta\mathcal L=\Tr\!\Bigl(\bigl[\Pi,\sum_a[D_a,[D_a,\Pi]]\bigr]K\Bigr).
+\]
+Since $K$ is arbitrary skew-symmetric, stationarity is equivalent to \eqref{eq:stationarity-equation}. The vector field in \eqref{eq:double-bracket-flow} is a commutator with $\Pi$, hence preserves symmetry, idempotence, and rank.
+
+\subsection*{Proof of Proposition~\ref{prop:total-captured-curvature}}
+Using cyclicity of trace,
+\[
+\Tr(\Pi M)=\sum_a\Tr(\Pi D_a^2).
+\]
+For each $a$, insert $I=\Pi+(I-\Pi)$ to obtain
+\[
+\Tr(\Pi D_a^2)=\Tr(\Pi D_a\Pi D_a)+\Tr(\Pi D_a(I-\Pi)D_a).
+\]
+The first term is $\norm{\Pi D_a\Pi}_F^2$, which equals the $a$th contribution to $\mathcal S$. The second term is $\norm{(I-\Pi)D_a\Pi}_F^2$, which equals one half of the $a$th commutator norm and therefore the $a$th contribution to $\mathcal L$. Summing over $a$ gives \eqref{eq:energy-split}.
+
+\subsection*{Proof of Theorem~\ref{thm:refinement-criterion}}
+Suppose first that there exists a common invariant subspace $W$ of dimension $m_2$ with $U\subset W$. Then $W\cap U^{\perp}$ has dimension $m_2-m_1$ and is invariant under every quotient operator $\widehat D_a$, giving a common invariant subspace of the quotient family.
+
+Conversely, suppose the quotient family has a common invariant subspace $Y\subset U^{\perp}$ of dimension $m_2-m_1$. Then $W:=U\oplus Y$ has dimension $m_2$ and is invariant under every $D_a$, because $U$ is invariant and $Y$ is invariant modulo $U$ by construction. Thus $U\subset W$ is a common invariant flag.
+
+\subsection*{Proof of Proposition~\ref{prop:R3-obstruction}}
+The line $U=\spanop(e_1)$ is invariant because both matrices in \eqref{eq:R3-example} preserve $e_1$. On $U^{\perp}=\spanop(e_2,e_3)$ the quotient family is
+\[
+\widehat D_1=
+\begin{pmatrix}
+1&0\\
+0&-1
+\end{pmatrix},
+\qquad
+\widehat D_2=
+\begin{pmatrix}
+0&1\\
+1&0
+\end{pmatrix}.
+\]
+These two symmetric matrices have no common eigenvector, so by Theorem~\ref{thm:refinement-criterion} there is no common invariant $2$-plane containing $e_1$.
+
+\subsection*{Proof of Corollary~\ref{cor:small-dim-refinement}}
+By Theorem~\ref{thm:refinement-criterion}, refinement exists if and only if the quotient family on the $2$-dimensional complement has a common invariant line. For symmetric $2\times 2$ matrices, a common invariant line is equivalent to simultaneous diagonalizability, which is equivalent to pairwise commutation.
+
+\subsection*{Proof of Proposition~\ref{prop:bridge-consequence}}
+Apply Proposition~\ref{prop:local-calculus} with $H=H_0$, $t=\varepsilon^2$, and $\Delta=\Delta_2$. Since $B$ is $\{\Delta_2\}$-adapted, Corollary~\ref{cor:closure-criterion} gives $Q=0$. Therefore
+\[
+\Phi_C(H_{\varepsilon})
+=
+I_m+\varepsilon^2B^{\mathsf T}A_2B+O(\varepsilon^6).
+\]
+
+\subsection*{Proof of Corollary~\ref{cor:octic-upgrade}}
+In the notation of \emph{Quotient Observation}, Proposition~\ref{prop:bridge-consequence} says that the quartic matrix defect vanishes on the adapted branch, so the exact and tangent visible shadows differ first at order $\varepsilon^6$. This is \eqref{eq:matrix-order-upgrade}. If $\Psi$ is smooth with $\Psi(0)=0$ and $D\Psi(0)=0$, its Taylor expansion begins quadratically. Applying this to the $O(\varepsilon^6)$ matrix difference yields \eqref{eq:octic-upgrade}.
+
+\end{document}

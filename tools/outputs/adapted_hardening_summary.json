@@ -1,0 +1,33 @@
+{
+  "bridge_trials": 20,
+  "commuting_trials": 40,
+  "max_bridge_eta": 1.490585625616492e-31,
+  "max_bridge_scaled_quartic_residual": 1.4552689997527145e-12,
+  "max_commuting_eta": 8.181270605734985e-29,
+  "max_commuting_visible_score_gap": 7.815970093361102e-14,
+  "real_bundle_commutator_norms": {
+    "bell_probability_family": 0.07656952235760463,
+    "iris_covariance_family": 0.3564874934392491,
+    "leaderboard_outerproduct_family": 1.0882899793891379
+  },
+  "real_bundle_exact_success_eta": {
+    "iris_mean_spectral_family": 1.583512856771982e-29,
+    "leaderboard_model_spectral_family": 2.525884991559712e-28
+  },
+  "real_bundle_exact_success_score": {
+    "iris_mean_spectral_family": 13.179584386674849,
+    "leaderboard_model_spectral_family": 1318.3410933828814
+  },
+  "real_bundle_noncommuting_rejections": {
+    "bell_probability_family": true,
+    "iris_covariance_family": true,
+    "leaderboard_outerproduct_family": true
+  },
+  "rotated_condition_acceptance": {
+    "cond_1e4": 12,
+    "cond_1e6": 12,
+    "cond_1e8": 7,
+    "cond_1e9": 0
+  },
+  "seed": 20260409
+}

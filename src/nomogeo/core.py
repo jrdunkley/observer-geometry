@@ -26,7 +26,8 @@ def visible_geometry(H: np.ndarray, C: np.ndarray, tolerances: Tolerances | None
     phi = solve_spd(gram, np.eye(gram.shape[0], dtype=float))
     phi = symmetrize(phi)
     lift = h_inv_ct @ phi
-    projector = symmetrize(np.eye(h.shape[0], dtype=float) - lift @ c)
+    # This projector is generally oblique in the Euclidean metric; the
+    # theorem-level symmetry is the H-selfadjoint identity P^T H = H P.
     projector = np.eye(h.shape[0], dtype=float) - lift @ c
 
     metadata = LinearAlgebraMetadata(
@@ -98,4 +99,3 @@ def local_visible_calculus(
         active_support=active_support,
         metadata=metadata,
     )
-

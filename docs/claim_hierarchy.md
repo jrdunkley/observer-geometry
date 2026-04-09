@@ -123,3 +123,6 @@ When reading any result in this workspace, ask:
 
 If those answers are not visible, the surface needs tightening.
 
+For the exact public claim frozen for the current kernel release, see
+[docs/release_scope_0_25.md](release_scope_0_25.md).
+
