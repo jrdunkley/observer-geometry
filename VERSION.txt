@@ -1,7 +1,7 @@
-workspace 0.2
-nomogeo: 0.25.0
+workspace 0.3
+nomogeo: 0.30.0
 nomodescent: 0.2.0
 evidence: 0.3.0
-release_state: frozen
-freeze_date: 2026-04-08
-notes: workspace freeze after cleanup, examples merge, closure-adapted integration, fixed-observer connection integration, and release-surface sanitization
+release_state: github_ready
+freeze_date: 2026-04-10
+notes: nomogeo 0.30.0 adds the exact real-valued observation-field layer: Pi/Lambda coordinates, support-stratum transport, finite restart maps, kernel Schur-jet event classification, local coupled birth extraction, sampled interval diagnostics, and v0.30 QA/use-case hardening.

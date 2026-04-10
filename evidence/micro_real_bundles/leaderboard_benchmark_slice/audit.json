@@ -249,6 +249,7 @@
         "chat_suite"
       ],
       "falsification_route": [
+        "do not treat the top-ranked candidate as authoritative without an explicit observer-level justification",
         "supply an explicit observer matrix from the source and bypass finite-family suggestion",
         "add protocol facts that distinguish between the tied candidate hypotheses"
       ],
@@ -271,7 +272,8 @@
         "chat_suite"
       ],
       "notes": [
-        "candidate ranking is deterministic and finite-family only"
+        "candidate ranking is deterministic and finite-family only",
+        "the score is a lightweight feature-overlap heuristic, not a scientific selector"
       ],
       "residuals": {
         "score_gap_top2": 0.10000000000000009
@@ -330,6 +332,7 @@
         "reasoning_suite"
       ],
       "falsification_route": [
+        "do not treat the top-ranked candidate as authoritative without an explicit observer-level justification",
         "supply an explicit observer matrix from the source and bypass finite-family suggestion",
         "add protocol facts that distinguish between the tied candidate hypotheses"
       ],
@@ -352,7 +355,8 @@
         "reasoning_suite"
       ],
       "notes": [
-        "candidate ranking is deterministic and finite-family only"
+        "candidate ranking is deterministic and finite-family only",
+        "the score is a lightweight feature-overlap heuristic, not a scientific selector"
       ],
       "residuals": {
         "score_gap_top2": 0.10000000000000009

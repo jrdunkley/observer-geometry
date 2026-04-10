@@ -4,6 +4,8 @@ Agent-facing observer-geometry workspace.
 
 Public docs: https://docs.nomogenetics.com/
 
+Current kernel release: `nomogeo 0.30.0`.
+
 Use this repo as a three-layer stack:
 
 - `nomogeo`
@@ -23,6 +25,8 @@ Supporting surfaces:
   - tiny "we took paper X and did Y" case studies
 - [docs/claim_hierarchy.md](docs/claim_hierarchy.md)
   - epistemic split across exact, audited approximate, synthetic, and micro-real outputs
+- [docs/release_scope_0_30.md](docs/release_scope_0_30.md)
+  - exact release boundary for the support-stratified observation-field layer
 - [LICENSE](LICENSE)
 - [CITATIONS.md](CITATIONS.md)
 
@@ -53,6 +57,9 @@ It is not a generic scientific assistant, generic PDF reader, or unconstrained s
 - fixed-ceiling inverse theorem
 - hidden-load transport and determinant clock
 - contraction factors for associative hidden composition
+- observation-field coordinates `Pi <-> Lambda`, support-stratum transport,
+  finite birth/death restarts, kernel Schur-jet event classification,
+  local coupled birth extraction, and sampled interval-family diagnostics
 - thin Donsker-Varadhan and quotient-side Gaussian layers
 
 Runtime deps stay minimal: `numpy`, `scipy`.
@@ -85,7 +92,15 @@ The workspace has three install roots. Run commands from the correct root.
 
 ```python
 import numpy as np
-from nomogeo import canonical_lift, hidden_load, inverse_visible_class, visible_precision
+from nomogeo import (
+    canonical_lift,
+    hidden_load,
+    inverse_visible_class,
+    kernel_schur_jet_from_coefficients,
+    pi_from_hidden_load,
+    support_stratum_transport,
+    visible_precision,
+)
 
 H = np.array([[3.0, 1.0], [1.0, 2.0]])
 C = np.array([[1.0, 0.0]])
@@ -96,6 +111,10 @@ T = np.diag([2.0, 1.0, 0.0])
 Lambda = np.diag([0.3, 0.8])
 X = inverse_visible_class(T, Lambda, lambda_representation="reduced")
 load = hidden_load(T, X)
+
+Pi = pi_from_hidden_load(load.reduced_lambda)
+transport = support_stratum_transport(load.reduced_lambda, np.diag([0.2, 0.4]))
+jet = kernel_schur_jet_from_coefficients([np.diag([0.0, 1.0]), np.diag([1.0, 0.0])])
 ```
 
 ## Important Boundaries
@@ -103,6 +122,7 @@ load = hidden_load(T, X)
 - The fixed-ceiling inverse theorem is exact only after choosing the ceiling `T`. It does not invert the global map `(H, C) -> Phi_C(H)`.
 - If `rank(T) = n`, reduced and ambient hidden-load coordinates can have the same shape. In that case you must pass `lambda_representation="reduced"` or `"ambient"`.
 - For long hidden composition, use `hidden_contraction(...)` and `load_from_hidden_contraction(...)`. Raw load coordinates are not the associative object.
+- The `0.30.0` observation-field layer is exact but narrow: support-stable transport is reduced-coordinate diagnostics, restart maps require explicit nested support bases, kernel jets control leading small-eigenvalue behaviour only, sampled interval diagnostics certify samples only, and no global field simulator or noncommuting optimiser is exposed.
 
 ## Verification
 
@@ -116,6 +136,7 @@ python tools/stack_soak.py
 For theorem and validation maps, start with:
 
 - [docs/theorem_map.md](docs/theorem_map.md)
+- [docs/release_scope_0_30.md](docs/release_scope_0_30.md)
 - [docs/release_scope_0_25.md](docs/release_scope_0_25.md)
 - [docs/inverse_theorem.md](docs/inverse_theorem.md)
 - [docs/validation_note.md](docs/validation_note.md)

@@ -1,0 +1,928 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage[a4paper,margin=33mm]{geometry}
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\let\openbox\relax
+\usepackage{amsmath,amsthm,amssymb,mathtools}
+\usepackage{needspace}
+\usepackage[explicit]{titlesec}
+\usepackage{titling}
+\usepackage[
+  pdfusetitle,
+  hidelinks,
+  bookmarksopen=true,
+  bookmarksnumbered=true
+]{hyperref}
+
+\linespread{0.95}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.5pt}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Ran}{Ran}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\SPD}{SPD}
+\DeclareMathOperator{\Gr}{Gr}
+\newcommand{\R}{\mathbf R}
+\newcommand{\C}{\mathbf C}
+\newcommand{\geomboxed}[1]{%
+  \setlength{\fboxsep}{8pt}%
+  \setlength{\fboxrule}{0.9pt}%
+  \fbox{\scalebox{1.18}{$\displaystyle #1$}}%
+}
+
+\titleformat{\section}
+{\normalfont\normalsize\bfseries\raggedright}
+{\thesection}{0.75em}{\begin{minipage}[t]{0.9\textwidth}#1\end{minipage}}
+[\vspace{0.12em}\titlerule]
+
+\newcommand{\subaccent}{\vspace{0.01em}\noindent\rule{7ex}{0.2pt}}
+\titleformat{\subsection}
+{\normalfont\normalsize\bfseries}{\thesubsection}{0.5em}{#1}
+[\subaccent]
+\titlespacing*{\subsection}{0pt}{2.1ex plus 0.5ex}{1.2ex}
+
+\newtheoremstyle{thmcompact}
+{0.5ex}{0.5ex}
+{\itshape}
+{0pt}
+{\bfseries}
+{.}
+{0.6em}
+{\thmname{#1}\ \thmnumber{#2}\ \thmnote{(\textit{#3})}}
+
+\theoremstyle{thmcompact}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{remarkplain}{Remark}
+
+\mdfdefinestyle{thmframe}{%
+leftline=true, rightline=false, topline=false, bottomline=false,
+linewidth=0.8pt, linecolor=black,
+innerleftmargin=16pt, innerrightmargin=8pt,
+innertopmargin=6pt, innerbottommargin=6pt,
+skipabove=6pt, skipbelow=6pt,
+nobreak=true
+}
+\surroundwithmdframed[style=thmframe]{theorem}
+\surroundwithmdframed[style=thmframe]{proposition}
+\surroundwithmdframed[style=thmframe]{corollary}
+\surroundwithmdframed[style=thmframe]{definition}
+\surroundwithmdframed[style=thmframe]{lemma}
+
+\newmdenv[
+linewidth=0.6pt,
+topline=false,
+bottomline=false,
+rightline=false,
+skipabove=\baselineskip,
+skipbelow=\baselineskip,
+backgroundcolor=gray!3,
+leftmargin=0pt,
+innerleftmargin=8pt,
+innerrightmargin=6pt,
+frametitleaboveskip=0.4em,
+frametitlebelowskip=0.2em,
+frametitlefont=\bfseries\small,
+]{remarkbox}
+\newenvironment{remark}[1][]%
+{\begin{remarkbox}\begin{remarkplain}[#1]\normalfont}
+{\end{remarkplain}\end{remarkbox}}
+
+\renewcommand{\qedsymbol}{}
+\newcommand{\thmneed}{\Needspace{6\baselineskip}}
+\AtBeginEnvironment{theorem}{\thmneed}
+\AtBeginEnvironment{proposition}{\thmneed}
+\AtBeginEnvironment{corollary}{\thmneed}
+\AtBeginEnvironment{definition}{\thmneed}
+\AtBeginEnvironment{lemma}{\thmneed}
+
+\title{\textbf{Observation Fields Addendum}\\
+\large{Stratified dynamics, event jets, interval design, and the positive packet lift}}
+\author{J.\,R.~Dunkley}
+\date{10 April 2026}
+
+\hypersetup{
+  pdftitle={Observation Fields Addendum},
+  pdfauthor={J. R. Dunkley},
+  pdfsubject={Addendum to the stratified field layer of observation geometry},
+  pdfkeywords={observation geometry, stratified transport, support bifurcation, invariant subspace, packet lift}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This addendum records the exact additions that survive the post-meeting source check, the later stratified-dynamics research push, and numerical review. It now includes the module-grade local extractor for the coupled birth tensor, the stratumwise comparison theorem, the bounded-generator obstruction, the finite-order kernel-jet support-event classifier, the universal semisimple pole and clock laws, the intervalwise closure/refinement criterion, the continuous interval leakage calculus for noncommuting families, and the Hermitian-positive packet lift $H_\varepsilon(\Psi)=\varepsilon I+\Psi\Psi^*$. It also states explicitly what is not added: there is still no single smooth hidden-load PDE across support changes, no replacement of the coupled generator by anchored $Q$, and no raw single-amplitude field ontology in the present exact theory.
+\end{abstract}
+
+\section{Purpose and freeze line}
+
+The field note \emph{Observation Fields} already proves the support-stable transport theorem, the simple support-bifurcation normal form, the birth and death restart laws, and the canonical normal form. The observer note \emph{Closure Adapted Observers} already proves exact closure by common invariant subspace and exact refinement by the quotient-family criterion.
+
+The present addendum does two things only.
+
+First, it packages the strongest exact consequences of those results that are not yet written as standalone theorems.
+
+Second, it records one new bridge construction that is rigorous now and should therefore be frozen with the rest of the theory: the Hermitian-positive packet lift.
+
+\section{Local coupled extractor without hidden-basis differentiation}
+
+The coupled local birth tensor is the first operational object needed for a module-grade field layer. The following statement records the exact extractor in the form needed for computation.
+
+\begin{theorem}[Module-grade local extractor]
+\label{thm:local-extractor}
+Let $t\mapsto H(t)$ be $C^2$, let $t\mapsto C(t)$ be $C^1$, and let $Z(t)$ be any $C^1$ hidden complement with
+\[
+C(t)Z(t)=0.
+\]
+Set
+\[
+\Phi=(CH^{-1}C^{\mathsf T})^{-1},
+\qquad
+L=H^{-1}C^{\mathsf T}\Phi,
+\qquad
+R=Z^{\mathsf T}HZ,
+\]
+and
+\[
+V=L^{\mathsf T}\dot H L,
+\qquad
+B=L^{\mathsf T}\dot H Z,
+\qquad
+\beta=-\dot C Z,
+\qquad
+Q=BR^{-1}B^{\mathsf T}.
+\]
+Then the covariant second visible derivative is determined by
+\begin{equation}
+\geomboxed{
+W:=D_t^\alpha V
+=
+L^{\mathsf T}\ddot H L
+-2Q
+-\Phi\beta R^{-1}B^{\mathsf T}
+-BR^{-1}\beta^{\mathsf T}\Phi.
+}
+\label{eq:local-extractor-W}
+\end{equation}
+Consequently, on the active support $S=\Ran(V)$ with $V_S\succ0$,
+\begin{equation}
+\geomboxed{
+A_{\mathrm{cpl}}
+=-\tfrac12 V_S^{-1/2}W_SV_S^{-1/2}.
+}
+\label{eq:extractor-Acpl}
+\end{equation}
+The extraction uses $H,\dot H,\ddot H,C,\dot C,Z$ only. It does not require differentiating the hidden basis $Z$.
+\end{theorem}
+
+\begin{proof}
+The split-frame structure equations in \emph{Observation Fields} give
+\[
+dC=-\alpha C-\beta W_{\mathrm{dual}}.
+\]
+Here $W_{\mathrm{dual}}$ denotes the hidden dual frame. Multiplying on the right by $Z$ and using $CZ=0$ and $W_{\mathrm{dual}}Z=I$ gives $\beta=-\dot C Z$ along the path. The exact second covariant visible derivative proposition in the same note gives \eqref{eq:local-extractor-W}. Restricting $W$ to the active support in the support-restricted coupled local birth theorem gives \eqref{eq:extractor-Acpl}. No derivative of $Z$ appears in these formulas.
+\end{proof}
+
+\begin{proposition}[Hidden-basis invariance of the extractor]
+\label{prop:extractor-invariance}
+Under a hidden-basis change
+\[
+Z\mapsto ZT,
+\qquad
+T(t)\in GL(n-m),
+\]
+one has
+\[
+R\mapsto T^{\mathsf T}RT,
+\qquad
+B\mapsto BT,
+\qquad
+\beta\mapsto \beta T.
+\]
+Therefore $Q$, the observer tensor
+\[
+\mathcal O:=\Phi\beta R^{-1}\beta^{\mathsf T}\Phi,
+\]
+the covariant derivative $W$, and the coupled generator $A_{\mathrm{cpl}}$ are unchanged.
+\end{proposition}
+
+\begin{proof}
+The transformation laws for $R$, $B$, and $\beta$ are immediate from their definitions. Substitution gives
+\[
+(BT)(T^{\mathsf T}RT)^{-1}(BT)^{\mathsf T}=BR^{-1}B^{\mathsf T}
+\]
+and similarly for $\mathcal O$. The two mixed terms in \eqref{eq:local-extractor-W} are invariant by the same cancellation of $T$ and $T^{-1}$ factors, so $W$ is invariant. The active-support expression \eqref{eq:extractor-Acpl} then shows that $A_{\mathrm{cpl}}$ is invariant.
+\end{proof}
+
+\section{Stratumwise comparison and the bounded-generator obstruction}
+
+Let $I\subset \R$ be a support-stable interval in the sense of \emph{Observation Fields}. After parallel trivialisation of the active support, write
+\[
+A(t):=A_{\mathrm{cpl}}(t)\in \Sym(S),
+\qquad
+\Pi(t):=(I+\Lambda(t))^{-1}.
+\]
+Then the proved transport law is
+\begin{equation}
+\dot\Pi=-\Pi^{1/2}A\Pi^{1/2}.
+\label{eq:Pi-law-add}
+\end{equation}
+
+\begin{theorem}[Stratumwise comparison theorem]
+\label{thm:comparison}
+Assume $A(t)\succeq 0$ on a support-stable interval $I=[t_0,t_1]$. Let
+\[
+a_-(t):=\lambda_{\min}(A(t)),
+\qquad
+a_+(t):=\lambda_{\max}(A(t)).
+\]
+Then
+\begin{equation}
+\geomboxed{
+-a_+(t)\Pi(t)\preceq \dot\Pi(t)\preceq -a_-(t)\Pi(t).
+}
+\label{eq:Pi-compare}
+\end{equation}
+Consequently
+\begin{equation}
+\geomboxed{
+e^{-\int_{t_0}^t a_+(u)\,du}\,\Pi(t_0)
+\preceq
+\Pi(t)
+\preceq
+e^{-\int_{t_0}^t a_-(u)\,du}\,\Pi(t_0),
+}
+\label{eq:Pi-envelope}
+\end{equation}
+and equivalently
+\begin{equation}
+\geomboxed{
+e^{\int_{t_0}^t a_-(u)\,du}\,(I+\Lambda(t_0))
+\preceq
+I+\Lambda(t)
+\preceq
+e^{\int_{t_0}^t a_+(u)\,du}\,(I+\Lambda(t_0)).
+}
+\label{eq:Lambda-envelope}
+\end{equation}
+In particular,
+\[
+\dot\Lambda(t)\succeq 0,
+\qquad
+\dot\Pi(t)\preceq 0,
+\qquad
+\dot\tau(t)=\Tr(A(t))\ge 0.
+\]
+\end{theorem}
+
+\begin{proof}
+Since $a_-(t)I\preceq A(t)\preceq a_+(t)I$, congruence by $\Pi(t)^{1/2}$ gives
+\[
+a_-(t)\Pi(t)\preceq \Pi(t)^{1/2}A(t)\Pi(t)^{1/2}\preceq a_+(t)\Pi(t),
+\]
+and \eqref{eq:Pi-compare} follows from \eqref{eq:Pi-law-add}.
+
+For the upper bound, define
+\[
+F_-(t):=\exp\!\Bigl(\int_{t_0}^t a_-(u)\,du\Bigr)\Pi(t).
+\]
+Then
+\[
+\dot F_-(t)
+=
+\exp\!\Bigl(\int_{t_0}^t a_-(u)\,du\Bigr)\bigl(\dot\Pi(t)+a_-(t)\Pi(t)\bigr)
+\preceq 0,
+\]
+so $F_-(t)\preceq F_-(t_0)=\Pi(t_0)$ and hence the upper bound in \eqref{eq:Pi-envelope}. The lower bound follows identically from
+\[
+F_+(t):=\exp\!\Bigl(\int_{t_0}^t a_+(u)\,du\Bigr)\Pi(t),
+\]
+since $\dot\Pi(t)+a_+(t)\Pi(t)\succeq 0$.
+
+The bounds for $I+\Lambda(t)=\Pi(t)^{-1}$ follow by inversion, which reverses Loewner order on positive definite matrices. The monotonicity statements are the infinitesimal forms of the same inequalities, and the clock law is the already proved trace identity.
+\end{proof}
+
+\begin{theorem}[Bounded-generator obstruction]
+\label{thm:bounded-obstruction}
+There is no globally defined observer-covariant generator $\mathcal A(H,C)$ that both:
+\begin{enumerate}
+\item agrees with the exact stratumwise hidden-load transport law on every support-stable interval, and
+\item remains locally bounded through every genuine simple support birth or death.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+At a genuine simple support event, the support-bifurcation normal form from \emph{Observation Fields} gives, on the active side of the crossing direction,
+\[
+(\mathcal A)_{nn}(t)= -\frac{1}{2(t-t_0)}+O(1)
+\]
+for birth and
+\[
+(\mathcal A)_{nn}(t)= \frac{1}{2(t_0-t)}+O(1)
+\]
+for death. Hence agreement with the exact stratumwise law forces a first-order pole in the crossing channel. A locally bounded extension is therefore impossible.
+\end{proof}
+
+\begin{corollary}[Forced finite restart law]
+\label{cor:forced-restart}
+At a genuine simple support event, the only finite positive continuation compatible with the exact local theory is:
+\begin{enumerate}
+\item zero extension at support birth;
+\item survivor compression at support death.
+\end{enumerate}
+\end{corollary}
+
+\begin{proof}
+The birth and death corollaries in \emph{Observation Fields} already identify these as the theorem-domain restart laws. The present point is uniqueness inside the finite positive class.
+
+At birth, the newborn diagonal block is zero by the support-birth corollary. If a positive semidefinite block matrix has the form
+\[
+\begin{pmatrix}
+A & B\\
+B^{\mathsf T} & 0
+\end{pmatrix}\succeq 0,
+\]
+then $B=0$, since for any $x,y$ and scalar $s$,
+\[
+\begin{pmatrix}
+x\\ sy
+\end{pmatrix}^{\mathsf T}
+\begin{pmatrix}
+A & B\\
+B^{\mathsf T} & 0
+\end{pmatrix}
+\begin{pmatrix}
+x\\ sy
+\end{pmatrix}
+=
+x^{\mathsf T}Ax + 2s\,x^{\mathsf T}By
+\]
+must remain nonnegative for both signs of $s$, which forces $x^{\mathsf T}By=0$ for all $x,y$. Thus the newborn row and column vanish, giving zero extension uniquely.
+
+At death, the dying channel does not admit a finite continuation because the channel clock diverges logarithmically. The only finite positive post-event state is therefore the restriction of the pre-event state to the surviving support, which is exactly survivor compression.
+\end{proof}
+
+\section{Finite-order support events and kernel jets}
+
+The simple-crossing theorem in \emph{Observation Fields} is the first-order case of a more general finite-order event calculus. The correct object is the kernel Schur-complement jet. The statement below is intentionally phrased in terms of leading eigenvalue jets, not as exact equality between the full small spectrum and the ordinary Schur-complement spectrum.
+
+\begin{definition}[Kernel Schur-complement jet]
+\label{def:kernel-jet}
+Let
+\[
+V(\varepsilon)=V_0+\sum_{n\ge1}\varepsilon^n V_n
+\]
+be a smooth symmetric visible block with $K=\ker V_0$ and $G=K^\perp$, and assume $P:=V_0|_G\succ0$. In the splitting $K\oplus G$, write
+\[
+V(\varepsilon)=
+\begin{pmatrix}
+A(\varepsilon) & B(\varepsilon)\\
+B(\varepsilon)^{\mathsf T} & P+C(\varepsilon)
+\end{pmatrix}.
+\]
+For $|\varepsilon|$ small define
+\begin{equation}
+F(\varepsilon):=
+A(\varepsilon)-B(\varepsilon)(P+C(\varepsilon))^{-1}B(\varepsilon)^{\mathsf T}.
+\label{eq:kernel-F}
+\end{equation}
+Expanding
+\[
+(P+C(\varepsilon))^{-1}=\sum_{n\ge0}\varepsilon^nD_n,
+\qquad
+D_0=P^{-1},
+\qquad
+D_n=-P^{-1}\sum_{k=1}^n C_kD_{n-k},
+\]
+one obtains
+\[
+F(\varepsilon)=\sum_{n\ge1}\varepsilon^nE_n,
+\]
+with
+\begin{equation}
+E_n
+=A_n-
+\sum_{\substack{p+q+r=n\\ p,r\ge1,\ q\ge0}}
+B_pD_qB_r^{\mathsf T}.
+\label{eq:E-recursion}
+\end{equation}
+\end{definition}
+
+\begin{theorem}[Finite-order kernel-event classifier]
+\label{thm:kernel-event-classifier}
+Assume the spectral gap $P\succ0$ above. If $m$ is the first index for which $E_m\neq0$, then the small eigenvalue branches of $V(\varepsilon)$ have the leading expansion
+\[
+\lambda_j(\varepsilon)=\mu_j\varepsilon^m+o(\varepsilon^m),
+\]
+where $\mu_j$ are the eigenvalues of $E_m$, counted with multiplicity.
+\end{theorem}
+
+\begin{proof}
+The block $P+C(\varepsilon)$ remains positive definite for small $|\varepsilon|$. Congruence by
+\[
+\begin{pmatrix}
+I & -B(\varepsilon)(P+C(\varepsilon))^{-1}\\
+0 & I
+\end{pmatrix}
+\]
+reduces $V(\varepsilon)$ to the block diagonal matrix
+\[
+F(\varepsilon)\oplus(P+C(\varepsilon)).
+\]
+Thus the near-zero inertia is governed by $F(\varepsilon)$; the $G$-block stays uniformly separated from zero. Moreover the congruence map is uniformly bounded and differs from the identity by $O(\varepsilon)$ in the off-diagonal kernel-to-gap block, so the min-max/Rayleigh quotient estimates for the small cluster have the same first nonzero coefficient as the effective kernel block. Since $F(\varepsilon)=\varepsilon^mE_m+o(\varepsilon^m)$ is a symmetric perturbation on the finite-dimensional kernel space, standard symmetric perturbation theory gives the stated leading expansions.
+\end{proof}
+
+\begin{corollary}[First-order and second-order classifiers]
+\label{cor:first-second-classifier}
+At first order,
+\[
+E_1=A_1=P_KW_0P_K\big|_K.
+\]
+If $E_1$ is nonsingular, its inertia gives the first-order birth/death classification on the kernel block.
+
+If $E_1=0$, then
+\begin{equation}
+E_2=\tfrac12 P_KU_0P_K-P_KW_0V_0^\dagger W_0P_K\big|_K.
+\label{eq:E2-classifier}
+\end{equation}
+Equivalently, in block form with $V_0|_G=P\succ0$,
+\[
+E_2=\tfrac12 U_{KK}-W_{KG}P^{-1}W_{GK}.
+\]
+If $E_2$ is nonsingular, the event is second-order and
+\[
+\lambda_j(\varepsilon)=\nu_j\varepsilon^2+o(\varepsilon^2),
+\]
+where $\nu_j$ are the eigenvalues of $E_2$.
+\end{corollary}
+
+\begin{proof}
+This is Definition~\ref{def:kernel-jet} at orders one and two. The second-order formula uses $V(\varepsilon)=V_0+\varepsilon W_0+\tfrac{\varepsilon^2}{2}U_0+O(\varepsilon^3)$.
+\end{proof}
+
+\begin{theorem}[Universal finite-order semisimple pole law]
+\label{thm:finite-order-pole}
+Let $U\subset K$ be a spectral block of the first nonzero effective coefficient $E_m$. Fix a one-sided active parameterisation
+\[
+\varepsilon=\sigma s,
+\qquad
+s>0,
+\qquad
+\sigma\in\{-1,+1\},
+\]
+such that
+\[
+M:=\sigma^mE_m|_U\succ0.
+\]
+Then on that active block,
+\[
+V_U=s^mM+O(s^{m+1}),
+\qquad
+W_U=\sigma m s^{m-1}M+O(s^m).
+\]
+After whitening by $M^{1/2}$,
+\begin{equation}
+\geomboxed{
+\widetilde A_U(s)
+=-\frac{\sigma m}{2s}I_U+B_U(s),
+}
+\label{eq:finite-order-pole}
+\end{equation}
+where $B_U(s)$ remains bounded as $s\downarrow0$.
+\end{theorem}
+
+\begin{proof}
+The kernel-event classifier gives the leading active block $V_U=s^mM+O(s^{m+1})$. Differentiating with respect to the original parameter $t$ gives $W_U=\sigma m s^{m-1}M+O(s^m)$. Substitution into
+\[
+A_{\mathrm{cpl}}=-\tfrac12 V_U^{-1/2}W_UV_U^{-1/2}
+\]
+and whitening by $M^{1/2}$ gives \eqref{eq:finite-order-pole}. The remainder is bounded because the leading inverse square-root singularity is exactly exhausted by $s^{-m/2}M^{-1/2}$.
+\end{proof}
+
+\begin{corollary}[Finite-order birth, death, and clock laws]
+\label{cor:finite-order-event-laws}
+On a death-like semisimple block of order $m$ and dimension $r$, the singular part is positive and
+\[
+\dot\tau_U=\frac{mr}{2s}+O(1),
+\qquad
+\tau_U=-\frac{mr}{2}\log s+O(1).
+\]
+The desingularised precision-side variable
+\[
+\Pi_U=s^{m/2}Y_U
+\]
+satisfies a regular transport law after the universal pole is removed.
+
+On a birth-like semisimple block, the singular part is negative:
+\[
+\widetilde A_U(s)=-\frac{m}{2s}I_U+O(1),
+\]
+so the positivity condition for hidden-load transport fails immediately for sufficiently small $s>0$.
+\end{corollary}
+
+\begin{proof}
+For death, \eqref{eq:finite-order-pole} has positive singular part $m(2s)^{-1}I_U$, hence $\dot\tau_U=\Tr(A_U)=mr(2s)^{-1}+O(1)$ and integration gives the logarithmic clock law. Writing $A_U=m(2s)^{-1}I_U+B_U(s)$ and $\Pi_U=s^{m/2}Y_U$ in $\dot\Pi=-\Pi^{1/2}A_U\Pi^{1/2}$ cancels the universal pole and leaves a bounded equation for $Y_U$. The birth statement follows from the negative singular sign in \eqref{eq:finite-order-pole}.
+\end{proof}
+
+\begin{corollary}[Tangential visible touch is still a hidden-load singularity]
+\label{cor:tangential-touch}
+If $m$ is even and $E_m|_U\succ0$, then the visible block is active on both sides of the event, but the hidden-load dynamics is singular on both sides:
+\[
+\widetilde A_U(t)=
+\begin{cases}
+\dfrac{m}{2(t_0-t)}I_U+B_-(t), & t<t_0,\\[1ex]
+-\dfrac{m}{2(t-t_0)}I_U+B_+(t), & t>t_0,
+\end{cases}
+\]
+with bounded $B_\pm$. Therefore visible activity on both sides does not imply finite positive hidden-load transport continuity across the touch.
+\end{corollary}
+
+\begin{proof}
+For $m$ even, $\sigma^m=1$ on both sides. The sign of the pole is controlled by $\sigma$ in Theorem~\ref{thm:finite-order-pole}. The left side has $\sigma=-1$ and is death-like; the right side has $\sigma=+1$ and is birth-like.
+\end{proof}
+
+\section{Intervalwise closure and refinement on a support stratum}
+
+Let $I=[t_0,t_1]$ be a support-stable interval and let the active support be parallel-trivialised to a fixed Euclidean space $S$. Write again
+\[
+A(t):=A_{\mathrm{cpl}}(t)\in \Sym(S).
+\]
+
+\begin{definition}[Exact intervalwise closure on a subspace]
+Let $U\subset S$ be a fixed subspace and let $P_U$ be the orthogonal projector onto $U$. We say that the support-stable transport closes exactly on $U$ if, whenever the initial condition $\Pi(t_0)$ is block diagonal with respect to the orthogonal splitting $S=U\oplus U^\perp$, the solution $\Pi(t)$ of \eqref{eq:Pi-law-add} remains block diagonal for all $t\in I$.
+\end{definition}
+
+\begin{theorem}[Intervalwise exact closure criterion]
+\label{thm:interval-closure}
+For a fixed subspace $U\subset S$, the following are equivalent:
+\begin{enumerate}
+\item the support-stable transport closes exactly on $U$;
+\item $A(t)U\subseteq U$ for every $t\in I$;
+\item every $A(t)$ is block diagonal with respect to the orthogonal splitting $S=U\oplus U^\perp$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The equivalence of (2) and (3) is elementary because each $A(t)$ is symmetric.
+
+Assume (3). If $\Pi(t_0)$ is block diagonal, then so is $\Pi(t_0)^{1/2}$, hence so is
+\[
+\dot\Pi(t_0)=-\Pi(t_0)^{1/2}A(t_0)\Pi(t_0)^{1/2}.
+\]
+By uniqueness of solutions of the matrix ODE, the solution remains block diagonal for all time. So (3) implies (1).
+
+Conversely, assume (1). Take the special initial condition $\Pi(t_0)=I_S$. Then \eqref{eq:Pi-law-add} gives
+\[
+\dot\Pi(t_0)=-A(t_0).
+\]
+Since $I_S$ is block diagonal and closure holds by assumption, $\dot\Pi(t_0)$ must also be block diagonal with respect to $U\oplus U^\perp$. Hence $A(t_0)$ is block diagonal. As $t_0$ was arbitrary, (1) implies (3).
+\end{proof}
+
+\begin{corollary}[Intervalwise refinement criterion]
+\label{cor:interval-refinement}
+Let $U\subset S$ be a common invariant subspace of the family $\{A(t):t\in I\}$ and let
+\[
+\widehat A(t):=(I-P_U)A(t)(I-P_U)\big|_{U^\perp}.
+\]
+Then there exists a larger common invariant subspace $W$ with
+\[
+U\subset W\subset S,
+\qquad
+\dim W=\dim U+r,
+\]
+if and only if the quotient family $\{\widehat A(t):t\in I\}$ has a common invariant subspace of dimension $r$.
+\end{corollary}
+
+\begin{proof}
+This is the quotient-family refinement criterion from \emph{Closure Adapted Observers} applied to the symmetric family $\{A(t)\}$ on the transported support space.
+\end{proof}
+
+\begin{remark}
+Theorem~\ref{thm:interval-closure} and Corollary~\ref{cor:interval-refinement} are the clean interface between the stratified field layer and the closure/refinement theory. Exact dynamic observer closure on a support-stable interval is therefore nothing more and nothing less than common invariant-subspace structure for the family $A_{\mathrm{cpl}}(t)$.
+\end{remark}
+
+\section{Continuous interval-family leakage calculus}
+
+The previous section gives the exact closure criterion. The same family also supports a precise noncommuting approximate-design problem on the Grassmannian.
+
+Let $I=[a,b]$, let $A:I\to\Sym(S)$ be continuous, and let $w:I\to(0,\infty)$ be continuous. For a rank-$m$ orthogonal projector $P$, define
+\begin{equation}
+\mathcal L_I(P):=
+\int_I \frac12\|[A(t),P]\|_F^2w(t)\,dt,
+\label{eq:interval-leakage}
+\end{equation}
+and
+\begin{equation}
+\mathcal S_I(P):=
+\int_I \|PA(t)P\|_F^2w(t)\,dt.
+\label{eq:interval-visible}
+\end{equation}
+
+\begin{theorem}[Continuous interval leakage and stationarity]
+\label{thm:interval-leakage-stationarity}
+The exact closure criterion is
+\begin{equation}
+\geomboxed{
+\mathcal L_I(P)=0
+\quad\Longleftrightarrow\quad
+[A(t),P]=0\ \text{for all }t\in I.
+}
+\label{eq:interval-L-zero}
+\end{equation}
+Moreover, a stationary projector for $\mathcal L_I$ satisfies
+\begin{equation}
+\geomboxed{
+\left[
+P,
+\int_I [A(t),[A(t),P]]\,w(t)\,dt
+\right]=0.
+}
+\label{eq:interval-stationarity}
+\end{equation}
+For every unit vector $u\in \Ran(P)$,
+\begin{equation}
+\int_I \|(I-P)A(t)u\|^2w(t)\,dt
+\le
+\mathcal L_I(P).
+\label{eq:near-invariance-bound}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+The integrand in \eqref{eq:interval-leakage} is continuous and nonnegative, and $w(t)>0$. Hence the integral vanishes if and only if the commutator vanishes for every $t\in I$.
+
+For stationarity, take a Grassmannian tangent variation $\delta P=[K,P]$ with $K^{\mathsf T}=-K$. The finite-family stationarity computation from \emph{Closure Adapted Observers} applies pointwise and integrates:
+\[
+\delta\mathcal L_I
+=
+\Tr\!\left(
+\left[
+P,
+\int_I[A(t),[A(t),P]]w(t)\,dt
+\right]K
+\right).
+\]
+Since $K$ is arbitrary skew-symmetric, \eqref{eq:interval-stationarity} follows.
+
+Finally, for $u\in\Ran(P)$,
+\[
+[A(t),P]u=(I-P)A(t)u,
+\]
+and the squared norm of one unit-vector image is bounded by the Frobenius norm squared of the commutator contribution. Integrating gives \eqref{eq:near-invariance-bound}.
+\end{proof}
+
+\begin{theorem}[Local Hessian and spectral-gap rigidity]
+\label{thm:interval-hessian}
+Suppose $U\subset S$ is exactly interval-closed, and write the block decomposition
+\[
+A(t)=
+\begin{pmatrix}
+A_U(t)&0\\
+0&A_\perp(t)
+\end{pmatrix}
+\]
+with respect to $S=U\oplus U^\perp$. A tangent direction at $U$ is a linear map $X:U\to U^\perp$. The second variation of the leakage functional is
+\begin{equation}
+\geomboxed{
+\delta^2\mathcal L_I[X]
+=
+2\int_I\|A_\perp(t)X-XA_U(t)\|_F^2w(t)\,dt.
+}
+\label{eq:interval-hessian}
+\end{equation}
+Thus the exact interval observer is locally rigid if and only if there is no nonzero common interval intertwiner
+\[
+A_\perp(t)X=XA_U(t)
+\qquad
+\text{for all }t\in I.
+\]
+If, moreover,
+\[
+\inf_{t\in I}\operatorname{dist}\bigl(\sigma(A_U(t)),\sigma(A_\perp(t))\bigr)\ge \gamma>0,
+\]
+then
+\begin{equation}
+\delta^2\mathcal L_I[X]
+\ge
+2\gamma^2\left(\int_Iw(t)\,dt\right)\|X\|_F^2.
+\label{eq:spectral-gap-rigidity}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Use the local graph chart $U_X=\{u+Xu:u\in U\}$ and expand the projector to first order. The off-diagonal part of $[A(t),P_{U_X}]$ is, to first order in $X$,
+\[
+A_\perp(t)X-XA_U(t),
+\]
+so the second variation of the squared commutator norm gives \eqref{eq:interval-hessian}. Vanishing of \eqref{eq:interval-hessian} is exactly the common-intertwiner condition.
+
+The spectral-gap estimate follows from the standard Sylvester bound
+\[
+\|A_\perp(t)X-XA_U(t)\|_F\ge \gamma\|X\|_F
+\]
+for symmetric blocks with spectra separated by at least $\gamma$, integrated over $I$.
+\end{proof}
+
+\begin{proposition}[Uniform sampled consistency]
+\label{prop:sampled-consistency}
+Let quadrature rules with nodes $t_k$ and weights $w_k$ converge uniformly for continuous functions on $I$. Define
+\[
+\mathcal L_h(P):=
+\sum_k w_k\,\frac12\|[A(t_k),P]\|_F^2,
+\qquad
+\mathcal S_h(P):=
+\sum_k w_k\,\|PA(t_k)P\|_F^2.
+\]
+Then, over the compact rank-$m$ Grassmannian,
+\[
+\sup_P|\mathcal L_h(P)-\mathcal L_I(P)|\to0,
+\qquad
+\sup_P|\mathcal S_h(P)-\mathcal S_I(P)|\to0.
+\]
+\end{proposition}
+
+\begin{proof}
+The maps $(t,P)\mapsto \frac12\|[A(t),P]\|_F^2w(t)$ and $(t,P)\mapsto \|PA(t)P\|_F^2w(t)$ are continuous on the compact product $I\times \Gr(m,S)$, hence uniformly continuous. Uniform quadrature convergence on this compact equicontinuous family gives the two sup-norm limits.
+\end{proof}
+
+\section{The Hermitian-positive packet lift}
+
+This section records the one new bridge note that is rigorous now but not yet part of the current TeX stack.
+
+\begin{definition}[Positive packet lift]
+Let
+\[
+\Psi\in \C^{n\times r},
+\qquad
+H_\varepsilon(\Psi):=\varepsilon I_n+\Psi\Psi^*,
+\qquad
+\varepsilon>0.
+\]
+Then $H_\varepsilon(\Psi)$ is Hermitian positive definite.
+\end{definition}
+
+\begin{proposition}[Exact visible precision formula for packets]
+\label{prop:packet-formula}
+Let the observer be the visible row projection $C=[I_m\ 0]$, and split the packet into visible and hidden blocks,
+\[
+\Psi=
+\begin{pmatrix}
+V\\
+W
+\end{pmatrix},
+\qquad
+V\in\C^{m\times r},
+\qquad
+W\in\C^{(n-m)\times r}.
+\]
+Then the quotient-visible precision of the positive packet lift is
+\begin{equation}
+\geomboxed{
+\Phi_C(H_\varepsilon(\Psi))
+=
+\varepsilon I_m + V\bigl(I_r+\varepsilon^{-1}W^*W\bigr)^{-1}V^*.
+}
+\label{eq:packet-formula}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Write $H_\varepsilon(\Psi)$ in block form:
+\[
+H_\varepsilon(\Psi)=
+\begin{pmatrix}
+\varepsilon I_m + VV^* & VW^*\\
+WV^* & \varepsilon I_{n-m}+WW^*
+\end{pmatrix}.
+\]
+The visible precision is the Schur complement of the lower-right block:
+\[
+\Phi_C(H_\varepsilon(\Psi))
+=
+\varepsilon I_m + VV^* - VW^*(\varepsilon I_{n-m}+WW^*)^{-1}WV^*.
+\]
+Factor out $V$ and use
+\[
+I_r - W^*(\varepsilon I_{n-m}+WW^*)^{-1}W
+=
+\bigl(I_r+\varepsilon^{-1}W^*W\bigr)^{-1},
+\]
+which is the standard Woodbury identity in this finite-dimensional setting. Substitution yields \eqref{eq:packet-formula}.
+\end{proof}
+
+\begin{corollary}[Support preservation and monotone screening]
+\label{cor:packet-support}
+Set
+\[
+M_{\mathrm{hid}}:=\bigl(I_r+\varepsilon^{-1}W^*W\bigr)^{-1}\succ 0.
+\]
+Then
+\begin{equation}
+\Ran\bigl(\Phi_C(H_\varepsilon(\Psi))-\varepsilon I_m\bigr)=\Ran(V),
+\label{eq:packet-support}
+\end{equation}
+and therefore
+\[
+\rank\bigl(\Phi_C(H_\varepsilon(\Psi))-\varepsilon I_m\bigr)=\rank(V).
+\]
+Moreover, if
+\[
+W_1^*W_1\preceq W_2^*W_2,
+\]
+then for fixed visible packet $V$,
+\begin{equation}
+\Phi_C(H_\varepsilon(V,W_2))-\varepsilon I_m
+\preceq
+\Phi_C(H_\varepsilon(V,W_1))-\varepsilon I_m.
+\label{eq:packet-monotone}
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+Since $M_{\mathrm{hid}}$ is positive definite, it has an invertible square root. Thus
+\[
+\Phi_C(H_\varepsilon(\Psi))-\varepsilon I_m
+=
+V M_{\mathrm{hid}} V^*
+=
+\bigl(VM_{\mathrm{hid}}^{1/2}\bigr)\bigl(VM_{\mathrm{hid}}^{1/2}\bigr)^*,
+\]
+whose range is exactly $\Ran(V)$.
+
+For monotonicity, $W_1^*W_1\preceq W_2^*W_2$ implies
+\[
+I_r+\varepsilon^{-1}W_1^*W_1
+\preceq
+I_r+\varepsilon^{-1}W_2^*W_2,
+\]
+and inversion reverses Loewner order on positive definite matrices, so
+\[
+M_{\mathrm{hid},2}\preceq M_{\mathrm{hid},1}.
+\]
+Congruence by $V$ then gives \eqref{eq:packet-monotone}.
+\end{proof}
+
+\begin{corollary}[Single-amplitude rank obstruction]
+\label{cor:single-amplitude}
+If $r=1$, so that $\Psi=\psi\in \C^n$ is a single raw amplitude vector, then
+\[
+\rank\bigl(\Phi_C(H_\varepsilon(\psi))-\varepsilon I_m\bigr)\le 1.
+\]
+In particular, a single raw amplitude vector cannot carry generic multi-channel visible support above the isotropic floor.
+\end{corollary}
+
+\begin{proof}
+If $r=1$, then $V$ has one column. By Corollary~\ref{cor:packet-support},
+\[
+\rank\bigl(\Phi_C(H_\varepsilon(\psi))-\varepsilon I_m\bigr)=\rank(V)\le 1.
+\]
+\end{proof}
+
+\section{What is added and what is not}
+
+This addendum freezes the following additions.
+
+\begin{enumerate}
+\item The module-grade local extractor for $W=D_t^\alpha V$ and $A_{\mathrm{cpl}}$, including hidden-basis invariance.
+\item The stratumwise comparison theorem and bounded-generator obstruction at genuine support events.
+\item The finite-order kernel-jet classifier for support events.
+\item The universal semisimple pole law, finite-order clock law, death-block desingularisation, and birth-block positivity failure.
+\item The intervalwise closure and refinement criteria for the family $A_{\mathrm{cpl}}(t)$.
+\item The continuous interval-family leakage calculus, including stationarity, local Hessian, spectral-gap rigidity, and sampled consistency.
+\item The Hermitian-positive packet lift together with support preservation, monotone screening, and the single-amplitude rank obstruction.
+\end{enumerate}
+
+This addendum does \emph{not} add the following.
+
+\begin{enumerate}
+\item There is still no single smooth hidden-load PDE across support changes.
+\item There is still no universal observer-covariant positive semidefinite replacement for anchored $Q$.
+\item There is still no raw single-amplitude field ontology in the present exact theory.
+\item The sampled branch-continuation theorem and noncommuting optimiser remain implementation guidance, not a public exact solver.
+\item Active observer steering, passive-sector extension, and broader continuum ontology remain outside the frozen exact scope.
+\end{enumerate}
+
+\section{Conclusion}
+
+The field layer is now frozen in the correct form.
+
+Its global object is stratified transport with forced event laws. Its operational local object is the hidden-basis-invariant coupled extractor for $A_{\mathrm{cpl}}$. Its finite-order support events are governed by the kernel Schur-complement jet and the universal semisimple pole law. Its exact intervalwise observer theory is the invariant-subspace, leakage, and quotient-family theory of the transported family $A_{\mathrm{cpl}}(t)$. Its first safe bridge beyond the present finite real symmetric setting is not raw amplitude ontology but finite Hermitian-positive packet and mode-space geometry.
+
+That is the freeze line.
+
+\end{document}

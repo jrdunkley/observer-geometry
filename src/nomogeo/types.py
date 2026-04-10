@@ -170,3 +170,97 @@ class ConnectionCurrentResult:
     q: Array
     adapted_basis: Array
     metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class SupportStratumTransportResult:
+    lambda_: Array
+    pi: Array
+    generator: Array
+    lambda_rhs: Array
+    pi_rhs: Array
+    clock_rate: float
+    a_min: float | None
+    a_max: float | None
+    generator_psd: bool
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class SupportRestartResult:
+    event_kind: str
+    lambda_before: Array
+    lambda_after: Array
+    old_basis: Array
+    new_basis: Array
+    basis_map: Array
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class KernelJetResult:
+    order: int | None
+    kernel_basis: Array
+    gap_basis: Array
+    gap_operator: Array
+    effective_coefficients: tuple[Array, ...]
+    leading_effective: Array
+    leading_eigenvalues: Array
+    birth_count_forward: int
+    death_count_forward: int
+    zero_count: int
+    event_kind: str
+    semisimple: bool
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class SemisimpleEventBlockResult:
+    order: int
+    side_sign: int
+    dimension: int
+    leading_matrix: Array
+    pole_coefficient: float
+    death_like: bool
+    birth_like: bool
+    clock_log_coefficient: float
+    desingularisation_power: float
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class LocalCoupledBirthResult:
+    phi: Array
+    lift: Array
+    hidden_basis: Array
+    hidden_metric: Array
+    V: Array
+    B: Array
+    beta: Array
+    Q: Array
+    observer_tensor: Array
+    W: Array
+    active_support_basis: Array
+    a_cpl: Array
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class SampledIntervalLeakageResult:
+    leakage: float
+    visible_score: float
+    stationarity_residual: float
+    projector: Array
+    sample_count: int
+    weights: Array
+    sampled_exact_closure: bool
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class IntervalHessianResult:
+    hessian_operator: Array
+    spectral_gap: float | None
+    rigidity_lower_bound: float | None
+    locally_rigid: bool
+    metadata: LinearAlgebraMetadata

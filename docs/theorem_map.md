@@ -172,6 +172,47 @@ This map uses exact theorem / proposition / definition labels from the TeX sourc
   - formula: `Q = Phi J R^{-1} J^T Phi`
   - tests: [`tests/test_connection.py`](../tests/test_connection.py)
 
+## Observation Field Layer
+
+- `pi_from_hidden_load`, `hidden_load_from_pi`
+  - source: `Observation_Fields_ADDENDUM.tex`, stratumwise comparison section
+  - formulas: `Pi = (I + Lambda)^(-1)`, `Lambda = Pi^(-1) - I`
+  - tests: [`tests/test_field.py`](../tests/test_field.py)
+
+- `pi_rhs`, `lambda_rhs`, `clock_rate`, `support_stratum_transport`
+  - source: `Observation_Fields_UPDATED.tex`, support-stable transport theorem; `Observation_Fields_ADDENDUM.tex`, Theorem `[Stratumwise comparison theorem]`
+  - formulas: `dot Pi = -Pi^(1/2) A_cpl Pi^(1/2)`, `dot Lambda = (I + Lambda)^(1/2) A_cpl (I + Lambda)^(1/2)`, `dot tau = Tr(A_cpl)`
+  - domain note: the generator may exist when indefinite, but positive hidden-load transport is licensed only when `A_cpl >= 0`
+  - tests: [`tests/test_field.py`](../tests/test_field.py)
+
+- `restart_hidden_load_birth`, `restart_hidden_load_death`
+  - source: `Observation_Fields_UPDATED.tex`, birth/death restart laws; `Observation_Fields_ADDENDUM.tex`, Corollary `[Forced finite restart law]`
+  - role: zero extension at birth and survivor compression at death in explicit nested support bases
+  - tests: [`tests/test_field.py`](../tests/test_field.py)
+
+- `kernel_schur_jet_from_coefficients`, `classify_support_event_from_jet`
+  - source: `Observation_Fields_ADDENDUM.tex`, Definition `[Kernel Schur-complement jet]`, Theorem `[Finite-order kernel-event classifier]`
+  - formulas: `F(epsilon) = A(epsilon) - B(epsilon)(P + C(epsilon))^(-1)B(epsilon)^T`, recursive `E_n`
+  - non-claim: the kernel jet controls leading small-eigenvalue behaviour and near-zero inertia, not exact full-spectrum equality
+  - tests: [`tests/test_field.py`](../tests/test_field.py)
+
+- `semisimple_event_block`
+  - source: `Observation_Fields_ADDENDUM.tex`, Theorem `[Universal finite-order semisimple pole law]`, Corollary `[Finite-order birth, death, and clock laws]`
+  - formulas: `A_U = -sigma m/(2s) I + bounded`, death clock coefficient `mr/2`
+  - tests: [`tests/test_field.py`](../tests/test_field.py)
+
+- `local_coupled_birth`
+  - source: `Observation_Fields_UPDATED.tex`, Proposition `[Exact second covariant visible derivative]`, Theorem `[Support-restricted coupled local birth theorem]`; `Observation_Fields_ADDENDUM.tex`, Theorem `[Module-grade local extractor]`
+  - formulas: `beta = -dot C Z`, `W = L^T ddot H L - 2Q - Phi beta R^(-1)B^T - B R^(-1) beta^T Phi`, `A_cpl = -1/2 V_S^(-1/2) W_S V_S^(-1/2)`
+  - domain note: requires explicit derivative data; no finite-difference estimation is performed by the API
+  - tests: [`tests/test_field.py`](../tests/test_field.py)
+
+- `sampled_interval_leakage`, `sampled_interval_stationarity`, `sampled_interval_closure_check`, `interval_hessian_at_exact_family`
+  - source: `Closure_Adapted_Observers.tex`, stationarity equation; `Observation_Fields_ADDENDUM.tex`, Section `[Continuous interval-family leakage calculus]`
+  - formulas: sampled versions of `L_I(P)`, `S_I(P)`, `[P, integral [A,[A,P]]]`, and the exact-interval Hessian
+  - non-claim: sampled diagnostics are not a public noncommuting optimiser and not a continuum certificate without extra assumptions
+  - tests: [`tests/test_field.py`](../tests/test_field.py)
+
 ## Quotient Adapter Layer
 
 - `observed_covariance` and Gaussian divergences

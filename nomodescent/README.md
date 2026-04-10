@@ -58,7 +58,7 @@ Deferred in `v0.2`:
 
 ## Install
 
-`nomogeo v0.25.0` must already be installed or available in the environment.
+`nomogeo v0.30.0` must already be installed or available in the environment.
 
 ```bash
 pip install -e nomodescent

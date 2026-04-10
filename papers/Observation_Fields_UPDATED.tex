@@ -1,0 +1,1185 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage[a4paper,margin=33mm]{geometry}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\let\openbox\relax
+\usepackage{amsmath,amsthm,mathtools}
+\usepackage{needspace}
+\usepackage[explicit]{titlesec}
+\usepackage{titling}
+\usepackage[
+  pdfusetitle,
+  hidelinks,
+  bookmarksopen=true,
+  bookmarksnumbered=true
+]{hyperref}
+
+\linespread{0.94}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.5pt}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\SPD}{SPD}
+\DeclareMathOperator{\Ran}{Ran}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Gr}{Gr}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\supp}{supp}
+\DeclarePairedDelimiter{\norm}{\lVert}{\rVert}
+\newcommand{\R}{\mathbf R}
+\newcommand{\St}{\mathrm{St}}
+\newcommand{\geomboxed}[1]{%
+  \setlength{\fboxsep}{8pt}%
+  \setlength{\fboxrule}{0.9pt}%
+  \fbox{\scalebox{1.5}{$\displaystyle #1$}}%
+}
+
+\titleformat{\section}
+{\normalfont\normalsize\bfseries\raggedright}
+{\thesection}{0.75em}{\begin{minipage}[t]{0.9\textwidth}#1\end{minipage}}
+[\vspace{0.12em}\titlerule]
+
+\newcommand{\subaccent}{\vspace{0.01em}\noindent\rule{7ex}{0.2pt}}
+\titleformat{\subsection}
+{\normalfont\normalsize\bfseries}{\thesubsection}{0.5em}{#1}
+[\subaccent]
+\titlespacing*{\subsection}{0pt}{2.1ex plus 0.5ex}{1.2ex}
+
+\newtheoremstyle{thmcompact}
+{0.5ex}{0.5ex}
+{\itshape}
+{0pt}
+{\bfseries}
+{.}
+{0.6em}
+{\thmname{#1}\ \thmnumber{#2}\ \thmnote{(\textit{#3})}}
+
+\theoremstyle{thmcompact}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{remarkplain}{Remark}
+
+\mdfdefinestyle{thmframe}{%
+leftline=true, rightline=false, topline=false, bottomline=false,
+linewidth=0.8pt, linecolor=black,
+innerleftmargin=16pt, innerrightmargin=8pt,
+innertopmargin=6pt, innerbottommargin=6pt,
+skipabove=6pt, skipbelow=6pt,
+nobreak=true
+}
+\surroundwithmdframed[style=thmframe]{theorem}
+\surroundwithmdframed[style=thmframe]{proposition}
+\surroundwithmdframed[style=thmframe]{corollary}
+\surroundwithmdframed[style=thmframe]{definition}
+\surroundwithmdframed[style=thmframe]{lemma}
+
+\newmdenv[
+linewidth=0.6pt,
+topline=false,
+bottomline=false,
+rightline=false,
+skipabove=\baselineskip,
+skipbelow=\baselineskip,
+backgroundcolor=gray!3,
+leftmargin=0pt,
+innerleftmargin=8pt,
+innerrightmargin=6pt,
+frametitleaboveskip=0.4em,
+frametitlebelowskip=0.2em,
+frametitlefont=\bfseries\small,
+]{remarkbox}
+\newenvironment{remark}[1][]%
+{\begin{remarkbox}\begin{remarkplain}[#1]\normalfont}
+{\end{remarkplain}\end{remarkbox}}
+
+\renewcommand{\qedsymbol}{}
+\newcommand{\thmneed}{\Needspace{6\baselineskip}}
+\AtBeginEnvironment{theorem}{\thmneed}
+\AtBeginEnvironment{proposition}{\thmneed}
+\AtBeginEnvironment{corollary}{\thmneed}
+\AtBeginEnvironment{definition}{\thmneed}
+\AtBeginEnvironment{lemma}{\thmneed}
+
+\title{\textbf{Observation Fields}}
+\author{J.\,R.~Dunkley}
+\date{10 April 2026}
+
+\hypersetup{
+  pdftitle={Observation Fields},
+  pdfauthor={J. R. Dunkley},
+  pdfsubject={Field extension of observation geometry},
+  pdfkeywords={observation geometry, field theory, projector geometry, hidden load, Fisher-Rao metric}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The field layer of the observation programme splits into three exact sectors. The first is the anchored transport sector for a fixed external observer, whose invariant data is the visible-hidden cross transport $B=L^{\mathsf T}\dot H Z$, the current $J=\Phi^{-1}B$, and the quartic defect $Q=BR^{-1}B^{\mathsf T}$. The second is the moving-observer sector, whose intrinsic variable is the $H$-orthogonal visible projector and whose first-order tensor is the Grassmannian solder form $\beta$. The third is the hidden-load transport sector, whose natural evolution is stratumwise on fixed active supports. The note proves the exact pullback sigma-model for fixed external observers and the correct fixed-current reduction, then establishes an exact coupled split-frame theorem, isolates the fixed-observer and pure-observer branches as corollaries, derives the coupled support-restricted local birth operator
+\[
+A_{\mathrm{cpl}}=-\tfrac12 V_S^{-1/2}(D_t^\alpha V)_S V_S^{-1/2},
+\]
+and proves the corresponding pathwise hidden-load transport law on every support-stable interval. It also proves the boundary theorem at support bifurcations: support birth starts with zero hidden load in the newborn channel, while support death produces a universal logarithmic clock divergence and only the survivor compression continues. Finally it records a canonical-realisation normal form together with the determinant identity $\det(H_{\mathrm{can}})=\det(T)$ and the clock-gap law $\tau=\log\det(T)-\log\det(\Phi)$. This yields a complete local and stratumwise theory while keeping the stronger recursive and control questions explicitly outside scope.
+\end{abstract}
+
+\section{Introduction}
+
+The theory is now rigid enough to stop branching and be stated directly.
+
+For a fixed external observer, the adapted chart of \emph{Connection Flatness} survives, but its true invariant content is not the graph coordinate $K$. The correct first-order transport object is the visible-hidden cross block
+\[
+B=L^{\mathsf T}\dot H Z,
+\]
+with current $J=\Phi^{-1}B$ and defect tensor $Q=BR^{-1}B^{\mathsf T}$. This is the anchored transport sector.
+
+If the observer moves, the primitive variable is instead the $H$-orthogonal visible projector $E=LC$. Its first-order tensor is the observer-motion solder form $\beta$, and in the whitened gauge this is exactly the Grassmannian sector of \emph{Closure Adapted Observers}. This is the observer sector.
+
+The hidden-load sector from \emph{Geometric Observation} and \emph{Quotient Observation} remains stratumwise. Its natural variable is transported by composition on fixed active supports. The new task is therefore not to invent a broad field ansatz, but to identify the exact coupled local birth operator and prove the transport theorem on support-stable intervals.
+
+That is what is done here.
+
+\section{Fixed external observer fields}
+
+Let $(M,g)$ be a smooth base manifold with local coordinates $x^\mu$, and let
+\[
+H:M\to\SPD(n)
+\]
+be a smooth latent precision field. Fix a surjective observer $C:\R^n\to\R^m$ of rank $m<n$. In a $C$-adapted basis, write
+\begin{equation}
+H=T_K
+\begin{pmatrix}
+\Phi & 0\\
+0 & R
+\end{pmatrix}
+T_K^{\mathsf T},
+\qquad
+T_K=
+\begin{pmatrix}
+I & K\\
+0 & I
+\end{pmatrix},
+\label{eq:H-field-factorisation}
+\end{equation}
+where $\Phi:M\to\SPD(m)$, $R:M\to\SPD(n-m)$, and $K:M\to\R^{m\times(n-m)}$.
+
+For energetic positivity one may take $g$ Riemannian. The displayed field formulas remain valid for any fixed nondegenerate base metric.
+
+\begin{theorem}[Exact pullback field action]
+\label{thm:field-action}
+Let
+\begin{equation}
+\mathcal S[H]
+:=
+\frac12\int_M \sqrt{|g|}\, g^{\mu\nu}\, g_H(\partial_\mu H,\partial_\nu H)
+\,d^dx,
+\label{eq:field-action-def}
+\end{equation}
+where $g_H(U,V)=\tfrac12\Tr(H^{-1}UH^{-1}V)$ is the Fisher-Rao metric on $\SPD(n)$. Then in the global coordinates \eqref{eq:H-field-factorisation},
+\begin{equation}
+\geomboxed{
+\mathcal S[H]
+=
+\int_M \sqrt{|g|}\,\Bigl[
+\tfrac14 g^{\mu\nu}\Tr\bigl((\Phi^{-1}\partial_\mu\Phi)(\Phi^{-1}\partial_\nu\Phi)\bigr)
++
+\tfrac14 g^{\mu\nu}\Tr\bigl((R^{-1}\partial_\mu R)(R^{-1}\partial_\nu R)\bigr)
++
+\tfrac12 g^{\mu\nu}\Tr\bigl(\Phi^{-1}\partial_\mu K\,R\,\partial_\nu K^{\mathsf T}\bigr)
+\Bigr] d^dx.
+}
+\label{eq:exact-field-split}
+\end{equation}
+The visible, hidden, and coupling sectors remain pointwise orthogonal.
+\end{theorem}
+
+\begin{proof}
+This is the pullback of the exact metric decomposition from the fixed-observer note. One substitutes $d\Phi\mapsto\partial_\mu\Phi\,dx^\mu$, $dR\mapsto\partial_\mu R\,dx^\mu$, and $dK\mapsto\partial_\mu K\,dx^\mu$, and then contracts with $g^{\mu\nu}$.
+\end{proof}
+
+\begin{theorem}[Conserved matrix current density]
+\label{thm:field-current}
+In the action \eqref{eq:exact-field-split}, the field $K$ is cyclic. Its Euler-Lagrange equation is
+\begin{equation}
+\nabla_\mu J^\mu = 0,
+\qquad
+J^\mu:=g^{\mu\nu}\Phi^{-1}(\partial_\nu K)R.
+\label{eq:current-density}
+\end{equation}
+Equivalently,
+\begin{equation}
+\partial_\mu\bigl(\sqrt{|g|}\,J^\mu\bigr)=0.
+\label{eq:current-density-div}
+\end{equation}
+The coupling density rewrites exactly as
+\begin{equation}
+\tfrac12 g^{\mu\nu}\Tr\bigl(\Phi^{-1}\partial_\mu K\,R\,\partial_\nu K^{\mathsf T}\bigr)
+=
+\tfrac12 \Tr\bigl(\Phi J_\mu R^{-1}(J^\mu)^{\mathsf T}\bigr).
+\label{eq:field-current-rewrite}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Since the density depends on $K$ only through $\partial_\mu K$, its Euler-Lagrange equation is the covariant divergence law \eqref{eq:current-density}. Solving \eqref{eq:current-density} for $\partial_\mu K$ gives $\partial_\mu K=\Phi J_\mu R^{-1}$, and substitution yields \eqref{eq:field-current-rewrite}.
+\end{proof}
+
+\begin{proposition}[Correct fixed-current reduction]
+\label{prop:routhian}
+Fix a divergence-free current density $J^\mu$. The correct reduced variational object is the Routhian density
+\begin{equation}
+\geomboxed{
+\mathcal R_J
+=
+\tfrac14 g^{\mu\nu}\Tr\bigl((\Phi^{-1}\partial_\mu\Phi)(\Phi^{-1}\partial_\nu\Phi)\bigr)
++
+\tfrac14 g^{\mu\nu}\Tr\bigl((R^{-1}\partial_\mu R)(R^{-1}\partial_\nu R)\bigr)
+-
+\tfrac12 \Tr\bigl(\Phi J_\mu R^{-1}(J^\mu)^{\mathsf T}\bigr).
+}
+\label{eq:routhian-density}
+\end{equation}
+It is not the unreduced density with the coupling term of positive sign.
+\end{proposition}
+
+\begin{proof}
+For a cyclic coordinate, fixed-momentum reduction is Routh reduction. One must subtract the momentum pairing from the unreduced density before imposing the current constraint. In the present case,
+\[
+\Tr\bigl((J^\mu)^{\mathsf T}\partial_\mu K\bigr)
+=
+\Tr\bigl(\Phi J_\mu R^{-1}(J^\mu)^{\mathsf T}\bigr),
+\]
+so subtracting it from the unreduced density flips the sign of the coupling term.
+\end{proof}
+
+\begin{remark}
+The fixed-observer branch is naturally an external-sensor theory. Here $C$ is pinned, and $\Phi$ is a genuine visible field seen by that fixed sensor. This is different from the intrinsic moving-observer picture of the pure observer branch of Section~\ref{sec:split-frame}, where $\Phi$ can be pointwise normalised away in a comoving frame.
+\end{remark}
+
+\section{The coupled split-frame system}
+\label{sec:split-frame}
+
+Let $H\in\SPD(n)$ and let $C:\R^n\to\R^m$ be surjective with $m<n$. Define
+\begin{equation}
+\Phi:=(CH^{-1}C^{\mathsf T})^{-1},
+\qquad
+L:=H^{-1}C^{\mathsf T}\Phi,
+\qquad
+E:=LC,
+\qquad
+P:=I-E.
+\label{eq:basic-defs}
+\end{equation}
+Choose a local frame $Z\in\R^{n\times(n-m)}$ for $\ker C$, and set
+\begin{equation}
+R:=Z^{\mathsf T}HZ,
+\qquad
+W:=R^{-1}Z^{\mathsf T}H.
+\label{eq:R-W-defs}
+\end{equation}
+Then
+\begin{equation}
+M:=[L\ \ Z]\in GL(n),
+\qquad
+M^{-1}=\binom{C}{W},
+\qquad
+M^{\mathsf T}HM=
+\begin{pmatrix}
+\Phi & 0\\
+0 & R
+\end{pmatrix}.
+\label{eq:split-frame-basic}
+\end{equation}
+
+\begin{theorem}[Coupled split-frame theorem]
+\label{thm:split-frame}
+There exist unique matrix-valued $1$-forms
+\[
+\alpha\in\Omega^1(\mathfrak{gl}(m)),
+\quad
+\beta\in\Omega^1(\R^{m\times(n-m)}),
+\quad
+\theta\in\Omega^1(\R^{(n-m)\times m}),
+\quad
+\omega\in\Omega^1(\mathfrak{gl}(n-m))
+\]
+such that
+\begin{equation}
+dL=L\alpha+Z\theta,
+\qquad
+dZ=L\beta+Z\omega.
+\label{eq:split-frame-derivatives}
+\end{equation}
+Equivalently,
+\begin{equation}
+dM=M\Omega,
+\qquad
+\Omega:=
+\begin{pmatrix}
+\alpha & \beta\\
+\theta & \omega
+\end{pmatrix}.
+\label{eq:Omega-def}
+\end{equation}
+The dual frame satisfies
+\begin{equation}
+dC=-\alpha C-\beta W,
+\qquad
+dW=-\theta C-\omega W.
+\label{eq:dual-frame-derivatives}
+\end{equation}
+Moreover,
+\begin{equation}
+M^{\mathsf T}dH\,M=
+\begin{pmatrix}
+\mathcal V & \mathcal B\\
+\mathcal B^{\mathsf T} & \mathcal U
+\end{pmatrix},
+\label{eq:metric-structure}
+\end{equation}
+with
+\begin{equation}
+\mathcal V:=d\Phi-\alpha^{\mathsf T}\Phi-\Phi\alpha=L^{\mathsf T}dH\,L,
+\label{eq:V-callig}
+\end{equation}
+\begin{equation}
+\mathcal B:=-\theta^{\mathsf T}R-\Phi\beta=L^{\mathsf T}dH\,Z,
+\label{eq:B-callig}
+\end{equation}
+\begin{equation}
+\mathcal U:=dR-\omega^{\mathsf T}R-R\omega=Z^{\mathsf T}dH\,Z.
+\label{eq:U-callig}
+\end{equation}
+Finally the frame system is flat:
+\begin{equation}
+d\Omega+\Omega\wedge\Omega=0.
+\label{eq:flat-Cartan}
+\end{equation}
+In components,
+\begin{equation}
+F_\alpha:=d\alpha+\alpha\wedge\alpha=-\beta\wedge\theta,
+\qquad
+F_\omega:=d\omega+\omega\wedge\omega=-\theta\wedge\beta,
+\label{eq:curvature-pair}
+\end{equation}
+\begin{equation}
+D\beta:=d\beta+\alpha\wedge\beta+\beta\wedge\omega=0,
+\qquad
+D\theta:=d\theta+\theta\wedge\alpha+\omega\wedge\theta=0.
+\label{eq:Codazzi-pair}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Since $CL=I$ and $CZ=0$, the derivatives of $L$ and $Z$ decompose uniquely in the split frame, which gives \eqref{eq:split-frame-derivatives}. Differentiating $M^{-1}M=I$ gives \eqref{eq:dual-frame-derivatives}. Differentiating $M^{\mathsf T}HM=\diag(\Phi,R)$ gives \eqref{eq:metric-structure} and the block formulas \eqref{eq:V-callig}-\eqref{eq:U-callig}. Finally $d^2M=0$ implies $d\Omega+\Omega\wedge\Omega=0$, whose block components are \eqref{eq:curvature-pair} and \eqref{eq:Codazzi-pair}.
+\end{proof}
+
+\begin{remark}
+The coupled geometry therefore has two tensorial off-diagonal channels. The form $\mathcal B$ is ambient visible-hidden transport through the instantaneous observer split. The form $\beta$ is observer motion. They are not the same object.
+\end{remark}
+
+\begin{proposition}[Split-frame gauge laws]
+\label{prop:split-frame-gauge}
+Let $g:M\to GL(m)$ be a visible basis change and let $T:M\to GL(n-m)$ be a hidden-frame change. Set
+\[
+\widetilde C:=gC,
+\qquad
+\widetilde Z:=ZT.
+\]
+Then
+\[
+\widetilde\Phi=g^{-\mathsf T}\Phi g^{-1},
+\qquad
+\widetilde L=Lg^{-1},
+\qquad
+\widetilde R=T^{\mathsf T}RT,
+\qquad
+\widetilde W=T^{-1}W,
+\]
+and the split frame transforms by
+\[
+\widetilde M
+=
+M
+\begin{pmatrix}
+g^{-1} & 0\\
+0 & T
+\end{pmatrix}.
+\]
+Consequently
+\begin{equation}
+\widetilde\Omega
+=
+\begin{pmatrix}
+g & 0\\
+0 & T^{-1}
+\end{pmatrix}
+\Omega
+\begin{pmatrix}
+g^{-1} & 0\\
+0 & T
+\end{pmatrix}
++
+\begin{pmatrix}
+g & 0\\
+0 & T^{-1}
+\end{pmatrix}
+d\!\begin{pmatrix}
+g^{-1} & 0\\
+0 & T
+\end{pmatrix},
+\label{eq:Omega-gauge-law}
+\end{equation}
+so in components
+\begin{equation}
+\widetilde\alpha=g\alpha g^{-1}-dg\,g^{-1},
+\qquad
+\widetilde\beta=g\beta T,
+\qquad
+\widetilde\theta=T^{-1}\theta g^{-1},
+\qquad
+\widetilde\omega=T^{-1}\omega T+T^{-1}dT.
+\label{eq:split-frame-connection-gauge}
+\end{equation}
+Moreover,
+\begin{equation}
+\widetilde{\mathcal V}=g^{-\mathsf T}\mathcal V g^{-1},
+\qquad
+\widetilde{\mathcal B}=g^{-\mathsf T}\mathcal B T,
+\qquad
+\widetilde{\mathcal U}=T^{\mathsf T}\mathcal U T.
+\label{eq:split-frame-metric-gauge}
+\end{equation}
+In particular, in the fixed-observer branch one has
+\begin{equation}
+\widetilde J=gJ\,T,
+\qquad
+\widetilde Q=g^{-\mathsf T}Qg^{-1},
+\qquad
+\Tr(\widetilde\Phi^{-1}\widetilde Q)=\Tr(\Phi^{-1}Q).
+\label{eq:JQ-gauge-law}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+From the definitions,
+\[
+\widetilde\Phi
+=
+(\widetilde C H^{-1}\widetilde C^{\mathsf T})^{-1}
+=
+(gC H^{-1}C^{\mathsf T}g^{\mathsf T})^{-1}
+=
+g^{-\mathsf T}\Phi g^{-1},
+\]
+and therefore
+\[
+\widetilde L
+=
+H^{-1}\widetilde C^{\mathsf T}\widetilde\Phi
+=
+H^{-1}C^{\mathsf T}g^{\mathsf T}g^{-\mathsf T}\Phi g^{-1}
+=
+Lg^{-1}.
+\]
+Also
+\[
+\widetilde R
+=
+\widetilde Z^{\mathsf T}H\widetilde Z
+=
+T^{\mathsf T}RT,
+\qquad
+\widetilde W
+=
+\widetilde R^{-1}\widetilde Z^{\mathsf T}H
+=
+T^{-1}W.
+\]
+Thus $\widetilde M=M\,\diag(g^{-1},T)$, which gives \eqref{eq:Omega-gauge-law} by differentiating $d\widetilde M=\widetilde M\widetilde\Omega$. The component formulas \eqref{eq:split-frame-connection-gauge} are its block entries. Since
+\[
+\widetilde M^{\mathsf T}dH\,\widetilde M
+=
+\begin{pmatrix}
+g^{-\mathsf T} & 0\\
+0 & T^{\mathsf T}
+\end{pmatrix}
+M^{\mathsf T}dH\,M
+\begin{pmatrix}
+g^{-1} & 0\\
+0 & T
+\end{pmatrix},
+\]
+the metric blocks obey \eqref{eq:split-frame-metric-gauge}. Finally,
+\[
+\widetilde J
+=
+\widetilde\Phi^{-1}\widetilde{\mathcal B}
+=
+g\Phi^{-1}\mathcal B T
+=
+gJT,
+\]
+and
+\[
+\widetilde Q
+=
+\widetilde{\mathcal B}\,\widetilde R^{-1}\widetilde{\mathcal B}^{\mathsf T}
+=
+g^{-\mathsf T}\mathcal B T(T^{-1}R^{-1}T^{-\mathsf T})T^{\mathsf T}\mathcal B^{\mathsf T}g^{-1}
+=
+g^{-\mathsf T}Qg^{-1}.
+\]
+Cyclicity of trace gives the scalar invariance in \eqref{eq:JQ-gauge-law}.
+\end{proof}
+
+\subsection{Two exact branches}
+
+\begin{corollary}[Fixed-observer branch]
+\label{cor:fixed-observer-branch}
+If the observer is fixed, then $\beta=0$. In a fixed hidden frame one may also take $\omega=0$, so that
+\begin{equation}
+\mathcal V=d\Phi,
+\qquad
+\mathcal B=-\theta^{\mathsf T}R,
+\qquad
+\mathcal U=dR.
+\label{eq:fixed-observer-branch}
+\end{equation}
+The quartic defect is exactly
+\begin{equation}
+\geomboxed{
+Q:=\mathcal B R^{-1}\mathcal B^{\mathsf T}.
+}
+\label{eq:Q-fixed-invariant}
+\end{equation}
+If one chooses the adapted graph gauge, then $\mathcal B=dK\,R$, $J=\Phi^{-1}dK\,R$, and $Q=dK\,R\,dK^{\mathsf T}$.
+\end{corollary}
+
+\begin{proof}
+If $C$ is fixed then $dC=0$, hence $\beta=0$ by \eqref{eq:dual-frame-derivatives}. The displayed formulas follow from Theorem~\ref{thm:split-frame}. In the adapted graph gauge one has the standard identities from the fixed-observer chart.
+\end{proof}
+
+\begin{corollary}[Pure observer-motion branch]
+\label{cor:pure-observer-branch}
+If $dH=0$, then
+\begin{equation}
+d\Phi=\alpha^{\mathsf T}\Phi+\Phi\alpha,
+\qquad
+dR=\omega^{\mathsf T}R+R\omega,
+\qquad
+\theta=-R^{-1}\beta^{\mathsf T}\Phi.
+\label{eq:pure-observer-branch}
+\end{equation}
+Hence
+\begin{equation}
+F_\alpha=\beta\wedge R^{-1}\beta^{\mathsf T}\Phi,
+\qquad
+F_\omega=R^{-1}\beta^{\mathsf T}\Phi\wedge\beta.
+\label{eq:observer-curvature-general}
+\end{equation}
+In the whitened gauge $\Phi=I_m$, $R=I_{n-m}$,
+\begin{equation}
+\geomboxed{
+F_\alpha=\beta\wedge\beta^{\mathsf T},
+\qquad
+F_\omega=\beta^{\mathsf T}\wedge\beta.
+}
+\label{eq:observer-curvature-whitened}
+\end{equation}
+This is exactly the Grassmannian branch of the moving-observer theory.
+\end{corollary}
+
+\begin{proof}
+Set $dH=0$ in \eqref{eq:metric-structure}. The off-diagonal block gives $\theta=-R^{-1}\beta^{\mathsf T}\Phi$. Substituting this into \eqref{eq:curvature-pair} yields \eqref{eq:observer-curvature-general}, and the whitened form is immediate.
+\end{proof}
+
+\begin{remark}
+The quartic defect and the observer curvature therefore belong to different sectors even before one interprets them: $Q$ is a symmetric quadratic form, while $F_\alpha$ is a curvature two-form.
+\end{remark}
+
+\section{Coupled local birth on the active support}
+
+Along a smooth path $t\mapsto(H(t),C(t))$, define
+\begin{equation}
+V:=D_t^\alpha\Phi=L^{\mathsf T}\dot H\,L,
+\qquad
+B:=L^{\mathsf T}\dot H\,Z,
+\qquad
+U:=D_t^\omega R=Z^{\mathsf T}\dot H\,Z.
+\label{eq:VBU-defs}
+\end{equation}
+Then
+\begin{equation}
+B=-\theta^{\mathsf T}R-\Phi\beta,
+\qquad
+Q:=BR^{-1}B^{\mathsf T}.
+\label{eq:BthetaQ}
+\end{equation}
+
+\begin{proposition}[Exact second covariant visible derivative]
+\label{prop:exact-second-visible}
+Along any path,
+\begin{equation}
+\geomboxed{
+D_t^\alpha V
+=
+L^{\mathsf T}\ddot H\,L
+-
+2Q
+-
+\Phi\beta R^{-1}B^{\mathsf T}
+-
+BR^{-1}\beta^{\mathsf T}\Phi.
+}
+\label{eq:raw-second-visible}
+\end{equation}
+Equivalently, with
+\begin{equation}
+\widehat B:=B+\tfrac12\Phi\beta,
+\qquad
+\widehat Q:=\widehat B R^{-1}\widehat B^{\mathsf T},
+\qquad
+\mathcal O:=\Phi\beta R^{-1}\beta^{\mathsf T}\Phi,
+\label{eq:widehat-defs}
+\end{equation}
+one has
+\begin{equation}
+\geomboxed{
+D_t^\alpha V
+=
+L^{\mathsf T}\ddot H\,L
+-
+2\widehat Q
++
+\tfrac12\mathcal O.
+}
+\label{eq:completed-square-visible}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Differentiate $V=L^{\mathsf T}\dot H\,L$ and use $\dot L=L\alpha+Z\theta$ to get
+\[
+\dot V=\alpha^{\mathsf T}V+V\alpha+\theta^{\mathsf T}B^{\mathsf T}+B\theta+L^{\mathsf T}\ddot H\,L.
+\]
+Subtracting the connection terms gives
+\[
+D_t^\alpha V=L^{\mathsf T}\ddot H\,L+\theta^{\mathsf T}B^{\mathsf T}+B\theta.
+\]
+Using $\theta=-R^{-1}B^{\mathsf T}-R^{-1}\beta^{\mathsf T}\Phi$ gives \eqref{eq:raw-second-visible}. Expanding \eqref{eq:widehat-defs} yields \eqref{eq:completed-square-visible}.
+\end{proof}
+
+\begin{remark}
+The completed-square form is the clean local statement. The shifted defect $\widehat Q$ is the effective exchange channel after observer motion is included. The observer tensor $\mathcal O$ is positive semidefinite, but it enters with the opposite sign in the visible return balance. This is why there is no single positive semidefinite observer-covariant extension of the anchored defect $Q$.
+\end{remark}
+
+\begin{theorem}[Support-restricted coupled local birth theorem]
+\label{thm:coupled-local-birth}
+Let
+\[
+S:=\Ran(V)
+\]
+at a given time, and assume $V_S:=V|_S\succ0$. Choose the path-parallel gauge along the path so that $\alpha=0$ and $\omega=0$ there. Set
+\begin{equation}
+W:=D_t^\alpha V.
+\label{eq:W-def}
+\end{equation}
+Then the exact local expansion of the visible law on $S$ is
+\begin{equation}
+X_{t,S}=tV_S+\tfrac{t^2}{2}W_S+O(t^3).
+\label{eq:local-visible-expansion}
+\end{equation}
+The corresponding support-restricted hidden-load operator beneath the instantaneous ceiling $T_t=tV$ satisfies
+\begin{equation}
+\Lambda_t=tA_{\mathrm{cpl}}+O(t^2),
+\label{eq:Lambda-local-cpl}
+\end{equation}
+with
+\begin{equation}
+\geomboxed{
+A_{\mathrm{cpl}}
+:=
+-\tfrac12 V_S^{-1/2}W_SV_S^{-1/2}.
+}
+\label{eq:A-cpl-def}
+\end{equation}
+Hence a positive local birth operator exists exactly when
+\begin{equation}
+W_S\preceq0
+\qquad\Longleftrightarrow\qquad
+A_{\mathrm{cpl}}\succeq0.
+\label{eq:local-birth-criterion-basic}
+\end{equation}
+Using \eqref{eq:completed-square-visible}, this criterion is
+\begin{equation}
+\geomboxed{
+(L^{\mathsf T}\ddot H\,L)_S+\tfrac12\mathcal O_S
+\preceq
+2\widehat Q_S.
+}
+\label{eq:local-birth-criterion-final}
+\end{equation}
+Moreover,
+\begin{equation}
+\geomboxed{
+A_{\mathrm{cpl}}
+=
+V_S^{-1/2}\widehat Q_SV_S^{-1/2}
+-
+\tfrac14 V_S^{-1/2}\mathcal O_SV_S^{-1/2}
+-
+\tfrac12 V_S^{-1/2}(L^{\mathsf T}\ddot H\,L)_SV_S^{-1/2}.
+}
+\label{eq:A-cpl-expanded}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+In the path-parallel gauge, the local expansion of the visible law is ordinary Taylor expansion with first coefficient $V$ and second coefficient $W$. On the active support,
+\[
+X_{t,S}=tV_S^{1/2}\Bigl(I_S+\tfrac t2 V_S^{-1/2}W_SV_S^{-1/2}+O(t^2)\Bigr)V_S^{1/2}.
+\]
+Invert by Neumann expansion and form the hidden-load operator beneath the instantaneous ceiling $T_t=tV$. This gives \eqref{eq:Lambda-local-cpl} with generator \eqref{eq:A-cpl-def}. Positivity is exactly the condition $W_S\preceq0$. Substituting \eqref{eq:completed-square-visible} yields \eqref{eq:local-birth-criterion-final} and \eqref{eq:A-cpl-expanded}.
+\end{proof}
+
+\begin{remark}
+The anchored operator from the fixed-observer theory,
+\[
+A_{\mathrm{anch}}:=V_S^{-1/2}Q_SV_S^{-1/2},
+\]
+always exists. But once the observer moves or direct second visible forcing is present, the actual coupled birth operator is $A_{\mathrm{cpl}}$, not $A_{\mathrm{anch}}$. There is no universal ordering between them.
+\end{remark}
+
+\begin{remark}[Worked scalar mode-space birth]
+Take $m=1$ and $n=2$, work in path-parallel gauge $\alpha=\omega=0$, and let
+\[
+R(t)\equiv r>0,
+\qquad
+\Phi(t)=\phi_\ast+\tfrac12 a t^2,
+\qquad
+a>0,
+\]
+with constant observer-motion and transport coefficients $\beta,\theta\in\R$. Then
+\[
+V(t)=D_t^\alpha\Phi(t)=at,
+\qquad
+W(t)=D_t^\alpha V(t)=a,
+\]
+so the active support is the positive scalar channel for $t>0$. The cross transport and anchored defect are
+\[
+B(t)=-\theta r-\Phi(t)\beta,
+\qquad
+Q(t)=\frac{B(t)^2}{r}.
+\]
+Hence on the active side
+\begin{equation}
+A_{\mathrm{cpl}}(t)=-\frac{1}{2t},
+\qquad
+A_{\mathrm{anch}}(t)=\frac{B(t)^2}{rat}>0.
+\label{eq:scalar-mode-birth}
+\end{equation}
+So the anchored defect is positive while the actual coupled birth generator is negative at support birth. Reversing time gives the dying-side positive pole from Theorem~\ref{thm:bifurcation-normal-form}. This is the smallest explicit finite mode-space example showing that anchored and coupled birth are genuinely different objects.
+\end{remark}
+
+\section{Support-stable transport theorem}
+
+\begin{theorem}[Coupled pathwise hidden-load transport on a fixed support stratum]
+\label{thm:support-stable-transport}
+Let $I\subset\R$ be an interval along a smooth path $t\mapsto(H(t),C(t))$. Assume that the active visible support
+\[
+S(t):=\Ran(V(t))
+\]
+has constant rank on $I$, admits a spectral gap at $0$, and is trivialised along $I$ by support parallel transport. If
+\begin{equation}
+A_{\mathrm{cpl}}(t)\succeq0
+\qquad\text{for all }t\in I,
+\label{eq:support-stable-positivity}
+\end{equation}
+then the hidden-load field on that support stratum satisfies
+\begin{equation}
+\geomboxed{
+\dot\Lambda
+=
+(I+\Lambda)^{1/2}A_{\mathrm{cpl}}(I+\Lambda)^{1/2}.
+}
+\label{eq:Lambda-cpl-transport}
+\end{equation}
+Equivalently, with
+\[
+\Pi:=(I+\Lambda)^{-1},
+\qquad
+\tau:=\log\det(I+\Lambda),
+\]
+one has
+\begin{equation}
+\geomboxed{
+\dot\Pi=-\Pi^{1/2}A_{\mathrm{cpl}}\Pi^{1/2},
+\qquad
+\dot\tau=\Tr(A_{\mathrm{cpl}}).
+}
+\label{eq:Pi-tau-cpl-transport}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+On a support-stable interval the support bundle is smooth and can be parallel-trivialised. The local birth theorem gives one-step increments
+\[
+M(t,dt)=dt\,A_{\mathrm{cpl}}(t)+o(dt)
+\]
+in the positive cone on the fixed support fibre. The exact finite composition law from the quotient sector is
+\[
+\Lambda_{\mathrm{new}}=\Lambda+(I+\Lambda)^{1/2}M(I+\Lambda)^{1/2}.
+\]
+Substitute the infinitesimal increment, divide by $dt$, and let $dt\to0$ to obtain \eqref{eq:Lambda-cpl-transport}. The survivor and clock laws follow exactly as in the fixed-support transport proof.
+\end{proof}
+
+\begin{remark}
+This theorem is genuinely stratumwise. It is valid on fixed-support intervals, not across rank changes. The positivity condition is exactly the local hidden-birth condition from Theorem~\ref{thm:coupled-local-birth}.
+\end{remark}
+
+\begin{corollary}[Commuting support-stable transport]
+\label{cor:commuting-support-transport}
+In the setting of Theorem~\ref{thm:support-stable-transport}, assume in addition that
+\[
+[A_{\mathrm{cpl}}(t),A_{\mathrm{cpl}}(s)]=0
+\qquad\text{for all }s,t\in I,
+\]
+and that $A_{\mathrm{cpl}}(t)$ commutes with $\Lambda(t_0)$ for one $t_0\in I$. Then every $A_{\mathrm{cpl}}(t)$, $\Lambda(t)$, and $\Pi(t)$ commute on $I$, and
+\begin{equation}
+\geomboxed{
+\Pi(t)
+=
+\Pi(t_0)\exp\!\Bigl(-\int_{t_0}^t A_{\mathrm{cpl}}(u)\,du\Bigr).
+}
+\label{eq:commuting-Pi-solution}
+\end{equation}
+Equivalently,
+\begin{equation}
+\geomboxed{
+I+\Lambda(t)
+=
+\exp\!\Bigl(\int_{t_0}^t A_{\mathrm{cpl}}(u)\,du\Bigr)\,(I+\Lambda(t_0)),
+}
+\label{eq:commuting-Lambda-solution}
+\end{equation}
+and
+\begin{equation}
+\tau(t)-\tau(t_0)=\int_{t_0}^t \Tr(A_{\mathrm{cpl}}(u))\,du.
+\label{eq:commuting-tau-solution}
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+Let
+\[
+K(t):=\int_{t_0}^t A_{\mathrm{cpl}}(u)\,du.
+\]
+By hypothesis, $K(t)$ commutes with every $A_{\mathrm{cpl}}(s)$ and with $\Pi(t_0)=(I+\Lambda(t_0))^{-1}$. Define
+\[
+\Pi_\star(t):=\Pi(t_0)e^{-K(t)}.
+\]
+Then $\Pi_\star(t)$ commutes with $A_{\mathrm{cpl}}(t)$ and satisfies
+\[
+\dot\Pi_\star
+=
+-\Pi_\star A_{\mathrm{cpl}}
+=
+-\Pi_\star^{1/2}A_{\mathrm{cpl}}\Pi_\star^{1/2}.
+\]
+So $\Pi_\star$ solves the same initial-value problem as $\Pi$ in \eqref{eq:Pi-tau-cpl-transport}. Uniqueness gives \eqref{eq:commuting-Pi-solution}. Inverting gives \eqref{eq:commuting-Lambda-solution}, and \eqref{eq:commuting-tau-solution} is the integrated clock law from \eqref{eq:Pi-tau-cpl-transport}.
+\end{proof}
+
+\section{Support bifurcations and boundary behaviour}
+
+\begin{theorem}[Simple support bifurcation normal form]
+\label{thm:bifurcation-normal-form}
+Let $t_0$ be a simple support bifurcation of $V(t)=D_t^\alpha\Phi(t)$. After parallel trivialisation of the visible bundle and smooth orthogonal reduction, there is a block form near $t_0$,
+\begin{equation}
+V(t)=
+\begin{pmatrix}
+V_0(t) & 0\\
+0 & \lambda(t)
+\end{pmatrix},
+\label{eq:bifurcation-block-form}
+\end{equation}
+where $V_0(t_0)\succ0$, $\lambda(t_0)=0$, and
+\begin{equation}
+\lambda(t)=a(t-t_0)+O((t-t_0)^2),
+\qquad a\neq0.
+\label{eq:lambda-normal-form}
+\end{equation}
+On the side where $\lambda(t)>0$, the coupled generator on the crossing direction satisfies
+\begin{equation}
+\boxed{
+(A_{\mathrm{cpl}})_{nn}(t)
+=
+-\tfrac12\frac{\dot\lambda(t)}{\lambda(t)}
+=
+-\frac{1}{2(t-t_0)}+O(1).
+}
+\label{eq:A-pole}
+\end{equation}
+So every simple support crossing creates a first-order pole in the stratumwise generator.
+\end{theorem}
+
+\begin{proof}
+In the parallel gauge one has $X_{t,S}=tV_S+\tfrac{t^2}{2}W_S+O(t^3)$ and $A_{\mathrm{cpl}}=-\tfrac12V_S^{-1/2}W_SV_S^{-1/2}$. Restricting to the crossing direction gives $W_{nn}=\dot\lambda(t)+O(t-t_0)$ and hence \eqref{eq:A-pole}.
+\end{proof}
+
+\begin{corollary}[Support birth and zero extension]
+\label{cor:support-birth}
+Suppose a new visible direction is born at $t_0$, so $\lambda(t)>0$ for $t>t_0$ and $\lambda(t)=a(t-t_0)+O((t-t_0)^2)$ with $a>0$. Then along the newborn channel,
+\begin{equation}
+(A_{\mathrm{cpl}})_{nn}(t)=-\frac{1}{2(t-t_0)}+O(1)<0.
+\label{eq:birth-negative-pole}
+\end{equation}
+So the positivity condition for hidden-load birth fails on the newborn channel. The canonical restart law is zero extension:
+\begin{equation}
+\geomboxed{
+\Lambda(t_0^+)
+=
+\begin{pmatrix}
+\Lambda(t_0^-) & 0\\
+0 & 0
+\end{pmatrix},
+}
+\label{eq:zero-extension-law}
+\end{equation}
+after identifying the old support as a subspace of the new support.
+\end{corollary}
+
+\begin{proof}
+The sign in \eqref{eq:birth-negative-pole} follows from \eqref{eq:A-pole} with $a>0$. So the newborn direction enters through the ceiling, not through hidden mediation beneath the ceiling. The only canonical hidden-load continuation is therefore zero load on the new block.
+\end{proof}
+
+\begin{corollary}[Support death, survivor compression, and logarithmic clock divergence]
+\label{cor:support-death}
+Suppose an active visible direction dies at $t_0$, so $\lambda(t)>0$ for $t<t_0$ and
+\[
+\lambda(t)=c(t_0-t)+O((t_0-t)^2),
+\qquad c>0.
+\]
+Then along the dying channel,
+\begin{equation}
+(A_{\mathrm{cpl}})_{nn}(t)=\frac{1}{2(t_0-t)}+O(1).
+\label{eq:death-positive-pole}
+\end{equation}
+The one-dimensional clock contribution therefore satisfies
+\begin{equation}
+\boxed{
+\tau(t)\sim -\tfrac12\log(t_0-t).
+}
+\label{eq:clock-log-divergence}
+\end{equation}
+Hence there is no finite continuous additive scalar clock across genuine support death. The post-event hidden-load state is the survivor compression
+\begin{equation}
+\geomboxed{
+\Lambda_{\mathrm{surv}}(t_0^+)
+=
+P_{S_+}\Lambda(t_0^-)P_{S_+}\big|_{S_+},
+}
+\label{eq:survivor-compression-law}
+\end{equation}
+where $S_+$ is the surviving support.
+\end{corollary}
+
+\begin{proof}
+The sign in \eqref{eq:death-positive-pole} follows from \eqref{eq:A-pole} on the dying side. In one dimension the transport law is $\dot\Lambda=(1+\Lambda)A_{\mathrm{cpl}}$, so
+\[
+\frac{d}{dt}\log(1+\Lambda)\sim \frac{1}{2(t_0-t)}.
+\]
+Integrating gives \eqref{eq:clock-log-divergence}. Since the dying block does not remain finite, the only finite continuation is the survivor compression \eqref{eq:survivor-compression-law}.
+\end{proof}
+
+\section{Further exact consequences}
+
+\begin{corollary}[Geodesic energy balance in the fixed-observer branch]
+\label{cor:geodesic-energy-balance}
+Along a Fisher-Rao geodesic in the fixed-observer branch, the total kinetic energy splits as
+\begin{equation}
+\frac12\Tr\bigl((\Phi^{-1}\dot\Phi)^2\bigr)
++
+\frac12\Tr\bigl((R^{-1}\dot R)^2\bigr)
++
+\Tr\bigl(\Phi^{-1}Q\bigr)
+=
+E_{\mathrm{tot}},
+\label{eq:geodesic-energy-balance}
+\end{equation}
+with $E_{\mathrm{tot}}$ constant along the geodesic. Equivalently, using the conserved current $J=\Phi^{-1}\dot K\,R$,
+\begin{equation}
+\frac12\Tr\bigl((\Phi^{-1}\dot\Phi)^2\bigr)
++
+\frac12\Tr\bigl((R^{-1}\dot R)^2\bigr)
++
+\Tr\bigl(JR^{-1}J^{\mathsf T}\Phi\bigr)
+=
+E_{\mathrm{tot}}.
+\label{eq:geodesic-energy-balance-current}
+\end{equation}
+In particular,
+\begin{equation}
+\frac12\Tr\bigl((\Phi^{-1}\dot\Phi)^2\bigr)
++
+\frac12\Tr\bigl((R^{-1}\dot R)^2\bigr)
+\le E_{\mathrm{tot}},
+\label{eq:geodesic-energy-bound}
+\end{equation}
+with equality if and only if $Q=0$.
+\end{corollary}
+
+\begin{proof}
+For a fixed observer, the Fisher-Rao metric splits orthogonally into visible, hidden, and coupling sectors. Along a geodesic the total Fisher-Rao kinetic energy is constant. Substituting the exact fixed-observer metric decomposition gives \eqref{eq:geodesic-energy-balance}. Equation \eqref{eq:geodesic-energy-balance-current} follows from the current form $Q=\Phi J R^{-1}J^{\mathsf T}\Phi$, obtained by writing $B=\Phi J$ in \eqref{eq:Q-fixed-invariant}. Since $\Tr(\Phi^{-1}Q)\ge 0$, the bound \eqref{eq:geodesic-energy-bound} follows, with equality exactly when $Q=0$.
+\end{proof}
+
+\section{Canonical realisation as an exact normal form}
+\label{sec:canonical-normal-form}
+
+The canonical realisation from \emph{Geometric Observation} fits the split-frame calculus exactly and yields a useful explicit normal form.
+
+\begin{proposition}[Canonical realisation data]
+\label{prop:canonical-data}
+Let
+\begin{equation}
+H_{\mathrm{can}}
+=
+\begin{pmatrix}
+T & T^{1/2}\Lambda^{1/2}\\
+\Lambda^{1/2}T^{1/2} & I+\Lambda
+\end{pmatrix},
+\qquad
+C=[I\ 0],
+\label{eq:H-can}
+\end{equation}
+with $T\in\SPD(m)$ and $\Lambda\succeq 0$ on the active support. Then the visible precision is
+\begin{equation}
+\Phi=T^{1/2}(I+\Lambda)^{-1}T^{1/2}.
+\label{eq:Phi-can}
+\end{equation}
+For the specific complementary frame
+\begin{equation}
+Z_{\mathrm{can}}=
+\begin{pmatrix}
+0\\
+I
+\end{pmatrix},
+\label{eq:Z-can}
+\end{equation}
+the canonical lift is
+\begin{equation}
+L_{\mathrm{can}}=
+\begin{pmatrix}
+I\\
+-(I+\Lambda)^{-1}\Lambda^{1/2}T^{1/2}
+\end{pmatrix},
+\label{eq:L-can}
+\end{equation}
+the hidden metric is
+\begin{equation}
+R_{\mathrm{can}}=Z_{\mathrm{can}}^{\mathsf T}H_{\mathrm{can}}Z_{\mathrm{can}}=I+\Lambda,
+\label{eq:R-can}
+\end{equation}
+and the global coupling coordinate is
+\begin{equation}
+K_{\mathrm{can}}=T^{1/2}\Lambda^{1/2}(I+\Lambda)^{-1}.
+\label{eq:K-can}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Block inversion of \eqref{eq:H-can} gives
+\[
+(H_{\mathrm{can}}^{-1})_{11}=\Phi^{-1}=T^{-1/2}(I+\Lambda)T^{-1/2},
+\qquad
+(H_{\mathrm{can}}^{-1})_{21}=-\Lambda^{1/2}T^{-1/2}.
+\]
+Thus $L_{\mathrm{can}}=H_{\mathrm{can}}^{-1}C^{\mathsf T}\Phi$ has top block $I$ and lower block $-(I+\Lambda)^{-1}\Lambda^{1/2}T^{1/2}$, which is \eqref{eq:L-can}. Equation \eqref{eq:R-can} is immediate from the lower-right block of \eqref{eq:H-can}, and \eqref{eq:K-can} is $H_{vh}H_{hh}^{-1}$.
+\end{proof}
+
+\begin{proposition}[Connection collapse in the canonical normal form]
+\label{prop:canonical-connection}
+For the specific split frame $M_{\mathrm{can}}=[L_{\mathrm{can}}\ \ Z_{\mathrm{can}}]$, the split-frame connection forms satisfy
+\begin{equation}
+\alpha_{\mathrm{can}}=0,
+\qquad
+\beta_{\mathrm{can}}=0,
+\qquad
+\omega_{\mathrm{can}}=0,
+\qquad
+\theta_{\mathrm{can}}=-d\!\bigl((I+\Lambda)^{-1}\Lambda^{1/2}T^{1/2}\bigr).
+\label{eq:canonical-connection-collapse}
+\end{equation}
+Hence
+\begin{equation}
+F_{\alpha,\mathrm{can}}=0,
+\qquad
+F_{\omega,\mathrm{can}}=0,
+\qquad
+d\theta_{\mathrm{can}}=0.
+\label{eq:canonical-curvature-zero}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+With $Z_{\mathrm{can}}$ constant one has $dZ_{\mathrm{can}}=0$, hence $\beta_{\mathrm{can}}=0$ and $\omega_{\mathrm{can}}=0$. Since the top block of $L_{\mathrm{can}}$ is constant, $\alpha_{\mathrm{can}}=CdL_{\mathrm{can}}=0$. The lower block of $L_{\mathrm{can}}$ is $-(I+\Lambda)^{-1}\Lambda^{1/2}T^{1/2}$, so $\theta_{\mathrm{can}}=WdL_{\mathrm{can}}$ is exactly the differential written in \eqref{eq:canonical-connection-collapse}. The curvature identities then follow from $F_\alpha=-\beta\wedge\theta$, $F_\omega=-\theta\wedge\beta$, and $d^2=0$.
+\end{proof}
+
+\begin{corollary}[Determinant identity and clock gap]
+\label{cor:canonical-determinant}
+The canonical realisation preserves the determinant of the ceiling:
+\begin{equation}
+\det(H_{\mathrm{can}})=\det(T).
+\label{eq:det-H-can}
+\end{equation}
+Equivalently,
+\begin{equation}
+\tau:=\log\det(I+\Lambda)=\log\det(T)-\log\det(\Phi).
+\label{eq:clock-gap}
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+Using the block determinant formula on \eqref{eq:H-can},
+\[
+\det(H_{\mathrm{can}})=\det(I+\Lambda)\det\!\Bigl(T-T^{1/2}\Lambda^{1/2}(I+\Lambda)^{-1}\Lambda^{1/2}T^{1/2}\Bigr).
+\]
+The Schur complement equals $T^{1/2}(I+\Lambda)^{-1}T^{1/2}=\Phi$, so
+\[
+\det(H_{\mathrm{can}})=\det(I+\Lambda)\det(\Phi)=\det(T).
+\]
+Taking logarithms yields \eqref{eq:clock-gap}.
+\end{proof}
+
+\begin{remark}
+This is a useful normal form, not an intrinsic gauge theorem. The canonical lift is fixed by $(H,C)$, but the complementary frame is not unique. The vanishing of $\alpha$, $\beta$, and $\omega$ is therefore a property of the explicit split frame $(L_{\mathrm{can}},Z_{\mathrm{can}})$, not yet a frame-independent statement about the canonical realisation itself.
+\end{remark}
+
+\section{What is proved and what is not}
+
+The present note establishes a complete local and stratumwise field layer.
+
+The fixed external-observer field branch is exact. Its pullback action, conserved current density, and correct fixed-current Routhian are forced by the Fisher-Rao metric. The anchored transport sector is exact and invariant, with data given by the cross transport $B$, the current $J=\Phi^{-1}B$, and the defect tensor $Q=BR^{-1}B^{\mathsf T}$.
+
+The observer sector is exact and intrinsic. Its first-order tensor is the Grassmannian solder form $\beta$, and in the whitened gauge its curvature is the standard Grassmannian curvature.
+
+The coupled local bridge is exact. The support-restricted birth operator is $A_{\mathrm{cpl}}$, not $A_{\mathrm{anch}}$, and its positivity criterion is explicit.
+
+The pathwise hidden-load transport theorem is exact on support-stable intervals. The support-bifurcation boundary theorem is exact at simple transverse rank changes. The canonical realisation admits an explicit normal form for the distinguished split frame, and in that normal form the clock is exactly the log-determinant gap between the ceiling and the visible precision.
+
+What is not claimed is equally important. There is no single smooth hidden-load PDE across support changes. There is no universal positive semidefinite observer-covariant replacement for the anchored defect $Q$. The correct global object is a stratified transport theory with smooth evolution on each support stratum and singular transition laws at support birth and death.
+
+\end{document}

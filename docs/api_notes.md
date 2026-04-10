@@ -18,6 +18,13 @@
 - `observer_transition(H, C_left, C_right)` returns the exact block transition law between two fixed-observer charts of the same visible rank.
 - `connection_current(H, C, Delta)` returns the exact fixed-observer coupling velocity, current `J`, and forcing `Q` attached to one tangent direction.
 - `forcing_from_current(phi, hidden_block, current)` evaluates the exact current-to-forcing identity `Q = Phi J R^(-1) J^T Phi`.
+- `pi_from_hidden_load(Lambda)` and `hidden_load_from_pi(Pi)` convert between reduced hidden load and the precision-side contraction variable.
+- `pi_rhs(Pi, A_cpl)`, `lambda_rhs(Lambda, A_cpl)`, `clock_rate(A_cpl)`, and `support_stratum_transport(Lambda, A_cpl)` evaluate the exact support-stable stratum transport diagnostics.
+- `restart_hidden_load_birth(lambda_before, old_basis, new_basis)` and `restart_hidden_load_death(lambda_before, old_basis, survivor_basis)` apply the forced finite positive restart maps in explicit support coordinates.
+- `kernel_schur_jet_from_coefficients(coefficients)` classifies finite-order support events from the kernel Schur-complement jet.
+- `semisimple_event_block(jet, ...)` returns the universal semisimple pole and clock diagnostics for an active event block.
+- `local_coupled_birth(H, H_dot, H_ddot, C, C_dot, Z=None)` extracts the hidden-basis-invariant coupled local birth tensor from explicit derivative data.
+- `sampled_interval_leakage`, `sampled_interval_stationarity`, `sampled_interval_closure_check`, and `interval_hessian_at_exact_family` expose sampled interval-family leakage diagnostics.
 - `dv_bridge(H0, Jhat)` returns `H_DV`, `Delta_DV`, and the Gram factor.
 - `hidden_load(T, X)` returns the support-aware hidden load and metadata.
 - `visible_from_hidden_load(T, Lambda, ..., lambda_representation=...)` reconstructs `X`.
@@ -70,6 +77,13 @@ Closure-adapted results added:
 - [`FixedObserverCoordinatesResult`](../src/nomogeo/types.py) carries the exact fixed-observer chart `(phi, hidden_block, coupling)`, the adapted basis used to define it, and conditioning metadata.
 - [`ObserverTransitionResult`](../src/nomogeo/types.py) carries the left/right charts together with the exact block transition data and reconstruction residual.
 - [`ConnectionCurrentResult`](../src/nomogeo/types.py) carries the chart data, coupling velocity, current `J`, forcing, and the directly computed local `Q`.
+- [`SupportStratumTransportResult`](../src/nomogeo/types.py) carries reduced `Lambda`, `Pi`, `A_cpl`, the two transport right-hand sides, clock rate, eigenvalue bounds, and PSD-domain status.
+- [`SupportRestartResult`](../src/nomogeo/types.py) carries birth/death restart data, old/new support bases, and the coordinate map between them.
+- [`KernelJetResult`](../src/nomogeo/types.py) carries the kernel/gap split, effective Schur-complement coefficients, first nonzero order, leading eigenvalues, and event classification.
+- [`SemisimpleEventBlockResult`](../src/nomogeo/types.py) carries finite-order semisimple pole, clock, and desingularisation diagnostics.
+- [`LocalCoupledBirthResult`](../src/nomogeo/types.py) carries the local extractor outputs `Phi`, `L`, `R`, `V`, `B`, `beta`, `Q`, observer tensor, `W`, support basis, and `A_cpl`.
+- [`SampledIntervalLeakageResult`](../src/nomogeo/types.py) carries sampled leakage, visible score, stationarity residual, projector, weights, and sampled exact-closure status.
+- [`IntervalHessianResult`](../src/nomogeo/types.py) carries sampled interval Hessian and spectral-gap rigidity diagnostics.
 
 ## Closure-Adapted Boundary
 
@@ -89,6 +103,18 @@ The current connection-facing public surface is also intentionally narrow.
 - the chart is defined using an observer-fixed adapted basis, not an `H`-dependent canonical lift basis
 - `phi` is the intrinsic visible object; `hidden_block` and `coupling` are exact chart coordinates relative to the chosen observer/basis
 - the zero-hidden full-visible edge case is supported explicitly; in that regime `hidden_block` is `0 x 0`, `coupling` is empty, and the exact forcing term vanishes
-- varying-observer connection geometry, field-theoretic language, and non-fixed-observer transport are not yet public API
+- full varying-observer connection geometry and global non-fixed-observer transport are not public API; the only moving-observer public surface is the explicit-derivative local extractor `local_coupled_birth`
 - conditioning metadata on `H` is diagnostic only; very ill-conditioned inputs can degrade chart numerics before any theorem fails
+
+## Field Boundary
+
+The `0.30.0` field surface is exact but narrow.
+
+- support-stratum transport diagnostics require a reduced support coordinate system
+- `A_cpl` may be indefinite; when it is not PSD, the generator is reported but positive hidden-load transport is not licensed
+- restart maps require explicit nested orthonormal support bases and return coordinate maps
+- kernel-jet classification uses Taylor coefficients, where `coefficients[n]` multiplies `epsilon^n`
+- kernel jets govern leading small-eigenvalue behaviour and near-zero inertia, not exact equality with the full Schur-complement spectrum
+- sampled interval diagnostics certify only the supplied samples; they are not continuum certificates without extra analytic assumptions
+- no noncommuting optimiser, sampled branch-continuation solver, global stratified integrator, or Hermitian packet API is public in this release
 
