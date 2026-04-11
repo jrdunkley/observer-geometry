@@ -123,6 +123,7 @@ jet = kernel_schur_jet_from_coefficients([np.diag([0.0, 1.0]), np.diag([1.0, 0.0
 - If `rank(T) = n`, reduced and ambient hidden-load coordinates can have the same shape. In that case you must pass `lambda_representation="reduced"` or `"ambient"`.
 - For long hidden composition, use `hidden_contraction(...)` and `load_from_hidden_contraction(...)`. Raw load coordinates are not the associative object.
 - The `0.30.0` observation-field layer is exact but narrow: support-stable transport is reduced-coordinate diagnostics, restart maps require explicit nested support bases, kernel jets control leading small-eigenvalue behaviour only, sampled interval diagnostics certify samples only, and no global field simulator or noncommuting optimiser is exposed.
+- outside exact Gaussian law mode, treat nomogeo as exact for supplied local quadratic Hessian or Fisher geometry, not as an exact engine for full non Gaussian laws.
 
 ## Verification
 
