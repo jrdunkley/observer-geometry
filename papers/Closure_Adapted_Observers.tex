@@ -330,7 +330,7 @@ For $B\in\St(n,m)$ define
 \label{eq:S-def}
 \end{equation}
 \begin{equation}
-\mathcal L(\Pi)=\mathsf H_{\mathcal F}(B):=2\sum_{a\in A}\Tr\!\bigl(B^{\mathsf T}D_a(I-\Pi)D_aB\bigr)=\sum_{a\in A}\norm{[D_a,\Pi]}_F^2,
+\mathcal L(\Pi)=\mathsf H_{\mathcal F}(B):=\sum_{a\in A}\Tr\!\bigl(B^{\mathsf T}D_a(I-\Pi)D_aB\bigr)=\frac12\sum_{a\in A}\norm{[D_a,\Pi]}_F^2,
 \label{eq:H-def}
 \end{equation}
 and, whenever $\mathcal S(\Pi)+\mathcal L(\Pi)>0$,
@@ -338,6 +338,9 @@ and, whenever $\mathcal S(\Pi)+\mathcal L(\Pi)>0$,
 \eta(\Pi)=\eta_{\mathcal F}(B):=\frac{\mathcal L(\Pi)}{\mathcal L(\Pi)+\mathcal S(\Pi)}\in[0,1].
 \label{eq:eta-def}
 \end{equation}
+This convention measures the trace leakage $\Tr(Q_a)$ for each task direction.
+The determinant Hessian split contains the corresponding doubled contribution
+$2\mathcal L$.
 \end{definition}
 
 \begin{proposition}[Single-operator exact solution]

@@ -1,0 +1,339 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage[a4paper,margin=33mm]{geometry}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\let\openbox\relax
+\usepackage{amsmath,amsthm,amssymb,mathtools}
+\usepackage{needspace}
+\usepackage[explicit]{titlesec}
+\usepackage{titling}
+\usepackage[
+  pdfusetitle,
+  hidelinks,
+  bookmarksopen=true,
+  bookmarksnumbered=true
+]{hyperref}
+
+\linespread{0.95}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.5pt}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\KL}{KL}
+\newcommand{\R}{\mathbf R}
+\newcommand{\E}{\mathbf E}
+
+\titleformat{\section}
+{\normalfont\normalsize\bfseries\raggedright}
+{\thesection}{0.75em}{\begin{minipage}[t]{0.9\textwidth}#1\end{minipage}}
+[\vspace{0.12em}\titlerule]
+
+\newtheoremstyle{thmcompact}
+{0.5ex}{0.5ex}
+{\itshape}
+{0pt}
+{\bfseries}
+{.}
+{0.6em}
+{\thmname{#1}\ \thmnumber{#2}\ \thmnote{(\textit{#3})}}
+
+\theoremstyle{thmcompact}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{remarkplain}{Remark}
+
+\mdfdefinestyle{thmframe}{%
+leftline=true, rightline=false, topline=false, bottomline=false,
+linewidth=0.8pt, linecolor=black,
+innerleftmargin=16pt, innerrightmargin=8pt,
+innertopmargin=6pt, innerbottommargin=6pt,
+skipabove=6pt, skipbelow=6pt,
+nobreak=true
+}
+\surroundwithmdframed[style=thmframe]{theorem}
+\surroundwithmdframed[style=thmframe]{proposition}
+\surroundwithmdframed[style=thmframe]{corollary}
+\surroundwithmdframed[style=thmframe]{definition}
+\surroundwithmdframed[style=thmframe]{lemma}
+
+\newmdenv[
+linewidth=0.6pt,
+topline=false,
+bottomline=false,
+rightline=false,
+skipabove=\baselineskip,
+skipbelow=\baselineskip,
+backgroundcolor=gray!3,
+leftmargin=0pt,
+innerleftmargin=8pt,
+innerrightmargin=6pt,
+frametitleaboveskip=0.4em,
+frametitlebelowskip=0.2em,
+frametitlefont=\bfseries\small,
+]{remarkbox}
+\newenvironment{remark}[1][]%
+{\begin{remarkbox}\begin{remarkplain}[#1]\normalfont}
+{\end{remarkplain}\end{remarkbox}}
+
+\renewcommand{\qedsymbol}{}
+\newcommand{\thmneed}{\Needspace{6\baselineskip}}
+\AtBeginEnvironment{theorem}{\thmneed}
+\AtBeginEnvironment{proposition}{\thmneed}
+\AtBeginEnvironment{corollary}{\thmneed}
+\AtBeginEnvironment{definition}{\thmneed}
+\AtBeginEnvironment{lemma}{\thmneed}
+
+\title{\textbf{Weakpoints in the Branch and Non-Gaussian Layer}\\
+\large{Fixed fibre precision, entropic volume, noncommuting Hessians, and verdict-changing cumulants}}
+\author{J.\,R.~Dunkley}
+\date{11 April 2026}
+
+\hypersetup{
+  pdftitle={Weakpoints in the Branch and Non-Gaussian Layer},
+  pdfauthor={J. R. Dunkley},
+  pdfsubject={Weakpoint research for branch selection and non-Gaussian observation geometry},
+  pdfkeywords={observation geometry, affine-hidden sector, entropic quotient, branch selection, cumulants}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This addendum stress-tests the strongest claims in \emph{Branch Selection and Non-Gaussian Findings}. The result is not a rollback. It sharpens the exact boundaries. The affine-hidden sector is exact because fixed hidden precision removes the fibre-volume term from branch comparison. If the hidden fibre precision depends on the visible variable, the exact law acquires a visible $\frac12\log\det D(v)$ correction, which can change the branch verdict. The affine-hidden tower law survives arbitrary staged elimination by Schur associativity. The branch selector Hessian does not require commuting blocks. The variational quotient and entropic quotient separate at order $\varepsilon$ through the Laplace fibre-volume term. Finally, fibre cumulants give a minimal explicit full-law failure mode: a branch can be quadratically tied while the actual visible law already moves at first cumulant order.
+\end{abstract}
+
+\section{Purpose}
+
+The findings note already gives the positive story: exact local quadratic geometry, exact Gaussian full-law closure, fixed-shape non-Gaussian survival, and the affine-hidden exact sector. This addendum records the weakpoints that matter if one tries to promote those results too far.
+
+The guiding rule is:
+\[
+\text{exact quadratic branch result}
+\not\Rightarrow
+\text{exact arbitrary non-Gaussian branch law}.
+\]
+The interesting part is not that the implication fails. The interesting part is where it fails and which extensions remain exact after the failure is understood.
+
+\section{Fixed hidden precision is a real hypothesis}
+
+The affine-hidden sector in the findings note assumes
+\[
+p(v,h)\propto
+\exp\!\left(-A(v)-\frac12h^{\mathsf T}Dh-J(v)^{\mathsf T}h\right),
+\qquad D\succ0,
+\]
+with $D$ independent of $v$. This is exactly why marginalisation and minimisation agree up to a constant.
+
+\begin{proposition}[Variable hidden precision boundary]
+\label{prop:variable-precision}
+Let
+\[
+p(v,h)\propto
+\exp\!\left(-A(v)-\frac12h^{\mathsf T}D(v)h-J(v)^{\mathsf T}h\right),
+\qquad D(v)\succ0.
+\]
+Then the exact visible negative log-density is
+\begin{equation}
+S_{\mathrm{vis}}(v)
+=A(v)+\frac12\log\det D(v)
+-\frac12J(v)^{\mathsf T}D(v)^{-1}J(v)+\mathrm{const}.
+\label{eq:variable-precision-visible}
+\end{equation}
+The variational hidden elimination gives
+\begin{equation}
+S_{\mathrm{var}}(v)
+=A(v)-\frac12J(v)^{\mathsf T}D(v)^{-1}J(v).
+\label{eq:variable-precision-var}
+\end{equation}
+Thus the exact marginal and the variational quotient differ by the visible fibre-volume term
+\[
+\frac12\log\det D(v).
+\]
+\end{proposition}
+
+\begin{proof}
+Complete the square in $h$ at each fixed $v$:
+\[
+\frac12h^{\mathsf T}D(v)h+J(v)^{\mathsf T}h
+=
+\frac12(h+D(v)^{-1}J(v))^{\mathsf T}D(v)(h+D(v)^{-1}J(v))
+-\frac12J(v)^{\mathsf T}D(v)^{-1}J(v).
+\]
+The Gaussian integral over the fibre now contributes $(\det D(v))^{-1/2}$, which is not constant in $v$.
+\end{proof}
+
+\begin{corollary}[Minimal hostile example]
+\label{cor:hostile-variable-precision}
+Set $A(v)=0$, $J(v)=0$, and $D(v)=e^{2v}$ on an interval. Then $S_{\mathrm{var}}$ is flat, but
+\[
+S_{\mathrm{vis}}(v)=v+\mathrm{const}.
+\]
+The exact law selects the smallest allowed $v$ while the variational quotient cannot distinguish any $v$.
+\end{corollary}
+
+\begin{remark}
+This is the cleanest weakpoint found in the affine-hidden story. The larger variable-precision sector is still exactly integrable, but it is not the same minimisation/marginalisation coincidence theorem. If it becomes part of the theory, it should be named as an entropic fibre-volume sector, not folded silently into the fixed-precision affine-hidden sector.
+\end{remark}
+
+\section{Affine-hidden tower law is stronger than two blocks}
+
+The tower law is not just a two-block trick. It is Schur-complement associativity.
+
+\begin{proposition}[Permutation-invariant staged hidden elimination]
+\label{prop:permutation-tower}
+Let $D\succ0$ be a fixed hidden precision on $\R^r$ and let $J(v)\in\R^r$. For any ordered partition of the hidden coordinates into blocks, staged completion of the square gives the same visible action
+\[
+A(v)-\frac12J(v)^{\mathsf T}D^{-1}J(v)+\mathrm{const}
+\]
+as eliminating all hidden coordinates in one step.
+\end{proposition}
+
+\begin{proof}
+Each staged elimination is a block Gaussian integration and replaces the remaining hidden precision by the Schur complement of the eliminated block. Schur complements of a positive definite quadratic form are associative under ordered block elimination. The coupling vector transforms by the same block solve, and the accumulated constant term is exactly $-\frac12J^{\mathsf T}D^{-1}J$.
+\end{proof}
+
+The numerical stress test eliminated five hidden coordinates in all $5!$ orders across a nonlinear grid of $J(v)$ values. The maximum residual against one-step elimination was $2.78\cdot10^{-16}$.
+
+\section{Branch Hessian does not need commuting blocks}
+
+The selector Hessian theorem only needs exact block closure at the branch. It does not require the blocks $\{A_a\}$ or $\{B_a\}$ to commute.
+
+\begin{proposition}[Noncommuting block stress]
+\label{prop:noncommuting-hessian-stress}
+For an exact closure branch $U\oplus W$ with block-diagonal symmetric family
+\[
+D_a=
+\begin{pmatrix}
+A_a&0\\
+0&B_a
+\end{pmatrix},
+\]
+the second variation remains
+\[
+\delta^2F_{\mu,U}[X]
+=2\langle X,(M_WX-XM_U)\rangle
+-2(1+\mu)\sum_a\|B_aX-XA_a\|_F^2,
+\]
+even when $[A_a,A_b]\ne0$ and $[B_a,B_b]\ne0$.
+\end{proposition}
+
+\begin{proof}
+The derivation uses only the graph expansion of the projector, the block-diagonal form, and the identity
+\[
+\Tr(\Pi M)=\mathcal S(\Pi)+\mathcal L(\Pi),
+\qquad M=\sum_aD_a^2.
+\]
+No simultaneous diagonalisation is used.
+\end{proof}
+
+The numerical stress test used two noncommuting $2\times2$ blocks on both sides. The internal commutator norms were $1.97$ and $2.40$, while the finite-difference Hessian agreed with the analytic Hessian to relative Frobenius error $1.52\cdot10^{-6}$.
+
+\section{Variational and entropic quotients split at finite noise}
+
+Let
+\[
+S_{\mathrm{ent},\varepsilon}(v)
+:=-\varepsilon\log\int \exp(-S(v,h)/\varepsilon)\,dh.
+\]
+When the hidden minimum is nondegenerate, Laplace theory gives
+\[
+S_{\mathrm{ent},\varepsilon}(v)
+=S_{\mathrm{var}}(v)
++\frac{\varepsilon}{2}\log\det S_{hh}(v,h_*(v))
++O(\varepsilon^2)
+\]
+up to constants independent of $v$.
+
+The finite-noise stress test used a nonquadratic one-dimensional fibre. After centering by constants, the sup error of the Laplace-corrected approximation was:
+\[
+\begin{array}{c|c|c}
+\varepsilon & \text{Laplace corrected error} & \text{variational-only error}\\
+\hline
+0.16 & 4.66\cdot10^{-4} & 9.71\cdot10^{-3}\\
+0.08 & 1.23\cdot10^{-4} & 4.96\cdot10^{-3}\\
+0.04 & 3.19\cdot10^{-5} & 2.51\cdot10^{-3}.
+\end{array}
+\]
+The corrected error ratios were about $3.78$ and $3.88$ under halving $\varepsilon$, consistent with an $O(\varepsilon^2)$ remainder. The variational-only error is much larger and scales as the missing $O(\varepsilon)$ fibre-volume term.
+
+\section{Cumulants can change a tied quadratic branch verdict}
+
+The cubic hidden-visible pathology can be stated as a branch verdict failure.
+
+\begin{proposition}[Quadratic tie, full-law separation]
+\label{prop:cumulant-verdict}
+Let the baseline be
+\[
+S_0(x,z)=\frac12(x^2+z^2)+\alpha(x^4+z^4)
+\]
+and perturb one candidate branch by $\varepsilon xz^2$ while leaving another candidate unperturbed. At the origin the quadratic Hessian data of the two candidates are tied. But if $m_2=\E_0Z^2$, the perturbed branch has
+\[
+\E_\varepsilon X=-m_2^2\varepsilon+O(\varepsilon^2),
+\qquad
+\KL_{\mathrm{sym}}(p_\varepsilon^X,p_0^X)
+=m_2^3\varepsilon^2+O(\varepsilon^3).
+\]
+Thus the full visible law separates the branches while the quadratic branch datum reports no difference.
+\end{proposition}
+
+\begin{proof}
+The visible log-ratio is the conditional cumulant expansion
+\[
+\log\frac{p_\varepsilon^X(x)}{p_0^X(x)}
+=\log\E_0[e^{-\varepsilon xZ^2}\mid x]
+-\log\E_0[e^{-\varepsilon XZ^2}].
+\]
+The first nonconstant term is $-\varepsilon m_2x$. This gives the mean shift and the symmetric KL coefficient by the standard small log-density-ratio expansion.
+\end{proof}
+
+Numerically, at $\varepsilon=0.18$ the visible symmetric KL was $0.0027934$ against the cumulant prediction $0.0027580$, and the mean shift was $-0.0350396$ against the first-order prediction $-0.0348313$.
+
+\section{Survival example}
+
+The same stress test also included a branch-selection example fully inside the fixed-precision affine-hidden sector. Two nonlinear visible actions and nonlinear couplings were reduced exactly by
+\[
+S_i(v)=A_i(v)-\frac12D^{-1}J_i(v)^2.
+\]
+The exact branch gap was $0.02430$ in favour of branch $1$. There is no hidden caveat here: because $D$ is fixed, the law-level branch comparison is the same as the variational comparison up to an irrelevant constant.
+
+\section{Module implications}
+
+The module should not add a generic non-Gaussian branch selector on the basis of these results.
+
+The following additions would be theorem-local and safe:
+\begin{enumerate}
+\item a branch selector Hessian diagnostic for exact closure branches;
+\item a fixed-precision affine-hidden reducer;
+\item a variable-precision Gaussian-fibre reducer that explicitly includes $\frac12\log\det D(v)$;
+\item an experimental Laplace quotient helper clearly labelled as asymptotic;
+\item fibre-cumulant diagnostics as a higher-order research layer, not as a current exact full-law engine.
+\end{enumerate}
+
+The main public boundary should remain: exact on supplied quadratic/Hessian/Fisher objects; exact in Gaussian full-law mode; exact in separately proved law sectors such as fixed-shape tilts and fixed-precision affine-hidden fibres; otherwise higher-order or global law structure is additional state.
+
+\section{Conclusion}
+
+The weakpoints are now sharper, not broader. The biggest one is the fibre-volume term. Fixed hidden precision is what makes affine-hidden marginalisation and variational elimination coincide. Visible-dependent hidden precision is still exactly integrable, but it belongs to the entropic quotient side and can change branch selection.
+
+The second weakpoint is law leakage through cumulants. A branch can be tied at the quadratic layer and separated at the visible law layer by a first fibre cumulant. This is the cleanest reason not to promote the quadratic selector to an arbitrary non-Gaussian branch selector.
+
+The wins remain substantial: affine-hidden towering is exact by Schur associativity, branch Hessians do not require commuting blocks, and the Laplace correction gives a precise bridge between variational and entropic quotients.
+
+\end{document}

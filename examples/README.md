@@ -9,6 +9,9 @@ These examples do not all have the same epistemic status. See
 [docs/claim_hierarchy.md](../docs/claim_hierarchy.md)
 before reusing any result.
 
+For choosing which example or API surface matches a project goal, see
+[docs/use_case_map.md](../docs/use_case_map.md).
+
 ## Quick Run
 
 From repo root:
@@ -17,6 +20,7 @@ From repo root:
 python -m examples.entanglement_hidden_load.run_all
 python -m examples.bell_common_gluing.run_all
 python -m examples.arrow_rank_deficiency.run_all
+python -m examples.graph_frontier_declared_certificate.run_all
 ```
 
 Then inspect `outputs/summary.json` and `outputs/audit.json` in the relevant example folder.
@@ -53,6 +57,16 @@ Then inspect `outputs/summary.json` and `outputs/audit.json` in the relevant exa
   [LLM_AUDIT_BRIEF.md](arrow_rank_deficiency/LLM_AUDIT_BRIEF.md),
   [audit.json](arrow_rank_deficiency/outputs/audit.json)
 
+### Graph Frontier Declared Certificate
+
+- type: exact local quadratic breakpoint demonstration
+- command: `python -m examples.graph_frontier_declared_certificate.run_all`
+- surface:
+  [README.md](graph_frontier_declared_certificate/README.md),
+  [CLAIMS.md](graph_frontier_declared_certificate/CLAIMS.md),
+  [LLM_AUDIT_BRIEF.md](graph_frontier_declared_certificate/LLM_AUDIT_BRIEF.md),
+  [audit.json](graph_frontier_declared_certificate/outputs/audit.json)
+
 ## Small Kernel Examples
 
 - `python examples/minimal_visible_precision.py`
@@ -60,6 +74,9 @@ Then inspect `outputs/summary.json` and `outputs/audit.json` in the relevant exa
 - `python examples/hidden_load_transport.py`
 - `python examples/finite_dv_bridge.py`
 - `python examples/quotient_coarsening.py`
+- `python examples/rank_k_perturbation.py`
+- `python examples/declared_ladder_cost.py`
+- `python examples/affine_hidden_branch_reversal.py`
 
 ## Index Files
 

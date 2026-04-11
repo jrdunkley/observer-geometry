@@ -1,0 +1,733 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage[a4paper,margin=33mm]{geometry}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\let\openbox\relax
+\usepackage{amsmath,amsthm,amssymb,mathtools}
+\usepackage{needspace}
+\usepackage[explicit]{titlesec}
+\usepackage{titling}
+\usepackage[
+  pdfusetitle,
+  hidelinks,
+  bookmarksopen=true,
+  bookmarksnumbered=true
+]{hyperref}
+
+\linespread{0.95}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.5pt}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\spanop}{span}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\KL}{KL}
+\newcommand{\R}{\mathbf R}
+\newcommand{\E}{\mathbf E}
+\newcommand{\Gr}{\mathrm{Gr}}
+\newcommand{\geomboxed}[1]{%
+  \setlength{\fboxsep}{8pt}%
+  \setlength{\fboxrule}{0.9pt}%
+  \fbox{\scalebox{1.18}{$\displaystyle #1$}}%
+}
+
+\titleformat{\section}
+{\normalfont\normalsize\bfseries\raggedright}
+{\thesection}{0.75em}{\begin{minipage}[t]{0.9\textwidth}#1\end{minipage}}
+[\vspace{0.12em}\titlerule]
+
+\newcommand{\subaccent}{\vspace{0.01em}\noindent\rule{7ex}{0.2pt}}
+\titleformat{\subsection}
+{\normalfont\normalsize\bfseries}{\thesubsection}{0.5em}{#1}
+[\subaccent]
+\titlespacing*{\subsection}{0pt}{2.1ex plus 0.5ex}{1.2ex}
+
+\newtheoremstyle{thmcompact}
+{0.5ex}{0.5ex}
+{\itshape}
+{0pt}
+{\bfseries}
+{.}
+{0.6em}
+{\thmname{#1}\ \thmnumber{#2}\ \thmnote{(\textit{#3})}}
+
+\theoremstyle{thmcompact}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{remarkplain}{Remark}
+
+\mdfdefinestyle{thmframe}{%
+leftline=true, rightline=false, topline=false, bottomline=false,
+linewidth=0.8pt, linecolor=black,
+innerleftmargin=16pt, innerrightmargin=8pt,
+innertopmargin=6pt, innerbottommargin=6pt,
+skipabove=6pt, skipbelow=6pt,
+nobreak=true
+}
+\surroundwithmdframed[style=thmframe]{theorem}
+\surroundwithmdframed[style=thmframe]{proposition}
+\surroundwithmdframed[style=thmframe]{corollary}
+\surroundwithmdframed[style=thmframe]{definition}
+\surroundwithmdframed[style=thmframe]{lemma}
+
+\newmdenv[
+linewidth=0.6pt,
+topline=false,
+bottomline=false,
+rightline=false,
+skipabove=\baselineskip,
+skipbelow=\baselineskip,
+backgroundcolor=gray!3,
+leftmargin=0pt,
+innerleftmargin=8pt,
+innerrightmargin=6pt,
+frametitleaboveskip=0.4em,
+frametitlebelowskip=0.2em,
+frametitlefont=\bfseries\small,
+]{remarkbox}
+\newenvironment{remark}[1][]%
+{\begin{remarkbox}\begin{remarkplain}[#1]\normalfont}
+{\end{remarkplain}\end{remarkbox}}
+
+\renewcommand{\qedsymbol}{}
+\newcommand{\thmneed}{\Needspace{6\baselineskip}}
+\AtBeginEnvironment{theorem}{\thmneed}
+\AtBeginEnvironment{proposition}{\thmneed}
+\AtBeginEnvironment{corollary}{\thmneed}
+\AtBeginEnvironment{definition}{\thmneed}
+\AtBeginEnvironment{lemma}{\thmneed}
+
+\title{\textbf{Branch Selection and Non-Gaussian Findings}\\
+\large{Exact quadratic branch calculus, broader solvable sectors, and higher-order breakpoints}}
+\author{J.\,R.~Dunkley}
+\date{11 April 2026}
+
+\hypersetup{
+  pdftitle={Branch Selection and Non-Gaussian Findings},
+  pdfauthor={J. R. Dunkley},
+  pdfsubject={Branch selection and non-Gaussian extensions in observation geometry},
+  pdfkeywords={observation geometry, branch selection, non-Gaussian, Fisher geometry, higher jets}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+This note consolidates the two incoming research notes on Gaussian scope and branch selection. The main correction is a convention fix: closure leakage must be the trace leakage $\frac12\|[D,\Pi]\|_F^2$, while the determinant Hessian contains the doubled hidden contribution. With that convention fixed, the branch calculus is exact at the local quadratic level. Exact-closure branches have a graph-Hessian selector law; regular branch exchange is a global dominance crossing, not a selector degeneracy; and the one-mode commuting phase portrait is closed form. The non-Gaussian review also finds real structure beyond Gaussian toy territory: fixed-shape quadratic-tilt families and affine-hidden conditional-Gaussian sectors are exact full-law sectors broader than Gaussian. What does not survive automatically is full non-Gaussian quotient law. Fibre cumulants, variational fourth-order terms, hidden-fibre bifurcations, and remote support structure are genuine higher-order or global breakpoints.
+\end{abstract}
+
+\section{Purpose and freeze line}
+
+The project should now be read in three layers.
+
+\begin{enumerate}
+\item Exact Gaussian law mode: full closed formulas for Gaussian visible laws and Gaussian gluing.
+\item Exact local quadratic mode: Hessian, Fisher, closure leakage, branch Hessian, interval leakage, and support-stratum objects supplied as positive quadratic data.
+\item Higher-order law mode: non-Gaussian full laws, fibre cumulants, higher jets, branch support changes, and remote mixture structure. This is not yet a closed module engine.
+\end{enumerate}
+
+The findings below sharpen this line. Gaussianity is not the true boundary of the programme. It is the first fully closed full-law sector. Several broader exact sectors already exist, but they do not make the current quadratic module an exact solver for arbitrary non-Gaussian full laws.
+
+\section{Leakage convention}
+
+Let $\{D_a\}_{a\in A}\subset\Sym(n)$ be the whitened task family and let $\Pi$ be a rank-$m$ orthogonal projector. The correct score convention is
+\begin{equation}
+\mathcal S(\Pi):=\sum_a\|\Pi D_a\Pi\|_F^2,
+\qquad
+\mathcal L(\Pi):=\sum_a\|(I-\Pi)D_a\Pi\|_F^2
+=\frac12\sum_a\|[D_a,\Pi]\|_F^2.
+\label{eq:score-convention}
+\end{equation}
+This is the convention used by the module and now fixed in \emph{Closure-Adapted Observers}.
+
+\begin{proposition}[Two hidden normalisations]
+\label{prop:two-hidden-normalisations}
+For each task direction,
+\begin{equation}
+\Tr(\Pi D_a^2)=\|\Pi D_a\Pi\|_F^2+\|(I-\Pi)D_a\Pi\|_F^2.
+\label{eq:captured-identity}
+\end{equation}
+Therefore
+\begin{equation}
+\geomboxed{\Tr\!\left(\Pi\sum_aD_a^2\right)=\mathcal S(\Pi)+\mathcal L(\Pi).}
+\label{eq:captured-score}
+\end{equation}
+The determinant Hessian split for the visible precision uses the doubled hidden term:
+\begin{equation}
+D^2\kappa=\mathcal S+2\mathcal L
+\label{eq:det-doubled}
+\end{equation}
+in this notation.
+\end{proposition}
+
+\begin{proof}
+Insert $I=\Pi+(I-\Pi)$ into $\Tr(\Pi D_a^2)$ and use symmetry of $D_a$. The off-diagonal block satisfies
+\[
+\|[D_a,\Pi]\|_F^2=2\|(I-\Pi)D_a\Pi\|_F^2.
+\]
+The determinant formula in \emph{Closure-Adapted Observers} has hidden contribution $2\Tr(Q_a)$, while $Q_a$ has trace $\|(I-\Pi)D_a\Pi\|_F^2$.
+\end{proof}
+
+\begin{remark}
+This was the only hard slip found in the incoming notes and paper stack. It is not a theorem failure; it is a normalisation mismatch. Without the half-commutator convention, the total captured curvature identity is false.
+\end{remark}
+
+\section{Exact branch selector calculus}
+
+The quadratic branch datum should carry at least
+\begin{equation}
+(\Pi,\lambda,S,\Lambda),
+\label{eq:branch-datum}
+\end{equation}
+where $\Pi$ is the observer projector, $\lambda$ records the local selector or branch value being compared, $S$ is the active support stratum, and $\Lambda$ is the hidden-load coordinate on that stratum. This is not yet the full nonlinear law-level branch state. It is the exact state needed by the current quadratic observer, support, and hidden-load layer.
+
+A future law-level branch state must add the first nonconstant fibre-cumulant fields $A_n$, variational jet data, and any global mixture or remote branch-mass data that the observational task depends on. Those objects are not optional decorations: the examples below show that they can change the visible verdict while leaving the quadratic datum unchanged.
+
+Let $U\oplus W=\R^n$ be an exact closure branch for the family, so each
+\[
+D_a=\begin{pmatrix}A_a&0\\0&B_a\end{pmatrix}.
+\]
+Nearby $m$-planes are written as graphs of $X:U\to W$. Define
+\[
+C_UX:=(B_aX-XA_a)_{a\in A},
+\qquad
+M_U:=\sum_aA_a^2,
+\qquad
+M_W:=\sum_aB_a^2,
+\]
+and
+\[
+G_UX:=M_WX-XM_U.
+\]
+
+\begin{proposition}[Exact parity around an exact branch]
+\label{prop:branch-parity}
+Let $J=\diag(I_U,-I_W)$. In graph coordinates one has
+\[
+\Pi(-X)=J\Pi(X)J.
+\]
+Since $JD_a=D_aJ$ for every block-diagonal task operator, the scores
+\[
+\mathcal S(\Pi(X)),\qquad \mathcal L(\Pi(X)),\qquad F_\mu(\Pi(X))
+\]
+are even functions of $X$.
+\end{proposition}
+
+\begin{proof}
+The graph of $-X$ is the image under $J$ of the graph of $X$, so the projector transforms by conjugation. Since each $D_a$ commutes with $J$ and the scores are traces of products built from $D_a$ and $\Pi(X)$, conjugation by $J$ leaves them unchanged.
+\end{proof}
+
+\begin{theorem}[Branch selector Hessian]
+\label{thm:branch-selector-hessian}
+For the penalised selector
+\[
+F_\mu(\Pi):=\mathcal S(\Pi)-\mu\mathcal L(\Pi),
+\qquad \mu\ge0,
+\]
+the graph expansion at the exact branch $U$ is
+\begin{equation}
+F_\mu(\Pi(X))
+=F_\mu(\Pi_U)+\langle X,G_UX\rangle-(1+\mu)\|C_UX\|^2+O(\|X\|^4).
+\label{eq:branch-expansion}
+\end{equation}
+Consequently the second variation is
+\begin{equation}
+\geomboxed{
+\delta^2F_{\mu,U}[X]
+=2\langle X,G_UX\rangle-2(1+\mu)\|C_UX\|^2.
+}
+\label{eq:branch-hessian}
+\end{equation}
+The branch is a strict local maximiser when
+\begin{equation}
+H_{\mu,U}:=(1+\mu)C_U^*C_U-G_U
+\label{eq:selector-gap}
+\end{equation}
+is positive definite on $\operatorname{Hom}(U,W)$.
+\end{theorem}
+
+\begin{proof}
+The exact captured-curvature identity gives
+\[
+\mathcal S(\Pi(X))=\Tr(\Pi(X)M)-\mathcal L(\Pi(X)),
+\qquad M=\sum_aD_a^2.
+\]
+In graph coordinates,
+\[
+\Tr(\Pi(X)M)=\Tr(M_U)+\langle X,M_WX-XM_U\rangle+O(\|X\|^4),
+\]
+while
+\[
+\mathcal L(\Pi(X))=\sum_a\|B_aX-XA_a\|_F^2+O(\|X\|^4).
+\]
+Substitution yields \eqref{eq:branch-expansion} and hence \eqref{eq:branch-hessian}.
+\end{proof}
+
+\begin{corollary}[Intertwiner kernel is flat to this order]
+\label{cor:intertwiner-kernel}
+If $C_UX=0$, then $G_UX=0$.
+\end{corollary}
+
+\begin{proof}
+The equations $B_aX=XA_a$ imply $B_a^2X=XA_a^2$ for every $a$. Summing gives $M_WX=XM_U$.
+\end{proof}
+
+\section{Commuting exchange mode}
+
+Assume the blocks are simultaneously diagonal in common bases. Let $\alpha_i=(\alpha_{a,i})_a$ be the task-eigenvalue vector on $u_i\in U$, and let $\beta_j=(\beta_{a,j})_a$ be the task-eigenvalue vector on $w_j\in W$. For the exchange mode $E_{ji}:u_i\mapsto w_j$,
+\begin{equation}
+\|C_UE_{ji}\|^2=\|\beta_j-\alpha_i\|^2,
+\qquad
+\langle E_{ji},G_UE_{ji}\rangle=\|\beta_j\|^2-\|\alpha_i\|^2.
+\label{eq:exchange-mode}
+\end{equation}
+Hence stability in that exchange direction is exactly
+\begin{equation}
+\|\beta_j\|^2-\|\alpha_i\|^2
+<
+(1+\mu)\|\beta_j-\alpha_i\|^2.
+\label{eq:exchange-stability}
+\end{equation}
+If the right side is nonzero, the spinodal threshold is
+\begin{equation}
+\mu_{ij}^{\mathrm{spin}}
+=\max\!\left\{0,\,
+\frac{\|\beta_j\|^2-\|\alpha_i\|^2}{\|\beta_j-\alpha_i\|^2}-1
+\right\}.
+\label{eq:spinodal}
+\end{equation}
+
+For one visible mode and one hidden mode set
+\[
+a=\|\alpha\|^2,\qquad b=\|\beta\|^2,\qquad c=\alpha\cdot\beta,\qquad d=\|\beta-\alpha\|^2.
+\]
+The graph coordinate $x$ gives the exact phase portrait
+\begin{equation}
+\geomboxed{
+f_\mu(x)=\frac{a+(2c-\mu d)x^2+bx^4}{(1+x^2)^2}.
+}
+\label{eq:one-mode-phase}
+\end{equation}
+At coexistence $a=b$, the two branch endpoints exchange global dominance while both endpoint Hessians equal $-2(1+\mu)d$ if $d>0$. The midpoint barrier at $x^2=1$ has depth
+\begin{equation}
+f_\mu(0)-f_\mu(1)=\frac{(1+\mu)d}{4}.
+\label{eq:barrier-depth}
+\end{equation}
+Thus coexistence is not a selector degeneracy unless $\alpha=\beta$.
+
+\section{Regular dominance crossing}
+
+The clean finite example is
+\[
+D_1(t)=\diag(t,-t,3,-3),
+\qquad
+D_2=
+\begin{pmatrix}
+0&1&0&0\\
+1&0&0&0\\
+0&0&0&2\\
+0&0&2&0
+\end{pmatrix}.
+\]
+Let $U=\spanop(e_1,e_2)$ and $V=\spanop(e_3,e_4)$. Both are exact-closure rank-two branches for all $t$, so $\mathcal L(U)=\mathcal L(V)=0$. Their visible scores are
+\[
+\mathcal S(U)=2t^2+2,\qquad \mathcal S(V)=26.
+\]
+They cross at
+\[
+t_*=\sqrt{12}.
+\]
+The crossing is regular: the local selector gap matrix is positive on both branches at $t_*$, so the selected branch changes by global score dominance, not by loss of local maximality.
+
+\begin{remark}[Numerical check]
+The follow-up numerics compute the graph Hessian spectrum at $t_*$. For both branches the smallest eigenvalue of $H_{\mu,U}$ is approximately $1.21539$ at $\mu=0$, $2.43078$ at $\mu=1$, $7.29234$ at $\mu=5$, and $25.5232$ at $\mu=20$. The scores satisfy $\mathcal S(U)<\mathcal S(V)$ at $t_*-.15$, equality at $t_*$, and $\mathcal S(U)>\mathcal S(V)$ at $t_*+.15$.
+\end{remark}
+
+\section{Event taxonomy and continuation gaps}
+
+The branch work separates four event types that should not be merged.
+
+\begin{enumerate}
+\item Selector degeneracy: the observer-side selector Hessian or constrained KKT Jacobian loses invertibility, so an observer branch ceases to be isolated.
+\item Regular dominance crossing: two locally stable observer branches exchange global order while both remain regular.
+\item Support bifurcation: the active hidden-load support changes, and the exact field-layer restart law applies: zero extension at birth and survivor compression at death.
+\item Refinement obstruction: a coarse exact observer cannot be refined because the quotient family lacks the required invariant flag or refinement compatibility.
+\end{enumerate}
+
+A branch continuation theorem must therefore track two independent gaps. The observer gap is the positivity margin of the selector Hessian $H_{\mu,U}$. The support gap is the active-support spectral gap in the support-stratified hidden-load layer. Ordinary continuation is licensed while both stay open. If the support gap fails, one uses the restart law. If the observer gap fails, one resolves selector degeneracy. If neither fails but two regular branches exchange dominance, the event is a switching event, not a support restart.
+
+\begin{remark}[False collapse]
+At the quadratic layer, false collapse means that a coarser observer identifies states that an admissible refinement separates. The nested-observer asymmetry remains exact: equality under a richer observer descends to every coarsening, but equality under a coarser observer need not lift.
+\end{remark}
+
+\section{Exact non-Gaussian sectors}
+
+The Gaussian law is not the only exact full-law sector. The following sectors are broader but still structured.
+
+\begin{theorem}[Fixed-shape quadratic-tilt family]
+\label{thm:fixed-shape}
+Let
+\[
+p_H(x)=Z(H)^{-1}\exp\!\left(-\frac12x^{\mathsf T}Hx-\psi(x)\right),
+\qquad H\in\Sym_{++}(n),
+\]
+on a parameter domain where $Z(H)<\infty$ and the required moments exist. Fix $H_s=H_0+s\Delta$ and set
+\[
+T(x)=x^{\mathsf T}\Delta x,\qquad m(s)=\E_sT.
+\]
+Then
+\begin{equation}
+m'(s)=-\frac12\Var_s(T),
+\label{eq:fixed-shape-monotone}
+\end{equation}
+and the symmetric KL divergence is exactly
+\begin{equation}
+\geomboxed{
+\KL(p_s,p_0)+\KL(p_0,p_s)
+=\frac{s}{2}\bigl(m(0)-m(s)\bigr)
+=\frac{s}{4}\int_0^s\Var_u(T)\,du.
+}
+\label{eq:fixed-shape-sym-kl}
+\end{equation}
+In particular,
+\begin{equation}
+\KL(p_\varepsilon,p_0)+\KL(p_0,p_\varepsilon)
+=\frac{\varepsilon^2}{4}\Var_0(T)+O(\varepsilon^3).
+\label{eq:fixed-shape-local}
+\end{equation}
+For a Gaussian baseline, $\Var_0(T)=2\Tr((\Sigma_0\Delta)^2)$, recovering the standard Gaussian quadratic coefficient.
+\end{theorem}
+
+\begin{proof}
+Differentiate expectations in the exponential family:
+\[
+\frac{d}{ds}\E_sT=-\frac12\Var_s(T).
+\]
+The log-ratio between $p_s$ and $p_0$ is $-\frac{s}{2}T-\log Z(H_s)+\log Z(H_0)$, so the normalisation constants cancel in the two KL directions and give \eqref{eq:fixed-shape-sym-kl}. The local expansion follows by Taylor expansion of $m(s)$.
+\end{proof}
+
+\begin{theorem}[Affine-hidden exact sector]
+\label{thm:affine-hidden}
+Let
+\[
+p(v,h)\propto
+\exp\!\left(-A(v)-\frac12h^{\mathsf T}Dh-J(v)^{\mathsf T}h\right),
+\qquad D\succ0,
+\]
+where $A$ and $J$ may be nonlinear in $v$. Then the exact visible negative log-density is
+\begin{equation}
+\geomboxed{
+S_{\mathrm{vis}}(v)=A(v)-\frac12J(v)^{\mathsf T}D^{-1}J(v)+\mathrm{const}.
+}
+\label{eq:affine-hidden}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Complete the square in $h$:
+\[
+\frac12h^{\mathsf T}Dh+J(v)^{\mathsf T}h
+=\frac12(h+D^{-1}J(v))^{\mathsf T}D(h+D^{-1}J(v))
+-\frac12J(v)^{\mathsf T}D^{-1}J(v).
+\]
+The Gaussian integral over $h$ contributes only a constant because $D$ is independent of $v$.
+\end{proof}
+
+\begin{remark}
+This is a genuine win hiding in plain sight. It is not Gaussian in the visible variable and it may have nonlinear visible shape. It remains exact because the hidden fibre is conditionally Gaussian with fixed fibre precision.
+\end{remark}
+
+\begin{proposition}[Affine-hidden tower law]
+\label{prop:affine-hidden-tower}
+In Theorem~\ref{thm:affine-hidden}, split $h=(u,w)$ and write
+\[
+D=
+\begin{pmatrix}
+D_{uu}&D_{uw}\\
+D_{wu}&D_{ww}
+\end{pmatrix},
+\qquad D_{ww}\succ0,
+\qquad J(v)=(J_u(v),J_w(v)).
+\]
+Eliminating $w$ first gives a reduced affine-hidden action in $u$ with hidden precision
+\[
+D_{u\mid w}:=D_{uu}-D_{uw}D_{ww}^{-1}D_{wu}
+\]
+and reduced coupling
+\[
+J_{u\mid w}(v):=J_u(v)-D_{uw}D_{ww}^{-1}J_w(v).
+\]
+Eliminating $u$ afterwards gives exactly the same visible law as eliminating $(u,w)$ in one step.
+\end{proposition}
+
+\begin{proof}
+This is Schur-complement associativity for a positive block quadratic form. Completing the square in $w$ produces the stated reduced fibre precision and coupling, up to a $v$-independent determinant constant. Completing the square in $u$ then produces the Schur complement of $D$ in the same order-independent way.
+\end{proof}
+
+\section{Higher-order quotient layer}
+
+The next extension is not arbitrary non-Gaussian law exactness. It is a controlled higher-jet quotient calculus.
+
+\begin{proposition}[Variational fourth-order quotient]
+\label{prop:variational-jet}
+Let
+\[
+S(v,h)=
+\frac12v^{\mathsf T}\Phi v+\frac12h^{\mathsf T}Dh
++\frac16T_{vvv}(v,v,v)
++\frac12T_{vvh}(v,v,h)
++\frac1{24}U_{vvvv}(v,v,v,v)
++O(5),
+\]
+with $D\succ0$. The hidden minimiser satisfies
+\[
+h_*(v)=-\frac12D^{-1}T_{vvh}(v,v,\cdot)+O(\|v\|^3),
+\]
+and substitution gives
+\begin{equation}
+\begin{aligned}
+S_{\mathrm{var}}(v)
+&=
+\frac12v^{\mathsf T}\Phi v+\frac16T_{vvv}(v,v,v)\\
+&\quad+\frac1{24}\left[
+U_{vvvv}(v,v,v,v)
+-3\langle T_{vvh}(v,v,\cdot),D^{-1}T_{vvh}(v,v,\cdot)\rangle
+\right]+O(5).
+\end{aligned}
+\label{eq:variational-jet}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Write $\ell(v):=T_{vvh}(v,v,\cdot)$. The hidden terms are
+\[
+\frac12h^{\mathsf T}Dh+\frac12\ell(v)^{\mathsf T}h.
+\]
+The minimiser is $h_*=-\frac12D^{-1}\ell(v)$, and the hidden contribution at the minimiser is
+\[
+-\frac18\ell(v)^{\mathsf T}D^{-1}\ell(v).
+\]
+Since $-\frac18=-\frac3{24}$, \eqref{eq:variational-jet} follows.
+\end{proof}
+
+\begin{proposition}[Entropic fibre derivative calculus]
+\label{prop:entropic-derivatives}
+Let
+\[
+\Psi(v):=-\log \E\exp(-F(v,H))
+\]
+with expectation over a fixed hidden fibre. Under the tilted fibre law at $v$,
+\begin{align}
+\partial_i\Psi&=\E_vF_i,\\
+\partial_{ij}\Psi&=\E_vF_{ij}-\Cov_v(F_i,F_j),\\
+\partial_{ijk}\Psi
+&=\E_vF_{ijk}
+-\Cov_v(F_{ij},F_k)-\Cov_v(F_{ik},F_j)-\Cov_v(F_{jk},F_i)
++\kappa_{3,v}(F_i,F_j,F_k).
+\end{align}
+\end{proposition}
+
+\begin{proof}
+Use $\partial_i\E_v g=\E_v(g_i)-\Cov_v(g,F_i)$ and differentiate successively. The third derivative is the standard cancellation between the derivative of covariance and the third joint cumulant.
+\end{proof}
+
+\begin{proposition}[Laplace bridge]
+\label{prop:laplace-bridge}
+Let $h_*(v)$ be a nondegenerate hidden minimiser of $S(v,h)$ with hidden Hessian $S_{hh}(v,h_*(v))\succ0$. In the small-noise entropic quotient,
+\[
+S_{\mathrm{ent},\varepsilon}(v):=-\varepsilon\log\int \exp(-S(v,h)/\varepsilon)\,dh,
+\]
+one has, up to constants independent of $v$,
+\begin{equation}
+S_{\mathrm{ent},\varepsilon}(v)
+=S_{\mathrm{var}}(v)
++\frac{\varepsilon}{2}\log\det S_{hh}(v,h_*(v))
++O(\varepsilon^2).
+\label{eq:laplace-bridge}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Apply the standard finite-dimensional Laplace expansion around the nondegenerate fibre minimum. The omitted terms include $\varepsilon r\log(2\pi\varepsilon)/2$ for hidden dimension $r$, which is independent of $v$.
+\end{proof}
+
+\section{Fibre cumulant breakpoint}
+
+Let $p_0(v,h)$ be a baseline law and perturb it by
+\[
+p_\varepsilon(v,h)\propto p_0(v,h)e^{-\varepsilon\phi(v,h)}.
+\]
+The exact visible log-ratio is
+\begin{equation}
+\log\frac{p_\varepsilon^V(v)}{p_0^V(v)}
+=\log\E_0[e^{-\varepsilon\phi(v,H)}\mid v]
+-\log\E_0[e^{-\varepsilon\phi(V,H)}].
+\label{eq:fibre-log-ratio}
+\end{equation}
+Expanding by conditional cumulants gives
+\begin{equation}
+\log\frac{p_\varepsilon^V(v)}{p_0^V(v)}
+=\sum_{r\ge1}\frac{(-\varepsilon)^r}{r!}
+\left[
+\kappa_r(\phi(v,H)\mid v)-\kappa_r(\phi(V,H))
+\right].
+\label{eq:fibre-cumulants}
+\end{equation}
+If the first nonconstant bracket occurs at order $m$, then
+\begin{equation}
+\KL(p_\varepsilon^V,p_0^V)+\KL(p_0^V,p_\varepsilon^V)
+=\frac{\varepsilon^{2m}}{(m!)^2}
+\Var_0(A_m(V))+o(\varepsilon^{2m}),
+\label{eq:fibre-sym-kl}
+\end{equation}
+where $A_m(v)$ is that first nonconstant bracket.
+
+This least index $m$ is the \emph{law-leakage order} of the hidden perturbation relative to the visible observer. It stratifies the higher-order frontier: some perturbations are invisible to the quadratic layer but visible to the first fibre cumulant, while others first appear only at covariance, third-cumulant, or still higher fibre orders.
+
+The minimal pathology is already cubic:
+\[
+S_0(x,z)=\frac12(x^2+z^2)+\alpha(x^4+z^4),
+\qquad
+\phi(x,z)=xz^2.
+\]
+The quadratic Hessian at the origin does not see the perturbation. But if $m_2=\E_0Z^2$, then the visible log-ratio has first term proportional to $m_2x$, and the visible mean shifts at order $\varepsilon$:
+\[
+\E_\varepsilon X=-m_2^2\varepsilon+O(\varepsilon^2),
+\]
+while the symmetric visible KL begins as
+\[
+m_2^3\varepsilon^2+O(\varepsilon^3)
+\]
+when the $X$ and $Z$ baselines are identical. This is a true verdict-changing higher-order effect: the quadratic layer predicts no visible branch drift, while the full visible law moves immediately.
+
+\section{Hidden-fibre bifurcation breakpoint}
+
+Consider a one-dimensional hidden fibre
+\[
+B_x(z)=\frac12(1+2tx)z^2+\alpha z^4,\qquad \alpha>0.
+\]
+At
+\[
+x_c=-\frac1{2t},
+\]
+the hidden fibre changes from a single well to a double well. The variational correction to the visible action is
+\begin{equation}
+\Delta S_{\mathrm{var}}(x)=
+\begin{cases}
+0, & 1+2tx\ge0,\\[0.5ex]
+-\dfrac{(1+2tx)^2}{16\alpha}, & 1+2tx<0.
+\end{cases}
+\label{eq:hidden-fibre-bifurcation}
+\end{equation}
+The first derivative is continuous at $x_c$, but the second derivative jumps by
+\begin{equation}
+-\frac{t^2}{2\alpha}.
+\label{eq:fibre-jump}
+\end{equation}
+This is neither a Gaussian Schur-complement event nor a mere local Hessian correction at the original point. It is a nonlinear hidden-fibre branch event.
+
+\section{Remote structure no-jet obstruction}
+
+No finite local jet can certify global non-Gaussian branch structure. Given any smooth potential $S$ and any finite order $N$, one may add a smooth bump $b$ supported away from the local point with all derivatives through order $N$ vanishing at that point. The local Hessian and all finite jets through order $N$ are unchanged, but the visible marginal, tail mass, and remote modal structure can change by an $O(1)$ amount if the bump is deep or wide enough. Therefore arbitrary mixture and remote-support branch claims cannot be recovered from the quadratic layer, nor from any fixed finite jet without extra global hypotheses.
+
+\section{Robustness margin}
+
+The practical bridge between the quadratic module and fuller laws is a margin theorem, not an identity.
+
+\begin{proposition}[Quadratic verdict with residual margin]
+Let a full-law branch objective satisfy
+\[
+J_{\mathrm{law}}(B)=J_Q(B)+R(B)
+\]
+on a candidate set. If two candidates obey
+\[
+J_Q(B_1)-J_Q(B_2)>|R(B_1)-R(B_2)|,
+\]
+then the full-law ordering agrees with the quadratic ordering. Likewise, if a branch has quadratic Hessian gap $\gamma>0$ and the residual Hessian has operator norm below $\gamma$ on the graph chart, then strict local stability persists.
+\end{proposition}
+
+\begin{proof}
+Both claims are immediate from subtracting the residual term in the first case and from the Loewner perturbation bound in the second.
+\end{proof}
+
+\section{Numerical audit}
+
+The reproducible script is
+\begin{center}
+\path{audit/branch_non_gaussian_followup_numerics.py}
+\end{center}
+It writes
+\begin{center}
+\path{audit/outputs/branch_non_gaussian_followup_numerics.json}
+\end{center}
+
+The main checks passed:
+\begin{enumerate}
+\item Leakage convention: $|\mathcal S+\mathcal L-\Tr(\Pi M)|=8.9\cdot10^{-15}$ and determinant hidden contribution equals $2\mathcal L$ to roundoff.
+\item One-mode phase portrait: maximum formula error $1.8\cdot10^{-15}$; Hessian formula error $8.7\cdot10^{-7}$ by finite difference.
+\item Four-by-four branch crossing: score crossing at $t=\sqrt{12}$; both branches strict at the crossing with smallest selector-gap eigenvalue $1.21539$ at $\mu=0$.
+\item Fixed-shape quartic family: exact symmetric-KL formula error $1.7\cdot10^{-18}$; small-amplitude quadratic approximation relative error $0.77\%$ at $\varepsilon=.025$.
+\item Affine-hidden sector: centred visible-action quadrature error $1.3\cdot10^{-15}$.
+\item Variational fourth-order quotient: fitted quartic coefficient agrees with $U/24-T^2/(8D)$ to $1.1\cdot10^{-16}$.
+\item Cubic fibre pathology: visible symmetric KL $0.0022012$ versus cumulant prediction $0.0021791$ at $t=.16$; visible mean $-0.031107$ versus first-order prediction $-0.030961$.
+\item Hidden-fibre bifurcation: numerical second-derivative jump $-0.6125$, matching $-t^2/(2\alpha)$.
+\end{enumerate}
+
+\section{Consequences}
+
+The biggest wins are these.
+
+\begin{enumerate}
+\item Branch selection now has an exact local quadratic stability law. Dominance crossing and selector degeneracy are different events.
+\item The quadratic closure layer is not Gaussian window-dressing. It is an exact Hessian/Fisher geometry whose Gaussian sector is only the first full-law closure.
+\item There are exact non-Gaussian full-law sectors already available: fixed-shape quadratic tilts and affine-hidden conditional-Gaussian fibres.
+\item The next theory frontier is concrete: higher-jet quotient geometry, fibre cumulants, hidden-fibre branch bifurcations, and global support or remote mixture control.
+\end{enumerate}
+
+The main weakness is equally concrete. A quadratic verdict can be wrong when the observational verdict is controlled by skew, fibre cumulants, hidden multimodality, support boundaries, or remote mass. The module should continue to claim exactness only for supplied local quadratic/Hessian/Fisher data unless an input belongs to a separately proved broader full-law sector.
+
+\section{Module scope}
+
+No module source change is required for the findings in this note. The existing module convention for \texttt{closure\_scores} uses the correct half-commutator leakage. The natural future module additions are optional and theorem-local:
+
+\begin{enumerate}
+\item a branch-gap diagnostic implementing $H_{\mu,U}$ for exact-closure branches;
+\item a fixed-shape quadratic-tilt KL/Fisher helper;
+\item an affine-hidden marginalisation helper for fixed hidden fibre precision;
+\item a higher-jet experimental layer for variational and entropic quotient coefficients;
+\item explicit labels separating quadratic branch selection from full-law branch selection.
+\end{enumerate}
+
+The README clarification does not oversell the module. If anything, it undersells the research programme slightly: exact sectors beyond Gaussian laws exist. But it correctly describes the current module boundary, because those broader sectors are not yet a general non-Gaussian engine.
+
+\section{Conclusion}
+
+The project is past Gaussian toy territory, but not past the full-law frontier. The right doctrine is:
+\[
+\begin{aligned}
+\text{Gaussian full law}
+&\subset
+\text{exact local quadratic observation geometry}\\
+&\subset
+\text{higher-order and global non-Gaussian programme}.
+\end{aligned}
+\]
+The branch-selection work strengthens the middle layer. The fixed-shape and affine-hidden results prove that Gaussianity is not the conceptual boundary. The cubic, bifurcation, and remote-bump examples show why arbitrary non-Gaussian full-law exactness cannot be claimed from Hessian data alone.
+
+\end{document}

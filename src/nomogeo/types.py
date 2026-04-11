@@ -85,6 +85,236 @@ class GaussianContractionResult:
 
 
 @dataclass(frozen=True)
+class RankOneCovariancePerturbationResult:
+    covariance_base: Array
+    covariance_perturbed: Array
+    precision_base: Array
+    precision_perturbed: Array
+    hidden_gap_increment: Array
+    formula_increment: Array
+    formula_residual: float
+    full_precision_visible_direction: Array
+    visible_precision_direction: Array
+    direction_alignment: float
+    singular_values: Array
+    update_rank: int
+    one_channel: bool
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class RankKCovariancePerturbationResult:
+    covariance_base: Array
+    covariance_perturbed: Array
+    precision_base: Array
+    precision_perturbed: Array
+    perturbation_factor: Array
+    hidden_gap_increment: Array
+    formula_increment: Array
+    formula_residual: float
+    full_precision_visible_factor: Array
+    visible_precision_factor: Array
+    full_precision_term: Array
+    visible_precision_term: Array
+    singular_values: Array
+    update_rank: int
+    rank_bound: int
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class ResidualMarginResult:
+    quadratic_gap: float
+    residual_bound: float
+    required_gap: float
+    margin: float
+    worst_case_gap: float
+    robust: bool
+    adversarial_reversal_possible: bool
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class SimpleSpectrumClosureCertificateResult:
+    exact_common_subspace_exists: bool
+    obstruction_certified: bool
+    anchor_eigenvalues: Array
+    anchor_eigenvectors: Array
+    simple_gap: float
+    best_indices: tuple[int, ...]
+    min_cross_block_norm: float
+    checked_subset_count: int
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class CoordinateLocalQuadraticEnsembleResult:
+    phis: Array
+    ceilings: Array
+    lambdas: Array
+    clocks: Array
+    hidden_ranks: Array
+    mean_clock: float
+    std_clock: float
+    min_clock: float
+    max_clock: float
+    sample_count: int
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class IntrinsicLocalQuadraticEnsembleResult:
+    phis: Array
+    logdet_phis: Array
+    mean_logdet_phi: float
+    std_logdet_phi: float
+    min_logdet_phi: float
+    max_logdet_phi: float
+    sample_count: int
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class CeilingMediatedLocalQuadraticEnsembleResult:
+    phis: Array
+    ceilings: Array
+    lambdas: Array
+    clocks: Array
+    hidden_ranks: Array
+    mean_clock: float
+    std_clock: float
+    min_clock: float
+    max_clock: float
+    sample_count: int
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class AffineHiddenReductionResult:
+    action: Array
+    coupling: Array
+    hidden_precision: Array
+    hidden_mean: Array
+    variational_action: Array
+    fibre_volume: Array
+    visible_action: Array
+    sample_shape: tuple[int, ...]
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class AffineHiddenStageResult:
+    action: float
+    coupling: Array
+    hidden_precision: Array
+    eliminated_indices: tuple[int, ...]
+    kept_indices: tuple[int, ...]
+    action_shift: float
+    visible_action: float | None
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class AffineHiddenBranchReversalResult:
+    variational_action: Array
+    fibre_volume: Array
+    visible_action: Array
+    variational_winners: tuple[int, ...]
+    visible_winners: tuple[int, ...]
+    preserved: bool
+    reversal: bool
+    branch_reversal_matrix: Array
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class GuardedFibreDominanceResult:
+    fibre_centered_norm: float
+    variational_centered_norm: float
+    ratio: float | None
+    ratio_defined: bool
+    denominator_floor: float
+    norm: str
+    sample_weight_sum: float | None
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class WeightedFamilyFrontierResult:
+    leakage: float
+    visible_score: float
+    captured_curvature: float
+    energy_split_residual: float
+    penalized_score: float
+    moment_operator: Array
+    projector: Array
+    weights: Array
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class ExactBranchHessianResult:
+    hessian_contract: Array
+    second_variation_operator: Array
+    eigenvalues: Array
+    min_eigenvalue: float
+    nullity: int
+    status: str
+    off_block_norm: float
+    basis: Array
+    complement_basis: Array
+    weights: Array
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class DeclaredLadderDimensionCostResult:
+    scores: Array
+    dimensions: Array
+    pairwise_crossings: Array
+    interval_lower: Array
+    interval_upper: Array
+    interval_nonempty: Array
+    winner_at_zero: tuple[int, ...]
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class GeneralGraphFrontierHessianResult:
+    gradient: Array
+    gradient_vector: Array
+    hessian_operator: Array
+    second_variation_operator: Array
+    eigenvalues: Array
+    min_eigenvalue: float
+    max_eigenvalue: float
+    nullity: int
+    status: str
+    stationarity_residual: float
+    off_block_norm: float
+    basis: Array
+    complement_basis: Array
+    weights: Array
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
+class DeclaredFrontierLocalCertificateResult:
+    graph_hessian: GeneralGraphFrontierHessianResult
+    mode: str
+    eps: float
+    lambda_margin: float
+    lipschitz_bound: float
+    r0: float
+    left_4eps_over_lambda: float | None
+    displacement_bound_2eps_over_lambda: float | None
+    certificate_passes: bool
+    certificate_kind: str
+    chart_radius: float
+    metadata: LinearAlgebraMetadata
+
+
+@dataclass(frozen=True)
 class ClosureScoresResult:
     leakage: float
     visible_score: float

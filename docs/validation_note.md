@@ -11,6 +11,13 @@
 - exact fixed-observer chart coordinates `(Phi, R, K)`, exact chart
   reconstruction, observer-transition law, and fixed-observer current / forcing
   identities from `Connection_Flatness`
+- exact intrinsic local quadratic ensemble evaluator for arbitrary surjective
+  observers, returning only samplewise visible precisions and functorial
+  summaries
+- exact ceiling-mediated local quadratic ensemble evaluator requiring declared
+  ceilings before hidden loads and clocks are exposed
+- coordinate-split local quadratic ensemble convenience wrapper with descriptive
+  clock summaries over samplewise outputs
 - support-aware hidden-load parametrisation beneath a ceiling
 - visible reconstruction from hidden load with explicit representation rules in
   ambiguous full-rank cases
@@ -23,13 +30,31 @@
   factors, exposing the associative downstairs composition object
 - thin Donsker-Varadhan bridge
 - thin quotient-side Gaussian contraction checks and observer-collapse checks
+- exact rank-one and rank-k covariance/Fisher perturbation diagnostics for coordinate visible splits, including the white/aligned one-channel sector, coloured two-rank boundary, and rank-at-most-`2k` update bound
+- residual-margin ordering certificate for bounded branch/observer residuals
+- simple-spectrum closure certificate for exact common-closure existence or obstruction among anchor-coordinate eigenspans
+- exact variable-precision affine-hidden reducer with fibre-volume term
+- exact staged affine-hidden Schur elimination helper
+- exact finite affine-hidden branch-reversal diagnostic and guarded fibre-dominance tuple
+- finite weighted-family leakage/visibility frontier evaluator
+- exact-branch Hessian diagnostic for already-exact weighted-family branches
+- exact general graph-frontier Hessian at declared observers, declared-ladder dimension-cost intervals, and sufficient declared local frontier certificates
 - deterministic batch wrapper
 
 ## Deliberately Deferred
 
 - full finite-observer optimisation layer from `Finite_Observation`
 - noncommuting closure-adapted frontier optimisation and selector policy
+- generic closure obstruction certificates without a simple-spectrum anchor
 - full quotient-observation framework beyond the thin contraction adapter
+- generic non-Gaussian branch or observer selector
+- residual estimation for full-law corrections
+- noncommuting closure irreducibility/frontier API
+- noncommuting weighted-family optimiser or selector policy
+- arbitrary fibre-cumulant full-law branch engine
+- probability-support event engine
+- Hermitian packet API
+- hidden-load or clock ensemble summaries for general observers without an explicit ceiling contract
 - downstream consciousness analysis and empirical pipelines
 - plotting, notebooks, data ingestion, benchmarks, and application-specific
   wrappers
@@ -131,6 +156,49 @@ Connection release-gate checks:
 - hostile conditioning checks up through rotated families with
   `cond(H) ~ 1e8`, with explicit warning thresholds rather than silent failure
 
+Perturbation and residual-margin checks:
+
+- exact white-sector hidden-gap formula and one-channel rank
+- coloured-background rank-two witness and Sherman-Morrison formula residual
+- block-aligned coloured sector remaining one-channel
+- rank-k covariance/Fisher Woodbury formula and rank-at-most-`2k` bound
+- malformed covariance/signal/visible-dimension/epsilon rejection
+- strict margin certificate, equality boundary, and adversarial reversal case
+- simple-spectrum closure certificate with exact block-invariant witness
+- simple-spectrum generic obstruction certificate with all coordinate cross-blocks nonzero
+- degenerate-anchor rejection
+
+Coordinate ensemble checks:
+
+- samplewise agreement with `visible_precision` and `hidden_load`
+- intrinsic `Phi` covariance under latent basis changes
+- ceiling-mediated clock and hidden-load spectrum invariance under visible basis changes when ceilings transform by congruence
+- exact agreement between the coordinate convenience wrapper and explicit ceiling-mediated mode
+- descriptive clock summary agreement with direct NumPy summaries
+- witness that the clock of the mean Hessian need not equal the mean sample clock
+- malformed shape, empty sample, visible-dimension, and non-SPD rejection
+- malformed or too-small ceilings rejected
+
+Affine-hidden and weighted-frontier checks:
+
+- numerical hidden-fibre integration against the variable-precision exact
+  action formula
+- explicit log-determinant branch-flip witness where variational action is flat
+- exact finite affine-hidden branch-reversal witness
+- guarded fibre-dominance denominator-floor witness
+- staged single-coordinate Schur eliminations against one-step elimination
+- malformed affine-hidden shape and non-SPD hidden-precision rejection
+- weighted-family energy split against random finite families and agreement
+  with unweighted `closure_scores`
+- exact-branch Hessian sign/status convention against graph-chart finite
+  differences
+- declared-ladder dimension-cost interval phase diagram
+- general graph-frontier Hessian exact-branch reduction and non-exact stationary
+  breakpoint at `sqrt(3)`
+- declared local frontier certificate max/min/vacuity checks
+- noncommuting internal block exact-branch Hessian witness
+- rejection of non-exact branches and invalid full-rank Hessian requests
+
 ## Fixes Triggered By This Campaign
 
 - added `hidden_contraction` and `load_from_hidden_contraction` in
@@ -177,8 +245,28 @@ Connection release-gate checks:
 Current smoke result:
 
 ```text
-67 passed
+100 passed
 ```
+
+Current collection check:
+
+```text
+100 tests collected
+```
+
+0.3.1 planning stress result:
+
+```text
+overall_passed: true
+```
+
+This planning stress result is not a module release gate. It checks the
+no-canonical-ceiling obstruction, intrinsic quotient covariance,
+variable-precision affine-hidden elimination, staged entropic tower
+composition, weighted-family energy/stationarity identities, branch-Hessian
+status semantics, typed residual margins, support-event charge scaling, the
+positive packet lift, and finite weighted-family identities on the local Iris,
+leaderboard, and Bell micro-real bundles.
 
 Install surface verified:
 

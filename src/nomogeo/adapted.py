@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import itertools
 from collections.abc import Sequence
 
 import numpy as np
@@ -11,6 +12,7 @@ from .types import (
     LeakageChannelsResult,
     LinearAlgebraMetadata,
     ObserverComparisonResult,
+    SimpleSpectrumClosureCertificateResult,
 )
 from .validation import (
     Tolerances,
@@ -267,6 +269,88 @@ def closure_adapted_observer(
     )
 
 
+def simple_spectrum_closure_certificate(
+    family: Sequence[np.ndarray] | np.ndarray,
+    rank: int,
+    *,
+    anchor_index: int = 0,
+    tolerances: Tolerances | None = None,
+) -> SimpleSpectrumClosureCertificateResult:
+    """Certify exact closure or obstruction for a simple-spectrum anchor family.
+
+    If one symmetric family member has simple spectrum, every invariant rank
+    ``rank`` subspace for that member is a coordinate eigenspan in the anchor
+    eigenbasis. Exact common closure then reduces to checking cross-blocks of
+    the remaining family members on those coordinate eigenspans.
+    """
+    tol = resolve_tolerances(tolerances)
+    if isinstance(rank, bool) or not isinstance(rank, int):
+        raise InputValidationError("rank must be an integer")
+    if isinstance(anchor_index, bool) or not isinstance(anchor_index, int):
+        raise InputValidationError("anchor_index must be an integer")
+    operators = _validate_symmetric_family(family, tol)
+    n = operators[0].shape[0]
+    if rank < 1 or rank >= n:
+        raise InputValidationError("rank must satisfy 1 <= rank < ambient dimension")
+    if anchor_index < 0 or anchor_index >= len(operators):
+        raise InputValidationError("anchor_index is out of range")
+
+    anchor = operators[anchor_index]
+    eigenvalues, eigenvectors = np.linalg.eigh(anchor)
+    if eigenvalues.size <= 1:
+        simple_gap = float("inf")
+    else:
+        simple_gap = float(np.min(np.diff(eigenvalues)))
+    gap_cutoff = 10.0 * rank_cutoff(eigenvalues, tol)
+    if simple_gap <= gap_cutoff:
+        raise InputValidationError("anchor family member must have simple spectrum")
+
+    transformed = [symmetrize(eigenvectors.T @ op @ eigenvectors) for op in operators]
+    best_indices: tuple[int, ...] = ()
+    min_cross = float("inf")
+    checked = 0
+    for subset in itertools.combinations(range(n), rank):
+        checked += 1
+        mask = np.zeros(n, dtype=bool)
+        mask[list(subset)] = True
+        cross_norm = 0.0
+        for idx, operator in enumerate(transformed):
+            if idx == anchor_index:
+                continue
+            cross_norm = max(cross_norm, float(np.linalg.norm(operator[np.ix_(~mask, mask)], ord="fro")))
+        if cross_norm < min_cross:
+            min_cross = cross_norm
+            best_indices = tuple(int(i) for i in subset)
+
+    closure_cutoff = 10.0 * max(tol.atol, tol.rtol * max(1.0, max(float(np.linalg.norm(op, ord="fro")) for op in transformed)))
+    exact = bool(min_cross <= closure_cutoff)
+    metadata = LinearAlgebraMetadata(
+        atol=tol.atol,
+        rtol=tol.rtol,
+        rank_tol=closure_cutoff,
+        method="simple-spectrum-closure-certificate",
+        ambient_dim=n,
+        support_rank=rank,
+        visible_dim=rank,
+        support_restricted=False,
+        notes=(
+            "certificate assumes a simple-spectrum anchor; not a noncommuting optimiser",
+            "best_indices are coordinates in the anchor eigenbasis",
+        ),
+    )
+    return SimpleSpectrumClosureCertificateResult(
+        exact_common_subspace_exists=exact,
+        obstruction_certified=not exact,
+        anchor_eigenvalues=eigenvalues,
+        anchor_eigenvectors=eigenvectors,
+        simple_gap=simple_gap,
+        best_indices=best_indices,
+        min_cross_block_norm=min_cross,
+        checked_subset_count=checked,
+        metadata=metadata,
+    )
+
+
 def _validate_stiefel_basis(B: np.ndarray, ambient_dim: int, tolerances: Tolerances) -> np.ndarray:
     basis = to_float_array("B", B)
     if basis.shape[0] != ambient_dim:
@@ -297,6 +381,28 @@ def _prepare_whitened_family(
             raise InputValidationError(f"family[{idx}] must have the same shape as H")
         whitened.append(whitened_perturbation(H, validated, tolerances=tolerances))
     return whitened
+
+
+def _validate_symmetric_family(
+    family: Sequence[np.ndarray] | np.ndarray,
+    tolerances: Tolerances,
+) -> list[np.ndarray]:
+    if isinstance(family, np.ndarray):
+        members = [family]
+    else:
+        members = list(family)
+    if not members:
+        raise InputValidationError("family must contain at least one symmetric matrix")
+    operators: list[np.ndarray] = []
+    shape: tuple[int, int] | None = None
+    for idx, member in enumerate(members):
+        validated = validate_symmetric_matrix(f"family[{idx}]", member, tolerances)
+        if shape is None:
+            shape = validated.shape
+        elif validated.shape != shape:
+            raise InputValidationError(f"family[{idx}] must have the same shape as family[0]")
+        operators.append(validated)
+    return operators
 
 
 def _validate_pairwise_commuting(family: Sequence[np.ndarray], tolerances: Tolerances) -> None:

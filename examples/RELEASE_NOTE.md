@@ -22,6 +22,12 @@ demonstrations.
   - establishes a synthetic observer-geometry worked example outside physics
   - does not claim an empirical theory of voting systems or real elections
 
+- `graph_frontier_declared_certificate`
+  - establishes the 0.3.2 local quadratic breakpoint where a declared observer
+    is stationary without being an exact branch
+  - does not claim global observer optimization, probability-support events, or
+    full-law branch probabilities
+
 ## Release Standard
 
 Each demonstration now contains:

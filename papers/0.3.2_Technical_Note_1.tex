@@ -1,0 +1,595 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage[a4paper,margin=33mm]{geometry}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\let\openbox\relax
+\usepackage{amsmath,amsthm,amssymb,mathtools}
+\usepackage{needspace}
+\usepackage[explicit]{titlesec}
+\usepackage{titling}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[
+  pdfusetitle,
+  hidelinks,
+  bookmarksopen=true,
+  bookmarksnumbered=true
+]{hyperref}
+
+\linespread{0.95}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.5pt}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\Hom}{Hom}
+\DeclareMathOperator{\diag}{diag}
+\newcommand{\R}{\mathbf R}
+\newcommand{\Frob}{\mathrm F}
+\newcommand{\geomboxed}[1]{%
+  \setlength{\fboxsep}{8pt}%
+  \setlength{\fboxrule}{0.9pt}%
+  \fbox{\scalebox{1.12}{$\displaystyle #1$}}%
+}
+
+\titleformat{\section}
+{\normalfont\normalsize\bfseries\raggedright}
+{\thesection}{0.75em}{\begin{minipage}[t]{0.9\textwidth}#1\end{minipage}}
+[\vspace{0.12em}\titlerule]
+
+\newcommand{\subaccent}{\vspace{0.01em}\noindent\rule{7ex}{0.2pt}}
+\titleformat{\subsection}
+{\normalfont\normalsize\bfseries}{\thesubsection}{0.5em}{#1}
+[\subaccent]
+\titlespacing*{\subsection}{0pt}{2.1ex plus 0.5ex}{1.2ex}
+
+\newtheoremstyle{thmcompact}
+{0.5ex}{0.5ex}
+{\itshape}
+{0pt}
+{\bfseries}
+{.}
+{0.6em}
+{\thmname{#1}\ \thmnumber{#2}\ \thmnote{(\textit{#3})}}
+
+\theoremstyle{thmcompact}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{remarkplain}{Remark}
+
+\mdfdefinestyle{thmframe}{%
+leftline=true, rightline=false, topline=false, bottomline=false,
+linewidth=0.8pt, linecolor=black,
+innerleftmargin=16pt, innerrightmargin=8pt,
+innertopmargin=6pt, innerbottommargin=6pt,
+skipabove=6pt, skipbelow=6pt,
+nobreak=true
+}
+\surroundwithmdframed[style=thmframe]{theorem}
+\surroundwithmdframed[style=thmframe]{proposition}
+\surroundwithmdframed[style=thmframe]{corollary}
+\surroundwithmdframed[style=thmframe]{definition}
+\surroundwithmdframed[style=thmframe]{lemma}
+
+\newmdenv[
+linewidth=0.6pt,
+topline=false,
+bottomline=false,
+rightline=false,
+skipabove=\baselineskip,
+skipbelow=\baselineskip,
+backgroundcolor=gray!3,
+leftmargin=0pt,
+innerleftmargin=8pt,
+innerrightmargin=6pt,
+frametitleaboveskip=0.4em,
+frametitlebelowskip=0.2em,
+frametitlefont=\bfseries\small,
+]{remarkbox}
+\newenvironment{remark}[1][]%
+{\begin{remarkbox}\begin{remarkplain}[#1]\normalfont}
+{\end{remarkplain}\end{remarkbox}}
+
+\renewcommand{\qedsymbol}{}
+\newcommand{\thmneed}{\Needspace{6\baselineskip}}
+\AtBeginEnvironment{theorem}{\thmneed}
+\AtBeginEnvironment{proposition}{\thmneed}
+\AtBeginEnvironment{corollary}{\thmneed}
+\AtBeginEnvironment{definition}{\thmneed}
+\AtBeginEnvironment{lemma}{\thmneed}
+
+\title{\textbf{0.3.2 - Technical Note \#1}\\
+\large{General graph-frontier Hessians, declared local certificates, and recovered finite comparison sectors}}
+\author{J.\,R.~Dunkley}
+\date{11 April 2026}
+
+\hypersetup{
+  pdftitle={0.3.2 - Technical Note 1},
+  pdfauthor={J. R. Dunkley},
+  pdfsubject={General graph-frontier Hessians and declared local certificates},
+  pdfkeywords={observation geometry, branch selection, graph Hessian, local certificate, affine hidden sector}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This note records the 0.3.2 planning-stage research result. The main correction is that exact branches are not the parent object for all frontier criticality. They are a closed sector. The broader order-two object is the general graph-chart first and second variation of the weighted frontier at a declared observer. This object is exact local quadratic geometry; it is not a generic non-Gaussian full-law selector and not a global Grassmannian optimizer. The note also records a conservative declared local certificate, the sharp two-dimensional non-exact stationary breakpoint, and several recovered finite comparison sectors: low-rank covariance/Fisher perturbations, declared-ladder dimension-cost intervals, affine-hidden branch reversal, guarded fibre-dominance diagnostics, and residual or ensemble finite-candidate margins.
+\end{abstract}
+
+\section{Purpose and scope}
+
+The 0.3.1 note separated exact Gaussian law mode, exact local quadratic mode, and higher-order law mode. The present note keeps that separation and adds one important refinement:
+\[
+\text{exact branch} \subsetneq \text{stationary declared frontier observer}.
+\]
+The inclusion is strict even at order two. Therefore a future near-branch feature should not be an approximate version of the exact-branch Hessian. The correct parent object is a declared-observer graph Hessian, paired with a stationarity residual and a local Lipschitz certificate.
+
+The scope line is as follows.
+
+\begin{center}
+\small
+\begin{tabular}{p{0.28\textwidth}p{0.31\textwidth}p{0.28\textwidth}}
+\toprule
+Object & Status & Not claimed \\
+\midrule
+Graph-chart first and second variation & exact local quadratic geometry & full non-Gaussian law selector \\
+Exact-branch Hessian & exact invariant sub-sector & approximation outside invariance \\
+Declared local certificate & sufficient local theorem & global optimizer \\
+Affine-hidden branch reversal & exact special full-law sector & generic marginalization theorem \\
+Finite candidate margins & exact supplied-bound theorem & automatic statistical validity \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\section{Weighted frontier in a graph chart}
+
+Fix an orthogonal splitting
+\[
+\R^n=U\oplus W,\qquad \dim U=m,
+\]
+and write a nearby observer as the graph
+\[
+Y(X)=\begin{bmatrix}I\\ X\end{bmatrix},\qquad
+P(X)=Y(X)(I+X^{\mathsf T}X)^{-1}Y(X)^{\mathsf T},
+\qquad X\in\Hom(U,W).
+\]
+For each symmetric family member, use the block form
+\[
+K_i=
+\begin{bmatrix}
+U_i&E_i^{\mathsf T}\\
+E_i&D_i
+\end{bmatrix}.
+\]
+The weighted frontier score is
+\begin{equation}
+F_\mu(P)
+=
+\sum_i w_i
+\left[
+\|PK_iP\|_\Frob^2
+-\frac{\mu}{2}\|[K_i,P]\|_\Frob^2
+\right].
+\label{eq:weighted-frontier}
+\end{equation}
+The weights are declared weights and the parameter $\mu$ is a declared leakage penalty.
+
+\begin{theorem}[General graph-chart first variation]
+\label{thm:graph-first-variation}
+At the declared observer $X=0$,
+\[
+DF_\mu(0)[X]=\langle G,X\rangle_\Frob,
+\]
+where
+\begin{equation}
+\geomboxed{
+G
+=
+2\sum_i w_i
+\left[(2+\mu)E_iU_i-\mu D_iE_i\right].
+}
+\label{eq:graph-gradient}
+\end{equation}
+Consequently every exact branch, $E_i=0$ for all $i$, is stationary. The converse fails: stationarity only requires cancellation of the weighted sum in \eqref{eq:graph-gradient}.
+\end{theorem}
+
+\begin{proof}
+Differentiate \eqref{eq:weighted-frontier} along $P(X)$ at $X=0$. The first variation of the graph projector is
+\[
+\dot P=
+\begin{bmatrix}0&X^{\mathsf T}\\ X&0\end{bmatrix}.
+\]
+Substitution into the two trace functionals gives the displayed coefficient of $X$.
+\end{proof}
+
+\begin{theorem}[General graph-chart second variation]
+\label{thm:graph-hessian}
+For a tangent direction $X\in\Hom(U,W)$ define
+\[
+B_i(X)=E_i^{\mathsf T}X+X^{\mathsf T}E_i,
+\]
+\[
+S_{i,2}(X)
+=
+\Tr(B_i(X)^2)
++2\Tr(U_iX^{\mathsf T}D_iX)
+-2\Tr((X^{\mathsf T}X)U_i^2),
+\]
+and
+\[
+T_{i,2}(X)
+=
+\Tr\!\left(X^{\mathsf T}(K_i^2)_{WW}X\right)
+-\Tr\!\left((X^{\mathsf T}X)(K_i^2)_{UU}\right),
+\]
+where
+\[
+(K_i^2)_{UU}=U_i^2+E_i^{\mathsf T}E_i,\qquad
+(K_i^2)_{WW}=D_i^2+E_iE_i^{\mathsf T}.
+\]
+Then the exact directional second variation at the declared observer is
+\begin{equation}
+\geomboxed{
+D^2F_\mu(0)[X,X]
+=
+2\sum_i w_i
+\left[(1+\mu)S_{i,2}(X)-\mu T_{i,2}(X)\right].
+}
+\label{eq:graph-hessian}
+\end{equation}
+The bilinear Hessian is obtained by polarization:
+\[
+H(X,Y)
+=
+\frac14\{D^2F_\mu(0)[X+Y,X+Y]-D^2F_\mu(0)[X-Y,X-Y]\}.
+\]
+\end{theorem}
+
+\begin{proof}
+Differentiate the graph projector through second order:
+\[
+P(X)=
+\begin{bmatrix}I&X^{\mathsf T}\\ X&XX^{\mathsf T}\end{bmatrix}
+-
+\begin{bmatrix}X^{\mathsf T}X&0\\0&0\end{bmatrix}
++O(\|X\|_\Frob^3).
+\]
+Substitution in the trace expansion of $\|PK_iP\|_\Frob^2$ gives the $S_{i,2}$ term. Substitution in the expansion of $\frac12\|[K_i,P]\|_\Frob^2=\Tr(K_i^2P)-\Tr(K_iPK_iP)$ gives the $T_{i,2}$ term with the displayed sign.
+\end{proof}
+
+\begin{proposition}[Frame contract]
+Let $B,N$ be orthonormal visible and complement frames. If
+\[
+B'=BR_U,\qquad N'=NR_W
+\]
+with $R_U,R_W$ orthogonal, then the same tangent direction is represented by
+\[
+X'=R_W^{\mathsf T}XR_U.
+\]
+The bilinear form of Theorem~\ref{thm:graph-hessian} is invariant under this change. Raw Hessian matrices are directly comparable only after the visible and complement bases have been fixed.
+\end{proposition}
+
+\begin{proof}
+The block coefficients transform by orthogonal conjugation and the Frobenius trace pairings are invariant. The coordinate matrix changes by the contragredient rule above, so the scalar value $H(X,Y)$ is unchanged.
+\end{proof}
+
+\section{Exact-branch sector and the sharp breakpoint}
+
+\begin{corollary}[Recovery of the exact-branch Hessian]
+If $E_i=0$ for every family member, then Theorem~\ref{thm:graph-hessian} reduces to the existing exact-branch Hessian sector. In this sector the declared observer is an invariant branch for every $K_i$, and the Hessian is the strict local quadratic branch-stability object already used by the module.
+\end{corollary}
+
+\begin{remark}[Why this is not an approximate branch Hessian]
+The reduction is a theorem under $E_i=0$, not a tolerance convention. If the off-blocks do not vanish, the missing $E_i$ terms can change the Hessian sign, even when the first variation cancels exactly.
+\end{remark}
+
+\begin{proposition}[Stationary non-exact breakpoint]
+\label{prop:symmetric-breakpoint}
+Let $m=1$, $n=2$, $\mu=0$, equal weights, and
+\[
+A_+=
+\begin{bmatrix}3&e\\ e&1\end{bmatrix},
+\qquad
+A_-=
+\begin{bmatrix}3&-e\\ -e&1\end{bmatrix}.
+\]
+The observer $U=\operatorname{span}(e_1)$ is stationary for every $e$, but
+\[
+D^2F_0(0)=-24+8e^2.
+\]
+Thus the local sign changes at $|e|=\sqrt3$. The invalid exact-branch proxy gives the constant value $-24$ and therefore misses the instability for $|e|>\sqrt3$.
+\end{proposition}
+
+\begin{proof}
+For one matrix
+\[
+A=\begin{bmatrix}a&e\\e&d\end{bmatrix}
+\]
+the one-dimensional graph calculation gives
+\[
+DF_\mu(0)=2e\{(2+\mu)a-\mu d\},
+\]
+and
+\[
+D^2F_\mu(0)
+=
+2\{(1+\mu)(4e^2+2ad-2a^2)-\mu(d^2-a^2)\}.
+\]
+With $a=3$, $d=1$, $\mu=0$, and the symmetric pair $e,-e$, the first variations cancel and the averaged second variation is $-24+8e^2$.
+\end{proof}
+
+\section{Declared local frontier certificates}
+
+\begin{lemma}[Abstract local certificate]
+\label{lem:abstract-certificate}
+Let $f$ be $C^2$ on the Euclidean ball $\|x\|\le \rho$. Suppose
+\[
+\|\nabla f(0)\|\le \varepsilon,\qquad
+D^2f(0)\preceq -\lambda I,\quad \lambda>0,
+\]
+and
+\[
+\|D^2f(x)-D^2f(0)\|\le L\|x\|
+\]
+on the ball. Set
+\[
+r_0=\min\left(\rho,\frac{\lambda}{2L}\right),
+\]
+with $\lambda/(2L)=+\infty$ if $L=0$. If
+\[
+\frac{4\varepsilon}{\lambda}<r_0,
+\]
+then $f$ has a unique local maximizer in $B_{r_0}(0)$, and it obeys
+\[
+\|x_*\|\le \frac{2\varepsilon}{\lambda}.
+\]
+The local-minimum version is obtained by applying the same statement to $-f$.
+\end{lemma}
+
+\begin{proof}
+Apply strong convexity to $g=-f$. On $B_{r_0}(0)$,
+\[
+D^2g(x)\succeq (\lambda-L\|x\|)I\succeq \frac{\lambda}{2}I.
+\]
+For any $r$ with $4\varepsilon/\lambda<r<r_0$, Taylor's theorem gives
+\[
+g(x)\ge g(0)-\varepsilon r+\frac{\lambda}{4}r^2>g(0)
+\]
+on $\|x\|=r$, so the minimizer lies in the interior. Strong convexity gives uniqueness, and strong monotonicity gives
+\[
+\frac{\lambda}{2}\|x_*\|\le \|\nabla g(x_*)-\nabla g(0)\|=\|\nabla g(0)\|\le\varepsilon.
+\]
+\end{proof}
+
+\begin{proposition}[Conservative graph-chart certificate constant]
+\label{prop:certificate-constant}
+For the graph-chart projector with $\|X\|_\Frob\le\rho\le1$, set
+\[
+y(\rho)=\sqrt{1+\rho^2},
+\]
+\[
+C_1(\rho)=2y+2\rho y^2,
+\]
+\[
+C_2(\rho)=2+8\rho y+(8\rho^2+2)y^2,
+\]
+\[
+C_3(\rho)=(24\rho+48\rho^3)y^2+6(8\rho^2+2)y+12\rho.
+\]
+Let
+\[
+A_2=\sum_i w_i\|K_i\|_{\mathrm{op}}^2,
+\]
+\[
+G_1=\{3(1+\mu)\sqrt m+\mu\sqrt n\}A_2,\qquad
+G_2=6(1+\mu)A_2,\qquad
+G_3=6(1+\mu)A_2.
+\]
+Then the following is a sufficient Hessian-Lipschitz bound for the certificate layer:
+\[
+\geomboxed{
+L_{\mathrm{cert}}(\rho)
+=G_3C_1(\rho)^3+3G_2C_2(\rho)C_1(\rho)+G_1C_3(\rho).
+}
+\]
+\end{proposition}
+
+\begin{remark}[Conservatism]
+The constant is deliberately sufficient, not sharp. Its purpose is to make the certificate theorem rigorous under an explicit Frobenius norm contract. It can be vacuous when the stationarity residual is not small relative to the Hessian margin.
+\end{remark}
+
+\section{Recovered finite comparison sectors}
+
+\begin{proposition}[Rank-$k$ covariance/Fisher perturbation]
+Let $\Sigma_1=\Sigma_0+FF^{\mathsf T}$ with $F\in\R^{n\times k}$ and $H_0=\Sigma_0^{-1}$. For a coordinate visible split, let $\Phi_j$ be the visible precision induced by $\Sigma_j$. Then
+\[
+H_1=H_0-H_0F(I+F^{\mathsf T}H_0F)^{-1}F^{\mathsf T}H_0,
+\]
+and
+\[
+\Phi_1
+=
+\Phi_0-\Phi_0F_V(I+F_V^{\mathsf T}\Phi_0F_V)^{-1}F_V^{\mathsf T}\Phi_0.
+\]
+Therefore the hidden-gap increment can be written as a difference of two rank-$k$ positive semidefinite terms:
+\[
+\Delta \mathrm{gap}
+=
+\Phi_0F_V\Gamma F_V^{\mathsf T}\Phi_0
+-
+(H_0F)_V\mathcal B(H_0F)_V^{\mathsf T},
+\]
+where
+\[
+\Gamma=(I+F_V^{\mathsf T}\Phi_0F_V)^{-1},
+\qquad
+\mathcal B=(I+F^{\mathsf T}H_0F)^{-1}.
+\]
+In particular,
+\[
+\rank(\Delta\mathrm{gap})\le 2k.
+\]
+\end{proposition}
+
+\begin{proof}
+This is Woodbury applied once in the full space and once in the visible covariance block. The rank bound follows because a sum or difference of two matrices of rank at most $k$ has rank at most $2k$.
+\end{proof}
+
+\begin{proposition}[Declared-ladder dimension-cost intervals]
+Let $P_1,\ldots,P_N$ be a declared finite observer ladder with scores $s_j$ and dimensions $d_j$. For $c\ge0$ define
+\[
+\operatorname{score}_j(c)=s_j-cd_j.
+\]
+Candidate $a$ is a maximizer exactly on
+\[
+I_a=\bigcap_{b\ne a}\{c\ge0:s_a-cd_a\ge s_b-cd_b\}.
+\]
+Equivalently, every pairwise boundary with $d_a\ne d_b$ occurs at
+\[
+c_{ab}=\frac{s_a-s_b}{d_a-d_b},
+\]
+with the inequality direction determined by the sign of $d_a-d_b$.
+\end{proposition}
+
+\begin{proof}
+Each pairwise comparison is a scalar affine inequality in $c$. Intersecting all pairwise winning half-lines gives exactly the cost values where $a$ beats every declared competitor.
+\end{proof}
+
+\begin{proposition}[Affine-hidden branch reversal]
+\label{prop:affine-branch-reversal}
+In the affine-hidden sector
+\[
+p(v,h)\propto
+\exp\!\left[-A(v)-\frac12h^{\mathsf T}D(v)h-J(v)^{\mathsf T}h\right],
+\]
+the exact visible action is
+\[
+S_{\mathrm{vis}}(v)
+=
+A(v)+\frac12\log\det D(v)-\frac12J(v)^{\mathsf T}D(v)^{-1}J(v)+\mathrm{const}.
+\]
+For branch $j$, write
+\[
+\operatorname{Var}_j=A_j-\frac12J_j^{\mathsf T}D_j^{-1}J_j,\qquad
+\operatorname{Fib}_j=\frac12\log\det D_j,\qquad
+\operatorname{Vis}_j=\operatorname{Var}_j+\operatorname{Fib}_j.
+\]
+If branch $a$ wins variationally against branch $b$, so
+\[
+\gamma_{ab}=\operatorname{Var}_b-\operatorname{Var}_a>0,
+\]
+then branch $b$ wins in the exact visible action if and only if
+\[
+\operatorname{Fib}_a-\operatorname{Fib}_b>\gamma_{ab}.
+\]
+Equality is an exact visible-action tie.
+\end{proposition}
+
+\begin{proof}
+Complete the square in $h$ to integrate the Gaussian fibre. The two-branch criterion is the rearrangement of
+\[
+\operatorname{Var}_b+\operatorname{Fib}_b
+<
+\operatorname{Var}_a+\operatorname{Fib}_a.
+\]
+\end{proof}
+
+\begin{definition}[Guarded fibre-dominance diagnostic]
+A fibre-dominance report is only a diagnostic tuple
+\[
+\left(
+\|\operatorname{Fib}-\overline{\operatorname{Fib}}\|_N,\,
+\|\operatorname{Var}-\overline{\operatorname{Var}}\|_N,\,
+\rho_N
+\right),
+\]
+where the sample measure or norm $N$ is declared and
+\[
+\rho_N=
+\frac{\|\operatorname{Fib}-\overline{\operatorname{Fib}}\|_N}
+{\|\operatorname{Var}-\overline{\operatorname{Var}}\|_N}
+\]
+is reported only when the denominator exceeds a declared floor. A naked ratio without this contract is not an invariant theorem.
+\end{definition}
+
+\begin{proposition}[Finite candidate residual margin]
+For declared finite candidates $a,b$ with approximate score gap $\widehat s_a-\widehat s_b$ and score residual bounds $R_a,R_b$, the ordering $s_a>s_b$ is certified whenever
+\[
+\widehat s_a-\widehat s_b>R_a+R_b.
+\]
+The same theorem applies to ensemble means once the sampling or concentration error has been validly supplied as part of $R_j$.
+\end{proposition}
+
+\section{Validation record}
+
+The research probes attached to this note checked the formulas against numerical stress tests. The relevant files are:
+\begin{center}
+\small
+\begin{tabular}{p{0.42\textwidth}p{0.42\textwidth}}
+general graph-Hessian check & JSON output in \texttt{audit/outputs}\\
+graph-Hessian frame-invariance check & JSON output in \texttt{audit/outputs}\\
+declared frontier certificate check & JSON output in \texttt{audit/outputs}\\
+shelved feature recovery check & JSON output in \texttt{audit/outputs}
+\end{tabular}
+\end{center}
+The exact-branch reduction matched the module Hessian to $3.55\cdot10^{-15}$. The non-exact finite-difference graph-Hessian check had relative Frobenius error $3.35\cdot10^{-7}$. Arbitrary-frame gradient finite differences matched to $9.52\cdot10^{-9}$, and bilinear frame invariance held to $5.68\cdot10^{-13}$. In the symmetric-pair breakpoint, the computed Hessian values were $-16,0,8$ at $e=1,\sqrt3,2$, while the invalid exact-branch proxy stayed at $-24$.
+
+The declared local certificate accepted non-exact stationary maxima for $e=1$ and $e=1.7$, failed at the degenerate point $e=\sqrt3$, and accepted non-exact stationary minima for $e=1.75$ and $e=2$. The shelved-feature recovery probe checked the rank-$k$ perturbation formula for $k=1,2,3$ with residuals below $2.4\cdot10^{-16}$ and found no declared-ladder or affine-hidden branch-reversal mismatches in the tested finite examples.
+
+\section{Implementation boundary}
+
+The implementation implication is a phase plan, not a source change in this note.
+
+The safe theorem-backed candidates are:
+\begin{center}
+\small
+\begin{tabular}{p{0.48\textwidth}p{0.34\textwidth}}
+rank-$k$ covariance/Fisher perturbation classification & exact finite linear algebra\\
+declared-ladder dimension-cost intervals & exact finite comparison\\
+general graph-frontier Hessian & exact local quadratic geometry\\
+declared local frontier certificate & sufficient local certificate\\
+affine-hidden branch reversal & exact special full-law sector\\
+guarded fibre-dominance diagnostic & diagnostic tuple only\\
+finite residual/ensemble margin wrappers & supplied-bound theorem
+\end{tabular}
+\end{center}
+
+The blocked items remain blocked:
+\begin{center}
+\small
+\begin{tabular}{p{0.48\textwidth}p{0.34\textwidth}}
+generic non-Gaussian branch probabilities & needs higher-order/full-law data\\
+global noncommuting Grassmannian optimizer & needs optimizer policy and proof\\
+probability support/restart event engine from Hessians alone & needs law/support model
+\end{tabular}
+\end{center}
+
+\section{Final judgement}
+
+The 0.3.2 gain is not that Gaussian scope can be dropped. The gain is sharper: the project has a broader exact local quadratic frontier object than the exact-branch sector, plus several finite or affine-hidden special sectors that are now theorem-grade. The correct label is still layered:
+\[
+\begin{gathered}
+\text{exact Gaussian law mode}
+\quad|\quad
+\text{exact local quadratic mode}\\
+\quad|\quad
+\text{higher-order/full-law extension mode}.
+\end{gathered}
+\]
+The new graph-Hessian/certificate package belongs to the middle layer. The affine-hidden branch-reversal criterion belongs to a special exact full-law sector. Generic non-Gaussian branch selection remains an open extension target.
+
+\end{document}
