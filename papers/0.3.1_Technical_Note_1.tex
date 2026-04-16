@@ -1,0 +1,976 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage[a4paper,margin=33mm]{geometry}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\let\openbox\relax
+\usepackage{amsmath,amsthm,mathtools}
+\usepackage{needspace}
+\usepackage[explicit]{titlesec}
+\usepackage{titling}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage[
+  pdfusetitle,
+  hidelinks,
+  bookmarksopen=true,
+  bookmarksnumbered=true
+]{hyperref}
+
+\linespread{0.95}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.5pt}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\Cov}{Cov}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Ran}{Ran}
+\DeclareMathOperator{\Gr}{Gr}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\dist}{dist}
+\newcommand{\R}{\mathbf R}
+\newcommand{\E}{\mathbf E}
+\newcommand{\geomboxed}[1]{%
+  \setlength{\fboxsep}{8pt}%
+  \setlength{\fboxrule}{0.9pt}%
+  \fbox{\scalebox{1.12}{$\displaystyle #1$}}%
+}
+
+\titleformat{\section}
+{\normalfont\normalsize\bfseries\raggedright}
+{\thesection}{0.75em}{\begin{minipage}[t]{0.9\textwidth}#1\end{minipage}}
+[\vspace{0.12em}\titlerule]
+
+\newcommand{\subaccent}{\vspace{0.01em}\noindent\rule{7ex}{0.2pt}}
+\titleformat{\subsection}
+{\normalfont\normalsize\bfseries}{\thesubsection}{0.5em}{#1}
+[\subaccent]
+\titlespacing*{\subsection}{0pt}{2.1ex plus 0.5ex}{1.2ex}
+
+\newtheoremstyle{thmcompact}
+{0.5ex}{0.5ex}
+{\itshape}
+{0pt}
+{\bfseries}
+{.}
+{0.6em}
+{\thmname{#1}\ \thmnumber{#2}\ \thmnote{(\textit{#3})}}
+
+\theoremstyle{thmcompact}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{remarkplain}{Remark}
+
+\mdfdefinestyle{thmframe}{%
+leftline=true, rightline=false, topline=false, bottomline=false,
+linewidth=0.8pt, linecolor=black,
+innerleftmargin=16pt, innerrightmargin=8pt,
+innertopmargin=6pt, innerbottommargin=6pt,
+skipabove=6pt, skipbelow=6pt,
+nobreak=true
+}
+\surroundwithmdframed[style=thmframe]{theorem}
+\surroundwithmdframed[style=thmframe]{proposition}
+\surroundwithmdframed[style=thmframe]{corollary}
+\surroundwithmdframed[style=thmframe]{definition}
+\surroundwithmdframed[style=thmframe]{lemma}
+
+\newmdenv[
+linewidth=0.6pt,
+topline=false,
+bottomline=false,
+rightline=false,
+skipabove=\baselineskip,
+skipbelow=\baselineskip,
+backgroundcolor=gray!3,
+leftmargin=0pt,
+innerleftmargin=8pt,
+innerrightmargin=6pt,
+frametitleaboveskip=0.4em,
+frametitlebelowskip=0.2em,
+frametitlefont=\bfseries\small,
+]{remarkbox}
+\newenvironment{remark}[1][]%
+{\begin{remarkbox}\begin{remarkplain}[#1]\normalfont}
+{\end{remarkplain}\end{remarkbox}}
+
+\renewcommand{\qedsymbol}{}
+\newcommand{\thmneed}{\Needspace{6\baselineskip}}
+\AtBeginEnvironment{theorem}{\thmneed}
+\AtBeginEnvironment{proposition}{\thmneed}
+\AtBeginEnvironment{corollary}{\thmneed}
+\AtBeginEnvironment{definition}{\thmneed}
+\AtBeginEnvironment{lemma}{\thmneed}
+\newcommand{\proofappendix}{\par{\hfill\scriptsize\emph{Proof in Appendix~A.}}\par}
+
+\title{\textbf{0.3.1 - Technical Note \#1}\\
+\large{Typed extension frontier for observer geometry, entropic fibres, stratified events, and certified branch continuation}}
+\author{J.\,R.~Dunkley}
+\date{11 April 2026}
+
+\hypersetup{
+  pdftitle={0.3.1 - Technical Note 1},
+  pdfauthor={J. R. Dunkley},
+  pdfsubject={Typed extension frontier for observation geometry},
+  pdfkeywords={observation geometry, branch selection, hidden load, entropic quotient, closure frontier}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This note consolidates the current research push into one self-contained technical layer. The core conclusion is that the programme now has a typed tower rather than a single undifferentiated path from local quadratic geometry to arbitrary full-law branch truth. The intrinsic object is the quotient-visible precision $\Phi_C(H)=(CH^{-1}C^{\mathsf T})^{-1}$. Hidden load and determinant clock are exact only beneath a declared ceiling. Exact full-law branch comparison survives in special sectors, most importantly the fixed-precision affine-hidden sector and the variable-precision entropic fibre-volume sector. Beyond those sectors, higher-order law leakage must be carried by explicit residual and cumulant data. The note gives a unified weighted-family observer frontier for both finite and interval families, a strict separation between intrinsic and ceiling-mediated local ensembles, an exact variable-precision elimination theorem with staged composition, a typed residual-certification ladder, a bifiltered higher-order branch datum, a support-event charge law, an implementation-facing branch-selector Hessian contract, and a compact inventory of exact special sectors and bridge objects. The aim is to answer the current agent brief in theorem form while keeping the implementation boundary disciplined.
+\end{abstract}
+
+\section{Purpose and scope}
+
+The present note answers the current technical brief point by point. The brief asked for a theorem-grade response to eight linked topics: general-observer local-geometry ensembles, residual bounds rather than only residual margins, the variable-precision affine-hidden sector, fibre-cumulant branch selection, the noncommuting closure frontier, branch-selector Hessian API readiness, support events versus probability support, and a clean inventory of exact special sectors.
+
+The guiding doctrine is simple. The theory should state exactly which object composes at each layer, and should refuse to blur observer geometry, support events, and law-level branch structure into one undifferentiated story. The resulting picture has four layers.
+
+First comes the intrinsic quotient layer, carried by $\Phi_C(H)$. Second comes the ceiling-mediated hidden-load layer, carried by $(\Phi,T,\Lambda,\tau)$ on support-stable strata. Third come exact special full-law sectors, such as fixed-precision affine-hidden fibres, variable-precision entropic fibres, fixed-shape quadratic tilts, and the positive packet lift. Fourth comes the certified correction layer, carried by residual bounds, fibre cumulants, and support or tail data.
+
+\section{General-observer local ensembles}
+
+\subsection{Intrinsic and mediated objects}
+
+\begin{definition}[Intrinsic quotient ensemble]
+Fix a surjective observer $C\in \R^{m\times n}$ and a family of positive definite precision matrices $H_i\in\Sym_{++}(n)$. The \emph{intrinsic quotient ensemble} is
+\begin{equation}
+\Phi_i:=\Phi_C(H_i):=(CH_i^{-1}C^{\mathsf T})^{-1}.
+\end{equation}
+Its legitimate summaries are any functorial summaries of the visible precision family $\{\Phi_i\}$, such as spectral summaries, Fr\'echet means on $\Sym_{++}(m)$, visible response scores, or robust branch margins built from the $\Phi_i$.
+\end{definition}
+
+\begin{definition}[Ceiling-mediated ensemble]
+Fix in addition a family of ceilings $T_i\in\Sym_{++}(m)$ satisfying
+\begin{equation}
+0\prec \Phi_i\preceq T_i
+\end{equation}
+on the active support. The \emph{ceiling-mediated ensemble} is the family
+\begin{equation}
+(\Phi_i,T_i,\Lambda_i,\tau_i),
+\qquad
+\Lambda_i:=T_i^{1/2}\Phi_i^{-1}T_i^{1/2}-I,
+\qquad
+\tau_i:=\log\det(T_i)-\log\det(\Phi_i).
+\end{equation}
+Its legitimate summaries include mean clock, clock variance, tail probabilities for robust branch margins, and any hidden-load statistics declared relative to the chosen ceiling family.
+\end{definition}
+
+\begin{theorem}[No canonical nontrivial ceiling from $(H,C)$ alone]
+\label{thm:no-canonical-ceiling}
+There is no observer-intrinsic rule $T(H,C)$ depending only on the abstract pair $(H,C)$ that both
+\begin{enumerate}
+\item is invariant under latent basis changes preserving the observer, and
+\item reproduces the coordinate visible block $H_{vv}$ in every $C$-adapted coordinate chart.
+\end{enumerate}
+Consequently hidden load and determinant clock are not intrinsic to $(H,C)$ alone. They become exact only after additional ceiling data are supplied.
+\end{theorem}
+
+\proofappendix
+
+\begin{proposition}[Covariance of the intrinsic layer]
+\label{prop:phi-covariance}
+Under a latent basis change $S\in GL(n)$,
+\begin{equation}
+(H,C)\mapsto (S^{\mathsf T}HS,CS),
+\end{equation}
+one has
+\begin{equation}
+\Phi_{CS}(S^{\mathsf T}HS)=\Phi_C(H).
+\end{equation}
+Under a visible basis change $U\in GL(m)$,
+\begin{equation}
+C\mapsto UC,
+\end{equation}
+one has
+\begin{equation}
+\Phi_{UC}(H)=U^{-\mathsf T}\Phi_C(H)U^{-1}.
+\end{equation}
+If the ceiling is transformed by the same visible congruence law,
+\begin{equation}
+T\mapsto U^{-\mathsf T}TU^{-1},
+\end{equation}
+then the hidden-load eigenvalues and clock are preserved.
+\end{proposition}
+
+\proofappendix
+
+\begin{remark}
+The local ensemble API therefore has to split in two. An intrinsic mode may expose only $\Phi_C(H)$ and summaries built functorially from it. A mediated mode may expose hidden load and clock, but only after the ceiling family has been declared explicitly.
+\end{remark}
+
+\section{Weighted-family closure frontier}
+
+The discrete noncommuting closure problem and the interval-family design problem are two instances of one weighted-family geometry.
+
+\begin{definition}[Weighted-family leakage and visibility]
+Let $(\Omega,\nu)$ be a finite positive measure space and let
+\begin{equation}
+A:\Omega\to\Sym(S)
+\end{equation}
+be measurable on a finite-dimensional Euclidean space $S$. For a rank-$m$ orthogonal projector $P$ define
+\begin{equation}
+\mathcal L_\nu(P):=\int_\Omega \frac12\|[A(\omega),P]\|_F^2\,d\nu(\omega),
+\qquad
+\mathcal S_\nu(P):=\int_\Omega \|PA(\omega)P\|_F^2\,d\nu(\omega),
+\end{equation}
+and
+\begin{equation}
+M_\nu:=\int_\Omega A(\omega)^2\,d\nu(\omega).
+\end{equation}
+\end{definition}
+
+\begin{theorem}[Weighted-family energy split]
+\label{thm:weighted-energy-split}
+For every rank-$m$ orthogonal projector $P$,
+\begin{equation}
+\geomboxed{\Tr(PM_\nu)=\mathcal S_\nu(P)+\mathcal L_\nu(P).}
+\end{equation}
+In particular, the top $m$-eigenspace of $M_\nu$ exactly maximises total captured curvature, but not necessarily the leakage-visibility frontier.
+\end{theorem}
+
+\proofappendix
+
+\begin{theorem}[Weighted-family frontier stationarity]
+\label{thm:weighted-stationarity}
+Fix $\mu\ge 0$ and define
+\begin{equation}
+F_{\mu,\nu}(P):=\mathcal S_\nu(P)-\mu\mathcal L_\nu(P)
+=\Tr(PM_\nu)-(1+\mu)\mathcal L_\nu(P).
+\end{equation}
+A stationary point of $F_{\mu,\nu}$ on $\Gr(m,S)$ satisfies
+\begin{equation}
+\geomboxed{\Bigl[P,\,M_\nu-(1+\mu)\int_\Omega [A(\omega),[A(\omega),P]]\,d\nu(\omega)\Bigr]=0.}
+\label{eq:weighted-stationarity}
+\end{equation}
+This simultaneously contains the finite-family closure equation and the interval-family field equation.
+\end{theorem}
+
+\proofappendix
+
+\begin{theorem}[Exact-branch Hessian for weighted families]
+\label{thm:weighted-branch-hessian}
+Let $U\subset S$ be an exact branch for the weighted family, so that with respect to $S=U\oplus U^\perp$ one has
+\begin{equation}
+A(\omega)=
+\begin{pmatrix}
+A_U(\omega) & 0\\
+0 & A_\perp(\omega)
+\end{pmatrix}
+\qquad \text{for } \nu\text{-almost every }\omega.
+\end{equation}
+For a tangent map $X:U\to U^\perp$, define
+\begin{equation}
+M_{U,\nu}:=\int_\Omega A_U(\omega)^2\,d\nu(\omega),
+\qquad
+M_{\perp,\nu}:=\int_\Omega A_\perp(\omega)^2\,d\nu(\omega),
+\end{equation}
+and
+\begin{equation}
+G_{\nu,U}X:=M_{\perp,\nu}X-XM_{U,\nu}.
+\end{equation}
+Then
+\begin{equation}
+\geomboxed{\delta^2F_{\mu,\nu}[X]
+=2\langle X,G_{\nu,U}X\rangle
+-2(1+\mu)\int_\Omega \|A_\perp(\omega)X-XA_U(\omega)\|_F^2\,d\nu(\omega).}
+\label{eq:weighted-branch-hessian}
+\end{equation}
+\end{theorem}
+
+\proofappendix
+
+\begin{corollary}[Integrated spectral-gap rigidity]
+\label{cor:weighted-rigidity}
+Assume in addition that
+\begin{equation}
+\dist\bigl(\sigma(A_U(\omega)),\sigma(A_\perp(\omega))\bigr)\ge \gamma(\omega)
+\qquad \text{for } \nu\text{-almost every }\omega.
+\end{equation}
+Then
+\begin{equation}
+\int_\Omega \|A_\perp(\omega)X-XA_U(\omega)\|_F^2\,d\nu(\omega)
+\ge
+\Gamma_\nu^2\|X\|_F^2,
+\qquad
+\Gamma_\nu^2:=\int_\Omega \gamma(\omega)^2\,d\nu(\omega).
+\end{equation}
+Hence exact branches are locally rigid whenever $\Gamma_\nu>0$.
+\end{corollary}
+
+\proofappendix
+
+\begin{remark}
+This section answers the noncommuting closure brief. The correct public interface is a leakage-visibility frontier, or an equivalent constrained optimisation on that frontier. The $\sum_a D_a^2$ rule remains exact for total captured curvature and useful as a warm start, but not as the generic final observer in the noncommuting regime.
+\end{remark}
+
+\section{Variable-precision affine-hidden sector}
+
+The fixed-precision affine-hidden sector is already exact. The missing theorem package is the variable-precision extension and its branch consequences.
+
+\begin{theorem}[Variable-precision affine-hidden elimination]
+\label{thm:variable-precision-elimination}
+Let
+\begin{equation}
+p(v,h)\propto
+\exp\!\left(
+-A(v)-\frac12 h^{\mathsf T}D(v)h-J(v)^{\mathsf T}h
+\right),
+\qquad D(v)\succ 0.
+\end{equation}
+Then the exact visible negative log-density is
+\begin{equation}
+\geomboxed{S_{\mathrm{vis}}(v)
+=
+A(v)
++\frac12\log\det D(v)
+-\frac12J(v)^{\mathsf T}D(v)^{-1}J(v)
++\mathrm{const}.}
+\label{eq:variable-precision-visible}
+\end{equation}
+The additional term $\frac12\log\det D(v)$ is the entropic fibre-volume contribution.
+\end{theorem}
+
+\proofappendix
+
+\begin{corollary}[Visible derivative calculus]
+\label{cor:variable-precision-derivatives}
+Write $K(v):=D(v)^{-1}$. For visible directions $u,v$ one has
+\begin{equation}
+\partial_u\Bigl(\tfrac12\log\det D\Bigr)=\frac12\Tr(KD_u),
+\end{equation}
+\begin{equation}
+\partial_{uv}\Bigl(\tfrac12\log\det D\Bigr)=\frac12\Tr(KD_{uv}-KD_uKD_v),
+\end{equation}
+\begin{equation}
+\partial_u\Bigl(-\tfrac12J^{\mathsf T}KJ\Bigr)
+=-J_u^{\mathsf T}KJ+\frac12J^{\mathsf T}KD_uKJ,
+\end{equation}
+and
+\begin{align}
+\partial_{uv}\Bigl(-\tfrac12J^{\mathsf T}KJ\Bigr)
+&=-J_{uv}^{\mathsf T}KJ-J_u^{\mathsf T}KJ_v+J_u^{\mathsf T}KD_vKJ+J_v^{\mathsf T}KD_uKJ \notag\\
+&\quad +\frac12J^{\mathsf T}KD_{uv}KJ-\frac12J^{\mathsf T}KD_uKD_vKJ-\frac12J^{\mathsf T}KD_vKD_uKJ.
+\end{align}
+Thus the entropic sector has its own visible Hessian geometry.
+\end{corollary}
+
+\proofappendix
+
+\begin{corollary}[Branch-change criterion]
+\label{cor:entropic-branch-change}
+For two branches $a,b$ in the variable-precision affine-hidden sector,
+\begin{equation}
+\Delta S_{\mathrm{vis}}
+=
+\Delta S_{\mathrm{var}}
++\frac12\log\frac{\det D_a}{\det D_b},
+\end{equation}
+where
+\begin{equation}
+S_{\mathrm{var}}(v):=A(v)-\frac12J(v)^{\mathsf T}D(v)^{-1}J(v).
+\end{equation}
+Therefore the variational branch verdict can fail whenever the fibre-volume term dominates the variational margin.
+\end{corollary}
+
+\proofappendix
+
+\begin{proposition}[Staged elimination tower law]
+\label{prop:variable-precision-tower}
+Split the hidden variable as $h=(u,w)$ and write
+\begin{equation}
+D=
+\begin{pmatrix}
+D_{uu} & D_{uw}\\
+D_{wu} & D_{ww}
+\end{pmatrix},
+\qquad
+J=(J_u,J_w).
+\end{equation}
+Eliminating $w$ first gives another variable-precision affine-hidden sector in $u$ with
+\begin{equation}
+\widetilde D=D_{uu}-D_{uw}D_{ww}^{-1}D_{wu},
+\qquad
+\widetilde J=J_u-D_{uw}D_{ww}^{-1}J_w,
+\end{equation}
+and shifted visible action
+\begin{equation}
+\widetilde A
+=
+A+\frac12\log\det D_{ww}-\frac12J_w^{\mathsf T}D_{ww}^{-1}J_w.
+\end{equation}
+A second elimination of $u$ produces exactly the same visible action as one-shot elimination of all hidden coordinates.
+\end{proposition}
+
+\proofappendix
+
+\begin{remark}
+This section answers the variable-precision affine-hidden brief. The variable-precision sector is not a weak version of the fixed-precision theorem. It is the exact anchor of the entropic extension frontier, and it matches the first fibre-volume correction appearing in the small-noise Laplace bridge.
+\end{remark}
+
+\section{Residual certification ladder}
+
+Residual control must distinguish score ordering, local strictness, and branch-location drift.
+
+\begin{definition}[Typed residual problem]
+Let
+\begin{equation}
+J_{\mathrm{true}}=J_{\mathrm{model}}+R.
+\end{equation}
+A \emph{score residual problem} seeks a bound on $|R|$. A \emph{Hessian residual problem} seeks a bound on $\|\nabla^2R\|_{\mathrm{op}}$. A \emph{drift residual problem} seeks a bound on $\|\nabla R\|$ at a model critical point together with a local Hessian control.
+\end{definition}
+
+\begin{theorem}[Score and Hessian margin certification]
+\label{thm:margin-certification}
+Let $B$ be a visible region and let
+\begin{equation}
+\Delta_{\mathrm{model}}(x):=J_{\mathrm{model}}^{(a)}(x)-J_{\mathrm{model}}^{(b)}(x).
+\end{equation}
+If
+\begin{equation}
+g_B:=\inf_{x\in B}\Delta_{\mathrm{model}}(x)>0
+\qquad \text{and} \qquad
+\sup_{x\in B}|R_a(x)-R_b(x)|<g_B,
+\end{equation}
+then the full-law ordering agrees with the model ordering on $B$.
+
+If $x_0$ is a model critical point with strict Hessian gap
+\begin{equation}
+\lambda_*:=\lambda_{\min}(\pm \nabla^2J_{\mathrm{model}}(x_0))>0,
+\end{equation}
+and if on a neighbourhood $B$ of $x_0$ one has
+\begin{equation}
+\sup_{x\in B}\|\nabla^2R(x)\|_{\mathrm{op}}<\lambda_*,
+\end{equation}
+then the sign of the Hessian persists, so strict local maximality or minimality survives.
+\end{theorem}
+
+\proofappendix
+
+\begin{theorem}[Branch-location displacement bound]
+\label{thm:drift-bound}
+Assume
+\begin{equation}
+\nabla J_{\mathrm{model}}(x_0)=0,
+\qquad
+H_0:=\nabla^2J_{\mathrm{model}}(x_0),
+\qquad
+\|H_0^{-1}\|_{\mathrm{op}}\le \lambda^{-1}.
+\end{equation}
+Assume on a ball $B_r(x_0)$ that
+\begin{equation}
+\sup_{x\in B_r(x_0)}\|\nabla^2J_{\mathrm{true}}(x)-H_0\|_{\mathrm{op}}\le \frac{\lambda}{2},
+\qquad
+\|\nabla R(x_0)\|\le \eta.
+\end{equation}
+If
+\begin{equation}
+r\ge \frac{2\eta}{\lambda},
+\end{equation}
+then $J_{\mathrm{true}}$ has a unique critical point $x_*$ in $B_r(x_0)$ and
+\begin{equation}
+\geomboxed{\|x_*-x_0\|\le \frac{2\eta}{\lambda}.}
+\end{equation}
+\end{theorem}
+
+\proofappendix
+
+\begin{proposition}[Local Taylor residual wrappers]
+\label{prop:taylor-wrappers}
+Assume on a ball $\|x\|\le \rho$ that
+\begin{equation}
+R(0)=0,
+\qquad
+\nabla R(0)=0,
+\qquad
+\nabla^2R(0)=0.
+\end{equation}
+If
+\begin{equation}
+\sup_{\|x\|\le \rho}\|\nabla^3R(x)\|_{\mathrm{op}}\le M_3,
+\end{equation}
+then
+\begin{equation}
+|R(x)|\le \frac{M_3}{6}\rho^3,
+\qquad
+\|\nabla^2R(x)\|_{\mathrm{op}}\le M_3\rho.
+\end{equation}
+If the cubic term also vanishes and
+\begin{equation}
+\sup_{\|x\|\le \rho}\|\nabla^4R(x)\|_{\mathrm{op}}\le M_4,
+\end{equation}
+then
+\begin{equation}
+|R(x)|\le \frac{M_4}{24}\rho^4,
+\qquad
+\|\nabla^2R(x)\|_{\mathrm{op}}\le \frac{M_4}{2}\rho^2.
+\end{equation}
+\end{proposition}
+
+\proofappendix
+
+\begin{remark}
+These wrappers turn concrete higher-order inputs into certified residual bounds. Examples include cubic hidden-visible coupling, quartic visible jets, and linearisations of the entropic fibre-volume term. What they do \emph{not} certify are remote mixture weights, remote wells, support truncations, or atoms. Those require extra law data.
+\end{remark}
+
+\section{Higher-order branch datum and event signatures}
+
+\begin{definition}[Law-leakage order and derivative order]
+\label{def:law-leakage-order}
+Let
+\begin{equation}
+p_\varepsilon(v,h)\propto p_0(v,h)e^{-\varepsilon\phi(v,h)}
+\end{equation}
+and define the exact visible log-ratio by
+\begin{equation}
+\log\frac{p_\varepsilon^V(v)}{p_0^V(v)}
+=\sum_{r\ge 1}\frac{(-\varepsilon)^r}{r!}A_r(v),
+\end{equation}
+where $A_r(v)$ is the centred conditional fibre-cumulant field of order $r$. The least index $m_{\mathrm{law}}$ for which $A_r$ is nonconstant is the \emph{law-leakage order}.
+
+Fix a visible basepoint $v_0$. The least derivative order $\ell$ such that
+\begin{equation}
+D^jA_{m_{\mathrm{law}}}(v_0)=0 \text{ for } j<\ell,
+\qquad
+D^\ell A_{m_{\mathrm{law}}}(v_0)\neq 0
+\end{equation}
+is the \emph{first visible derivative order of detection}.
+\end{definition}
+
+\begin{definition}[Support-event order]
+\label{def:support-order}
+Let a visible block near an event be written as
+\begin{equation}
+V(\varepsilon)=V_0+\sum_{n\ge 1}\varepsilon^nV_n,
+\end{equation}
+with kernel Schur-complement jet
+\begin{equation}
+F(\varepsilon)=\sum_{n\ge 1}\varepsilon^nE_n.
+\end{equation}
+The least index $m_{\mathrm{sup}}$ for which $E_n\neq 0$ is the \emph{support-event order}.
+\end{definition}
+
+\begin{theorem}[Bifiltered law leakage]
+\label{thm:bifiltered-law-leakage}
+With the notation above,
+\begin{equation}
+D^j\log\frac{p_\varepsilon^V}{p_0^V}(v_0)=O(\varepsilon^{m_{\mathrm{law}}+1})
+\qquad (j<\ell),
+\end{equation}
+while
+\begin{equation}
+\geomboxed{D^\ell\log\frac{p_\varepsilon^V}{p_0^V}(v_0)
+=\frac{(-\varepsilon)^{m_{\mathrm{law}}}}{m_{\mathrm{law}}!}D^\ell A_{m_{\mathrm{law}}}(v_0)+O(\varepsilon^{m_{\mathrm{law}}+1}).}
+\end{equation}
+Thus higher-order branch leakage is naturally typed by the pair $(m_{\mathrm{law}},\ell)$.
+\end{theorem}
+
+\proofappendix
+
+\begin{definition}[Typed local event signature]
+\label{def:event-signature}
+The \emph{typed local event signature} is
+\begin{equation}
+\Sigma_{\mathrm{event}}:=(m_{\mathrm{sup}},m_{\mathrm{law}},\ell).
+\end{equation}
+It records, respectively, support opening or closing order, first cumulant order at which the visible law departs from the current model layer, and the first visible tensor order that detects that departure.
+\end{definition}
+
+\begin{remark}
+This answers the fibre-cumulant branch brief. The quadratic branch datum $(\Pi,\lambda,S,\Lambda)$ is not wrong, but it is incomplete. The next theorem-grade extension is a filtered datum
+\begin{equation}
+(\Pi,\lambda,S,\Lambda; m_{\mathrm{law}},\ell,A_{m_{\mathrm{law}}},B_{m_{\mathrm{law}}+1},\mathfrak s),
+\end{equation}
+where $B_{m_{\mathrm{law}}+1}$ is a certified next-order bound and $\mathfrak s$ denotes any nonlocal support or tail state required by the task.
+\end{remark}
+
+\section{Support events, probability support, and hybrid continuation}
+
+\begin{theorem}[Semisimple support pole law and event charge]
+\label{thm:event-charge}
+Let $U$ be an active semisimple support block of dimension $r$ at a support event of order $m_{\mathrm{sup}}$. In a one-sided active parameterisation $s>0$ one has, after whitening,
+\begin{equation}
+\widetilde A_U(s)
+=-\frac{\sigma m_{\mathrm{sup}}}{2s}I_U+B_U(s),
+\end{equation}
+where $B_U(s)$ remains bounded and $\sigma\in\{-1,+1\}$ records birth-like versus death-like orientation. On a death-like block,
+\begin{equation}
+\dot\tau_U=\frac{m_{\mathrm{sup}}r}{2s}+O(1),
+\qquad
+\tau_U=-\frac{m_{\mathrm{sup}}r}{2}\log s+O(1).
+\end{equation}
+The coefficient
+\begin{equation}
+q_{\mathrm{sup}}:=\frac{m_{\mathrm{sup}}r}{2}
+\end{equation}
+is the exact support-event charge of the active block.
+\end{theorem}
+
+\proofappendix
+
+\begin{proposition}[Support-layer separation]
+\label{prop:support-layer-separation}
+Matrix-rank support events and probability-support events are distinct layers.
+
+Matrix-rank support events are statements about the active support of visible precision, ceiling, or hidden-load coordinates. These are controlled by kernel Schur-complement jets and support-stratified transport.
+
+Probability-support events are statements about atoms, truncation boundaries, hard cutoffs, remote wells, or mixture masses. No finite Hessian jet or kernel Schur-complement jet can determine such events in general.
+\end{proposition}
+
+\proofappendix
+
+\begin{corollary}[Hybrid continuation doctrine]
+\label{cor:hybrid-continuation}
+The correct global object is a hybrid system. On each support-stable stratum the hidden-load transport is smooth and exact. At genuine support birth or death the only finite positive continuations are the exact restart laws: zero extension at birth and survivor compression at death. Therefore no globally bounded observer-covariant generator can agree with the exact stratumwise law through genuine support events.
+\end{corollary}
+
+\proofappendix
+
+\section{Branch-selector Hessian contract}
+
+\begin{definition}[Exact-branch Hessian API contract]
+\label{def:branch-hessian-contract}
+An exact branch-selector Hessian routine takes as input
+\begin{equation}
+\bigl(\{D_a\}_{a\in A},\,\Pi,\,\mu\bigr),
+\end{equation}
+where $\{D_a\}$ is a finite or weighted family of symmetric whitened perturbations, $\Pi$ is a rank-$m$ projector representing an exact branch, and $\mu\ge 0$ is the frontier penalty.
+
+With $U=\Ran(\Pi)$ and $W=U^\perp$, decompose each $D_a$ or $A(\omega)$ into branch blocks. The routine returns the tangent operator on $\mathrm{Hom}(U,W)$,
+\begin{equation}
+H_{\mu,U}:=(1+\mu)C_U^*C_U-G_U,
+\end{equation}
+where $C_UX$ is the family of intertwiners $A_\perp X-XA_U$, and $G_U$ is the visible-moment gap operator. It also returns the minimum eigenvalue, null modes, and a status flag.
+\end{definition}
+
+\begin{proposition}[Status semantics]
+\label{prop:branch-hessian-status}
+For an exact branch, the returned Hessian contract has the following semantics.
+
+If $H_{\mu,U}\succ 0$, the branch is a strict local maximiser of the penalised frontier.
+
+If $H_{\mu,U}$ is positive semidefinite with nontrivial kernel, the branch is degenerate and continuation risk is present.
+
+If $H_{\mu,U}$ has mixed sign, the branch is a saddle.
+
+If $H_{\mu,U}\prec 0$, the branch is a local minimiser.
+
+These are observer-side statements only. Support-gap failure is a separate event and must not be encoded as an observer Hessian status.
+\end{proposition}
+
+\proofappendix
+
+\section{Exact special-sector inventory}
+
+Table~\ref{tab:inventory} records the current exact and asymptotic sectors that survive source check and the present research push.
+
+\begin{center}
+\small
+\begin{longtable}{>{\raggedright\arraybackslash}p{0.20\textwidth} >{\raggedright\arraybackslash}p{0.20\textwidth} >{\raggedright\arraybackslash}p{0.25\textwidth} >{\raggedright\arraybackslash}p{0.11\textwidth} >{\raggedright\arraybackslash}p{0.14\textwidth}}
+\caption{Current typed sector inventory.}\label{tab:inventory}\\
+\toprule
+Sector & Inputs & Exact output & Composes & Status \\
+\midrule
+\endfirsthead
+\toprule
+Sector & Inputs & Exact output & Composes & Status \\
+\midrule
+\endhead
+Intrinsic quotient layer & $(H,C)$ with $H\in\Sym_{++}(n)$, $C$ surjective & $\Phi_C(H)=(CH^{-1}C^{\mathsf T})^{-1}$ & Yes & Exact \\
+Ceiling-mediated hidden-load layer & $(H,C,T)$ with $0\prec \Phi\preceq T$ & $(\Phi,T,\Lambda,\tau)$ with $\Lambda=T^{1/2}\Phi^{-1}T^{1/2}-I$ & Stratumwise & Exact \\
+Weighted-family observer frontier & symmetric family $A(\omega)$ and projector rank $m$ & $\mathcal L_\nu$, $\mathcal S_\nu$, stationarity law, branch Hessian & Yes & Exact \\
+Fixed-precision affine-hidden fibres & $A(v)$, $J(v)$, constant $D\succ 0$ & $A(v)-\frac12J(v)^{\mathsf T}D^{-1}J(v)$ up to constants & Yes & Exact \\
+Variable-precision affine-hidden fibres & $A(v)$, $J(v)$, $D(v)\succ 0$ & $A(v)+\frac12\log\det D(v)-\frac12J(v)^{\mathsf T}D(v)^{-1}J(v)$ & Yes & Exact \\
+Fixed-shape quadratic tilts & fixed shape $\psi(x)$ with quadratic tilt parameters & full visible law in the fixed-shape family & Yes & Exact \\
+Laplace entropic quotient & smooth fibre with nondegenerate hidden minimiser, small noise $\varepsilon$ & $S_{\mathrm{var}}+\frac{\varepsilon}{2}\log\det S_{hh}+O(\varepsilon^2)$ & Asymptotically & Asymptotic \\
+Fibre-cumulant branch diagnostics & perturbation $\phi(v,h)$ and conditional cumulants & leading law-leakage field $A_m$ and filtered order $(m,\ell)$ & No & Research layer \\
+Support-event jet calculus & visible kernel jet and gap block & event order $m_{\mathrm{sup}}$, semisimple pole, event charge & Stratumwise & Exact \\
+Packet lift & $H_\varepsilon(\Psi)=\varepsilon I+\Psi\Psi^*$ with $\Psi=\binom{V}{W}$ & $\Phi_C=\varepsilon I_m+V(I+\varepsilon^{-1}W^*W)^{-1}V^*$ & Yes & Exact \\
+Probability-support layer & atoms, truncations, remote wells, tail masses & global law support statements & Depends on law state & Extra data required \\
+\bottomrule
+\end{longtable}
+\end{center}
+
+\section{Positive packet lift and rank-one obstruction}
+
+\begin{proposition}[Positive packet lift]
+\label{prop:packet-lift}
+Let
+\begin{equation}
+H_\varepsilon(\Psi)=\varepsilon I+\Psi\Psi^*,
+\qquad
+\Psi=
+\begin{pmatrix}
+V\\
+W
+\end{pmatrix},
+\qquad \varepsilon>0.
+\end{equation}
+For the coordinate observer $C=[I\ 0]$ one has the exact visible precision
+\begin{equation}
+\geomboxed{\Phi_C(H_\varepsilon(\Psi))
+=
+\varepsilon I_m+V\bigl(I+\varepsilon^{-1}W^*W\bigr)^{-1}V^*.}
+\end{equation}
+Consequently,
+\begin{equation}
+\Ran\bigl(\Phi_C(H_\varepsilon(\Psi))-\varepsilon I_m\bigr)=\Ran(V),
+\end{equation}
+and larger hidden packet energy produces monotone screening.
+\end{proposition}
+
+\proofappendix
+
+\begin{corollary}[Single-amplitude obstruction]
+\label{cor:rank-one-packet-obstruction}
+If the packet rank is one, then
+\begin{equation}
+\rank\bigl(\Phi_C(H_\varepsilon(\psi))-\varepsilon I_m\bigr)\le 1.
+\end{equation}
+Thus a single raw amplitude vector cannot produce generic multichannel visible support above the isotropic floor.
+\end{corollary}
+
+\proofappendix
+
+\begin{remark}
+This is the first safe bridge beyond the current finite real symmetric stack. The natural next bridge is Hermitian-positive packet and mode-space geometry, not raw single-amplitude ontology.
+\end{remark}
+
+\section{Implementation doctrine}
+
+The current implementation boundary can now be stated sharply.
+
+The following additions are theorem-local and ready in principle: an intrinsic local-quadratic ensemble mode returning only $\Phi_C(H)$ and functorial summaries; a ceiling-mediated ensemble mode requiring explicit $T$ input; a variable-precision affine-hidden reducer exposing the exact entropic fibre-volume term; a weighted-family frontier layer for noncommuting approximate observer design; and an exact-branch Hessian diagnostic built from Definition~\ref{def:branch-hessian-contract}.
+
+The following additions belong to the research layer rather than the public exact engine: arbitrary non-Gaussian branch selectors, probability-support event claims from jets alone, and any promotion of fibre-cumulant diagnostics to a generic full-law engine.
+
+The main public doctrine should therefore remain: exact on supplied quadratic, Hessian, Fisher, and support-stratified data; exact in separately proved broader law sectors; otherwise a certified approximation layer with typed residuals and typed event signatures.
+
+\section{Conclusion}
+
+The present note locks the outcome of the current research push.
+
+The intrinsic compositional object is $\Phi_C(H)$. Hidden load and clock are exact only beneath a declared ceiling. The noncommuting observer problem is a weighted-family Grassmannian frontier, not a pure leakage minimisation problem. The variable-precision affine-hidden sector is an exact entropic fibre-volume sector and the correct anchor for the next law-level extension frontier. Support events form a hybrid rank-changing system with exact semisimple pole law and support-event charge. Higher-order law leakage is naturally typed by $(m_{\mathrm{law}},\ell)$, and the full local event signature is $(m_{\mathrm{sup}},m_{\mathrm{law}},\ell)$. Residual certification must separate score ordering, local strictness, and branch drift, while probability support and remote mass require extra law data.
+
+This is the technical picture that should now be carried forward into the writeup and into the module boundary.
+
+\appendix
+\section*{Appendix A. Proofs}
+\addcontentsline{toc}{section}{Appendix A. Proofs}
+
+\subsection*{Proof of Theorem~\ref{thm:no-canonical-ceiling}}
+Take
+\begin{equation}
+H=
+\begin{pmatrix}
+2 & 1\\
+1 & 2
+\end{pmatrix},
+\qquad
+C=(1\ \ 0).
+\end{equation}
+For a hidden shear preserving the observer,
+\begin{equation}
+S_b=
+\begin{pmatrix}
+1 & 0\\
+b & 1
+\end{pmatrix},
+\qquad CS_b=C,
+\end{equation}
+one has
+\begin{equation}
+H_b=S_b^{\mathsf T}HS_b=
+\begin{pmatrix}
+2+2b+2b^2 & 1+2b\\
+1+2b & 2
+\end{pmatrix}.
+\end{equation}
+The coordinate visible block changes with $b$:
+\begin{equation}
+(H_b)_{vv}=2+2b+2b^2.
+\end{equation}
+But the intrinsic quotient-visible precision is unchanged because the observer is unchanged and
+\begin{equation}
+\Phi_C(H_b)=\Phi_C(H)=(CH^{-1}C^{\mathsf T})^{-1}=\frac32.
+\end{equation}
+Hence no rule intrinsic to $(H,C)$ can recover the coordinate visible block in every adapted chart.
+
+\subsection*{Proof of Proposition~\ref{prop:phi-covariance}}
+For latent basis changes,
+\begin{equation}
+\Phi_{CS}(S^{\mathsf T}HS)
+=
+\bigl(CS(S^{\mathsf T}HS)^{-1}S^{\mathsf T}C^{\mathsf T}\bigr)^{-1}
+=
+(CH^{-1}C^{\mathsf T})^{-1}
+=
+\Phi_C(H).
+\end{equation}
+For visible basis changes,
+\begin{equation}
+\Phi_{UC}(H)=\bigl(UC H^{-1}C^{\mathsf T}U^{\mathsf T}\bigr)^{-1}=U^{-\mathsf T}\Phi_C(H)U^{-1}.
+\end{equation}
+The ceiling-mediated statements follow by the same congruence law.
+
+\subsection*{Proof of Theorem~\ref{thm:weighted-energy-split}}
+Pointwise in $\omega$, the finite-family commutator identity gives
+\begin{equation}
+\Tr(PA(\omega)^2)=\|PA(\omega)P\|_F^2+\frac12\|[A(\omega),P]\|_F^2.
+\end{equation}
+Integrating against $\nu$ yields the result.
+
+\subsection*{Proof of Theorem~\ref{thm:weighted-stationarity}}
+Use the representation
+\begin{equation}
+F_{\mu,\nu}(P)=\Tr(PM_\nu)-(1+\mu)\int_\Omega \frac12\|[A(\omega),P]\|_F^2\,d\nu(\omega).
+\end{equation}
+A tangent variation on the Grassmannian has the form $\delta P=[K,P]$ with $K^{\mathsf T}=-K$. Differentiating under the integral and using cyclicity of trace gives
+\begin{equation}
+\delta F_{\mu,\nu}(P)
+=\Tr\!\left(K\Bigl[P,\,M_\nu-(1+\mu)\int_\Omega [A(\omega),[A(\omega),P]]\,d\nu(\omega)\Bigr]\right).
+\end{equation}
+Since $K$ is arbitrary skew-symmetric, stationarity is equivalent to \eqref{eq:weighted-stationarity}.
+
+\subsection*{Proof of Theorem~\ref{thm:weighted-branch-hessian}}
+At an exact branch the off-blocks vanish, so the first variation is zero. Parameterise nearby projectors by graphs of tangent maps $X:U\to U^\perp$ and expand to second order exactly as in the finite-family branch-Hessian calculation. The visible-moment part contributes $2\langle X,G_{\nu,U}X\rangle$. The leakage part contributes the negative intertwiner norm term. Integrating the pointwise finite-family formula gives \eqref{eq:weighted-branch-hessian}.
+
+\subsection*{Proof of Corollary~\ref{cor:weighted-rigidity}}
+For each $\omega$, the Sylvester operator
+\begin{equation}
+\mathcal T_\omega(X)=A_\perp(\omega)X-XA_U(\omega)
+\end{equation}
+has spectrum consisting of pairwise eigenvalue differences, so
+\begin{equation}
+\|\mathcal T_\omega(X)\|_F\ge \gamma(\omega)\|X\|_F.
+\end{equation}
+Square and integrate.
+
+\subsection*{Proof of Theorem~\ref{thm:variable-precision-elimination}}
+Complete the square in $h$:
+\begin{equation}
+\frac12 h^{\mathsf T}Dh+J^{\mathsf T}h
+=
+\frac12(h+D^{-1}J)^{\mathsf T}D(h+D^{-1}J)-\frac12J^{\mathsf T}D^{-1}J.
+\end{equation}
+The Gaussian integral over $h$ contributes the standard normalising factor proportional to $(\det D)^{-1/2}$. Taking minus the logarithm yields \eqref{eq:variable-precision-visible} up to an additive constant independent of $v$.
+
+\subsection*{Proof of Corollary~\ref{cor:variable-precision-derivatives}}
+Use $\partial_uK=-KD_uK$ and the identities
+\begin{equation}
+\partial_u\log\det D=\Tr(D^{-1}D_u),
+\qquad
+\partial_u(J^{\mathsf T}KJ)=2J_u^{\mathsf T}KJ+J^{\mathsf T}(\partial_uK)J.
+\end{equation}
+A second differentiation gives the displayed formulas.
+
+\subsection*{Proof of Corollary~\ref{cor:entropic-branch-change}}
+Subtract the exact visible actions of the two branches and collect the variational and log-determinant parts separately.
+
+\subsection*{Proof of Proposition~\ref{prop:variable-precision-tower}}
+Integrate out $w$ first by the previous theorem applied to the $w$-block. This produces the Schur complement hidden precision $\widetilde D$, the shifted coupling $\widetilde J$, and the shifted visible action $\widetilde A$. A second elimination of $u$ gives the one-step result because the determinant factor obeys
+\begin{equation}
+\det D=\det D_{ww}\,\det \widetilde D,
+\end{equation}
+and the completed-square correction composes by the same Schur associativity.
+
+\subsection*{Proof of Theorem~\ref{thm:margin-certification}}
+For ordering, write
+\begin{equation}
+J_{\mathrm{true}}^{(a)}-J_{\mathrm{true}}^{(b)}=\Delta_{\mathrm{model}}+(R_a-R_b)
+\end{equation}
+and use the uniform bound. For the Hessian statement, apply Weyl's eigenvalue perturbation bound.
+
+\subsection*{Proof of Theorem~\ref{thm:drift-bound}}
+Set
+\begin{equation}
+F(x):=\nabla J_{\mathrm{true}}(x).
+\end{equation}
+Then
+\begin{equation}
+F(x_0)=\nabla R(x_0),
+\qquad
+DF(x)=\nabla^2J_{\mathrm{true}}(x).
+\end{equation}
+The Hessian assumption gives
+\begin{equation}
+\|DF(x)-H_0\|_{\mathrm{op}}\le \frac{\lambda}{2}
+\end{equation}
+on the ball, so $DF(x)$ stays invertible there and its inverse norm is bounded by $2/\lambda$. The quantitative inverse function theorem or Newton-Kantorovich estimate then yields a unique zero $x_*$ in the ball provided $r\ge 2\eta/\lambda$, together with
+\begin{equation}
+\|x_*-x_0\|\le \frac{2\eta}{\lambda}.
+\end{equation}
+
+\subsection*{Proof of Proposition~\ref{prop:taylor-wrappers}}
+Apply Taylor's theorem with integral remainder to $R$ and to $\nabla^2R$.
+
+\subsection*{Proof of Theorem~\ref{thm:bifiltered-law-leakage}}
+Differentiate the conditional cumulant expansion term by term. Since $A_{m_{\mathrm{law}}}$ is the first nonconstant coefficient and all lower visible derivatives vanish through order $\ell-1$ at $v_0$, the first nonzero visible derivative contribution appears exactly at order $(m_{\mathrm{law}},\ell)$.
+
+\subsection*{Proof of Theorem~\ref{thm:event-charge}}
+The finite-order kernel-event classifier gives a leading active block of the form
+\begin{equation}
+V_U=s^{m_{\mathrm{sup}}}M+O(s^{m_{\mathrm{sup}}+1})
+\end{equation}
+on the active semisimple block. Differentiation gives
+\begin{equation}
+W_U=\sigma m_{\mathrm{sup}}s^{m_{\mathrm{sup}}-1}M+O(s^{m_{\mathrm{sup}}}).
+\end{equation}
+Substitute into the exact coupled generator formula on the active block and whiten by $M^{1/2}$ to obtain
+\begin{equation}
+\widetilde A_U(s)=-\frac{\sigma m_{\mathrm{sup}}}{2s}I_U+B_U(s).
+\end{equation}
+For death-like orientation the clock derivative is the trace of the positive singular part, giving
+\begin{equation}
+\dot\tau_U=\frac{m_{\mathrm{sup}}r}{2s}+O(1).
+\end{equation}
+Integrate in $s$.
+
+\subsection*{Proof of Proposition~\ref{prop:support-layer-separation}}
+The matrix-rank statements follow from the support-stratified hidden-load theory and the kernel Schur-complement jet classifier. For the probability-support statements, one may hold fixed every finite local jet at a point while adding a remote bump, atom, or truncation boundary away from that point. The local quadratic or kernel-jet data remain unchanged while the global law support changes by $O(1)$. Hence no finite local jet can determine probability support in general.
+
+\subsection*{Proof of Corollary~\ref{cor:hybrid-continuation}}
+The support-stable statement is exactly the stratumwise transport theorem. At genuine support birth and death, the finite positive continuation laws are zero extension and survivor compression. The bounded-generator obstruction rules out a globally bounded observer-covariant generator agreeing with the exact stratumwise law through such events. Therefore the correct global object is hybrid.
+
+\subsection*{Proof of Proposition~\ref{prop:branch-hessian-status}}
+The exact-branch Hessian formula identifies the second variation of the penalised frontier with the quadratic form of the returned tangent operator. The classification follows from the sign of that quadratic form. Support events are excluded because the branch-Hessian operator is defined on a fixed support stratum and a fixed observer rank.
+
+\subsection*{Proof of Proposition~\ref{prop:packet-lift}}
+Write the packet matrix in visible-hidden block form and apply block inversion or the Woodbury identity to
+\begin{equation}
+H_\varepsilon(\Psi)=
+\begin{pmatrix}
+\varepsilon I_m+VV^* & VW^*\\
+WV^* & \varepsilon I+WW^*
+\end{pmatrix}.
+\end{equation}
+The Schur complement of the hidden block gives the visible covariance, whose inverse is
+\begin{equation}
+\varepsilon I_m+V(I+\varepsilon^{-1}W^*W)^{-1}V^*.
+\end{equation}
+The range statement follows because the middle factor is positive definite on packet space.
+
+\subsection*{Proof of Corollary~\ref{cor:rank-one-packet-obstruction}}
+If the packet rank is one, then the correction term above the isotropic floor is of the form
+\begin{equation}
+V\alpha V^*
+\end{equation}
+for a scalar $\alpha\ge 0$, hence has rank at most one.
+
+\end{document}

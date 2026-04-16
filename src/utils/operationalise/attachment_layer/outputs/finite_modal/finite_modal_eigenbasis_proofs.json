@@ -1,0 +1,251 @@
+{
+  "schema_version": "finite_modal_eigenbasis_proofs.v0",
+  "purpose": "Proof packet for finite modal positive curvature across the string and acoustic wave cards.",
+  "proofs": [
+    {
+      "id": "string_fixed_end_three_mode",
+      "route": "finite_modal_eigenbasis",
+      "status": "admissible_finite_modal_family",
+      "source_hook_refusal": "The raw standing-wave formula is infinite and boundary-dependent; it is not a finite module object.",
+      "boundary_conditions": "fixed displacement at x = 0 and x = L",
+      "basis": "orthonormal sine modes phi_n(x) = sqrt(2/L) sin(n pi x / L)",
+      "truncation": {
+        "mode_count": 3,
+        "included_modes": [
+          1,
+          2,
+          3
+        ],
+        "boundary": "Modes above n = 3 are explicitly outside this finite proof object."
+      },
+      "controls": {
+        "length_m": 1.0,
+        "tension_N": 100.0,
+        "linear_density_kg_per_m": 0.01
+      },
+      "module_objects": {
+        "mass_metric": [
+          [
+            0.01,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.01,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.01
+          ]
+        ],
+        "stiffness_hessian": [
+          [
+            986.9604401089358,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            3947.8417604357433,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            8882.643960980422
+          ]
+        ],
+        "mass_metric_spd": {
+          "eigenvalues": [
+            0.01,
+            0.01,
+            0.01
+          ],
+          "condition_number": 1.0
+        },
+        "stiffness_spd": {
+          "eigenvalues": [
+            986.9604401089358,
+            3947.8417604357433,
+            8882.643960980422
+          ],
+          "condition_number": 9.0
+        }
+      },
+      "modal_readout": {
+        "angular_frequencies_rad_per_s": [
+          314.1592653589793,
+          628.3185307179587,
+          942.4777960769379
+        ],
+        "frequencies_hz": [
+          50.0,
+          100.0,
+          150.0
+        ],
+        "frequency_rule": "f_n = n/(2L) sqrt(T/mu)"
+      },
+      "sensor_surface": {
+        "ideal": "modal amplitudes q_1, q_2, q_3",
+        "practical": "point displacement, pickup, or microphone channel requires an additional observer map"
+      },
+      "allowed_route": "finite_modal_positive_curvature",
+      "refused_routes": [
+        "raw infinite wave formula",
+        "hidden_load without a ceiling"
+      ],
+      "boundary": "This proof admits only the declared three-mode truncation. A physical sensor still needs an observer map before visible precision or hidden-load claims."
+    },
+    {
+      "id": "string_point_sensor_two_mode_projection",
+      "route": "finite_modal_eigenbasis",
+      "status": "observer_map_recorded_not_hidden_load",
+      "basis": "first two fixed-end sine modes",
+      "sensor_surface": "point displacement y = phi_1(x0) q_1 + phi_2(x0) q_2 at x0 = L/4",
+      "observer_map": [
+        1.0000000000000002,
+        1.4142135623730951
+      ],
+      "rank": 1,
+      "lesson": "A point sensor exposes a projection of modal coordinates. It is an observer map, but it is not enough for hidden-load without a declared ceiling/reference.",
+      "allowed_route": "observer_map_record_only",
+      "refused_routes": [
+        "hidden_load without a ceiling"
+      ]
+    },
+    {
+      "id": "acoustic_tube_three_mode_pressure_observer",
+      "route": "finite_modal_eigenbasis",
+      "status": "admissible_finite_modal_pressure_observer",
+      "source_hook_refusal": "Raw acoustic impedance, intensity, attenuation, and ultrasound reflection formulas are not admitted as module objects without a finite acoustic field model and sensor convention.",
+      "boundary_conditions": "rigid closed ends with zero longitudinal displacement at x = 0 and x = L",
+      "basis": "orthonormal longitudinal displacement sine modes phi_n(x) = sqrt(2/L) sin(n pi x / L)",
+      "truncation": {
+        "mode_count": 3,
+        "included_modes": [
+          1,
+          2,
+          3
+        ],
+        "boundary": "Modes above n = 3, damping, radiation losses, and drive response are explicitly outside this finite proof object."
+      },
+      "controls": {
+        "length_m": 1.0,
+        "area_m2": 0.01,
+        "density_kg_per_m3": 1.2,
+        "sound_speed_m_per_s": 343.0,
+        "sensor_x_m": 0.3333333333333333
+      },
+      "module_objects": {
+        "mass_metric": [
+          [
+            0.012,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            0.012,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            0.012
+          ]
+        ],
+        "stiffness_hessian": [
+          [
+            13933.789058205142,
+            0.0,
+            0.0
+          ],
+          [
+            0.0,
+            55735.15623282057,
+            0.0
+          ],
+          [
+            0.0,
+            0.0,
+            125404.10152384629
+          ]
+        ],
+        "pressure_observer": [
+          -313620.4408748362,
+          627240.881749672,
+          1881722.6452490168
+        ],
+        "visible_pressure_precision": [
+          [
+            2.3610721534205805e-08
+          ]
+        ],
+        "mass_metric_spd": {
+          "eigenvalues": [
+            0.012,
+            0.012,
+            0.012
+          ],
+          "condition_number": 1.0
+        },
+        "stiffness_spd": {
+          "eigenvalues": [
+            13933.789058205142,
+            55735.15623282057,
+            125404.10152384629
+          ],
+          "condition_number": 9.0
+        }
+      },
+      "modal_readout": {
+        "angular_frequencies_rad_per_s": [
+          1077.566280181299,
+          2155.132560362598,
+          3232.698840543897
+        ],
+        "frequencies_hz": [
+          171.49999999999997,
+          342.99999999999994,
+          514.5
+        ],
+        "frequency_rule": "f_n = n c / (2L) for the declared rigid-ended tube displacement modes"
+      },
+      "sensor_surface": {
+        "ideal": "point pressure p(x0) = -rho c^2 d xi / dx at x0 = L/3",
+        "practical": "calibrated small microphone approximated as a point pressure sensor"
+      },
+      "allowed_route": "finite_modal_pressure_observer",
+      "refused_routes": [
+        "raw acoustic impedance",
+        "ultrasound reflection",
+        "hidden_load without a ceiling"
+      ],
+      "boundary": "This proof admits only the declared three-mode closed-tube pressure observer. It does not admit impedance, reflection, attenuation, damping, or full field reconstruction."
+    }
+  ],
+  "negative_controls": [
+    {
+      "id": "raw_standing_wave_no_truncation_refusal",
+      "route": "finite_modal_eigenbasis",
+      "status": "refused",
+      "reason": "A standing-wave formula without boundary conditions, basis, and finite truncation is not a finite matrix object.",
+      "refused_route": "finite_modal_positive_curvature"
+    },
+    {
+      "id": "string_zero_tension_stiffness_refusal",
+      "route": "finite_modal_eigenbasis",
+      "status": "refused",
+      "reason": "Zero tension gives zero stiffness eigenvalues, so the declared stiffness Hessian is not positive.",
+      "stiffness_eigenvalues": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "refused_route": "finite_modal_positive_curvature"
+    }
+  ]
+}

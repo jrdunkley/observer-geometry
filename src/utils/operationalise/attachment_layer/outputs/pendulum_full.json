@@ -1,0 +1,16 @@
+{
+  "card_id": "pendulum_full",
+  "system": "full simple pendulum potential over finite angle range",
+  "attachment_type": "not_yet_attachable",
+  "executed_calls": [],
+  "refused_calls": [
+    {
+      "call": "*",
+      "reason": "card is not_yet_attachable; no theorem-local kernel calls are licensed"
+    }
+  ],
+  "readout": {},
+  "coordinate_note": "No local coordinate chart or quadratic operating point is declared for module execution.",
+  "positive_scope": "This card records the boundary: a famous physical formula is not automatically an observer-geometry object.",
+  "boundary": "It cannot call theorem-local quadratic kernel surfaces until a local operating point, sampled family, or other declared object is supplied."
+}

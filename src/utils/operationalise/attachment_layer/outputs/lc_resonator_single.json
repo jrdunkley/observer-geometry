@@ -1,0 +1,24 @@
+{
+  "card_id": "lc_resonator_single",
+  "system": "single ideal LC resonator in declared energy coordinates",
+  "attachment_type": "exact_quadratic",
+  "executed_calls": [
+    "visible_precision"
+  ],
+  "refused_calls": [],
+  "readout": {
+    "visible_precision": [
+      [
+        10000.0,
+        0.0
+      ],
+      [
+        0.0,
+        9.999999999999998
+      ]
+    ]
+  },
+  "coordinate_note": "Charge and flux have different units; the Hessian is meaningful in the declared energy coordinates, not as a homogeneous stiffness table.",
+  "positive_scope": "This card shows a circuit resonator as the same exact quadratic contact type as a mechanical oscillator.",
+  "boundary": "It does not describe resistance, nonlinear components, drive, radiation, or measurement loading."
+}

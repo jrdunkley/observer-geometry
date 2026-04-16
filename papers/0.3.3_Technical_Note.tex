@@ -1,0 +1,890 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage[a4paper,margin=33mm]{geometry}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\let\openbox\relax
+\usepackage{amsmath,amsthm,mathtools}
+\let\Bbbk\relax
+\usepackage{amssymb}
+\usepackage{needspace}
+\usepackage[explicit]{titlesec}
+\usepackage{titling}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage[
+  pdfusetitle,
+  hidelinks,
+  bookmarksopen=true,
+  bookmarksnumbered=true
+]{hyperref}
+
+\linespread{0.95}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.5pt}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\spanop}{span}
+\DeclareMathOperator{\Vol}{Vol}
+\DeclareMathOperator{\diag}{diag}
+\newcommand{\R}{\mathbf R}
+\newcommand{\E}{\mathbf E}
+\newcommand{\Prob}{\mathbf P}
+\newcommand{\geomboxed}[1]{%
+  \setlength{\fboxsep}{8pt}%
+  \setlength{\fboxrule}{0.9pt}%
+  \fbox{\scalebox{1.12}{$\displaystyle #1$}}%
+}
+
+\titleformat{\section}
+{\normalfont\normalsize\bfseries\raggedright}
+{\thesection}{0.75em}{\begin{minipage}[t]{0.9\textwidth}#1\end{minipage}}
+[\vspace{0.12em}\titlerule]
+
+\newcommand{\subaccent}{\vspace{0.01em}\noindent\rule{7ex}{0.2pt}}
+\titleformat{\subsection}
+{\normalfont\normalsize\bfseries}{\thesubsection}{0.5em}{#1}
+[\subaccent]
+\titlespacing*{\subsection}{0pt}{2.1ex plus 0.5ex}{1.2ex}
+
+\newtheoremstyle{thmcompact}
+{0.5ex}{0.5ex}
+{\itshape}
+{0pt}
+{\bfseries}
+{.}
+{0.6em}
+{\thmname{#1}\ \thmnumber{#2}\ \thmnote{(\textit{#3})}}
+
+\theoremstyle{thmcompact}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{remarkplain}{Remark}
+
+\mdfdefinestyle{thmframe}{%
+leftline=true, rightline=false, topline=false, bottomline=false,
+linewidth=0.8pt, linecolor=black,
+innerleftmargin=16pt, innerrightmargin=8pt,
+innertopmargin=6pt, innerbottommargin=6pt,
+skipabove=6pt, skipbelow=6pt,
+nobreak=true
+}
+\surroundwithmdframed[style=thmframe]{theorem}
+\surroundwithmdframed[style=thmframe]{proposition}
+\surroundwithmdframed[style=thmframe]{corollary}
+\surroundwithmdframed[style=thmframe]{definition}
+\surroundwithmdframed[style=thmframe]{lemma}
+
+\newmdenv[
+linewidth=0.6pt,
+topline=false,
+bottomline=false,
+rightline=false,
+skipabove=\baselineskip,
+skipbelow=\baselineskip,
+backgroundcolor=gray!3,
+leftmargin=0pt,
+innerleftmargin=8pt,
+innerrightmargin=6pt,
+frametitleaboveskip=0.4em,
+frametitlebelowskip=0.2em,
+frametitlefont=\bfseries\small,
+]{remarkbox}
+\newenvironment{remark}[1][]%
+{\begin{remarkbox}\begin{remarkplain}[#1]\normalfont}
+{\end{remarkplain}\end{remarkbox}}
+
+\renewcommand{\qedsymbol}{}
+\newcommand{\thmneed}{\Needspace{6\baselineskip}}
+\AtBeginEnvironment{theorem}{\thmneed}
+\AtBeginEnvironment{proposition}{\thmneed}
+\AtBeginEnvironment{corollary}{\thmneed}
+\AtBeginEnvironment{definition}{\thmneed}
+\AtBeginEnvironment{lemma}{\thmneed}
+\newcommand{\proofappendix}{\par{\hfill\scriptsize\emph{Proof in Appendix~A.}}\par}
+
+\title{\textbf{0.3.3 - Technical Note \#4}\\
+\large{From a narrow OLS comparator to a typed local evidence geometry: state-space hidden chains, exact slice reduction, kernel reduction, and certified singular channels}}
+\author{J.\,R.~Dunkley}
+\date{14 April 2026}
+
+\hypersetup{
+  pdftitle={0.3.3 - Technical Note 4},
+  pdfauthor={J. R. Dunkley},
+  pdfsubject={Typed local evidence geometry beyond the narrow OLS comparator},
+  pdfkeywords={affine hidden sector, state-space evidence, local evidence geometry, cone correction, quotient slice, slice reduction, kernel reduction, singular channel, BIC, Laplace, observer geometry}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+This note records the research push that began from the question ``how could we make the current AIC/BIC strike less narrow?'' The immediate implementation, \texttt{nomocomp}, is still a narrow exact same-dimension Gaussian OLS comparator, and that narrow wedge should remain stated exactly as such. The theory is broader, but the broadening does not come from rhetoric around determinant penalties. It comes from organising the problem as a typed local evidence geometry. The exact hidden object remains the affine-hidden visible action, with fixed-precision and variable-precision Gaussian hidden sectors already handled exactly, and with linear-Gaussian state-space hidden chains now made explicit as repeated affine-hidden elimination on a banded Gaussian path. After hidden elimination, the decisive question is the local visible regime. This note now sharpens that layer in six ways. First, it upgrades the quotient discussion from an informal removable-symmetry statement to an exact local slice-reduction theorem with an explicit Jacobian convention. Second, it isolates the reduced quadratic datum that decides the regular interior, cone, quotient, and quotient-cone sectors, and proves that a nontrivial reduced kernel is the precise obstruction to any purely quadratic rule. Third, it isolates a prior spectral pre-check: negative reduced directions are not singular evidence points at all, but indefinite stationary points that must be refused before kernel analysis. Fourth, it gives the exact reduction from a singular local problem to a lower-dimensional kernel integral after integrating the positive normal directions. Fifth, it enlarges the certified singular library: beyond positive weighted-homogeneous kernel germs, it identifies a second exact singular channel, namely a branch-restiffening kernel sector in which an analytic moving fibre minimum is straightened, the first restoring stiffness along that branch becomes an intrinsic invariant, and a critical quadratic branch channel yields an explicit logarithmic correction. Sixth, it identifies the next flagship benchmark surface: linear-Gaussian state-space families, where hidden elimination is exact, sensor or process death creates support-event/cone limits, and latent-basis redundancies create quotient directions after hidden elimination. The strategic conclusion is therefore sharper than before: a serious standalone comparator is not ``a better BIC''. It is a typed local evidence stack, exact in the affine-hidden sector, exact in the regular visible sectors, exact again in two certified singular kernel sectors, and refusal-capable both at indefinite stationary points and at unresolved kernel jets where the next invariant has not yet been extracted.
+\end{abstract}
+
+\section{Purpose and scope}
+
+The current software strike on \texttt{statsmodels} proved something real but narrow. In same-dimension Gaussian OLS comparison, count-penalty criteria are structurally blind to information-profile differences, whereas the determinant term recovered from the local information matrix is exact for the Gaussian-fibre marginal likelihood in the non-informative-prior regime. That result is solid. It is also easy to misread.
+
+The narrowness lives first in the implementation surface, not in the hidden-Gaussian theory. The papers and notes already cover exact fixed-precision and variable-precision affine-hidden elimination. The broader obstruction comes later: after hidden elimination, one still needs the correct visible local evidence law. In the regular interior sector that law is ordinary Laplace. At boundaries, in quotient directions, or at higher-order singular points, it is not.
+
+This note therefore does six jobs. First, it states cleanly what the OLS strike did and did not prove. Second, it records the exact widening ladder already supported by the affine-hidden theory. Third, it makes explicit that linear-Gaussian state-space models already sit inside that exact hidden layer. Fourth, it identifies the next local geometric layers needed for a genuinely broad comparator, including the spectral separation between regular, singular, and indefinite stationary points. Fifth, it records two certified singular continuations beyond the quadratic regime. Sixth, it states the remaining frontier honestly: once cone, quotient, and certified singular channels are removed, the genuinely unresolved residue is the reduced-kernel jet problem.
+
+\section{What the narrowness actually was}
+
+The current same-$k$ Gaussian OLS comparator is narrow in three separate senses.
+
+It is narrow in \emph{software contact}: it extracts local information from fitted OLS models and compares equal-dimension rivals. It is narrow in \emph{asymptotic framing}: the strongest exact statement is local Gaussian-fibre evidence, not universal truth recovery. And it is narrow in \emph{visible local geometry}: it assumes a regular interior optimum, so the post-elimination evidence is an ordinary determinant volume.
+
+None of those narrownesses says the hidden Gaussian layer is intrinsically OLS-specific.
+
+\begin{proposition}[exact affine-hidden visible law]\label{prop:affine-hidden-visible-law}
+Let $v\in\R^p$ be visible variables and $h\in\R^q$ hidden variables. Suppose
+\[
+p(v,h) \propto \exp\!\Bigl(-A(v)-\tfrac12 h^{\mathsf T}D(v)h-J(v)^{\mathsf T}h\Bigr),
+\]
+where $D(v)$ is symmetric positive definite for each $v$. Then integrating out $h$ gives the exact visible action
+\[
+\geomboxed{
+S_{\mathrm{vis}}(v)
+=
+A(v)
++
+\tfrac12 \log\det D(v)
+-
+\tfrac12 J(v)^{\mathsf T}D(v)^{-1}J(v)
++
+\mathrm{const}.}
+\]
+In particular, the fibre-volume term $\tfrac12\log\det D(v)$ is exact throughout the variable-precision affine-hidden sector, not merely in fixed-precision OLS.\proofappendix
+\end{proposition}
+
+The current OLS implementation sits inside the fixed-precision subcase $D(v)\equiv D$, where the exact visible law simplifies and the local information matrix is design-determined. The theorem above is much wider. It already contains the theoretical opening for weighted Gaussian linear models, Gaussian random-effect elimination, Gaussian-process evidence, and linear-Gaussian state-space towers. The present limitation is extraction and regime handling, not hidden-fibre theory.
+
+\begin{remark}[the strategic correction]
+The correct question is not ``can we make the hidden Gaussian sector less narrow?'' That sector is already broad. The correct question is: after exact hidden elimination, what local evidence geometry does the visible optimum live in, and can the software type that regime correctly?
+\end{remark}
+
+\section{Regular interior evidence and the BIC relation}
+
+The cleanest setting remains a regular interior optimum with a nondegenerate visible Hessian. In that regime the determinant term is the right local object, and the relation to BIC becomes transparent.
+
+\begin{proposition}[determinant penalty versus count penalty]\label{prop:det-vs-count}
+Let $I_n(\hat\theta)$ be the observed information matrix of a regular $k$-parameter model at a local optimum, and write
+\[
+I_n(\hat\theta)=nJ_n(\hat\theta)
+\]
+with $J_n(\hat\theta)$ positive definite. Then
+\[
+\geomboxed{
+\tfrac12\log\det I_n(\hat\theta)
+=
+\tfrac{k}{2}\log n
++
+\tfrac12\log\det J_n(\hat\theta).}
+\]
+Hence the BIC-type count penalty keeps only the universal growth term $\tfrac{k}{2}\log n$ and discards the model-dependent determinant remainder $\tfrac12\log\det J_n(\hat\theta)$. For equal-dimension rivals, the count penalty is blind to this remainder.\proofappendix
+\end{proposition}
+
+This identity explains both the power and the limit of the current strike. The power is that same-$k$ models can differ materially in their information profiles even when AIC and BIC assign the same nominal dimension penalty. The limit is that the resulting determinant comparator is not thereby a universally superior model selector. It is an exact local fibre-volume correction in a specific regular sector.
+
+\begin{remark}[why the strike worked]
+The OLS benchmark succeeded because it targeted a genuine blind spot: same-dimension Gaussian rivals with different information geometry. In that sector count-based criteria collapse to log-likelihood ordering, while the determinant remainder still carries exact local volume information.
+\end{remark}
+
+\section{How the theory widens beyond OLS}
+
+The first widening step is not philosophical. It is a concrete regime ladder. Table~\ref{tab:ladder} records the useful separation.
+
+{\small
+\begin{longtable}{@{}p{0.19\textwidth}p{0.27\textwidth}p{0.21\textwidth}p{0.17\textwidth}@{}}
+\caption{Exact widening ladder after the current OLS strike.}\label{tab:ladder}\\
+\toprule
+Sector & Local object & Immediate contact surface & Status \\
+\midrule
+\endfirsthead
+\toprule
+Sector & Local object & Immediate contact surface & Status \\
+\midrule
+\endhead
+Fixed-precision Gaussian linear models & observed information / determinant remainder & OLS, WLS, GLS, ridge with fixed Gaussian prior & exact \\
+Variable-precision affine-hidden Gaussian sectors & exact visible action $A + \frac12\log\det D - \frac12 J^{\mathsf T}D^{-1}J$ & Gaussian random effects, REML-type reductions, Gaussian-process evidence, hidden-state elimination before visible optimisation & exact hidden layer \\
+Linear-Gaussian sequential hidden towers & repeated affine-hidden elimination with determinant accumulation & Kalman smoothing, state-space evidence, banded Gaussian latent models & exact hidden layer \\
+Regular boundary points after elimination & tangent-cone Gaussian mass times determinant volume & constrained covariance and variance-component edges, rank-losing state-space limits & asymptotically controlled \\
+Regular quotient directions after elimination & transverse determinant volume times orbit factor & symmetry-related parameterisations, gauge redundancy, identifiable quotient models, latent-basis redundancy in factor state-space models & asymptotically controlled under slice hypothesis \\
+Certified singular kernel sectors after reduction & reduced kernel action plus certified principal singular datum & positive weighted-homogeneous germs, branch-restiffening channels & exact after kernel reduction \\
+Unresolved higher-order kernel sectors & reduced kernel jet / chart data beyond certified channels & non-identifiable singular models, multi-chart stratum crossings, unresolved Newton faces & open frontier / refuse \\
+\bottomrule
+\end{longtable}
+}
+
+The table makes the main point. The theory already widens substantially on the hidden side. The real missing layer is a disciplined local visible-evidence classifier that decides whether a determinant is enough, whether a cone correction is needed, whether quotient directions must be removed, or whether the point is outside quadratic control altogether.
+
+\section{Linear-Gaussian state-space towers are already inside the exact hidden layer}
+
+The state-space case deserves to be stated explicitly because it is the natural next flagship surface and because it is easy to misdescribe as a separate theory problem. It is not. For fixed observations, a linear-Gaussian state-space model is just one large affine-hidden Gaussian chain on the full hidden path.
+
+\begin{theorem}[linear-Gaussian state-space towers as exact hidden chains]\label{thm:state-space-chain}
+Consider a linear-Gaussian state-space model
+\[
+x_0\sim N(m_0,P_0),
+\qquad
+x_{t+1}=F_t x_t+b_t+\eta_t,
+\qquad
+y_t=H_t x_t+c_t+\varepsilon_t,
+\]
+for $t=0,\dots,T-1$, where the noises are independent, centred Gaussian with covariances $Q_t\succ0$ and $R_t\succ0$, and $P_0\succ0$. For fixed observations $y_{1:T}$, define the hidden-path action
+\[
+\mathcal A(x_{0:T};y)
+=
+\tfrac12\|x_0-m_0\|_{P_0^{-1}}^2
++
+\tfrac12\sum_{t=0}^{T-1}\|x_{t+1}-F_t x_t-b_t\|_{Q_t^{-1}}^2
++
+\tfrac12\sum_{t=1}^{T}\|y_t-H_t x_t-c_t\|_{R_t^{-1}}^2,
+\]
+with $\|z\|_M^2:=z^{\mathsf T}Mz$. Then $\mathcal A$ is a quadratic affine-hidden action on the full hidden path $x_{0:T}$ with block-tridiagonal precision. Consequently the exact marginal evidence $p(y_{1:T})$, the filtering recursion, the Rauch--Tung--Striebel smoother, and any banded elimination order are all Schur-complement implementations of the same hidden Gaussian elimination problem.
+\proofappendix
+\end{theorem}
+
+\begin{corollary}[innovation evidence is determinant accumulation]\label{cor:innovation-acc}
+In the setting of Theorem~\ref{thm:state-space-chain}, sequential elimination of $x_0,\dots,x_T$ yields innovations $\nu_t$ and innovation covariances $S_t$ such that
+\[
+\geomboxed{
+\log p(y_{1:T})
+=
+-\tfrac12\sum_{t=1}^{T}
+\Bigl(
+\nu_t^{\mathsf T}S_t^{-1}\nu_t
++
+\log\det S_t
++
+ m_t\log(2\pi)
+\Bigr),}
+\]
+where $m_t=\dim y_t$. Thus the usual Kalman innovation likelihood is not a separate approximation principle. It is exactly the determinant bookkeeping of affine-hidden elimination performed sequentially along the chain.
+\proofappendix
+\end{corollary}
+
+\begin{remark}[what is and is not new here]
+The hidden-path theorem does \emph{not} mean the whole state-space problem is solved. It means the hidden part is solved. What remains nontrivial, and what the present comparator stack still has to type correctly, is the local regime of the \emph{parameter-space} evidence after the hidden path has been eliminated: regular interior, cone, quotient, certified singular, indefinite stationary point, or unresolved kernel jet.
+\end{remark}
+
+\section{Regular boundary points: the cone correction}
+
+Once the visible optimum sits on a smooth boundary stratum, one does not integrate over the full tangent space. One integrates only over the admissible tangent cone. In the regular quadratic case this correction is exact and simple.
+
+\begin{definition}[regular cone point]
+Let $E$ be a finite-dimensional Euclidean space, $K\subseteq E$ a closed convex cone, and $H$ a positive-definite symmetric form on $\spanop(K)$. A visible optimum is called a \emph{regular cone point} when, in local coordinates centred at the optimum, the admissible set is $K+o(\|x\|)$ and the visible action has expansion
+\[
+S_{\mathrm{vis}}(x)=S_{\mathrm{vis}}(0)+\tfrac12 x^{\mathsf T}Hx+o(\|x\|^2)
+\]
+on $\spanop(K)$.
+\end{definition}
+
+\begin{theorem}[exact tangent-cone Gaussian-mass formula]
+Let $K\subseteq E$ be a closed convex cone whose span has dimension $m$, and let $H$ be positive definite on $\spanop(K)$. If $Z\sim N(0,H^{-1})$ on $\spanop(K)$, then
+\[
+\geomboxed{
+\int_K e^{-\frac12 x^{\mathsf T}Hx}\,dx
+=
+(2\pi)^{m/2}\det(H)^{-1/2}\,\Prob(Z\in K).}
+\]
+Therefore the local evidence at a regular cone point is the usual determinant volume multiplied by the Gaussian mass of the tangent cone in the inverse-Hessian geometry.\proofappendix
+\end{theorem}
+
+This is stronger than the earlier orthant intuition. The orthant case is just the special case $K=\R_+^m$. The formula already gives the correct local object for more complicated convex tangent cones. In particular, the matrix-valued boundary problem is no longer conceptually mysterious. Its local correction is the Gaussian mass of the relevant PSD tangent cone. The hard part there is computation, not the form of the law.
+
+\begin{corollary}[boundary does not by itself change the quadratic exponent]
+At a regular cone point, the asymptotic exponent remains $m/2$; the boundary changes the constant through $\Prob(Z\in K)$ but does not force a new non-quadratic learning exponent.\proofappendix
+\end{corollary}
+
+\section{Quotient directions: exact slice reduction}
+
+A second widening barrier appears when the visible optimum is not isolated because of symmetry. The Hessian then has zero modes along the orbit, but those modes are not genuine evidence directions. They should be removed by passing to a local slice. The main refinement from the present push is that this can be stated cleanly as an evidence theorem with an explicit Jacobian convention, rather than as a geometric slogan.
+
+\begin{definition}[regular quotient point]
+Let a compact Lie group $G$ act smoothly on a manifold $M$ and preserve $S_{\mathrm{vis}}$. A point $\hat v\in M$ is a \emph{regular quotient point} if its orbit $G\cdot \hat v$ has constant local dimension $r$ and there exists a smooth local slice $\Sigma$ through $\hat v$ transverse to the orbit such that the Hessian of $S_{\mathrm{vis}}|_{\Sigma}$ at $\hat v$ is positive definite.
+\end{definition}
+
+\begin{theorem}[exact local slice reduction for evidence with Jacobian convention]\label{thm:slice-reduction}
+Let $G$ be compact and suppose $\hat v$ is a regular quotient point. Assume the local evidence is computed against a smooth positive density,
+\[
+Z_n(W)=\int_W e^{-nS_{\mathrm{vis}}(v)}\,a(v)\,dv,
+\]
+where $W$ is a sufficiently small $G$-invariant neighbourhood of $\hat v$ and $a(\hat v)>0$. Fix a slice chart
+\[
+\chi:(G/G_{\hat v})\times U_\perp \longrightarrow W,
+\qquad \chi([e],0)=\hat v,
+\]
+with Jacobian factor $J_{\mathrm{sl}}([g],x)>0$ relative to the product measure $d[g]\,dx$, and adopt the convention that $d[g]$ is the chosen Haar quotient measure and $J_{\mathrm{sl}}$ carries all chart dependence.
+
+Write $m:=\dim U_\perp$ and let $H_\perp$ be the Hessian of $S_{\mathrm{vis}}\circ \chi([e],\cdot)$ at $0$. Then
+\[
+\geomboxed{
+Z_n(W)
+=
+ e^{-nS_{\mathrm{vis}}(\hat v)}
+ n^{-m/2}
+\Bigl[
+(2\pi)^{m/2}\det(H_\perp)^{-1/2}\,\mathcal O_{\hat v}
++o(1)
+\Bigr],}
+\]
+where the orbit factor is
+\[
+\mathcal O_{\hat v}
+:=
+\int_{G/G_{\hat v}} a\bigl(\chi([g],0)\bigr)
+J_{\mathrm{sl}}([g],0)\,d[g].
+\]
+In particular, the removable symmetry directions contribute only through the orbit factor $\mathcal O_{\hat v}$; the learning exponent is determined entirely by the transverse slice dimension $m$.
+\proofappendix
+\end{theorem}
+
+This is the clean local answer to symmetry degeneracy. One does not try to interpret the full singular Hessian directly. One passes to a quotient chart, integrates the orbit factor with a stated Jacobian convention, and keeps the transverse determinant law.
+
+\begin{remark}[what remains missing]
+The local theorem is now clean, but a standalone implementation still needs a concrete slice-extraction contract and a practical test that separates removable quotient zero modes from genuine higher-order degeneracy before any singular analysis is attempted.
+\end{remark}
+
+\section{The unified local formula}
+
+The boundary and quotient corrections combine cleanly. After exact hidden elimination, the local evidence problem can be expressed entirely in terms of the admissible visible geometry.
+
+\begin{corollary}[typed local evidence template]\label{cor:typed-local-template}
+Suppose exact hidden Gaussian elimination has already produced a visible action $S_{\mathrm{vis}}$. Assume the visible optimum $\hat v$ is regular after quotienting by a compact symmetry orbit in the sense of Theorem~\ref{thm:slice-reduction}, and that the admissible visible directions in the transverse slice form a closed convex cone $K_{\perp}$ with positive-definite transverse Hessian $H_{\perp,K}$ on its span of dimension $m$. If $Z\sim N(0,H_{\perp,K}^{-1})$ on that span, then the local contribution has the template
+\[
+\geomboxed{
+Z_{\mathrm{loc}}
+\approx
+e^{-S_{\mathrm{vis}}(\hat v)}
+\cdot \mathcal O_{\hat v}
+\cdot (2\pi)^{m/2}
+\det(H_{\perp,K})^{-1/2}
+\cdot \Prob(Z\in K_{\perp}).}
+\]
+When there is no symmetry the orbit factor is absent. When there is no boundary cone the probability factor is $1$.\proofappendix
+\end{corollary}
+
+This is the strongest regular synthesis from the present push. The local evidence law factors into four pieces: exact hidden Gaussian elimination, transverse quadratic volume, cone mass of admissible directions, and the orbit factor supplied by the exact slice theorem.
+
+\begin{remark}[what this does and does not solve]
+The template unifies the regular interior, smooth boundary, and removable symmetry sectors. It does \emph{not} solve genuinely singular visible points where the transverse quadratic form itself is degenerate or the stratum geometry is singular enough that no positive-definite quadratic approximation controls the integral.
+\end{remark}
+
+
+\section{Why state-space is the next flagship benchmark surface}
+
+The state-space hidden layer is exact, so the real live difficulty moves one floor up: the parameter-space evidence after hidden elimination. That visible parameter geometry already exhibits the same typed surfaces isolated above. Vanishing process or measurement variances create boundary charts and support events. Redundant latent bases create quotient directions. Only after those have been removed does one meet a genuine reduced-kernel problem.
+
+\begin{proposition}[channel death produces a logarithmic clock]\label{prop:channel-death}
+Let
+\[
+M_\lambda
+=
+\begin{pmatrix}
+A+R_s & B\\
+B^{\mathsf T} & C+\lambda^{-1}I_d
+\end{pmatrix},
+\qquad
+A=A^{\mathsf T},\ C=C^{\mathsf T},\ R_s\succ0,
+\]
+with fixed blocks and $\lambda\downarrow0$. Then
+\[
+\det M_\lambda
+=
+\lambda^{-d}\det(A+R_s)\,(1+o(1)),
+\]
+and hence
+\[
+\geomboxed{\log\det M_\lambda = -d\log\lambda + \log\det(A+R_s) + o(1).}
+\]
+So when an observation channel dies by sending its precision to zero, the determinant contribution splits into a universal logarithmic clock plus the survivor determinant of the retained channels.
+\proofappendix
+\end{proposition}
+
+\begin{remark}[dual process-death interpretation]
+The same algebra appears when a process channel collapses to a deterministic constraint. In that chart one does not get a mysterious new evidence law. One gets a boundary/support-event problem whose leading divergence is logarithmic and whose finite part is carried by the surviving transverse block.
+\end{remark}
+
+\begin{proposition}[dynamic-factor latent rotations are quotient directions]\label{prop:dynamic-factor-quotient}
+Consider a linear-Gaussian latent-factor state-space family with latent dimension $r$,
+\[
+x_0\sim N(0,P_0),
+\qquad
+x_{t+1}=Ax_t+\eta_t,
+\qquad
+y_t=\Lambda x_t+\varepsilon_t,
+\]
+where $\eta_t\sim N(0,Q)$ and $\varepsilon_t\sim N(0,R)$ are independent and Gaussian. For every orthogonal matrix $U\in O(r)$, the transformed parameters
+\[
+A' = U^{\mathsf T}AU,
+\qquad
+\Lambda' = \Lambda U,
+\qquad
+Q' = U^{\mathsf T}QU,
+\qquad
+P_0' = U^{\mathsf T}P_0U
+\]
+induce exactly the same law on $y_{1:T}$. Therefore, after hidden elimination, the evidence is constant along the latent-rotation orbit, and any Hessian kernel generated by those directions is a removable quotient kernel rather than a genuine singular-evidence direction.
+\proofappendix
+\end{proposition}
+
+\begin{remark}[the benchmark ladder this creates]
+These two propositions make the next strike unusually clean. State-space families already supply, in one contact surface, an exact hidden layer, honest regular interior cases, genuine cone/support limits, genuine quotient directions, and only after those are removed a residual singular frontier. So a serious attack on \texttt{statsmodels.tsa.statespace} is not incremental busywork. It is the first place where the whole typed stack can be exercised against a live and widely used implementation surface.
+\end{remark}
+
+\section{The missing layer: a quadratic regime detector}
+
+The note can now say the missing layer cleanly.
+
+After exact affine-hidden elimination and, where needed, exact symmetry slice reduction, the local evidence problem has the form
+\[
+Z_n^{\mathrm{loc}}
+=
+C_{\mathrm{orb}}
+\int_{U\cap K} e^{-n\Psi(x)} a(x)\,dx,
+\]
+where $U\subset E$ is a neighbourhood of $0$ in a finite-dimensional Euclidean space, $K\subset E$ is either all of $E$ or a closed convex cone encoding the active boundary chart, $a\in C^1(U)$ with $a(0)>0$, $\Psi\in C^3(U)$ with $\Psi(0)=0$ and $\nabla\Psi(0)=0$, and $C_{\mathrm{orb}}$ collects the already-resolved hidden, orbit-volume, and slice-Jacobian factors. The local quadratic datum is the Hessian
+\[
+H:=\nabla^2\Psi(0).
+\]
+When $K\neq E$, only the active span matters.
+
+\begin{definition}[reduced quadratic datum]
+Let
+\[
+E_K:=
+\begin{cases}
+E,& K=E,\\
+\spanop(K),& K\neq E,
+\end{cases}
+\qquad
+H_K:=\Pi_{E_K}H|_{E_K},
+\qquad
+R_K:=\ker(H_K),
+\]
+where $\Pi_{E_K}$ is the orthogonal projection onto $E_K$. The triple $(E_K,K,H_K)$ is the \emph{reduced quadratic datum}, and $R_K$ is the \emph{reduced kernel}.
+\end{definition}
+
+\begin{theorem}[quadratic regime detector]\label{thm:quadratic-detector}
+Consider the local evidence problem above.
+
+If $R_K=\{0\}$, then the leading local evidence law is already determined by the quadratic datum. More precisely:
+
+(i) if $K=E$, one is in the regular interior sector and the ordinary Laplace determinant law applies on $E$;
+
+(ii) if $K\neq E$, one is in the regular cone sector and the law is the determinant volume on $E_K$ multiplied by the Gaussian mass of the active cone in the inverse-Hessian geometry;
+
+(iii) if the local chart arose from a symmetry slice, the same statements hold on the transverse slice and the already-separated orbit factor $C_{\mathrm{orb}}$ multiplies the result.
+
+If $R_K\neq\{0\}$, then no rule depending only on the quadratic datum can determine the leading local evidence asymptotic. In particular, there exist smooth germs with the same $(E_K,K,H_K)$ and the same prefactor $C_{\mathrm{orb}}$ but different leading powers and constants of $n$.
+\proofappendix
+\end{theorem}
+
+\begin{remark}[spectral pre-check before singular analysis]
+A negative reduced eigenvalue is not evidence of a higher-order singularity. It means the putative stationary point is locally indefinite on the active span and therefore is not a local evidence minimum at all. Such cases must be typed and refused \emph{before} kernel reduction. Only a nonnegative reduced quadratic datum with nontrivial kernel belongs to the singular-evidence branch.
+\end{remark}
+
+The detector therefore has an exact typed output:
+\[
+\begin{gathered}
+\text{regular interior},\quad
+\text{regular cone},\quad
+\text{regular quotient},\\
+\text{regular quotient-cone},\quad
+\text{or unresolved kernel}.
+\end{gathered}
+\]
+This is the point that was missing. The issue is not merely that the current software handles only OLS. The real bottleneck is that, once the reduced kernel is nontrivial, quadratic information no longer suffices.
+
+\begin{remark}[why the detector boundary is sharp]
+The obstruction is not philosophical. It is forced. In one variable, $\Psi_4(u)=u^4$ and $\Psi_6(u)=u^6$ have the same quadratic datum $H=0$ at the origin, but
+\[
+\int e^{-n u^4}du \asymp n^{-1/4},
+\qquad
+\int e^{-n u^6}du \asymp n^{-1/6}.
+\]
+So the leading exponent already depends on higher-order kernel data. A standalone comparator that only inspects Hessians cannot type these points correctly.
+\end{remark}
+
+\section{Kernel reduction: the exact bridge to the singular sector}
+
+Once the detector returns ``unresolved kernel'', the next step is not guesswork. The positive normal directions should be integrated out first, exactly at the local asymptotic level, leaving a lower-dimensional kernel problem.
+
+\begin{proposition}[kernel reduction]\label{prop:kernel-reduction}
+Assume the setting of Theorem~\ref{thm:quadratic-detector} with $R_K\neq\{0\}$. Let $E_K=R\oplus N$ be an orthogonal decomposition such that $R=R_K$ and $H_N:=H_K|_N$ is positive definite. Assume furthermore that, in coordinates $(u,y)\in R\times N$, the active chart factors locally as $(U_R\cap K_R)\times U_N$ for some closed cone $K_R\subset R$, and that $\Psi\in C^4$.
+
+Then there are neighbourhoods of $0$ in $R$ and $N$ and a $C^2$ map $\eta:R\to N$ with $\eta(0)=0$ and $D\eta(0)=0$ such that
+\[
+\partial_y \Psi(u,\eta(u))=0
+\]
+for all small $u$. Defining the reduced kernel action
+\[
+\Phi(u):=\Psi(u,\eta(u)),
+\]
+there exists a continuous function $b$ on $R$ with
+\[
+b(0)=a(0)(2\pi)^{\dim N/2}\det(H_N)^{-1/2}
+\]
+such that
+\[
+\geomboxed{
+\int_{U\cap K} e^{-n\Psi(x)}a(x)\,dx
+=
+ n^{-\dim N/2}
+\int_{U_R\cap K_R} e^{-n\Phi(u)}\bigl(b(u)+o(1)\bigr)\,du.}
+\]
+Hence the singular problem is reduced exactly to a lower-dimensional kernel integral, with the ordinary determinant contribution from the positive normal directions already extracted.
+\proofappendix
+\end{proposition}
+
+This proposition is the bridge that the earlier version of the note was still missing. It says that the unresolved frontier is not ``everything beyond Laplace''. The unresolved frontier is precisely the local evidence law of the reduced kernel action $\Phi$.
+
+\begin{remark}[what the reduction achieves]
+The reduction separates the programme into two clean pieces. The normal directions are still governed by the usual determinant volume. All non-Gaussian or genuinely singular behaviour is pushed into the reduced kernel germ $\Phi$ on $R$ together with the residual active cone $K_R$.
+\end{remark}
+
+\section{The first singular exact layer: weighted-homogeneous kernel germs}
+
+The kernel reduction shows exactly what extra object must be recognised. The first nontrivial singular sector is the one where the reduced kernel germ has a positive weighted-homogeneous principal part.
+
+\begin{definition}[weighted principal kernel germ]
+Let $R\cong\R^r$ with coordinates $u=(u_1,\dots,u_r)$. Fix weights $\omega_i>0$ and anisotropic dilations
+\[
+\delta_t(u):=(t^{\omega_1}u_1,\dots,t^{\omega_r}u_r).
+\]
+A continuous function $P:R\to[0,\infty)$ is a \emph{positive weighted-homogeneous principal germ of degree $1$} if
+\[
+P(\delta_t u)=tP(u)
+\]
+for all $t>0$, and $P(u)>0$ for every nonzero $u\in K_R$. We say that $\Phi$ has principal germ $P$ if
+\[
+\Phi(\delta_t u)=tP(u)+o(t)
+\]
+uniformly on compact subsets of $K_R\setminus\{0\}$ as $t\downarrow 0$.
+\end{definition}
+
+\begin{proposition}[anisotropic kernel law]\label{prop:anisotropic-kernel}
+Assume Proposition~\ref{prop:kernel-reduction} and suppose the reduced kernel action $\Phi$ admits a positive weighted-homogeneous principal germ $P$ of degree $1$ on $K_R$. Write
+\[
+|\omega|:=\omega_1+\cdots+\omega_r.
+\]
+Then
+\[
+\geomboxed{
+\int_{U_R\cap K_R} e^{-n\Phi(u)}\bigl(b(u)+o(1)\bigr)\,du
+=
+ n^{-|\omega|}
+\Bigl(b(0)\int_{K_R} e^{-P(s)}\,ds + o(1)\Bigr).}
+\]
+Consequently the full local evidence exponent is
+\[
+\frac{\dim N}{2}+|\omega|,
+\]
+with constant determined by the positive normal determinant factor and the principal kernel integral.
+\proofappendix
+\end{proposition}
+
+This is the first singular exact layer beyond quadratic Laplace. It already contains ordinary quartic and higher even-order flat directions, anisotropic mixed monomials, and weighted cone-constrained kernels, provided the principal germ is positive on the active kernel cone.
+
+\begin{remark}[examples]
+For a one-dimensional quartic kernel $\Phi(u)=cu^4+o(u^4)$ with $c>0$, one has $\omega=1/4$, so the kernel contributes $n^{-1/4}$. For a mixed kernel $\Phi(u_1,u_2)=u_1^4+u_2^6+o_w(1)$, the contribution is $n^{-(1/4+1/6)}$. These are not heuristic exponents; they are forced by the anisotropic scaling law once the principal germ is certified.
+\end{remark}
+
+\section{A second certified singular exact layer: branch-restiffening channels}
+
+The weighted-homogeneous proposition isolates one exact singular family, but it is not the only one. The present research push identified a second certified layer which is especially important in two-dimensional kernel problems: after kernel reduction, one often finds a moving one-dimensional fibre minimum whose transverse restoring stiffness turns back on only gradually along the branch. The resulting singular law is not captured by an ordinary positive principal germ with finite face integral. In the critical quadratic branch case it produces an explicit logarithmic correction.
+
+\begin{definition}[analytic branch channel datum]\label{def:branch-channel}
+Assume Proposition~\ref{prop:kernel-reduction} and suppose the reduced kernel dimension is $2$. We say that the reduced kernel action admits an \emph{analytic branch channel datum} if there are local coordinates $(x,y)$ and an analytic function $\gamma$ with $\gamma(0)=0$ such that $x=\gamma(y)$ is a local fibre minimum branch,
+\[
+\partial_x \Phi(\gamma(y),y)=0,
+\]
+and after straightening the branch by
+\[
+ u:=x-\gamma(y), \qquad v:=y,
+\]
+the straightened phase
+\[
+\widetilde \Phi(u,v):=\Phi(u+\gamma(v),v)
+\]
+satisfies
+\[
+\partial_u^j\widetilde \Phi(0,v)\equiv 0 \quad (1\le j\le c-1)
+\]
+for some $c\ge 2$. The function
+\[
+\lambda(v):=\frac{1}{c!}\partial_u^c\widetilde \Phi(0,v)
+\]
+is called the \emph{branch restoring stiffness}.
+\end{definition}
+
+\begin{theorem}[intrinsic branch-channel order]\label{thm:branch-invariant}
+In the setting of Definition~\ref{def:branch-channel}, let
+\[
+\lambda(v)=\frac{1}{c!}\partial_u^c\widetilde \Phi(0,v).
+\]
+Under any analytic local change of coordinates preserving the branch $u=0$, the transformed stiffness $\widetilde \lambda$ is multiplied by a nowhere-vanishing analytic factor and composed with a one-dimensional analytic diffeomorphism of the branch parameter. Consequently,
+\[
+\geomboxed{\operatorname{ord}_0 \widetilde \lambda = \operatorname{ord}_0 \lambda.}
+\]
+Therefore the branch-channel exponent
+\[
+\beta_{\mathrm{br}}:=\frac{\operatorname{ord}_0\lambda}{c}
+\]
+is an intrinsic invariant of the branch germ.
+\proofappendix
+\end{theorem}
+
+This is the structural gain. The singular classifier is no longer a coordinate accident. It is the order with which restoring stiffness returns along the actual moving minimum branch.
+
+\begin{definition}[critical quadratic branch channel]
+A reduced kernel action $\Phi$ is in the \emph{critical quadratic branch channel} if it admits an analytic branch channel datum with $c=2$ and, after branch straightening,
+\[
+\frac12\partial_u^2\widetilde \Phi(0,v)=H_0 v^2 + O(v^3),
+\qquad H_0>0,
+\]
+\[
+\widetilde \Phi(0,v)=B_0 v^d + O(v^{d+1}),
+\qquad B_0>0,
+\]
+and for some integer $a>2$,
+\[
+\partial_u^j \widetilde \Phi(0,0)=0 \quad (2<j<a),
+\qquad
+\frac1{a!}\partial_u^a \widetilde \Phi(0,0)=C_0>0.
+\]
+Set
+\[
+\kappa:=\frac{d(a-2)-2a}{2a}.
+\]
+We require $\kappa>0$ and a hard scope condition: no additional monomial in the straightened Taylor expansion enters at weighted order less than or equal to $1+\kappa$ relative to the principal branch-restiffening face
+\[
+C_0u^a + H_0u^2v^2 + B_0v^d.
+\]
+\end{definition}
+
+\begin{theorem}[critical quadratic branch-channel law]\label{thm:branch-log}
+Assume Proposition~\ref{prop:kernel-reduction} and suppose the reduced kernel action lies in the critical quadratic branch channel. Then the reduced kernel integral obeys
+\[
+\geomboxed{
+\int_{U_R} e^{-n\Phi(z)}\bigl(b(z)+o(1)\bigr)\,dz
+=
+ n^{-1/2}
+\Bigl[
+ b(0)\,\frac{\sqrt{\pi}}{d}\,H_0^{-1/2}\,\kappa\,\log n
+ + O(1)
+\Bigr].}
+\]
+Consequently the full local evidence contribution is
+\[
+\geomboxed{
+\begin{aligned}
+\int_{U\cap K} e^{-n\Psi(x)}a(x)\,dx
+&=
+ n^{-\dim N/2-1/2}
+\Bigl[
+ a(0)(2\pi)^{\dim N/2}\det(H_N)^{-1/2}\\
+&\qquad\qquad\times \frac{\sqrt{\pi}}{d}H_0^{-1/2}\kappa\,\log n
+ + O(1)
+\Bigr].
+\end{aligned}}
+\]
+Thus the first certified logarithmic singular sector appears when the reduced Hessian along the minimising branch vanishes \emph{quadratically} and the branch-restiffening face is critically balanced.
+\proofappendix
+\end{theorem}
+
+\begin{corollary}[intrinsic quadratic-closure criterion]\label{cor:branch-quadratic-closure}
+In the critical quadratic branch channel, the statement
+\[
+\frac12\partial_u^2\widetilde \Phi(0,v)=H_0v^2+O(v^3)
+\]
+is coordinate invariant in the branch-preserving sense of Theorem~\ref{thm:branch-invariant}. Equivalently, the certified logarithmic regime is triggered by a quadratic vanishing of the reduced Hessian along the minimising branch, not by a special choice of local coordinates.
+\proofappendix
+\end{corollary}
+
+This is the main singular gain of the present push. The first singular exact layer is not exhausted by positive weighted-homogeneous principal germs. There is also a branch-restiffening layer in which the local evidence measures how slowly stability returns along the residual kernel branch after symmetry and positive curvature have been stripped away.
+
+\section{What remains unresolved: the kernel-jet problem}
+
+The note can now identify the remaining frontier much more sharply than before.
+
+The unresolved sector is not ``non-Gaussian'' in general. It is the subset of singular local problems for which the reduced kernel action $\Phi$ does \emph{not} yet come with either a certified positive weighted-homogeneous principal germ or a certified branch-restiffening channel datum. That can happen for several concrete reasons: the lowest-order kernel jet may vanish on nontrivial directions, the principal part may fail positivity on the active cone, several competing charts may be needed, or different monomial faces may dominate in different sectors. In all of those cases the correct next invariant is not the Hessian and not even the determinant remainder. It is a finite piece of the reduced kernel germ together with its active cone and chart structure.
+
+\begin{definition}[reduced kernel datum]
+The \emph{reduced kernel datum} at a singular point consists of the reduced kernel action germ $\Phi$, the residual active cone $K_R$, and the normal determinant prefactor supplied by Proposition~\ref{prop:kernel-reduction}. Any further singular classifier must be a function of this datum, not merely of the quadratic Hessian.
+\end{definition}
+
+The natural next object is therefore a kernel-jet/Newton-type classifier: from the jet of $\Phi$ on $R$, one should certify whether a positive principal face exists, whether a branch-restiffening channel exists, what anisotropic weights or branch orders they induce, whether one chart suffices, and when the problem must be refused because no stable dominant face has been certified. That is the genuine remaining bottleneck.
+
+\begin{remark}[what is and is not missing on the theory side]
+The theory no longer lacks the bridge from affine-hidden elimination to visible local evidence. That bridge is now explicit. What is still missing for a broad automatic comparator is the fully general singular kernel recogniser. In other words, the main missing object is not another determinant formula. It is a robust extractor for the reduced kernel datum and a certified classifier for its principal singular face.
+\end{remark}
+
+\section{Practical consequence for the present programme}
+
+The immediate consequence is now sharper.
+
+The present OLS strike should be retained exactly as it stands: a narrow exact wedge with honest boundaries. It lives in the regular interior fixed-precision leaf of the larger tree. It is useful precisely because the regime is clean, the extraction is simple, and the theory says exactly why the comparator works there.
+
+But the broader programme is no longer vague. A serious comparator stack would proceed in layers. First comes exact hidden elimination. Second comes local chart reduction: active face selection and symmetry slice reduction. Third comes the quadratic regime detector of Theorem~\ref{thm:quadratic-detector}, with a prior spectral refusal for indefinite stationary points. Fourth, when the detector returns a nontrivial reduced kernel, Proposition~\ref{prop:kernel-reduction} reduces the problem to the kernel action. Fifth, one either certifies a positive weighted-homogeneous principal germ and applies Proposition~\ref{prop:anisotropic-kernel}, certifies a critical branch-restiffening channel and applies Theorem~\ref{thm:branch-log}, or refuses and reports that the kernel jet remains unresolved.
+
+This also answers the practical question about ``standalone product'' versus ``importing \texttt{nomogeo}''. A standalone product is not blocked by packaging philosophy. It is blocked by regime coverage. Importing \texttt{nomogeo} is already enough for the exact hidden layer. What remains to be built, on the theory-to-software side, is the regime detector and the singular-kernel recogniser across concrete model families. The first flagship family should now be state-space models: the hidden chain is already exact, cone/support events occur naturally at vanishing process or sensor channels, latent-basis quotients occur naturally in factor formulations, and the residual singular frontier only begins after those easier typed cases have been cleanly removed.
+
+\section{Conclusion}
+
+The main correction from this research push is now exact rather than aspirational.
+
+The project does not need to choose between a tiny same-$k$ OLS gadget and an overclaimed universal comparator. There is a disciplined geometric stack.
+\[
+\begin{gathered}
+\text{exact affine-hidden elimination}
+\longrightarrow
+\text{exact local chart reduction}\\
+\longrightarrow
+\text{quadratic regime detector}
+\longrightarrow
+\text{kernel reduction}\\
+\longrightarrow
+\text{exact singular law or refusal.}
+\end{gathered}
+\]
+
+Within that stack, the present strongest regular template remains
+\[
+\geomboxed{
+Z_{\mathrm{loc}}
+\approx
+ e^{-S_{\mathrm{vis}}(\hat v)}
+\cdot \mathcal O_{\hat v}
+\cdot (2\pi)^{m/2}
+\det(H_{\perp,K})^{-1/2}
+\cdot \Prob(Z\in K_{\perp}),}
+\]
+but it is no longer the end of the story. Two certified singular continuations are now explicit:
+\[
+\geomboxed{
+Z_{\mathrm{loc}}
+\approx
+ e^{-S_{\mathrm{vis}}(\hat v)}
+\cdot C_{\mathrm{orb}}
+\cdot n^{-\dim N/2-|\omega|}
+\cdot
+\det(H_N)^{-1/2}
+\cdot
+\int_{K_R} e^{-P(s)}ds,}
+\]
+whenever the reduced kernel germ admits a positive weighted-homogeneous principal part $P$, and
+\[
+\geomboxed{
+Z_{\mathrm{loc}}
+\approx
+ e^{-S_{\mathrm{vis}}(\hat v)}
+\cdot C_{\mathrm{orb}}
+\cdot n^{-\dim N/2-1/2}
+\cdot
+\det(H_N)^{-1/2}
+\cdot
+\frac{\sqrt{\pi}}{d}H_0^{-1/2}\kappa\,\log n,}
+\]
+whenever the reduced kernel germ lies in the certified critical quadratic branch channel.
+
+So the strategic statement is now clean. The standalone goal is not ``replace AIC/BIC''. It is ``build a typed local evidence geometry on top of exact hidden elimination, and know exactly which local invariant governs each regime.'' The next flagship proving ground is now equally clean: linear-Gaussian state-space families, because they already realise the exact hidden layer and naturally force the cone, quotient, and indefinite/singular splits in one widely used software surface. The genuinely unresolved frontier has narrowed to a precise target: the certified classification of reduced kernel jets when neither a positive principal singular face nor a branch-restiffening channel has yet been extracted.
+
+\appendix
+\section{Proof sketches}
+
+\begin{proof}[Proof sketch for Proposition 2.1]
+Complete the square in $h$:
+\[
+\tfrac12 h^{\mathsf T}D(v)h + J(v)^{\mathsf T}h
+=
+\tfrac12 (h+D(v)^{-1}J(v))^{\mathsf T}D(v)(h+D(v)^{-1}J(v))
+-
+\tfrac12 J(v)^{\mathsf T}D(v)^{-1}J(v).
+\]
+Integrating the shifted Gaussian contributes $(2\pi)^{q/2}\det(D(v))^{-1/2}$, hence the stated visible action up to an additive constant.
+\end{proof}
+
+\begin{proof}[Proof sketch for Proposition 3.1]
+Use multiplicativity of determinant under scalar rescaling:
+\[
+\det(I_n)=\det(nJ_n)=n^k\det(J_n).
+\]
+Taking logarithms and dividing by $2$ gives the formula immediately.
+\end{proof}
+
+\begin{proof}[Proof sketch for Theorem 5.2]
+The centred Gaussian density with covariance $H^{-1}$ on $\spanop(K)$ is
+\[
+(2\pi)^{-m/2}\det(H)^{1/2}e^{-\frac12 x^{\mathsf T}Hx}.
+\]
+Integrating this density over $K$ gives $\Prob(Z\in K)$. Rearranging yields the identity.
+\end{proof}
+
+\begin{proof}[Proof sketch for Corollary 5.3]
+The cone-mass factor is a dimensionless probability in $(0,1]$. It changes only the multiplicative constant in the local Laplace law. The only power term comes from the Gaussian scaling on the $m$-dimensional span of the cone.
+\end{proof}
+
+\begin{proof}[Proof sketch for Theorem~\ref{thm:slice-reduction}]
+In local slice coordinates, decompose the neighbourhood of $\hat v$ into orbit coordinates and transverse slice coordinates. Group invariance makes the action constant along orbit fibres, so the exponential term depends only on transverse coordinates to second order. The orbit coordinates integrate to the orbit volume times the slice-chart Jacobian, while the transverse directions contribute the ordinary Laplace determinant factor.
+\end{proof}
+
+\begin{proof}[Proof sketch for Corollary 7.1]
+Apply Proposition 6.2 to reduce to the transverse slice, then apply Theorem 5.2 to the transverse admissible cone $K_{\perp}$. The two factors multiply because the orbit directions and transverse cone directions are separated by the slice construction.
+\end{proof}
+
+\begin{proof}[Proof sketch for Theorem~\ref{thm:quadratic-detector}]
+If $R_K=\{0\}$, the restriction of $H$ to the active span is positive definite, so the ordinary interior or cone Laplace laws apply on that active space, with any orbit factor already separated by the slice chart. If $R_K\neq\{0\}$, quadratic information cannot decide the law: keeping the same quadratic datum and same prefactor, replace the reduced kernel germ by $u^4$ or $u^6$ in one kernel coordinate. The resulting local integrals have different leading exponents, so no classifier depending only on $(E_K,K,H_K)$ can be complete in the singular case.
+\end{proof}
+
+\begin{proof}[Proof sketch for Proposition~\ref{prop:kernel-reduction}]
+Use the positive definiteness of $H_N$ and the implicit function theorem on the normal equation $\partial_y\Psi(u,y)=0$ to obtain the critical graph $y=\eta(u)$. Expand $\Psi$ around that graph. The normal quadratic form remains uniformly positive, so Laplace integration in $y$ gives the factor $n^{-\dim N/2}$ and the determinant prefactor, uniformly for small $u$. What remains is the kernel integral in $u$ with reduced action $\Phi(u)=\Psi(u,\eta(u))$.
+\end{proof}
+
+\begin{proof}[Proof sketch for Proposition~\ref{prop:anisotropic-kernel}]
+Apply the anisotropic change of variables $u=\delta_{1/n}(s)$. The Jacobian contributes $n^{-|\omega|}$ because $\det D\delta_{1/n}=n^{-|\omega|}$. The principal-germ relation gives $n\Phi(\delta_{1/n}s)=P(s)+o(1)$ on compact sets, while positivity of $P$ on $K_R\setminus\{0\}$ yields integrable domination after restriction to a small neighbourhood. Dominated convergence then gives the stated constant.
+\end{proof}
+
+\begin{proof}[Proof sketch for Theorem~\ref{thm:branch-invariant}]
+Under a branch-preserving analytic change of variables one has
+\[
+ u=\alpha(\tilde v)\tilde u+O(\tilde u^2),
+\qquad
+v=\psi(\tilde v),
+\]
+with $\alpha(0)\neq 0$ and $\psi'(0)\neq 0$. Expanding the straightened phase along the branch gives
+\[
+\widetilde \Phi(u,v)=B(v)+\lambda(v)u^c+O(u^{c+1}).
+\]
+Substitution yields
+\[
+\widetilde \lambda(\tilde v)=\alpha(\tilde v)^c\lambda(\psi(\tilde v)).
+\]
+Multiplication by a nowhere-vanishing analytic factor and composition with a one-dimensional analytic diffeomorphism preserve vanishing order, proving the invariant statement.
+\end{proof}
+
+\begin{proof}[Proof sketch for Theorem~\ref{thm:branch-log}]
+Straighten the analytic minimum branch, then integrate first in the transverse branch variable $u$. In the critical quadratic channel the local $u$-integral is controlled by the competition between $C_0u^a$ and $H_0u^2v^2$, producing an effective factor proportional to $H_0^{-1/2}\log(1/|v|)$ at the critical balance. The remaining $v$-integration against $e^{-nB_0v^d}$ gives the factor $n^{-1/2}(\sqrt{\pi}/d)\kappa\log n$, with the hard scope condition excluding any competing lower-weight term that would alter the face or the coefficient. Reattaching the positive normal directions through Proposition~\ref{prop:kernel-reduction} yields the full local law.
+\end{proof}
+
+\begin{proof}[Proof sketch for Corollary~\ref{cor:branch-quadratic-closure}]
+Apply Theorem~\ref{thm:branch-invariant} with $c=2$. The reduced Hessian along the branch is exactly the branch restoring stiffness in the quadratic case, so quadratic vanishing is intrinsic under branch-preserving analytic coordinate changes.
+\end{proof}
+
+\end{document}

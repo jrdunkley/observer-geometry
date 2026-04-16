@@ -1,0 +1,96 @@
+{
+  "schema_version": "measurement_route_backlog.v0",
+  "purpose": "Deletion-safe routing backlog for the new measurement, inference, local linearisation, and finite-mode sources. These are not promoted schemas or cards.",
+  "items": [
+    {
+      "id": "beer_lambert_concentration_measurement_equation",
+      "route": "measurement_equation_local_linearisation",
+      "status": "proofed",
+      "source_basis": ["JCGM_GUM_6_2020.pdf", "NIST.TN.1900.pdf", "existing AP Chemistry absorbance hook"],
+      "declared_object_after_admission": "local covariance or precision for concentration",
+      "required_declarations": ["absorbance", "molar absorptivity", "path length", "noise or input uncertainty model", "operating range"],
+      "refusal_conditions": ["no uncertainty model", "outside calibration range", "denominator input treated without positivity/support discipline"]
+    },
+    {
+      "id": "cadmium_calibration_standard_measurement_equation",
+      "route": "measurement_equation_local_linearisation",
+      "status": "proofed",
+      "source_basis": ["NIST.TN.1900.pdf", "JCGM_GUM_6_2020.pdf"],
+      "declared_object_after_admission": "local covariance or precision for calibration-solution concentration",
+      "required_declarations": ["cadmium mass", "purity", "solution volume", "input standard uncertainties", "positive denominator discipline"],
+      "refusal_conditions": ["no input uncertainty model", "zero or unsupported volume denominator", "static storage call requested"]
+    },
+    {
+      "id": "rc_decay_tau_observation_equation",
+      "route": "observation_equation_fisher",
+      "status": "proofed",
+      "source_basis": ["JCGM_GUM_6_2020.pdf", "NIST.TN.1900.pdf", "existing AP Physics RC hook"],
+      "declared_object_after_admission": "local Fisher precision for tau",
+      "required_declarations": ["sampling times", "initial voltage", "noise model", "parameterization of tau", "residual adequacy check"],
+      "refusal_conditions": ["no time samples", "no noise model", "zero sensitivity time grid", "hidden-load call requested without ceiling"]
+    },
+    {
+      "id": "repeated_current_mean_observation_equation",
+      "route": "observation_equation_fisher",
+      "status": "proofed",
+      "source_basis": ["JCGM_GUM_6_2020.pdf", "NIST.TN.1900.pdf"],
+      "declared_object_after_admission": "local Fisher precision for a repeated-measurement mean",
+      "required_declarations": ["repeated observations", "repeatability condition", "mean parameter", "estimated or declared sigma", "degrees of freedom"],
+      "refusal_conditions": ["single observation only", "zero residual variance without exact-value declaration", "static storage call requested"]
+    },
+    {
+      "id": "load_cell_linear_calibration_observation_equation",
+      "route": "observation_equation_fisher",
+      "status": "proofed",
+      "source_basis": ["pmd.pdf", "NIST.TN.1900.pdf", "JCGM_GUM_6_2020.pdf"],
+      "declared_object_after_admission": "Fisher precision matrix for linear calibration parameters",
+      "required_declarations": ["force standards", "instrument indications", "noise model", "full-rank design", "residual gate"],
+      "refusal_conditions": ["rank-deficient calibration design", "no noise model", "residual gate failure", "analysis-function inversion without validity range"]
+    },
+    {
+      "id": "thermistor_calibration_analysis_function",
+      "route": "calibration_analysis_function",
+      "status": "candidate",
+      "source_basis": ["NIST.TN.1900.pdf", "JCGM_GUM_6_2020.pdf"],
+      "declared_object_after_admission": "calibration function plus inverse analysis function with uncertainty envelope",
+      "required_declarations": ["standards", "instrument indications", "fit family", "validity range", "residual checks", "uncertainty propagation route"],
+      "refusal_conditions": ["attempted extrapolation", "residual structure", "missing standard uncertainty", "unjustified polynomial degree"]
+    },
+    {
+      "id": "load_cell_calibration_process_model",
+      "route": "calibration_analysis_function",
+      "status": "candidate_after_observation_equation_proof",
+      "source_basis": ["pmd.pdf", "NIST.TN.1900.pdf", "JCGM_GUM_6_2020.pdf"],
+      "declared_object_after_admission": "force-indication calibration/analysis model with local uncertainty",
+      "required_declarations": ["force standards", "voltage or deflection indications", "fit model", "residual checks", "range"],
+      "refusal_conditions": ["no calibration standards", "unvalidated inverse use", "model used outside fitted span"]
+    },
+    {
+      "id": "load_cell_linear_analysis_function",
+      "route": "calibration_analysis_function",
+      "status": "proofed_minimal",
+      "source_basis": ["pmd.pdf", "NIST.TN.1900.pdf", "JCGM_GUM_6_2020.pdf"],
+      "declared_object_after_admission": "linear analysis function with local uncertainty and calibrated indication range",
+      "required_declarations": ["force standards", "instrument indications", "fit model", "parameter covariance", "analysis-function range", "residual gate"],
+      "refusal_conditions": ["extrapolation outside calibrated indication span", "rank-deficient calibration design", "residual gate failure", "hidden-load call requested"]
+    },
+    {
+      "id": "check_standard_process_gate",
+      "route": "process_control_gate",
+      "status": "proofed_gate_only",
+      "source_basis": ["mpc.pdf", "JCGM_GUM_6_2020.pdf"],
+      "declared_object_after_admission": "measurement-process validity gate, not a module Hessian",
+      "required_declarations": ["check standard", "historical baseline", "repeatability", "long-term variability", "bias/drift control rule"],
+      "refusal_conditions": ["no stable check standard", "process out of control", "unknown bias treated as absent"]
+    },
+    {
+      "id": "string_fixed_end_three_mode",
+      "route": "finite_modal_eigenbasis",
+      "status": "proofed_and_carded_static_modal",
+      "source_basis": ["5-Eigenvalue and eigenvector.ipynb", "existing AP wave hooks"],
+      "declared_object_after_admission": "finite modal mass and stiffness matrices after boundary and truncation",
+      "required_declarations": ["boundary conditions", "mode basis", "mode count", "mass metric", "stiffness matrix", "sensor surface"],
+      "refusal_conditions": ["raw infinite wave formula", "no boundary", "no finite truncation", "no modal coordinates"]
+    }
+  ]
+}

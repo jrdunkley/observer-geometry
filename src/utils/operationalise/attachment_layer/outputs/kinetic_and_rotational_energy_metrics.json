@@ -1,0 +1,24 @@
+{
+  "card_id": "kinetic_and_rotational_energy_metrics",
+  "system": "translational and rotational kinetic energy in declared velocity coordinates",
+  "attachment_type": "exact_quadratic",
+  "executed_calls": [
+    "visible_precision"
+  ],
+  "refused_calls": [],
+  "readout": {
+    "visible_precision": [
+      [
+        2.0000000000000004,
+        0.0
+      ],
+      [
+        0.0,
+        0.08
+      ]
+    ]
+  },
+  "coordinate_note": "This is kinetic metric geometry in velocity coordinates. The Hessian entries are mass and moment of inertia, not restoring stiffnesses; they must not be compared entry-by-entry with spring or LC storage Hessians.",
+  "positive_scope": "This card admits kinetic energy as an exact finite positive quadratic object while keeping metric geometry distinct from stiffness and frequency geometry.",
+  "boundary": "It does not describe potentials, oscillation frequencies, damping, relativistic kinetic energy, gyroscopic coupling, or hidden-load structure."
+}

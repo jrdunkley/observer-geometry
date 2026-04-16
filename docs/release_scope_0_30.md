@@ -1,10 +1,11 @@
 # Release Scope 0.30
 
-This note freezes the incremental exact public claim for `nomogeo 0.30.0`.
+This note freezes the incremental exact public claim for the `nomogeo 0.3.x`
+observation-field surface.
 
 ## Exact Additions Since 0.25.0
 
-The `0.30.0` release adds a narrow real-valued observation-field layer:
+The `0.3.x` observation-field surface adds a narrow real-valued observation-field layer:
 
 - precision-side hidden-load conversion `Pi <-> Lambda`
 - support-stable transport right-hand sides for `Pi`, `Lambda`, and `tau`
@@ -17,7 +18,7 @@ The `0.30.0` release adds a narrow real-valued observation-field layer:
 
 ## Explicitly Out Of Scope
 
-The `0.30.0` release does not claim:
+This surface does not claim:
 
 - a global smooth hidden-load PDE across support changes
 - a public stratified integrator
@@ -31,14 +32,14 @@ The `0.30.0` release does not claim:
 
 ## Release Reading Rule
 
-Read `0.30.0` as:
+Read this surface as:
 
 - exact support-stratified field diagnostics in finite real symmetric coordinates
 - explicit local coupled extraction when derivative data are supplied
 - exact event-jet diagnostics for supplied Taylor coefficients
 - sampled interval-family diagnostics, not optimisation
 
-Do not read `0.30.0` as:
+Do not read this surface as:
 
 - a complete field simulator
 - an autonomous event-detecting integrator

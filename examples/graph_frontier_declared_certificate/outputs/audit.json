@@ -1,0 +1,63 @@
+{
+  "example": "graph_frontier_declared_certificate",
+  "claim": "The graph-frontier Hessian, not the exact-branch proxy, controls a stationary non-exact declared observer.",
+  "headline_quantities": {
+    "cases": {
+      "stable_max": {
+        "e_abs": 1.0,
+        "graph_hessian": -16.0,
+        "closed_form_hessian": -16.0,
+        "stationarity_residual": 0.0,
+        "status": "strict_local_max",
+        "max_certificate_passes": true,
+        "min_certificate_passes": false,
+        "exact_branch_rejected": true
+      },
+      "degenerate": {
+        "e_abs": 1.7320508075688772,
+        "graph_hessian": 0.0,
+        "closed_form_hessian": -3.552713678800501e-15,
+        "stationarity_residual": 0.0,
+        "status": "stationary_degenerate",
+        "max_certificate_passes": false,
+        "min_certificate_passes": false,
+        "exact_branch_rejected": true
+      },
+      "stable_min": {
+        "e_abs": 2.0,
+        "graph_hessian": 8.0,
+        "closed_form_hessian": 8.0,
+        "stationarity_residual": 0.0,
+        "status": "strict_local_min",
+        "max_certificate_passes": false,
+        "min_certificate_passes": true,
+        "exact_branch_rejected": true
+      }
+    },
+    "hessian_errors": {
+      "stable_max": 0.0,
+      "degenerate": 3.552713678800501e-15,
+      "stable_min": 0.0
+    },
+    "thresholds": {
+      "hessian_abs_error_max": 1e-10,
+      "stationarity_residual_max": 1e-10
+    }
+  },
+  "passes": {
+    "hessian_matches_closed_form": true,
+    "stationarity": true,
+    "max_certificate_before_threshold": true,
+    "degenerate_certificate_vacuous": true,
+    "min_certificate_after_threshold": true,
+    "nonzero_cases_reject_exact_branch": true,
+    "invalid_proxy_would_miss_sign": true,
+    "all": true
+  },
+  "scripts": {
+    "main": "python -m examples.graph_frontier_declared_certificate.run_main",
+    "validate": "python -m examples.graph_frontier_declared_certificate.validate",
+    "audit": "python -m examples.graph_frontier_declared_certificate.run_all"
+  },
+  "scope": "Exact local quadratic graph-chart geometry only; no global Grassmannian optimizer and no full-law branch probability."
+}

@@ -1,0 +1,65 @@
+{
+  "card_id": "rlc_resonator_linear_storage",
+  "schema_version": "attachment_card.v0",
+  "system": "single series RLC resonator with declared LC storage coordinates",
+  "attachment_type": "exact_quadratic",
+  "state_variables": [
+    {"name": "q", "meaning": "capacitor charge", "unit": "C"},
+    {"name": "flux_phi", "meaning": "inductor flux coordinate", "unit": "Wb"}
+  ],
+  "sensor_surface": {
+    "ideal": ["charge q and flux_phi as storage coordinates"],
+    "practical": ["capacitor voltage V = q / Ccap", "inductor current I = flux_phi / L", "ring-down linewidth or Q-factor as damping metadata"]
+  },
+  "control_variables": [
+    {"name": "Ccap", "meaning": "capacitance", "unit": "F"},
+    {"name": "L", "meaning": "inductance", "unit": "H"},
+    {"name": "R", "meaning": "series resistance recorded as damping, not storage curvature", "unit": "ohm"}
+  ],
+  "regime_assumptions": [
+    "capacitor and inductor storage are ideal quadratic terms",
+    "resistance is linear damping and is not inserted into the static Hessian",
+    "drive, radiation, and nonlinear component behaviour are outside this card",
+    "state coordinates are declared storage coordinates"
+  ],
+  "equation_hook": "U(q, flux_phi) = q^2/(2 Ccap) + flux_phi^2/(2 L); damping metadata R is outside U",
+  "units_and_dimensions": {
+    "q": "C",
+    "flux_phi": "Wb",
+    "1/Ccap": "J C^-2",
+    "1/L": "J Wb^-2",
+    "R": "ohm = V A^-1, not a Hessian unit",
+    "H": "block units by coordinate"
+  },
+  "coordinate_note": "Charge and flux have different units; resistance is a dissipative response parameter and must not be compared with Hessian entries.",
+  "module_object": {
+    "kind": "Hessian",
+    "description": "diagonal LC storage Hessian with R recorded outside the static module object"
+  },
+  "derivation_status": "exact for the declared LC storage energy; damping is deliberately excluded from H",
+  "observer_map": {
+    "description": "observe both declared storage coordinates",
+    "matrix": [[1.0, 0.0], [0.0, 1.0]]
+  },
+  "ceiling_or_reference": {
+    "kind": "none",
+    "description": "no hidden coordinate is declared in this card"
+  },
+  "allowed_nomogeo_calls": ["visible_precision"],
+  "nomogeo_readout": {
+    "requested": ["visible_precision"]
+  },
+  "positive_scope": "This card exposes the storage part of a damped resonator as the same exact quadratic LC object while keeping damping out of the Hessian.",
+  "boundary": "It does not describe dissipative linewidth, driven response, transient fitting, or energy loss as a static precision object.",
+  "failure_mode": "The attachment fails if R or drive response is treated as static storage curvature rather than damping metadata.",
+  "next_measurement": "Measure Ccap, L, and R separately; use Ccap and L for storage geometry and reserve R for a later dynamic response layer.",
+  "default_parameters": {
+    "Ccap": 0.0001,
+    "L": 0.1,
+    "R": 10.0
+  },
+  "declared_objects": {
+    "H": [[10000.0, 0.0], [0.0, 10.0]],
+    "C": [[1.0, 0.0], [0.0, 1.0]]
+  }
+}

@@ -1,0 +1,1319 @@
+{
+  "generated_at": "2026-04-11T17:39:57Z",
+  "source": "coinbase",
+  "candle_count": 300,
+  "feature_rows": 274,
+  "first_candle": "2026-03-30T06:00:00Z",
+  "last_candle": "2026-04-11T17:00:00Z",
+  "last_close": 73159.31,
+  "features": [
+    "ret_1",
+    "mom_3",
+    "mom_6",
+    "mom_12",
+    "mom_24",
+    "vol_6",
+    "vol_24",
+    "range_1",
+    "body_1",
+    "volume_z_24"
+  ],
+  "observers": {
+    "impulse": [
+      "ret_1",
+      "mom_3",
+      "mom_6"
+    ],
+    "trend_context": [
+      "mom_3",
+      "mom_12",
+      "mom_24"
+    ],
+    "volatility_state": [
+      "vol_6",
+      "vol_24",
+      "range_1"
+    ],
+    "flow_pressure": [
+      "volume_z_24",
+      "body_1",
+      "ret_1"
+    ],
+    "mixed_local": [
+      "ret_1",
+      "mom_6",
+      "vol_6",
+      "volume_z_24",
+      "range_1"
+    ]
+  },
+  "metrics": {
+    "test_points": 178,
+    "selected_rmse": 0.004513531646501858,
+    "all_feature_rmse": 0.004579887515413741,
+    "zero_return_rmse": 0.004193768311464105,
+    "selected_direction_accuracy_when_speaking": 0.47368421052631576,
+    "selected_coverage": 0.5337078651685393,
+    "last_return_direction_accuracy": 0.4943820224719101,
+    "momentum_6_direction_accuracy": 0.4550561797752809,
+    "best_direction_baseline": 0.5,
+    "gate_passes": false,
+    "gate_reason": "no validated live edge: rolling selected view did not clear fixed baselines",
+    "observer_wins": {
+      "impulse": 39,
+      "trend_context": 29,
+      "volatility_state": 0,
+      "flow_pressure": 23,
+      "mixed_local": 87
+    },
+    "abstain_z": 0.15,
+    "train_window_hours": 96
+  },
+  "latest_decision": {
+    "time": 1775923200,
+    "time_iso": "2026-04-11T16:00:00Z",
+    "close": 73076.42,
+    "actual_next_return": 0.0011336491960918238,
+    "chosen_observer": {
+      "name": "trend_context",
+      "features": [
+        "mom_3",
+        "mom_12",
+        "mom_24"
+      ],
+      "prediction": 0.0013428899048773379,
+      "prediction_z": 0.2911489977695965,
+      "visible_r2": 0.026340306682549386,
+      "conditional_std": 0.9867419588309045,
+      "hidden_clock": 2.077723807031163,
+      "hidden_rank": 4.0,
+      "geometry_status": "ok"
+    },
+    "all_feature_prediction": -0.00030845902634826425,
+    "baseline_last_return": 0.0025075057755561403,
+    "baseline_momentum_6": 0.002660480548668076,
+    "spoke": true
+  },
+  "recent_decisions": [
+    {
+      "time": 1775754000,
+      "time_iso": "2026-04-09T17:00:00Z",
+      "close": 72359.99,
+      "actual_next_return": -0.006514680117939875,
+      "chosen_observer": {
+        "name": "flow_pressure",
+        "features": [
+          "volume_z_24",
+          "body_1",
+          "ret_1"
+        ],
+        "prediction": 0.0018665679754707753,
+        "prediction_z": 0.36416937956942075,
+        "visible_r2": 0.033662177616620936,
+        "conditional_std": 0.9830248330451165,
+        "hidden_clock": 1.7926581771028964,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.001264681025202764,
+      "baseline_last_return": 0.003648439014938276,
+      "baseline_momentum_6": 0.01682384508908541,
+      "spoke": true
+    },
+    {
+      "time": 1775757600,
+      "time_iso": "2026-04-09T18:00:00Z",
+      "close": 71890.12,
+      "actual_next_return": 0.0034195131736041162,
+      "chosen_observer": {
+        "name": "mixed_local",
+        "features": [
+          "ret_1",
+          "mom_6",
+          "vol_6",
+          "volume_z_24",
+          "range_1"
+        ],
+        "prediction": -1.3028890893060276e-05,
+        "prediction_z": -0.00251604639861967,
+        "visible_r2": 0.028507923495840526,
+        "conditional_std": 0.9856429761856772,
+        "hidden_clock": 13.498125127386565,
+        "hidden_rank": 5.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.0006218599900835933,
+      "baseline_last_return": -0.006514680117939875,
+      "baseline_momentum_6": 0.008381795177296425,
+      "spoke": false
+    },
+    {
+      "time": 1775761200,
+      "time_iso": "2026-04-09T19:00:00Z",
+      "close": 72136.37,
+      "actual_next_return": 0.004062360886711858,
+      "chosen_observer": {
+        "name": "flow_pressure",
+        "features": [
+          "volume_z_24",
+          "body_1",
+          "ret_1"
+        ],
+        "prediction": 0.0015659969274769599,
+        "prediction_z": 0.3020866347009149,
+        "visible_r2": 0.02920100398567005,
+        "conditional_std": 0.9852913254537107,
+        "hidden_clock": 1.798013039475073,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.003978983381893894,
+      "baseline_last_return": 0.0034195131736041162,
+      "baseline_momentum_6": 0.01873890348981888,
+      "spoke": true
+    },
+    {
+      "time": 1775764800,
+      "time_iso": "2026-04-09T20:00:00Z",
+      "close": 72430.01,
+      "actual_next_return": -0.002102858069397584,
+      "chosen_observer": {
+        "name": "flow_pressure",
+        "features": [
+          "volume_z_24",
+          "body_1",
+          "ret_1"
+        ],
+        "prediction": 0.0025724617217761183,
+        "prediction_z": 0.49642619664820825,
+        "visible_r2": 0.02838197300672507,
+        "conditional_std": 0.9857068666663913,
+        "hidden_clock": 1.8040774072400345,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.0031358737758007626,
+      "baseline_last_return": 0.004062360886711858,
+      "baseline_momentum_6": 0.018082848055492207,
+      "spoke": true
+    },
+    {
+      "time": 1775768400,
+      "time_iso": "2026-04-09T21:00:00Z",
+      "close": 72277.86,
+      "actual_next_return": -0.004501672569283244,
+      "chosen_observer": {
+        "name": "mixed_local",
+        "features": [
+          "ret_1",
+          "mom_6",
+          "vol_6",
+          "volume_z_24",
+          "range_1"
+        ],
+        "prediction": 0.0010993337598230477,
+        "prediction_z": 0.2120477167477889,
+        "visible_r2": 0.028599777325671316,
+        "conditional_std": 0.985596379190959,
+        "hidden_clock": 12.907696452781238,
+        "hidden_rank": 5.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.0008965753196721687,
+      "baseline_last_return": -0.002102858069397584,
+      "baseline_momentum_6": 0.0016584517559774525,
+      "spoke": true
+    },
+    {
+      "time": 1775772000,
+      "time_iso": "2026-04-09T22:00:00Z",
+      "close": 71953.22,
+      "actual_next_return": -0.002159425840233098,
+      "chosen_observer": {
+        "name": "mixed_local",
+        "features": [
+          "ret_1",
+          "mom_6",
+          "vol_6",
+          "volume_z_24",
+          "range_1"
+        ],
+        "prediction": 0.001873043236154716,
+        "prediction_z": 0.36805056818183873,
+        "visible_r2": 0.02615674648349353,
+        "conditional_std": 0.986834967720797,
+        "hidden_clock": 12.858618772738666,
+        "hidden_rank": 5.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.00239816275357565,
+      "baseline_last_return": -0.004501672569283244,
+      "baseline_momentum_6": -0.0019888976813664527,
+      "spoke": true
+    },
+    {
+      "time": 1775775600,
+      "time_iso": "2026-04-09T23:00:00Z",
+      "close": 71798.01,
+      "actual_next_return": 0.002499033299519837,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 0.0007428305781961061,
+        "prediction_z": 0.1484699729684338,
+        "visible_r2": 0.01877165950817905,
+        "conditional_std": 0.9905697050141504,
+        "hidden_clock": 12.050762240830203,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.0020100429927093853,
+      "baseline_last_return": -0.002159425840233098,
+      "baseline_momentum_6": -0.007796762536537827,
+      "spoke": false
+    },
+    {
+      "time": 1775779200,
+      "time_iso": "2026-04-10T00:00:00Z",
+      "close": 71977.66,
+      "actual_next_return": 0.0027041251655912646,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 0.0013350270650971919,
+        "prediction_z": 0.26660461168009064,
+        "visible_r2": 0.019235419958471667,
+        "conditional_std": 0.9903355896066385,
+        "hidden_clock": 11.989519123662378,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.0013709061066152551,
+      "baseline_last_return": 0.002499033299519837,
+      "baseline_momentum_6": 0.0012169508809218854,
+      "spoke": true
+    },
+    {
+      "time": 1775782800,
+      "time_iso": "2026-04-10T01:00:00Z",
+      "close": 72172.56,
+      "actual_next_return": -0.002836536124103617,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 0.0004242142240135099,
+        "prediction_z": 0.0849793141855052,
+        "visible_r2": 0.016268494812286982,
+        "conditional_std": 0.9918323977304396,
+        "hidden_clock": 11.965672771526613,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.0005741870736708916,
+      "baseline_last_return": 0.0027041251655912646,
+      "baseline_momentum_6": 0.0005015628729090338,
+      "spoke": false
+    },
+    {
+      "time": 1775786400,
+      "time_iso": "2026-04-10T02:00:00Z",
+      "close": 71968.13,
+      "actual_next_return": -0.0011948532366776732,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": -0.0006917996746080173,
+        "prediction_z": -0.13912344583140715,
+        "visible_r2": 0.01834807446968667,
+        "conditional_std": 0.9907834907437211,
+        "hidden_clock": 11.930544077490513,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.001375233269381033,
+      "baseline_last_return": -0.002836536124103617,
+      "baseline_momentum_6": -0.006397334137906441,
+      "spoke": false
+    },
+    {
+      "time": 1775790000,
+      "time_iso": "2026-04-10T03:00:00Z",
+      "close": 71882.19,
+      "actual_next_return": 0.003385922006925668,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 3.2723953166747806e-05,
+        "prediction_z": 0.006581258182903198,
+        "visible_r2": 0.022980195723276253,
+        "conditional_std": 0.9884431214170716,
+        "hidden_clock": 11.88571192470933,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.0017017669696708572,
+      "baseline_last_return": -0.0011948532366776732,
+      "baseline_momentum_6": -0.00548932930518653,
+      "spoke": false
+    },
+    {
+      "time": 1775793600,
+      "time_iso": "2026-04-10T04:00:00Z",
+      "close": 72125.99,
+      "actual_next_return": 0.00017398594140516366,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 0.0011597562220387087,
+        "prediction_z": 0.23281738188456566,
+        "visible_r2": 0.0224856070677667,
+        "conditional_std": 0.9886932754561615,
+        "hidden_clock": 11.910477744470711,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.00016630925126629999,
+      "baseline_last_return": 0.003385922006925668,
+      "baseline_momentum_6": 0.0023982652710223817,
+      "spoke": true
+    },
+    {
+      "time": 1775797200,
+      "time_iso": "2026-04-10T05:00:00Z",
+      "close": 72138.54,
+      "actual_next_return": -0.004570543507767866,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 0.00036696653415160406,
+        "prediction_z": 0.07366909949786926,
+        "visible_r2": 0.02211256305729059,
+        "conditional_std": 0.9888819125369366,
+        "hidden_clock": 11.917723327142939,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.0011007003811376475,
+      "baseline_last_return": 0.00017398594140516366,
+      "baseline_momentum_6": 0.004731677052660643,
+      "spoke": false
+    },
+    {
+      "time": 1775800800,
+      "time_iso": "2026-04-10T06:00:00Z",
+      "close": 71809.58,
+      "actual_next_return": -0.0044045031145341085,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": -0.0003397856320977778,
+        "prediction_z": -0.06803349250266602,
+        "visible_r2": 0.023055737632088458,
+        "conditional_std": 0.98840490810594,
+        "hidden_clock": 11.906392060186336,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.001878895760406598,
+      "baseline_last_return": -0.004570543507767866,
+      "baseline_momentum_6": -0.0023378997546270597,
+      "spoke": false
+    },
+    {
+      "time": 1775804400,
+      "time_iso": "2026-04-10T07:00:00Z",
+      "close": 71493.99,
+      "actual_next_return": 0.0016489881831791564,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 0.00024893923335834946,
+        "prediction_z": 0.04963125865520578,
+        "visible_r2": 0.02618484281096789,
+        "conditional_std": 0.9868207320425691,
+        "hidden_clock": 11.924793156798561,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.0015742781286403507,
+      "baseline_last_return": -0.0044045031145341085,
+      "baseline_momentum_6": -0.009446528034752433,
+      "spoke": false
+    },
+    {
+      "time": 1775808000,
+      "time_iso": "2026-04-10T08:00:00Z",
+      "close": 71611.98,
+      "actual_next_return": 0.0024493807834318204,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 0.0013535059736388176,
+        "prediction_z": 0.2698527609648478,
+        "visible_r2": 0.02557607590474098,
+        "conditional_std": 0.9871291324316485,
+        "hidden_clock": 11.911964227291648,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.0011503076737392939,
+      "baseline_last_return": 0.0016489881831791564,
+      "baseline_momentum_6": -0.0049610037274696595,
+      "spoke": true
+    },
+    {
+      "time": 1775811600,
+      "time_iso": "2026-04-10T09:00:00Z",
+      "close": 71787.6,
+      "actual_next_return": 0.001804671410132741,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 0.000631778823383091,
+        "prediction_z": 0.12719362825808653,
+        "visible_r2": 0.0265299101214862,
+        "conditional_std": 0.986645878660887,
+        "hidden_clock": 11.97275806331931,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.0009435405548857394,
+      "baseline_last_return": 0.0024493807834318204,
+      "baseline_momentum_6": -0.0013167697073601659,
+      "spoke": false
+    },
+    {
+      "time": 1775815200,
+      "time_iso": "2026-04-10T10:00:00Z",
+      "close": 71917.27,
+      "actual_next_return": 0.0032007779377547507,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": -0.00044104013784577453,
+        "prediction_z": -0.08875216946583937,
+        "visible_r2": 0.026849335966578347,
+        "conditional_std": 0.9864839907638753,
+        "hidden_clock": 11.968366064863826,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.003928604513019772,
+      "baseline_last_return": 0.001804671410132741,
+      "baseline_momentum_6": -0.0028980203041530928,
+      "spoke": false
+    },
+    {
+      "time": 1775818800,
+      "time_iso": "2026-04-10T11:00:00Z",
+      "close": 72147.83,
+      "actual_next_return": 0.0017340987172911326,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": -0.00012493290043166712,
+        "prediction_z": -0.025132038286269125,
+        "visible_r2": 0.023445524789905692,
+        "conditional_std": 0.9882077085360619,
+        "hidden_clock": 11.924061596103828,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.002933149521726942,
+      "baseline_last_return": 0.0032007779377547507,
+      "baseline_momentum_6": 0.00012877169219649431,
+      "spoke": false
+    },
+    {
+      "time": 1775822400,
+      "time_iso": "2026-04-10T12:00:00Z",
+      "close": 72273.05,
+      "actual_next_return": 0.0010226798627872569,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 0.00014616413013935102,
+        "prediction_z": 0.02949266826416092,
+        "visible_r2": 0.020465764955429733,
+        "conditional_std": 0.9897142188756157,
+        "hidden_clock": 11.92383189658775,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.00020468476562094507,
+      "baseline_last_return": 0.0017340987172911326,
+      "baseline_momentum_6": 0.006433413917255493,
+      "spoke": false
+    },
+    {
+      "time": 1775826000,
+      "time_iso": "2026-04-10T13:00:00Z",
+      "close": 72347.0,
+      "actual_next_return": 0.008343055956519407,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 0.00042368979400702104,
+        "prediction_z": 0.08548811862608674,
+        "visible_r2": 0.020214478534779867,
+        "conditional_std": 0.9898411597146384,
+        "hidden_clock": 11.90768746573334,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.0016477650925087008,
+      "baseline_last_return": 0.0010226798627872569,
+      "baseline_momentum_6": 0.011860596894576858,
+      "spoke": false
+    },
+    {
+      "time": 1775829600,
+      "time_iso": "2026-04-10T14:00:00Z",
+      "close": 72953.12,
+      "actual_next_return": -0.006465267394283103,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 0.0014057910166812813,
+        "prediction_z": 0.28045456844801764,
+        "visible_r2": 0.017799413952691467,
+        "conditional_std": 0.9910603342114488,
+        "hidden_clock": 11.883269305538086,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.004053781053262819,
+      "baseline_last_return": 0.008343055956519407,
+      "baseline_momentum_6": 0.01855466466791711,
+      "spoke": true
+    },
+    {
+      "time": 1775833200,
+      "time_iso": "2026-04-10T15:00:00Z",
+      "close": 72482.98,
+      "actual_next_return": 0.007399403730742549,
+      "chosen_observer": {
+        "name": "trend_context",
+        "features": [
+          "mom_3",
+          "mom_12",
+          "mom_24"
+        ],
+        "prediction": 0.0006793112887010866,
+        "prediction_z": 0.1346738260422653,
+        "visible_r2": 0.011729682918485862,
+        "conditional_std": 0.9941178587479023,
+        "hidden_clock": 2.505582299900158,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.00017585815408657578,
+      "baseline_last_return": -0.006465267394283103,
+      "baseline_momentum_6": 0.009640016490202186,
+      "spoke": false
+    },
+    {
+      "time": 1775836800,
+      "time_iso": "2026-04-10T16:00:00Z",
+      "close": 73021.3,
+      "actual_next_return": 0.0017892456729615702,
+      "chosen_observer": {
+        "name": "trend_context",
+        "features": [
+          "mom_3",
+          "mom_12",
+          "mom_24"
+        ],
+        "prediction": 0.0004157239925887768,
+        "prediction_z": 0.08172379229288157,
+        "visible_r2": 0.011246308073350586,
+        "conditional_std": 0.9943609465011433,
+        "hidden_clock": 2.5055595565524444,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.00035802541485394817,
+      "baseline_last_return": 0.007399403730742549,
+      "baseline_momentum_6": 0.015234748810811993,
+      "spoke": false
+    },
+    {
+      "time": 1775840400,
+      "time_iso": "2026-04-10T17:00:00Z",
+      "close": 73152.07,
+      "actual_next_return": -2.8297617390649066e-05,
+      "chosen_observer": {
+        "name": "trend_context",
+        "features": [
+          "mom_3",
+          "mom_12",
+          "mom_24"
+        ],
+        "prediction": 0.0006586402285487742,
+        "prediction_z": 0.12984122251084615,
+        "visible_r2": 0.008490539018552012,
+        "conditional_std": 0.9957456808751158,
+        "hidden_clock": 2.520508814851938,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.00039495540968653795,
+      "baseline_last_return": 0.0017892456729615702,
+      "baseline_momentum_6": 0.013823216546018813,
+      "spoke": false
+    },
+    {
+      "time": 1775844000,
+      "time_iso": "2026-04-10T18:00:00Z",
+      "close": 73150.0,
+      "actual_next_return": 0.0018576037289008696,
+      "chosen_observer": {
+        "name": "trend_context",
+        "features": [
+          "mom_3",
+          "mom_12",
+          "mom_24"
+        ],
+        "prediction": 0.00035688730611833843,
+        "prediction_z": 0.07060299547463239,
+        "visible_r2": 0.01148302904655385,
+        "conditional_std": 0.9942419076630427,
+        "hidden_clock": 2.5377029019588133,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.0032984055066868356,
+      "baseline_last_return": -2.8297617390649066e-05,
+      "baseline_momentum_6": 0.012060820211337031,
+      "spoke": false
+    },
+    {
+      "time": 1775847600,
+      "time_iso": "2026-04-10T19:00:00Z",
+      "close": 73286.01,
+      "actual_next_return": 0.0015543406652085423,
+      "chosen_observer": {
+        "name": "trend_context",
+        "features": [
+          "mom_3",
+          "mom_12",
+          "mom_24"
+        ],
+        "prediction": 0.0006402437452218442,
+        "prediction_z": 0.12683781775513914,
+        "visible_r2": 0.00965588258186112,
+        "conditional_std": 0.9951603475913512,
+        "hidden_clock": 2.537104822301788,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.00015685497130776902,
+      "baseline_last_return": 0.0018576037289008696,
+      "baseline_momentum_6": 0.012895744077450644,
+      "spoke": false
+    },
+    {
+      "time": 1775851200,
+      "time_iso": "2026-04-10T20:00:00Z",
+      "close": 73400.01,
+      "actual_next_return": -0.0024185896773065707,
+      "chosen_observer": {
+        "name": "trend_context",
+        "features": [
+          "mom_3",
+          "mom_12",
+          "mom_24"
+        ],
+        "prediction": 0.0007563674384081483,
+        "prediction_z": 0.14983572399911768,
+        "visible_r2": 0.010692377621603799,
+        "conditional_std": 0.9946394434056978,
+        "hidden_clock": 2.5323412025024665,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.0007580924169415027,
+      "baseline_last_return": 0.0015543406652085423,
+      "baseline_momentum_6": 0.006107028786139779,
+      "spoke": false
+    },
+    {
+      "time": 1775854800,
+      "time_iso": "2026-04-10T21:00:00Z",
+      "close": 73222.7,
+      "actual_next_return": -0.004313967801740759,
+      "chosen_observer": {
+        "name": "mixed_local",
+        "features": [
+          "ret_1",
+          "mom_6",
+          "vol_6",
+          "volume_z_24",
+          "range_1"
+        ],
+        "prediction": 0.00016921572060388777,
+        "prediction_z": 0.033638905020451894,
+        "visible_r2": 0.007990787214427031,
+        "conditional_std": 0.9959965927580139,
+        "hidden_clock": 12.481632839860588,
+        "hidden_rank": 5.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.0019070503391066056,
+      "baseline_last_return": -0.0024185896773065707,
+      "baseline_momentum_6": 0.010153706503116311,
+      "spoke": false
+    },
+    {
+      "time": 1775858400,
+      "time_iso": "2026-04-10T22:00:00Z",
+      "close": 72907.5,
+      "actual_next_return": 0.001238885249604138,
+      "chosen_observer": {
+        "name": "mixed_local",
+        "features": [
+          "ret_1",
+          "mom_6",
+          "vol_6",
+          "volume_z_24",
+          "range_1"
+        ],
+        "prediction": 0.0005597265808390406,
+        "prediction_z": 0.11343486195118352,
+        "visible_r2": 0.005362926880897789,
+        "conditional_std": 0.9973149317638347,
+        "hidden_clock": 12.479623321754172,
+        "hidden_rank": 5.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.0012410775268793955,
+      "baseline_last_return": -0.004313967801740759,
+      "baseline_momentum_6": -0.0015596650293669967,
+      "spoke": false
+    },
+    {
+      "time": 1775862000,
+      "time_iso": "2026-04-10T23:00:00Z",
+      "close": 72997.88,
+      "actual_next_return": -0.0017809516966789118,
+      "chosen_observer": {
+        "name": "mixed_local",
+        "features": [
+          "ret_1",
+          "mom_6",
+          "vol_6",
+          "volume_z_24",
+          "range_1"
+        ],
+        "prediction": 0.00016342393779936545,
+        "prediction_z": 0.03311685011633378,
+        "visible_r2": 0.005349189285022482,
+        "conditional_std": 0.9973218190308369,
+        "hidden_clock": 12.432601754004354,
+        "hidden_rank": 5.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.0016463378225308645,
+      "baseline_last_return": 0.001238885249604138,
+      "baseline_momentum_6": -0.002110025452724429,
+      "spoke": false
+    },
+    {
+      "time": 1775865600,
+      "time_iso": "2026-04-11T00:00:00Z",
+      "close": 72867.99,
+      "actual_next_return": 0.0017825955786836545,
+      "chosen_observer": {
+        "name": "mixed_local",
+        "features": [
+          "ret_1",
+          "mom_6",
+          "vol_6",
+          "volume_z_24",
+          "range_1"
+        ],
+        "prediction": -7.634606103210887e-05,
+        "prediction_z": -0.01546297880946322,
+        "visible_r2": 0.006659764019388059,
+        "conditional_std": 0.9966645553949492,
+        "hidden_clock": 12.487147249808057,
+        "hidden_rank": 5.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.002017558488218426,
+      "baseline_last_return": -0.0017809516966789118,
+      "baseline_momentum_6": -0.0038626795320126917,
+      "spoke": false
+    },
+    {
+      "time": 1775869200,
+      "time_iso": "2026-04-11T01:00:00Z",
+      "close": 72998.0,
+      "actual_next_return": 0.00013711764352386524,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 0.0005986967950072572,
+        "prediction_z": 0.12216580622409606,
+        "visible_r2": 0.008328703731706133,
+        "conditional_std": 0.9958269409231174,
+        "hidden_clock": 11.958922031525367,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.0018733588582712317,
+      "baseline_last_return": 0.0017825955786836545,
+      "baseline_momentum_6": -0.003937687682229907,
+      "spoke": false
+    },
+    {
+      "time": 1775872800,
+      "time_iso": "2026-04-11T02:00:00Z",
+      "close": 73008.01,
+      "actual_next_return": -0.0013498036624284282,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 0.0003833270335065001,
+        "prediction_z": 0.07838115918772141,
+        "visible_r2": 0.010608605026623086,
+        "conditional_std": 0.9946815545557165,
+        "hidden_clock": 11.936646282672065,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.001846021572186822,
+      "baseline_last_return": 0.00013711764352386524,
+      "baseline_momentum_6": -0.005354910703914584,
+      "spoke": false
+    },
+    {
+      "time": 1775876400,
+      "time_iso": "2026-04-11T03:00:00Z",
+      "close": 72909.53,
+      "actual_next_return": -0.0008301399722174807,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 0.0001557451481363054,
+        "prediction_z": 0.031826594601154765,
+        "visible_r2": 0.011066863854481523,
+        "conditional_std": 0.994451173334075,
+        "hidden_clock": 11.931904770664847,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.0024065729323956577,
+      "baseline_last_return": -0.0013498036624284282,
+      "baseline_momentum_6": -0.004286124689036441,
+      "spoke": false
+    },
+    {
+      "time": 1775880000,
+      "time_iso": "2026-04-11T04:00:00Z",
+      "close": 72849.03,
+      "actual_next_return": -0.0011755862647913062,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 0.0006756075248744793,
+        "prediction_z": 0.13800867481191886,
+        "visible_r2": 0.0117888856033449,
+        "conditional_std": 0.9940880818099849,
+        "hidden_clock": 11.938986973209136,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.00029313535593279455,
+      "baseline_last_return": -0.0008301399722174807,
+      "baseline_momentum_6": -0.000802296859513163,
+      "spoke": false
+    },
+    {
+      "time": 1775883600,
+      "time_iso": "2026-04-11T05:00:00Z",
+      "close": 72763.44,
+      "actual_next_return": 0.0005473778758595671,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 0.0006726123936912419,
+        "prediction_z": 0.13767582040029977,
+        "visible_r2": 0.00990430052166702,
+        "conditional_std": 0.9950355267418008,
+        "hidden_clock": 11.94991597040038,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.0007974933518016733,
+      "baseline_last_return": -0.0011755862647913062,
+      "baseline_momentum_6": -0.0032167683739086073,
+      "spoke": false
+    },
+    {
+      "time": 1775887200,
+      "time_iso": "2026-04-11T06:00:00Z",
+      "close": 72803.28,
+      "actual_next_return": -0.00015714812451861349,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 0.0007704421124707338,
+        "prediction_z": 0.15782541972468503,
+        "visible_r2": 0.009221393993806726,
+        "conditional_std": 0.9953786244470961,
+        "hidden_clock": 11.95586177611664,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.0005786672092028968,
+      "baseline_last_return": 0.0005473778758595671,
+      "baseline_momentum_6": -0.0008884388013701283,
+      "spoke": true
+    },
+    {
+      "time": 1775890800,
+      "time_iso": "2026-04-11T07:00:00Z",
+      "close": 72791.84,
+      "actual_next_return": -0.0012465206125593653,
+      "chosen_observer": {
+        "name": "impulse",
+        "features": [
+          "ret_1",
+          "mom_3",
+          "mom_6"
+        ],
+        "prediction": 0.0005127692254191391,
+        "prediction_z": 0.10502714090275722,
+        "visible_r2": 0.009107904064084793,
+        "conditional_std": 0.9954356312368546,
+        "hidden_clock": 11.961966822440848,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.0017704339476290899,
+      "baseline_last_return": -0.00015714812451861349,
+      "baseline_momentum_6": -0.0028281825045723963,
+      "spoke": false
+    },
+    {
+      "time": 1775894400,
+      "time_iso": "2026-04-11T08:00:00Z",
+      "close": 72701.16,
+      "actual_next_return": 0.003461484643123569,
+      "chosen_observer": {
+        "name": "mixed_local",
+        "features": [
+          "ret_1",
+          "mom_6",
+          "vol_6",
+          "volume_z_24",
+          "range_1"
+        ],
+        "prediction": -8.915328099066944e-05,
+        "prediction_z": -0.018319426797489626,
+        "visible_r2": 0.010281866090922076,
+        "conditional_std": 0.9948457839831648,
+        "hidden_clock": 12.563749816109024,
+        "hidden_rank": 5.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.001722287021323521,
+      "baseline_last_return": -0.0012465206125593653,
+      "baseline_momentum_6": -0.004211820760655627,
+      "spoke": false
+    },
+    {
+      "time": 1775898000,
+      "time_iso": "2026-04-11T09:00:00Z",
+      "close": 72953.25,
+      "actual_next_return": -0.0009735626886371307,
+      "chosen_observer": {
+        "name": "mixed_local",
+        "features": [
+          "ret_1",
+          "mom_6",
+          "vol_6",
+          "volume_z_24",
+          "range_1"
+        ],
+        "prediction": 0.00017261585641903404,
+        "prediction_z": 0.03545075014656321,
+        "visible_r2": 0.00872075392495919,
+        "conditional_std": 0.9956300749148957,
+        "hidden_clock": 12.570981391575161,
+        "hidden_rank": 5.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.0012863571805138306,
+      "baseline_last_return": 0.003461484643123569,
+      "baseline_momentum_6": 0.0005994675448963704,
+      "spoke": false
+    },
+    {
+      "time": 1775901600,
+      "time_iso": "2026-04-11T10:00:00Z",
+      "close": 72882.26,
+      "actual_next_return": 0.0008963870007505648,
+      "chosen_observer": {
+        "name": "trend_context",
+        "features": [
+          "mom_3",
+          "mom_12",
+          "mom_24"
+        ],
+        "prediction": 0.0007158404133293077,
+        "prediction_z": 0.15377535869383524,
+        "visible_r2": 0.015963964191342606,
+        "conditional_std": 0.9919859050453577,
+        "hidden_clock": 2.1718376521063,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.0014271839512914738,
+      "baseline_last_return": -0.0009735626886371307,
+      "baseline_momentum_6": 0.00045604482847672045,
+      "spoke": true
+    },
+    {
+      "time": 1775905200,
+      "time_iso": "2026-04-11T11:00:00Z",
+      "close": 72947.62,
+      "actual_next_return": 0.00034525666145945877,
+      "chosen_observer": {
+        "name": "trend_context",
+        "features": [
+          "mom_3",
+          "mom_12",
+          "mom_24"
+        ],
+        "prediction": 0.0008165917926635256,
+        "prediction_z": 0.1754451815049131,
+        "visible_r2": 0.015753893909093875,
+        "conditional_std": 0.9920917830981699,
+        "hidden_clock": 2.1262622579624924,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -8.682871826962135e-05,
+      "baseline_last_return": 0.0008963870007505648,
+      "baseline_momentum_6": 0.0025280180940185915,
+      "spoke": true
+    },
+    {
+      "time": 1775908800,
+      "time_iso": "2026-04-11T12:00:00Z",
+      "close": 72972.81,
+      "actual_next_return": -0.0038812941008607993,
+      "chosen_observer": {
+        "name": "trend_context",
+        "features": [
+          "mom_3",
+          "mom_12",
+          "mom_24"
+        ],
+        "prediction": 0.0008417020820078873,
+        "prediction_z": 0.18083601497031526,
+        "visible_r2": 0.01622059568798928,
+        "conditional_std": 0.9918565442199848,
+        "hidden_clock": 2.110266008344557,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.00022262947997937917,
+      "baseline_last_return": 0.00034525666145945877,
+      "baseline_momentum_6": 0.002325896879618483,
+      "spoke": true
+    },
+    {
+      "time": 1775912400,
+      "time_iso": "2026-04-11T13:00:00Z",
+      "close": 72690.13,
+      "actual_next_return": 0.0007210208691237341,
+      "chosen_observer": {
+        "name": "trend_context",
+        "features": [
+          "mom_3",
+          "mom_12",
+          "mom_24"
+        ],
+        "prediction": 0.0010680194408346003,
+        "prediction_z": 0.2288328194045385,
+        "visible_r2": 0.019155079196672364,
+        "conditional_std": 0.990376151168498,
+        "hidden_clock": 2.0927456426288167,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.0009085368695713537,
+      "baseline_last_return": -0.0038812941008607993,
+      "baseline_momentum_6": -0.0013982490967237027,
+      "spoke": true
+    },
+    {
+      "time": 1775916000,
+      "time_iso": "2026-04-11T14:00:00Z",
+      "close": 72742.56,
+      "actual_next_return": 0.0020716043426389774,
+      "chosen_observer": {
+        "name": "trend_context",
+        "features": [
+          "mom_3",
+          "mom_12",
+          "mom_24"
+        ],
+        "prediction": 0.0015468812774243048,
+        "prediction_z": 0.33457652749163336,
+        "visible_r2": 0.029015634489024,
+        "conditional_std": 0.9853853893330142,
+        "hidden_clock": 2.0907552092435813,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": 0.000877721776331306,
+      "baseline_last_return": 0.0007210208691237341,
+      "baseline_momentum_6": 0.0005692923849593967,
+      "spoke": true
+    },
+    {
+      "time": 1775919600,
+      "time_iso": "2026-04-11T15:00:00Z",
+      "close": 72893.41,
+      "actual_next_return": 0.0025075057755561403,
+      "chosen_observer": {
+        "name": "trend_context",
+        "features": [
+          "mom_3",
+          "mom_12",
+          "mom_24"
+        ],
+        "prediction": 0.0011013733732657218,
+        "prediction_z": 0.23896931120952922,
+        "visible_r2": 0.024567878577868796,
+        "conditional_std": 0.9876396718551413,
+        "hidden_clock": 2.0916416129575,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.0002563780067520729,
+      "baseline_last_return": 0.0020716043426389774,
+      "baseline_momentum_6": -0.0008205879155251949,
+      "spoke": true
+    },
+    {
+      "time": 1775923200,
+      "time_iso": "2026-04-11T16:00:00Z",
+      "close": 73076.42,
+      "actual_next_return": 0.0011336491960918238,
+      "chosen_observer": {
+        "name": "trend_context",
+        "features": [
+          "mom_3",
+          "mom_12",
+          "mom_24"
+        ],
+        "prediction": 0.0013428899048773379,
+        "prediction_z": 0.2911489977695965,
+        "visible_r2": 0.026340306682549386,
+        "conditional_std": 0.9867419588309045,
+        "hidden_clock": 2.077723807031163,
+        "hidden_rank": 4.0,
+        "geometry_status": "ok"
+      },
+      "all_feature_prediction": -0.00030845902634826425,
+      "baseline_last_return": 0.0025075057755561403,
+      "baseline_momentum_6": 0.002660480548668076,
+      "spoke": true
+    }
+  ],
+  "scope": "Experimental paper-trading observation gate. It uses only hourly OHLCV-derived features and local Gaussian prediction geometry. It is not financial advice.",
+  "mode": "live_coinbase"
+}

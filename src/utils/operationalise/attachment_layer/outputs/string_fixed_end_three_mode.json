@@ -1,0 +1,31 @@
+{
+  "card_id": "string_fixed_end_three_mode",
+  "system": "fixed-end string truncated to the first three sine modes",
+  "attachment_type": "exact_quadratic",
+  "executed_calls": [
+    "visible_precision"
+  ],
+  "refused_calls": [],
+  "readout": {
+    "visible_precision": [
+      [
+        986.9604401089358,
+        0.0,
+        0.0
+      ],
+      [
+        0.0,
+        3947.8417604357433,
+        0.0
+      ],
+      [
+        0.0,
+        0.0,
+        8882.64396098042
+      ]
+    ]
+  },
+  "coordinate_note": "This finite modal card separates stiffness Hessian K, mass metric M, and frequency readout. The runner reads the declared stiffness Hessian K; frequencies require the pair (K, M) and are not inferred from K alone.",
+  "positive_scope": "This card converts a raw standing-wave formula into a finite positive modal stiffness object after boundary, basis, and truncation are declared.",
+  "boundary": "It does not attach the infinite string, modes above n = 3, point-sensor inversion, damping, drive response, or hidden-load structure."
+}

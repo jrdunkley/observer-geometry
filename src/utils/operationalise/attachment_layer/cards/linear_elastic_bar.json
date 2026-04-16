@@ -1,0 +1,64 @@
+{
+  "card_id": "linear_elastic_bar",
+  "schema_version": "attachment_card.v0",
+  "system": "small-strain linear elastic bar in axial extension coordinate",
+  "attachment_type": "exact_quadratic",
+  "state_variables": [
+    {"name": "delta_L", "meaning": "axial extension from reference length", "unit": "m"}
+  ],
+  "sensor_surface": {
+    "ideal": ["axial extension delta_L"],
+    "practical": ["strain gauge, displacement probe, or load-frame extension measurement"]
+  },
+  "control_variables": [
+    {"name": "E_young", "meaning": "Young modulus", "unit": "Pa = N m^-2"},
+    {"name": "A_cross", "meaning": "bar cross-sectional area", "unit": "m^2"},
+    {"name": "L0", "meaning": "reference length", "unit": "m"}
+  ],
+  "regime_assumptions": [
+    "small-strain linear elasticity",
+    "uniform axial deformation",
+    "material remains in elastic regime",
+    "bending, shear, plasticity, and damping are outside this card"
+  ],
+  "equation_hook": "U(delta_L) = 1/2 (E_young A_cross / L0) delta_L^2",
+  "units_and_dimensions": {
+    "delta_L": "m",
+    "E_young": "Pa = N m^-2",
+    "A_cross": "m^2",
+    "L0": "m",
+    "E_young A_cross / L0": "N m^-1 = J m^-2",
+    "H": "J m^-2"
+  },
+  "coordinate_note": "The coordinate is total axial extension, not strain. If strain epsilon = delta_L / L0 is used as the coordinate, the Hessian changes to E_young A_cross L0.",
+  "module_object": {
+    "kind": "Hessian",
+    "description": "scalar axial stiffness Hessian for a uniform linear elastic bar"
+  },
+  "derivation_status": "exact from the stated small-strain uniform linear elastic energy",
+  "observer_map": {
+    "description": "observe axial extension delta_L",
+    "matrix": [[1.0]]
+  },
+  "ceiling_or_reference": {
+    "kind": "none",
+    "description": "no hidden coordinate is declared in this card"
+  },
+  "allowed_nomogeo_calls": ["visible_precision"],
+  "nomogeo_readout": {
+    "requested": ["visible_precision"]
+  },
+  "positive_scope": "This card exposes material stiffness as the same scalar quadratic contact type as an ideal spring after geometry is declared.",
+  "boundary": "It does not describe plastic deformation, nonlinear elasticity, bending modes, shear, damping, or fracture.",
+  "failure_mode": "The attachment fails if the bar leaves the small-strain elastic regime or if deformation is not well represented by a single axial extension coordinate.",
+  "next_measurement": "Measure axial load and extension in the elastic regime to estimate E_young A_cross / L0.",
+  "default_parameters": {
+    "E_young": 200000000000.0,
+    "A_cross": 0.000001,
+    "L0": 1.0
+  },
+  "declared_objects": {
+    "H": [[200000.0]],
+    "C": [[1.0]]
+  }
+}

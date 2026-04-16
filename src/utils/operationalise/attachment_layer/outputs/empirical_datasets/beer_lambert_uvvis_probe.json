@@ -1,0 +1,77 @@
+{
+  "schema_version": "beer_lambert_uvvis_probe.v0",
+  "dataset": "datasets\\edinburgh_data_driven_chemistry_unit09_section3",
+  "source_repository": "https://github.com/Edinburgh-Chemistry-Teaching/Data-driven-chemistry",
+  "source_directory": "https://github.com/Edinburgh-Chemistry-Teaching/Data-driven-chemistry/tree/main/Unit_09/data/Section3",
+  "route": "observation_equation_fisher",
+  "status": "admissible_empirical_probe",
+  "admission": "Spectra and concentrations compile into a Beer-Lambert calibration/analysis-function probe after declaring a common wavelength, known standards, residual noise model, and unknown-sample inversion.",
+  "lambda_star_nm": 527.0,
+  "known_concentration_span_mM": [
+    0.01,
+    0.1
+  ],
+  "calibration": {
+    "known_observation_count": 12,
+    "alpha": 0.005364853459308441,
+    "beta_absorbance_per_mM": 0.9666722865099123,
+    "sigma_absorbance_residual": 0.004314935868318901,
+    "r_squared": 0.9855151536808288,
+    "fisher_alpha_beta": [
+      [
+        644514.2968043372,
+        31420.071969211436
+      ],
+      [
+        31420.071969211436,
+        2259.8282531702075
+      ]
+    ],
+    "covariance_alpha_beta": [
+      [
+        4.815617675547483e-06,
+        -6.695511206643558e-05
+      ],
+      [
+        -6.695511206643558e-05,
+        0.0013734381962345762
+      ]
+    ]
+  },
+  "unknown_sample_estimates": [
+    {
+      "replicate": 1,
+      "absorbance": 0.07583870739,
+      "estimated_concentration_mM": 0.07290356299044362,
+      "local_variance_mM2": 2.24424686026567e-05,
+      "local_precision_inverse_mM2": 44558.37803340501
+    },
+    {
+      "replicate": 2,
+      "absorbance": 0.07708387822,
+      "estimated_concentration_mM": 0.07419166325707646,
+      "local_variance_mM2": 2.253636309780616e-05,
+      "local_precision_inverse_mM2": 44372.73200028209
+    },
+    {
+      "replicate": 3,
+      "absorbance": 0.07730259001,
+      "estimated_concentration_mM": 0.0744179155175914,
+      "local_variance_mM2": 2.255335906225238e-05,
+      "local_precision_inverse_mM2": 44339.29319529625
+    }
+  ],
+  "unknown_sample_summary": {
+    "mean_estimated_concentration_mM": 0.07383771392170384,
+    "min_estimated_concentration_mM": 0.07290356299044362,
+    "max_estimated_concentration_mM": 0.0744179155175914,
+    "inside_known_calibration_span": true
+  },
+  "mandatory_refusals": [
+    "static storage Hessian",
+    "hidden_load",
+    "thermodynamic concentration model",
+    "molar absorptivity claim without declared path length"
+  ],
+  "boundary": "This is a sensor-law information object and analysis-function probe. It is not a thermodynamic concentration model, not a storage Hessian, and not a hidden-load object. Molar absorptivity is not claimed because path length is not declared in the downloaded data."
+}

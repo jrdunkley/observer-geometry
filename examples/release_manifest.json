@@ -40,6 +40,19 @@
         "outputs/summary.json",
         "outputs/audit.json"
       ]
+    },
+    {
+      "name": "graph_frontier_declared_certificate",
+      "type": "exact_local_quadratic_breakpoint_demo",
+      "run_command": "python -m examples.graph_frontier_declared_certificate.run_all",
+      "summary": "stationary non-exact declared observers require the graph-frontier Hessian rather than an exact-branch proxy",
+      "outputs": [
+        "outputs/hessian_breakpoint.svg",
+        "outputs/frontier_sweep.csv",
+        "outputs/summary.json",
+        "outputs/validation.json",
+        "outputs/audit.json"
+      ]
     }
   ]
 }

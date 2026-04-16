@@ -1,0 +1,88 @@
+{
+  "schema_version": "admissibility_contract.v0",
+  "status": "route contract, not a promoted attachment schema",
+  "principle": "A physical or measurement hook is admissible only after it declares the finite positive object, the route by which it is exposed, the allowed module surfaces, and the mandatory refusals.",
+  "routes": [
+    {
+      "route_id": "exact_quadratic_storage",
+      "maturity": "carded",
+      "covers": ["attachment_type:exact_quadratic"],
+      "emitted_object": "finite storage Hessian or precision object in declared coordinates",
+      "allowed_surfaces": ["visible_precision"],
+      "required_declarations": ["state coordinates", "units", "regime", "H", "observer C", "sensor surface", "controls"],
+      "mandatory_refusals": ["hidden_load without a ceiling", "coordinate comparison without units discipline", "outside declared regime"],
+      "validated_by": ["cards/*.json", "validate_cards.py"]
+    },
+    {
+      "route_id": "local_quadratic_storage",
+      "maturity": "carded",
+      "covers": ["attachment_type:local_quadratic_approximation"],
+      "emitted_object": "finite local Hessian at a declared operating point",
+      "allowed_surfaces": ["visible_precision after operating point declaration"],
+      "required_declarations": ["operating point", "local coordinate", "approximation regime", "H", "observer C", "failure mode"],
+      "mandatory_refusals": ["global quadratic claim", "large-amplitude use outside local regime", "hidden_load without a ceiling"],
+      "validated_by": ["cards/pendulum_small_angle.json", "validate_cards.py"]
+    },
+    {
+      "route_id": "declared_ceiling_hidden_load",
+      "maturity": "carded",
+      "covers": ["attachment_type:exact_quadratic_with_declared_ceiling"],
+      "emitted_object": "finite storage Hessian plus declared visible-block ceiling/reference",
+      "allowed_surfaces": ["visible_precision", "hidden_load after ceiling dominance check"],
+      "required_declarations": ["H", "C", "T ceiling/reference", "active support", "ceiling dominance check", "hidden coordinate boundary"],
+      "mandatory_refusals": ["hidden_load if T - Phi is negative", "hidden_load without ceiling/reference", "non-SPD H"],
+      "validated_by": ["cards/mass_spring_coupled_observe_one.json", "cards/coupled_lc_resonators_observe_one_node.json", "analogue_sweep.py", "validate_cards.py"]
+    },
+    {
+      "route_id": "measurement_equation_local_linearisation",
+      "maturity": "proofed",
+      "covers": ["measurement equation Y = f(X)"],
+      "emitted_object": "local covariance or precision from Jacobian-pushed input uncertainty",
+      "allowed_surfaces": ["local_positive_curvature record only"],
+      "required_declarations": ["measurand", "input quantities", "input uncertainties", "operating point", "sensitivity/Jacobian", "units", "adequacy or negative control"],
+      "mandatory_refusals": ["no uncertainty model", "first-order linearisation fails", "unsupported denominator or positivity violation", "static storage Hessian", "hidden_load without a ceiling"],
+      "validated_by": ["measurement_equation_linearisation_proofs.py", "outputs/measurement_equation/measurement_equation_linearisation_proofs.json"]
+    },
+    {
+      "route_id": "observation_equation_fisher",
+      "maturity": "proofed",
+      "covers": ["observation equations with declared noise model"],
+      "emitted_object": "scalar or matrix Fisher precision for declared parameters",
+      "allowed_surfaces": ["local_positive_curvature record only"],
+      "required_declarations": ["observations", "parameter/measurand", "noise model", "sampling surface", "sensitivity or design matrix", "residual/adequacy gate"],
+      "mandatory_refusals": ["no noise model", "zero sensitivity", "rank-deficient design", "residual gate failure", "static storage Hessian", "hidden_load without a ceiling"],
+      "validated_by": ["observation_equation_fisher_proofs.py", "outputs/observation_equation/observation_equation_fisher_proofs.json"]
+    },
+    {
+      "route_id": "finite_modal_eigenbasis",
+      "maturity": "proofed",
+      "covers": ["finite boundary-conditioned modal truncations"],
+      "emitted_object": "finite modal mass metric and stiffness Hessian, optionally observer-map records",
+      "allowed_surfaces": ["finite_modal_positive_curvature", "observer_map_record_only"],
+      "required_declarations": ["boundary conditions", "basis", "mode count", "mass metric", "stiffness matrix", "truncation boundary", "sensor surface"],
+      "mandatory_refusals": ["raw infinite wave formula", "no boundary", "no finite truncation", "non-positive mass or stiffness", "hidden_load without a ceiling"],
+      "validated_by": ["finite_modal_eigenbasis_proofs.py", "outputs/finite_modal/finite_modal_eigenbasis_proofs.json"]
+    },
+    {
+      "route_id": "calibration_analysis_function",
+      "maturity": "proofed_minimal",
+      "covers": ["calibration function plus inverse or direct analysis function"],
+      "emitted_object": "analysis function with local uncertainty and validity range",
+      "allowed_surfaces": ["analysis_function_record", "local_positive_curvature for calibrated measurand only after uncertainty propagation"],
+      "required_declarations": ["standards", "instrument indications", "fit model", "fit parameter covariance", "analysis function", "validity range", "residual gate"],
+      "mandatory_refusals": ["extrapolation outside calibrated range", "rank-deficient calibration design", "residual gate failure", "inverse use without validity range", "hidden_load without a ceiling"],
+      "validated_by": ["calibration_analysis_function_proofs.py", "outputs/calibration_analysis/calibration_analysis_function_proofs.json"]
+    },
+    {
+      "route_id": "process_control_gate",
+      "maturity": "proofed_gate_only",
+      "covers": ["check standards", "bias monitoring", "repeatability", "reproducibility", "gauge R&R"],
+      "emitted_object": "measurement-process validity decision, not a module Hessian",
+      "allowed_surfaces": ["gate_or_refusal_only"],
+      "required_declarations": ["check standard", "historical baseline", "bias rule", "short-term variability", "long-term variability", "out-of-control rule"],
+      "mandatory_refusals": ["no stable check standard", "process out of control", "unknown bias treated as absent", "theorem-local kernel call requested"],
+      "validated_by": ["process_control_gate_proofs.py", "outputs/process_control/process_control_gate_proofs.json", "measurement_route_backlog.json"]
+    }
+  ],
+  "promotion_rule": "Do not promote a broad measurement attachment schema until carded storage, measurement-equation, observation-equation, finite-modal, minimal calibration-analysis, and process-control gate routes all pass validation together."
+}

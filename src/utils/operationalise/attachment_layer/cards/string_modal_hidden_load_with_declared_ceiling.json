@@ -1,0 +1,85 @@
+{
+  "card_id": "string_modal_hidden_load_with_declared_ceiling",
+  "schema_version": "attachment_card.v0",
+  "system": "point-displacement string modal observer with a declared reference-shape ceiling",
+  "attachment_type": "exact_quadratic_with_declared_ceiling",
+  "state_variables": [
+    {"name": "q1", "meaning": "amplitude of first fixed-end sine mode", "unit": "m sqrt(m)"},
+    {"name": "q2", "meaning": "amplitude of second fixed-end sine mode", "unit": "m sqrt(m)"},
+    {"name": "q3", "meaning": "amplitude of third fixed-end sine mode", "unit": "m sqrt(m)"}
+  ],
+  "sensor_surface": {
+    "ideal": ["point displacement y at x0 = L_string / 4 as a linear functional of q1, q2, q3"],
+    "practical": ["calibrated point displacement pickup plus a declared reference actuation or clamping protocol for the modal shape r"]
+  },
+  "control_variables": [
+    {"name": "L_string", "meaning": "fixed-end string length", "unit": "m"},
+    {"name": "Tension", "meaning": "string tension", "unit": "N"},
+    {"name": "mu", "meaning": "linear mass density", "unit": "kg m^-1"},
+    {"name": "x0", "meaning": "sensor position", "unit": "m"},
+    {"name": "mode_count", "meaning": "finite truncation count", "unit": "none"},
+    {"name": "reference_shape", "meaning": "declared modal right inverse r satisfying C r = 1 for unit point displacement", "unit": "sqrt(m)"}
+  ],
+  "regime_assumptions": [
+    "same small-amplitude fixed-end three-mode truncation as string_fixed_end_three_mode",
+    "point sensor is calibrated to a linear displacement measurement at x0 = L_string / 4",
+    "observer row is C_n = sqrt(2 / L_string) sin(n pi x0 / L_string) for n = 1, 2, 3",
+    "reference shape is declared as r = C^T / (C C^T), the minimum Euclidean modal-amplitude right inverse for unit y",
+    "ceiling T is the stiffness of the declared reference shape, T = r^T K r",
+    "relaxed visible precision Phi is the minimum-energy stiffness over all q satisfying C q = y",
+    "modes above n = 3, damping, drive, noise, and point-spread effects are outside this card",
+    "hidden-load interpretation is relative to the declared reference ceiling, not intrinsic to the point sensor alone"
+  ],
+  "equation_hook": "y = C q; r = C^T / (C C^T); T = r^T K r; Phi = (C K^{-1} C^T)^{-1}",
+  "units_and_dimensions": {
+    "q_n": "m sqrt(m) under the declared orthonormal spatial basis convention",
+    "C_n": "m^-1/2",
+    "r_n": "sqrt(m)",
+    "y": "m",
+    "K": "modal stiffness Hessian",
+    "M": "mass metric, separate from K",
+    "T": "reference-shape stiffness for unit point displacement",
+    "Phi_y": "relaxed quotient stiffness for the declared point displacement channel",
+    "T_minus_Phi": "stiffness gap attributable to relaxation away from the declared reference shape"
+  },
+  "coordinate_note": "This card is not a visible-block ceiling in the original modal coordinates. The ceiling is a declared reference-shape stiffness for the unit point displacement channel; hidden-load readout is therefore a reference-relaxation statement, not an intrinsic property of C alone.",
+  "module_object": {
+    "kind": "observed finite modal stiffness quotient with declared reference ceiling",
+    "description": "three-mode stiffness Hessian K observed through one point-displacement row C, plus reference-shape ceiling T = r^T K r"
+  },
+  "derivation_status": "exact for the declared three-mode fixed-end truncation, point sensor position, and reference-shape right inverse",
+  "observer_map": {
+    "description": "observe y at x0 = L_string / 4 through the first three sine modes",
+    "matrix": [[1.0000000000000002, 1.4142135623730951, 1.0000000000000002]]
+  },
+  "ceiling_or_reference": {
+    "kind": "declared_reference_shape_ceiling",
+    "description": "T = r^T K r with r = C^T / (C C^T), a declared unit-output reference shape rather than a canonical visible block"
+  },
+  "allowed_nomogeo_calls": ["visible_precision", "hidden_load"],
+  "nomogeo_readout": {
+    "requested": ["visible_precision", "hidden_load", "clock"]
+  },
+  "positive_scope": "This card shows that a point-sensor modal observer can support a hidden-load readout only after a reference shape and ceiling are declared.",
+  "boundary": "It does not claim that the point sensor alone defines a canonical ceiling, infer full modal amplitudes, attach modes above n = 3, model noise, or attach damping and drive response.",
+  "failure_mode": "The hidden-load attachment fails if the reference shape is not physically implemented or declared, if the ceiling does not dominate the relaxed visible precision, or if the reference-based gap is treated as an intrinsic sensor invariant.",
+  "next_measurement": "Implement two point-displacement protocols at x0 = L_string / 4: one constrained to the declared reference shape and one relaxed over compatible modal amplitudes, then compare the measured stiffness gap with T - Phi.",
+  "default_parameters": {
+    "L_string": 1.0,
+    "Tension": 100.0,
+    "mu": 0.01,
+    "x0": 0.25,
+    "mode_count": 3,
+    "observer_row": [1.0000000000000002, 1.4142135623730951, 1.0000000000000002],
+    "reference_shape": [0.24999999999999994, 0.3535533905932736, 0.24999999999999994],
+    "expected_reference_ceiling": 1110.330495122552,
+    "expected_visible_precision": 612.5961352400288,
+    "expected_ceiling_minus_visible_precision": 497.7343598825232
+  },
+  "declared_objects": {
+    "H": [[986.9604401089358, 0.0, 0.0], [0.0, 3947.8417604357433, 0.0], [0.0, 0.0, 8882.643960980422]],
+    "C": [[1.0000000000000002, 1.4142135623730951, 1.0000000000000002]],
+    "T": [[1110.330495122552]],
+    "M": [[0.01, 0.0, 0.0], [0.0, 0.01, 0.0], [0.0, 0.0, 0.01]]
+  }
+}

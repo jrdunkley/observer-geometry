@@ -1,0 +1,79 @@
+{
+  "schema_version": "gold_quartet_demonstration.v0",
+  "status": "external_facing_demonstration",
+  "purpose": "Compact evidence bundle showing that declared local positive contact is a route discipline rather than a list of examples.",
+  "demonstrations": [
+    {
+      "id": "cross_substrate_hidden_renormalisation",
+      "route": "reference_ceiling_hidden_load",
+      "source_outputs": [
+        "outputs/mass_spring_coupled_observe_one.json",
+        "outputs/coupled_lc_resonators_observe_one_node.json"
+      ],
+      "key_readout": {
+        "spring_visible_precision": 13.750000000000004,
+        "spring_ceiling_minus_visible_precision": 1.2499999999999964,
+        "spring_hidden_load": 0.09090909090909083,
+        "lc_visible_precision": 14.000000000000007,
+        "lc_ceiling_minus_visible_precision": 15.999999999999993,
+        "lc_hidden_load": 1.1428571428571423
+      },
+      "lesson": "Different substrates produce the same observer-facing pattern only after partial observation and a declared visible reference ceiling are present.",
+      "mandatory_refusal": "hidden-load language without a ceiling/reference"
+    },
+    {
+      "id": "finite_modal_sensor_reference",
+      "route": "finite_modal_curvature_to_reference_ceiling_hidden_load",
+      "source_outputs": [
+        "outputs/string_fixed_end_three_mode.json",
+        "outputs/string_point_sensor_modal_observer.json",
+        "outputs/string_modal_hidden_load_with_declared_ceiling.json"
+      ],
+      "key_readout": {
+        "three_mode_stiffness_diagonal": [
+          986.9604401089358,
+          3947.8417604357433,
+          8882.64396098042
+        ],
+        "point_sensor_visible_precision": 612.5961352400288,
+        "reference_ceiling_minus_visible_precision": 497.7343598825232,
+        "reference_hidden_load": 0.8124999999999993
+      },
+      "lesson": "Continuum wave language becomes module-facing only after boundary, basis, truncation, observer row, and reference ceiling are declared.",
+      "mandatory_refusal": "raw wave formula, full modal inference from one point sensor, or hidden load without reference"
+    },
+    {
+      "id": "rc_decay_information_curvature",
+      "route": "observation_equation_fisher",
+      "source_outputs": [
+        "outputs/empirical_datasets/rc_decay_q7_probe.json"
+      ],
+      "key_readout": {
+        "tau_hat_s": 0.9971158409029761,
+        "fisher_tau": 3931.508099613896,
+        "local_variance_tau_s2": 0.00025435531980671936,
+        "data_warnings": 1
+      },
+      "lesson": "A voltage decay trace can become local Fisher precision for tau after declaring V0, positive tau, sample times, and a residual-estimated noise convention.",
+      "mandatory_refusal": "storage Hessian, hidden load, capacitance without separately declared resistance, and instrument-noise claim without instrument metadata"
+    },
+    {
+      "id": "beer_lambert_sensor_information_curvature",
+      "route": "observation_equation_fisher_or_analysis_function",
+      "source_outputs": [
+        "outputs/empirical_datasets/beer_lambert_uvvis_probe.json"
+      ],
+      "key_readout": {
+        "lambda_star_nm": 527.0,
+        "known_observation_count": 12,
+        "beta_absorbance_per_mM": 0.9666722865099123,
+        "sigma_absorbance_residual": 0.004314935868318901,
+        "mean_estimated_concentration_mM": 0.07383771392170384,
+        "inside_known_calibration_span": true
+      },
+      "lesson": "Spectra and standards become a local concentration/calibration object after wavelength, standards, residual noise, and calibration span are declared.",
+      "mandatory_refusal": "storage Hessian, hidden load, thermodynamic concentration model, and molar absorptivity without path length"
+    }
+  ],
+  "scientific_conclusion": "The same local-positive interface is reached through energy storage, finite modal declaration, and information curvature, but each route licenses a different kind of claim and carries a neighbouring refusal."
+}

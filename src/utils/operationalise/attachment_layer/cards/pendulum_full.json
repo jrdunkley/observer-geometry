@@ -1,0 +1,55 @@
+{
+  "card_id": "pendulum_full",
+  "schema_version": "attachment_card.v0",
+  "system": "full simple pendulum potential over finite angle range",
+  "attachment_type": "not_yet_attachable",
+  "state_variables": [
+    {"name": "theta", "meaning": "angular displacement", "unit": "rad"}
+  ],
+  "sensor_surface": {
+    "ideal": ["angle theta over a finite range"],
+    "practical": ["encoder, video tracking, or IMU angle estimate over finite amplitude"]
+  },
+  "control_variables": [
+    {"name": "m", "meaning": "bob mass", "unit": "kg"},
+    {"name": "ell", "meaning": "pendulum length", "unit": "m"},
+    {"name": "g", "meaning": "gravitational acceleration", "unit": "m s^-2"},
+    {"name": "amplitude", "meaning": "finite oscillation amplitude", "unit": "rad"}
+  ],
+  "regime_assumptions": [
+    "no local operating point or sampled family has been declared",
+    "the full potential is not a single global quadratic object"
+  ],
+  "equation_hook": "U(theta) = m g ell (1 - cos theta)",
+  "units_and_dimensions": {
+    "theta": "rad treated as dimensionless",
+    "m g ell": "J",
+    "H": "not declared"
+  },
+  "coordinate_note": "No local coordinate chart or quadratic operating point is declared for module execution.",
+  "module_object": {
+    "kind": "none",
+    "description": "the full pendulum equation has not been converted into a declared local Hessian, weighted family, or sampled path"
+  },
+  "derivation_status": "not attachable as a single exact quadratic object",
+  "observer_map": null,
+  "ceiling_or_reference": {
+    "kind": "none",
+    "description": "no ceiling/reference is declared"
+  },
+  "allowed_nomogeo_calls": [],
+  "nomogeo_readout": {
+    "requested": []
+  },
+  "positive_scope": "This card records the boundary: a famous physical formula is not automatically an observer-geometry object.",
+  "boundary": "It cannot call theorem-local quadratic kernel surfaces until a local operating point, sampled family, or other declared object is supplied.",
+  "failure_mode": "Attempting to run visible precision or hidden load from this card would be an overclaim.",
+  "next_measurement": "Choose an operating point and amplitude range, then declare either a local Hessian or a sampled/weighted family.",
+  "default_parameters": {
+    "m": 1.0,
+    "ell": 1.0,
+    "g": 9.81,
+    "amplitude": 0.8
+  },
+  "declared_objects": {}
+}

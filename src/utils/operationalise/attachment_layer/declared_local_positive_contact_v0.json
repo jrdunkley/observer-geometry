@@ -1,0 +1,128 @@
+{
+  "schema_version": "declared_local_positive_contact.v0",
+  "status": "scientific_synthesis",
+  "core_pattern": [
+    "surface law / dataset / sensor relation",
+    "declaration package",
+    "finite local positive object",
+    "observer or sensor route",
+    "licensed module call or refusal"
+  ],
+  "routes": [
+    {
+      "route_id": "storage_curvature",
+      "curvature_provenance": "stored potential or field energy",
+      "declared_object": "finite Hessian or precision",
+      "licensed_surface": ["visible_precision"],
+      "representative_successes": ["mass_spring_single", "lc_resonator_single", "capacitor_charge_coordinate", "linear_elastic_bar"],
+      "neighbouring_refusals": ["dynamic response without dynamic declaration", "coordinate change without declaring transformed object"]
+    },
+    {
+      "route_id": "local_regime_curvature",
+      "curvature_provenance": "local expansion at operating point",
+      "declared_object": "local Hessian",
+      "licensed_surface": ["visible_precision"],
+      "representative_successes": ["pendulum_small_angle"],
+      "neighbouring_refusals": ["pendulum_full as one global quadratic object"]
+    },
+    {
+      "route_id": "metric_curvature",
+      "curvature_provenance": "kinetic energy metric",
+      "declared_object": "mass or inertia metric",
+      "licensed_surface": ["visible_precision as metric readout only"],
+      "representative_successes": ["kinetic_and_rotational_energy_metrics"],
+      "neighbouring_refusals": ["treating metric as stiffness", "deriving frequency from K alone"]
+    },
+    {
+      "route_id": "finite_modal_curvature",
+      "curvature_provenance": "boundary, basis, truncation",
+      "declared_object": "finite modal K and M",
+      "licensed_surface": ["finite modal positive object", "observer-map record"],
+      "representative_successes": ["string_fixed_end_three_mode", "acoustic_tube_three_mode_pressure_observer"],
+      "neighbouring_refusals": ["raw infinite standing wave formula", "raw acoustic impedance formula"]
+    },
+    {
+      "route_id": "modal_observer_curvature",
+      "curvature_provenance": "finite modal object plus sensor row",
+      "declared_object": "quotient visible stiffness",
+      "licensed_surface": ["visible_precision"],
+      "representative_successes": ["string_point_sensor_modal_observer", "acoustic_tube_three_mode_pressure_observer"],
+      "neighbouring_refusals": ["full modal inference from one point sensor", "full pressure-field inference from one microphone"]
+    },
+    {
+      "route_id": "reference_ceiling_hidden_load",
+      "curvature_provenance": "declared reference ceiling",
+      "declared_object": "H, C, T with T >= Phi",
+      "licensed_surface": ["visible_precision", "hidden_load"],
+      "representative_successes": ["string_modal_hidden_load_with_declared_ceiling", "mass_spring_coupled_observe_one", "coupled_lc_resonators_observe_one_node"],
+      "neighbouring_refusals": ["hidden load from C alone", "hidden load without ceiling/reference"]
+    },
+    {
+      "route_id": "information_curvature",
+      "curvature_provenance": "likelihood / residual model",
+      "declared_object": "scalar or matrix Fisher precision",
+      "licensed_surface": ["local_positive_curvature_record_only"],
+      "representative_successes": ["rc_decay_q7_probe", "beer_lambert_uvvis_probe"],
+      "neighbouring_refusals": ["static storage Hessian", "hidden_load"]
+    },
+    {
+      "route_id": "calibration_analysis_curvature",
+      "curvature_provenance": "calibration/analysis function with uncertainty",
+      "declared_object": "local measurand precision",
+      "licensed_surface": ["analysis_function_record"],
+      "representative_successes": ["load_cell_linear_analysis_function"],
+      "neighbouring_refusals": ["inverse use outside calibrated range"]
+    },
+    {
+      "route_id": "process_control_gate",
+      "curvature_provenance": "measurement process monitoring",
+      "declared_object": "validity/refusal decision",
+      "licensed_surface": ["gate_only"],
+      "representative_successes": ["check_standard_process_gate"],
+      "neighbouring_refusals": ["theorem-local kernel call", "missing baseline", "out-of-control process"]
+    },
+    {
+      "route_id": "thermodynamic_fluctuation_candidate",
+      "curvature_provenance": "ensemble and potential curvature",
+      "declared_object": "thermodynamic Hessian or Fisher object",
+      "licensed_surface": ["not_promoted_yet"],
+      "representative_successes": [],
+      "neighbouring_refusals": ["ideal_gas_law_boundary", "raw equation of state as module object"]
+    }
+  ],
+  "gold_quartet": [
+    {
+      "id": "cross_substrate_hidden_renormalisation",
+      "artifacts": ["mass_spring_coupled_observe_one", "coupled_lc_resonators_observe_one_node"],
+      "claim": "different substrates produce the same observer-facing hidden-renormalisation pattern under declared partial observation and ceiling"
+    },
+    {
+      "id": "finite_modal_sensor_reference",
+      "artifacts": ["string_fixed_end_three_mode", "string_point_sensor_modal_observer", "string_modal_hidden_load_with_declared_ceiling"],
+      "claim": "continuum language becomes finite module contact only after boundary, basis, truncation, observer row, and reference ceiling when hidden load is requested"
+    },
+    {
+      "id": "rc_decay_information_curvature",
+      "artifacts": ["rc_decay_q7_probe"],
+      "claim": "dynamic voltage samples produce Fisher precision for tau, not storage geometry or capacitance without R"
+    },
+    {
+      "id": "beer_lambert_sensor_information_curvature",
+      "artifacts": ["beer_lambert_uvvis_probe"],
+      "claim": "spectra and standards produce local concentration/calibration precision, not thermodynamic concentration geometry or molar absorptivity without path length"
+    }
+  ],
+  "uncertainty_provenance": [
+    {"id": "instrument_declared", "current_examples": []},
+    {"id": "replicate_estimated", "current_examples": ["calibration proof packets"]},
+    {"id": "residual_estimated", "current_examples": ["beer_lambert_uvvis_probe", "rc_decay_q7_probe"]},
+    {"id": "assumed_toy", "current_examples": ["local curvature proof packets"]}
+  ],
+  "next_scientific_moves": [
+    "turn the gold quartet into an external-facing demonstration",
+    "seek instrument-declared uncertainty or clean replicate datasets",
+    "externalise the acoustic/modal observer route with apparatus-level data",
+    "approach thermodynamics through refusal-plus-conditional local Hessian or Fisher object",
+    "extend process-control gates to real apparatus histories"
+  ]
+}

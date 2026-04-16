@@ -1,0 +1,61 @@
+{
+  "card_id": "lc_resonator_single",
+  "schema_version": "attachment_card.v0",
+  "system": "single ideal LC resonator in declared energy coordinates",
+  "attachment_type": "exact_quadratic",
+  "state_variables": [
+    {"name": "q", "meaning": "capacitor charge", "unit": "C"},
+    {"name": "flux_phi", "meaning": "inductor flux coordinate", "unit": "Wb"}
+  ],
+  "sensor_surface": {
+    "ideal": ["charge q and flux_phi as energy coordinates"],
+    "practical": ["capacitor voltage V = q / Ccap", "inductor current I = flux_phi / L"]
+  },
+  "control_variables": [
+    {"name": "Ccap", "meaning": "capacitance", "unit": "F"},
+    {"name": "L", "meaning": "inductance", "unit": "H"}
+  ],
+  "regime_assumptions": [
+    "capacitor and inductor are ideal",
+    "loss resistance and drive are omitted",
+    "state coordinates are declared energy coordinates"
+  ],
+  "equation_hook": "U(q, flux_phi) = q^2/(2 Ccap) + flux_phi^2/(2 L)",
+  "units_and_dimensions": {
+    "q": "C",
+    "flux_phi": "Wb",
+    "1/Ccap": "J C^-2",
+    "1/L": "J Wb^-2",
+    "H": "block units by coordinate"
+  },
+  "coordinate_note": "Charge and flux have different units; the Hessian is meaningful in the declared energy coordinates, not as a homogeneous stiffness table.",
+  "module_object": {
+    "kind": "Hessian",
+    "description": "diagonal LC energy Hessian in declared charge/flux coordinates"
+  },
+  "derivation_status": "exact after declaring charge and flux as the energy coordinates",
+  "observer_map": {
+    "description": "observe both declared energy coordinates",
+    "matrix": [[1.0, 0.0], [0.0, 1.0]]
+  },
+  "ceiling_or_reference": {
+    "kind": "none",
+    "description": "no hidden coordinate is declared in this card"
+  },
+  "allowed_nomogeo_calls": ["visible_precision"],
+  "nomogeo_readout": {
+    "requested": ["visible_precision"]
+  },
+  "positive_scope": "This card shows a circuit resonator as the same exact quadratic contact type as a mechanical oscillator.",
+  "boundary": "It does not describe resistance, nonlinear components, drive, radiation, or measurement loading.",
+  "failure_mode": "The attachment fails if component losses or nonlinearities dominate the declared quadratic energy.",
+  "next_measurement": "Measure capacitance, inductance, voltage, and current to estimate the energy coordinates.",
+  "default_parameters": {
+    "Ccap": 0.0001,
+    "L": 0.1
+  },
+  "declared_objects": {
+    "H": [[10000.0, 0.0], [0.0, 10.0]],
+    "C": [[1.0, 0.0], [0.0, 1.0]]
+  }
+}

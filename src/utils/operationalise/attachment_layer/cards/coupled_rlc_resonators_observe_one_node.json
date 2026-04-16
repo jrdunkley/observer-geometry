@@ -1,0 +1,71 @@
+{
+  "card_id": "coupled_rlc_resonators_observe_one_node",
+  "schema_version": "attachment_card.v0",
+  "system": "two coupled RLC resonators with one observed flux node and damping recorded outside storage",
+  "attachment_type": "exact_quadratic_with_declared_ceiling",
+  "state_variables": [
+    {"name": "flux_phi1", "meaning": "observed resonator flux coordinate", "unit": "Wb"},
+    {"name": "flux_phi2", "meaning": "hidden resonator flux coordinate", "unit": "Wb"}
+  ],
+  "sensor_surface": {
+    "ideal": ["flux_phi1"],
+    "practical": ["node voltage on resonator 1 integrated or phase-referenced to infer flux_phi1", "linewidth or Q-factor as damping metadata"]
+  },
+  "control_variables": [
+    {"name": "L1", "meaning": "visible resonator inductance", "unit": "H"},
+    {"name": "L2", "meaning": "hidden resonator inductance", "unit": "H"},
+    {"name": "Lc", "meaning": "coupling inductive scale", "unit": "H"},
+    {"name": "R1", "meaning": "visible resonator resistance recorded as damping", "unit": "ohm"},
+    {"name": "R2", "meaning": "hidden resonator resistance recorded as damping", "unit": "ohm"}
+  ],
+  "regime_assumptions": [
+    "linear inductive coupling is a valid quadratic storage model",
+    "R1 and R2 are dissipative response parameters and are not inserted into H",
+    "drive and active feedback are outside this card",
+    "the visible block H_vv is declared as the ceiling for hidden load",
+    "flux coordinates are the declared storage coordinates"
+  ],
+  "equation_hook": "U = flux_phi1^2/(2 L1) + flux_phi2^2/(2 L2) + (flux_phi1 - flux_phi2)^2/(2 Lc); R1,R2 are damping metadata outside U",
+  "units_and_dimensions": {
+    "flux_phi1": "Wb",
+    "flux_phi2": "Wb",
+    "1/L1,1/L2,1/Lc": "J Wb^-2",
+    "R1,R2": "ohm, not Hessian units",
+    "H": "J Wb^-2",
+    "T": "J Wb^-2"
+  },
+  "coordinate_note": "Both active coordinates are flux coordinates in the same units; damping parameters are deliberately outside the Hessian and hidden-load call.",
+  "module_object": {
+    "kind": "Hessian",
+    "description": "2x2 coupled inductive storage Hessian with one visible and one hidden flux coordinate"
+  },
+  "derivation_status": "exact for the declared coupled LC storage model; exact damping response is not claimed",
+  "observer_map": {
+    "description": "observe flux_phi1 and hide flux_phi2",
+    "matrix": [[1.0, 0.0]]
+  },
+  "ceiling_or_reference": {
+    "kind": "visible_block_ceiling",
+    "description": "T = H_vv, the visible flux stiffness before hidden relaxation"
+  },
+  "allowed_nomogeo_calls": ["visible_precision", "hidden_load"],
+  "nomogeo_readout": {
+    "requested": ["visible_precision", "hidden_load", "clock"]
+  },
+  "positive_scope": "This card preserves the coupled-LC hidden-renormalisation story while making damping a recorded practical response feature rather than a static curvature term.",
+  "boundary": "It does not describe dissipative linewidths, driven frequency response, nonlinear coupling, or measurement back-action.",
+  "failure_mode": "The attachment fails if damping is folded into H or if the resonators cannot be approximated by the declared passive quadratic storage coordinates.",
+  "next_measurement": "Measure node response while varying coupling; interpret storage geometry separately from linewidth or Q-factor.",
+  "default_parameters": {
+    "L1": 0.1,
+    "L2": 0.2,
+    "Lc": 0.05,
+    "R1": 10.0,
+    "R2": 12.0
+  },
+  "declared_objects": {
+    "H": [[30.0, -20.0], [-20.0, 25.0]],
+    "C": [[1.0, 0.0]],
+    "T": [[30.0]]
+  }
+}

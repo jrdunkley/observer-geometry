@@ -1,0 +1,108 @@
+{
+  "schema_version": "process_control_gate_proofs.v0",
+  "purpose": "Proof packet for process-control gates before empirical measurement objects are trusted as live attachment candidates.",
+  "proofs": [
+    {
+      "id": "check_standard_process_gate",
+      "route": "process_control_gate",
+      "status": "gate_passed_no_module_call",
+      "check_standard": {
+        "quantity": "declared check-standard indication",
+        "nominal_value": 10.0,
+        "unit": "declared_indication_unit"
+      },
+      "declarations": {
+        "historical_baseline_mean": 10.0,
+        "repeatability_sigma": 0.01,
+        "action_limit_z": 3.0,
+        "control_rule": "refuse the measurement route if any check-standard observation exceeds the three-sigma action limit"
+      },
+      "observations": [
+        10.004,
+        9.994,
+        10.008,
+        10.001,
+        9.998,
+        10.011,
+        10.0,
+        9.993
+      ],
+      "gate_readout": {
+        "observation_count": 8,
+        "observed_mean": 10.001125,
+        "baseline_mean": 10.0,
+        "repeatability_sigma": 0.01,
+        "z_scores": [
+          0.39999999999995595,
+          -0.6000000000000227,
+          0.7999999999999119,
+          0.09999999999994458,
+          -0.2000000000000668,
+          1.0999999999999233,
+          0.0,
+          -0.6999999999999673
+        ],
+        "max_abs_z": 1.0999999999999233,
+        "action_limit_z": 3.0,
+        "passed_action_limit": true
+      },
+      "emitted_object": "measurement-process validity decision only",
+      "allowed_route": "gate_or_refusal_only",
+      "theorem_local_calls_licensed": false,
+      "refused_routes": [
+        "visible_precision",
+        "hidden_load",
+        "static storage Hessian",
+        "Fisher precision",
+        "theorem-local kernel call requested"
+      ],
+      "boundary": "This gate says the measurement process is not obviously out of control under the declared check-standard rule. It does not create a module Hessian, Fisher object, or hidden-load object."
+    }
+  ],
+  "negative_controls": [
+    {
+      "id": "check_standard_drift_refusal",
+      "route": "process_control_gate",
+      "status": "refused",
+      "reason": "At least one check-standard observation exceeds the declared three-sigma action limit.",
+      "observations": [
+        10.012,
+        10.018,
+        10.026,
+        10.035,
+        10.041
+      ],
+      "gate_readout": {
+        "observation_count": 5,
+        "observed_mean": 10.0264,
+        "baseline_mean": 10.0,
+        "repeatability_sigma": 0.01,
+        "z_scores": [
+          1.2000000000000455,
+          1.8000000000000682,
+          2.59999999999998,
+          3.500000000000014,
+          4.100000000000037
+        ],
+        "max_abs_z": 4.100000000000037,
+        "action_limit_z": 3.0,
+        "passed_action_limit": false
+      },
+      "refused_route": "gate_or_refusal_only",
+      "theorem_local_calls_licensed": false
+    },
+    {
+      "id": "check_standard_missing_baseline_refusal",
+      "route": "process_control_gate",
+      "status": "refused",
+      "reason": "A process-control gate cannot be evaluated without a stable check standard, historical baseline, and variability declaration.",
+      "missing_declarations": [
+        "historical_baseline_mean",
+        "repeatability_sigma",
+        "bias_or_drift_rule"
+      ],
+      "refused_route": "gate_or_refusal_only",
+      "theorem_local_calls_licensed": false
+    }
+  ]
+}

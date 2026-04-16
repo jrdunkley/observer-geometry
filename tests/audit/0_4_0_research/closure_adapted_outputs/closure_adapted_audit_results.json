@@ -1,0 +1,87 @@
+{
+  "paper_summary": {
+    "main_implication": "observer synthesis reduces to subspace selection after H-whitening",
+    "module_gap": "repo has the exact kernel but no closure-adapted observer construction layer"
+  },
+  "normal_form_audit": {
+    "num_trials": 50,
+    "max_phi_error": 5.141590902463757e-13,
+    "max_lift_error": 1.9557880720549398e-13,
+    "max_projector_error": 1.0641585457752097e-11,
+    "max_V_error": 7.385071733532469e-14,
+    "max_Q_error": 5.590103160931189e-14
+  },
+  "closure_criterion_audit": {
+    "adapted_Q_norm": 1.0160798487046181e-29,
+    "adapted_offplane_norm": 1.907840370201675e-15,
+    "random_Q_norm": 4.475469510629651,
+    "random_eta": 0.7154300080126192
+  },
+  "commuting_family_demo": {
+    "top_indices_by_mu": [
+      0,
+      1,
+      2
+    ],
+    "mu_sorted": [
+      14.5,
+      8.84,
+      5.8,
+      5.4399999999999995,
+      1.44,
+      1.25,
+      1.25,
+      0.7300000000000001
+    ],
+    "adapted_scores": {
+      "S": 29.139999999999983,
+      "H": -2.8084306755012726e-15,
+      "eta": -9.63771679993574e-17
+    },
+    "best_exact_subset": {
+      "subset": [
+        0,
+        1,
+        2
+      ],
+      "S": 29.139999999999983,
+      "H": -2.8084306755012726e-15,
+      "eta": -9.63771679993574e-17
+    },
+    "random_eta_median": 0.6621746474595234,
+    "random_eta_min": 0.4062378777831831,
+    "random_S_median": 7.221743810476739
+  },
+  "bridge_demo": {
+    "adapted_Q_norm": 6.481167101468133e-31,
+    "adapted_V_norm": 1.5313680406424428,
+    "adapted_eta": -8.58079686135954e-16,
+    "adapted_residual_scaled_at_eps_0p2": 1.4152746968714947e-12,
+    "random_eta_median": 0.6451629704834786,
+    "random_eta_min": 0.0320273496430966,
+    "random_Q_norm_median": 0.2717918147687257,
+    "random_V_norm_max": 1.141235067412175,
+    "random_quartic_residual_scaled_median_at_eps_0p2": 0.26525260806770845,
+    "eps_grid": [
+      0.2,
+      0.1,
+      0.05,
+      0.02,
+      0.01,
+      0.005
+    ],
+    "residuals_after_eps2V": [
+      2.264439514994392e-15,
+      2.6463842642512565e-15,
+      2.7919756415271685e-15,
+      2.186697389567235e-15,
+      2.2656410637042578e-15,
+      2.352908798765868e-15
+    ],
+    "residual_loglog_slope": 0.02228943435994803,
+    "top_abs_eigenvalues": [
+      1.0828407260306274,
+      1.0828407260306256
+    ]
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schema_version": "empirical_dataset_metadata.v0",
+  "dataset_kind": "rc_decay_trace",
+  "route": "observation_equation_fisher",
+  "source": {
+    "file": "Q7_CapacitorVoltageDecay.m",
+    "author": "Amey Thakur",
+    "course_repo": "https://github.com/Amey-Thakur/COMPUTATIONAL-METHODS-AND-MODELING-FOR-ENGINEERING-APPLICATIONS",
+    "release_date": "2023-09-08",
+    "license": "CC-BY-4.0 as declared in the file header",
+    "reference": "MATLAB for Engineering Applications, William J. Palm, Chapter 6, Q7"
+  },
+  "measurement_model": {
+    "equation": "V_i = V0 exp(-t_i / tau) + E_i",
+    "V0_V": 100.0,
+    "noise_model": "Gaussian voltage residuals estimated from the fitted trace; no independent instrument noise is declared",
+    "time_unit": "s",
+    "voltage_unit": "V",
+    "trace_type": "capacitor discharge"
+  },
+  "admission_checks": [
+    "time and voltage arrays are finite",
+    "all voltage values are positive so log-linear comparison is defined",
+    "V0 is declared by the problem statement",
+    "tau is constrained positive",
+    "residual-estimated voltage sigma is positive",
+    "late nonmonotone point is recorded as a warning rather than silently removed"
+  ],
+  "mandatory_refusals": [
+    "static storage Hessian",
+    "hidden_load",
+    "capacitance inference without separately declared resistance",
+    "instrument-noise claim without instrument metadata"
+  ]
+}

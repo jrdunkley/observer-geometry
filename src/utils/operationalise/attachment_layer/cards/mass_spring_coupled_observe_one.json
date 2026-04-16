@@ -1,0 +1,65 @@
+{
+  "card_id": "mass_spring_coupled_observe_one",
+  "schema_version": "attachment_card.v0",
+  "system": "two coupled ideal spring coordinates with one observed coordinate",
+  "attachment_type": "exact_quadratic_with_declared_ceiling",
+  "state_variables": [
+    {"name": "x1", "meaning": "observed displacement", "unit": "m"},
+    {"name": "x2", "meaning": "hidden displacement", "unit": "m"}
+  ],
+  "sensor_surface": {
+    "ideal": ["displacement x1"],
+    "practical": ["encoder or camera tracking x1 while x2 is uninstrumented"]
+  },
+  "control_variables": [
+    {"name": "k1", "meaning": "visible spring-to-ground stiffness", "unit": "N m^-1"},
+    {"name": "k2", "meaning": "hidden spring-to-ground stiffness", "unit": "N m^-1"},
+    {"name": "kc", "meaning": "coupling spring stiffness", "unit": "N m^-1"}
+  ],
+  "regime_assumptions": [
+    "springs are ideal",
+    "coordinates are measured from equilibrium",
+    "static quadratic stiffness is the declared object",
+    "the visible block H_vv is declared as the ceiling for hidden load"
+  ],
+  "equation_hook": "U = 1/2 k1 x1^2 + 1/2 k2 x2^2 + 1/2 kc (x1 - x2)^2",
+  "units_and_dimensions": {
+    "x1": "m",
+    "x2": "m",
+    "k1,k2,kc": "N m^-1 = J m^-2",
+    "H": "J m^-2",
+    "T": "J m^-2"
+  },
+  "coordinate_note": "Both coordinates are displacements in the same units; entries of H can be compared as stiffnesses in this declared coordinate chart.",
+  "module_object": {
+    "kind": "Hessian",
+    "description": "2x2 stiffness Hessian with one visible and one hidden coordinate"
+  },
+  "derivation_status": "exact from the stated coupled ideal spring energy",
+  "observer_map": {
+    "description": "observe x1 and hide x2",
+    "matrix": [[1.0, 0.0]]
+  },
+  "ceiling_or_reference": {
+    "kind": "visible_block_ceiling",
+    "description": "T = H_vv, the stiffness seen before hidden relaxation"
+  },
+  "allowed_nomogeo_calls": ["visible_precision", "hidden_load"],
+  "nomogeo_readout": {
+    "requested": ["visible_precision", "hidden_load", "clock"]
+  },
+  "positive_scope": "This card exposes how an unobserved coupled coordinate renormalises the visible stiffness.",
+  "boundary": "It does not describe nonlinear springs, dynamic resonance, damping, or active feedback.",
+  "failure_mode": "The attachment fails if the hidden coordinate is not well approximated by a passive quadratic mode.",
+  "next_measurement": "Measure x1 stiffness while changing kc or clamping x2 to separate visible block stiffness from relaxed visible stiffness.",
+  "default_parameters": {
+    "k1": 10.0,
+    "k2": 15.0,
+    "kc": 5.0
+  },
+  "declared_objects": {
+    "H": [[15.0, -5.0], [-5.0, 20.0]],
+    "C": [[1.0, 0.0]],
+    "T": [[15.0]]
+  }
+}

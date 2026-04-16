@@ -14,7 +14,7 @@ from nomogeo import (
 
 
 def test_field_public_surface_and_version_gate() -> None:
-    assert nomogeo.__version__ == "0.30.0"
+    assert nomogeo.__version__ == "0.4.0"
 
     Lambda = np.diag([0.2, 0.5])
     A = np.diag([0.3, 0.7])

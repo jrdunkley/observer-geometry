@@ -1,0 +1,16 @@
+{
+  "card_id": "ideal_gas_law_boundary",
+  "system": "ideal gas equation of state without ensemble or fluctuation model",
+  "attachment_type": "not_yet_attachable",
+  "executed_calls": [],
+  "refused_calls": [
+    {
+      "call": "*",
+      "reason": "card is not_yet_attachable; no theorem-local kernel calls are licensed"
+    }
+  ],
+  "readout": {},
+  "coordinate_note": "The equation of state relates state variables but does not by itself declare a positive Hessian, covariance, Fisher object, or finite observer map.",
+  "positive_scope": "This card records the boundary that an equation of state is not automatically a module object.",
+  "boundary": "It cannot call theorem-local quadratic or hidden-load surfaces without a declared thermodynamic potential, ensemble, fluctuation model, or local measurement route."
+}

@@ -1,0 +1,19 @@
+{
+  "card_id": "pendulum_small_angle",
+  "system": "simple pendulum at the stable equilibrium under small-angle reduction",
+  "attachment_type": "local_quadratic_approximation",
+  "executed_calls": [
+    "visible_precision"
+  ],
+  "refused_calls": [],
+  "readout": {
+    "visible_precision": [
+      [
+        9.809999999999999
+      ]
+    ]
+  },
+  "coordinate_note": "The angular coordinate is treated as the declared local coordinate at theta0 = 0; radians are handled as dimensionless for the Hessian.",
+  "positive_scope": "This card exposes the local stiffness of the pendulum at a declared stable operating point.",
+  "boundary": "It does not describe global large-angle pendulum motion."
+}

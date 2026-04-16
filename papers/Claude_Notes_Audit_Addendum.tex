@@ -1,0 +1,355 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage[a4paper,margin=33mm]{geometry}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\let\openbox\relax
+\usepackage{amsmath,amsthm,amssymb,mathtools}
+\usepackage{needspace}
+\usepackage[explicit]{titlesec}
+\usepackage{titling}
+\usepackage[
+  pdfusetitle,
+  hidelinks,
+  bookmarksopen=true,
+  bookmarksnumbered=true
+]{hyperref}
+
+\linespread{0.95}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.5pt}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\spanop}{span}
+\newcommand{\R}{\mathbf R}
+
+\titleformat{\section}
+{\normalfont\normalsize\bfseries\raggedright}
+{\thesection}{0.75em}{\begin{minipage}[t]{0.9\textwidth}#1\end{minipage}}
+[\vspace{0.12em}\titlerule]
+
+\newtheoremstyle{thmcompact}
+{0.5ex}{0.5ex}
+{\itshape}
+{0pt}
+{\bfseries}
+{.}
+{0.6em}
+{\thmname{#1}\ \thmnumber{#2}\ \thmnote{(\textit{#3})}}
+
+\theoremstyle{thmcompact}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{remarkplain}{Remark}
+
+\mdfdefinestyle{thmframe}{%
+leftline=true, rightline=false, topline=false, bottomline=false,
+linewidth=0.8pt, linecolor=black,
+innerleftmargin=16pt, innerrightmargin=8pt,
+innertopmargin=6pt, innerbottommargin=6pt,
+skipabove=6pt, skipbelow=6pt,
+nobreak=true
+}
+\surroundwithmdframed[style=thmframe]{theorem}
+\surroundwithmdframed[style=thmframe]{proposition}
+\surroundwithmdframed[style=thmframe]{corollary}
+\surroundwithmdframed[style=thmframe]{definition}
+\surroundwithmdframed[style=thmframe]{lemma}
+
+\newmdenv[
+linewidth=0.6pt,
+topline=false,
+bottomline=false,
+rightline=false,
+skipabove=\baselineskip,
+skipbelow=\baselineskip,
+backgroundcolor=gray!3,
+leftmargin=0pt,
+innerleftmargin=8pt,
+innerrightmargin=6pt,
+frametitleaboveskip=0.4em,
+frametitlebelowskip=0.2em,
+frametitlefont=\bfseries\small,
+]{remarkbox}
+\newenvironment{remark}[1][]%
+{\begin{remarkbox}\begin{remarkplain}[#1]\normalfont}
+{\end{remarkplain}\end{remarkbox}}
+
+\renewcommand{\qedsymbol}{}
+\newcommand{\thmneed}{\Needspace{6\baselineskip}}
+\AtBeginEnvironment{theorem}{\thmneed}
+\AtBeginEnvironment{proposition}{\thmneed}
+\AtBeginEnvironment{corollary}{\thmneed}
+\AtBeginEnvironment{definition}{\thmneed}
+\AtBeginEnvironment{lemma}{\thmneed}
+
+\title{\textbf{Claude Notes Audit Addendum}\\
+\large{Differential-correlation calculus, noncommuting closure, and local-geometry ensembles}}
+\author{J.\,R.~Dunkley}
+\date{11 April 2026}
+
+\hypersetup{
+  pdftitle={Claude Notes Audit Addendum},
+  pdfauthor={J. R. Dunkley},
+  pdfsubject={Audit of external Claude research notes for observer geometry},
+  pdfkeywords={observation geometry, Gaussian covariance, branch selection, closure, Fisher geometry}
+}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+The notes in \texttt{papers/claude\_notes} are useful, but only after triage.
+Their strongest exact content is covariance-level observer geometry already
+native to the project: visible precision is marginal precision, the determinant
+clock is a log-det covariance correlation, tower laws compose observers, and
+closure leakage is exact for supplied quadratic families. The new value is more
+specific. A rank-one differential-correlation perturbation gives an exact
+one-channel hidden-gap update only in a white or aligned background; in a
+coloured background the update is generally two-rank. Generic noncommuting
+perturbation families need not admit exact intermediate-rank closure observers.
+Branch and observer selection should therefore be stated with residual margins,
+not promoted to generic non-Gaussian law selection. The broadest opportunity is
+a formal ensemble layer over local quadratic geometries, but that is a higher
+order/statistical extension, not a replacement for full-law cumulants.
+\end{abstract}
+
+\section{Triage judgement}
+
+The Claude notes should be treated as a hypothesis source. They should not be
+merged into the core papers as application claims. Their black-hole, neural, and
+turbulence notes mostly police their own scope: they operate at Gaussian
+covariance level or at exact local quadratic/Fisher level. That part is
+consistent with the current project doctrine.
+
+What survives as project-native mathematics is narrower and cleaner:
+\[
+  \Phi_C(H)=(CH^{-1}C^{\mathsf T})^{-1},
+  \qquad
+  \tau=\log\det T-\log\det\Phi,
+  \qquad
+  \mathcal L(\Pi)=\frac12\sum_a\|[D_a,\Pi]\|_F^2.
+\]
+These are exact quadratic objects. They become full-law statements in Gaussian
+or other explicitly solved sectors, such as the fixed-precision affine-hidden
+sector. The notes do not justify a generic non-Gaussian branch selector.
+
+\section{Differential-correlation sector}
+
+The neural note contains a useful but overbroad phrase: a differential
+correlation creates exactly one leakage channel aligned with the signal
+direction. The statement is exact in the tested model, but its theorem-level
+scope is smaller.
+
+\begin{proposition}[White rank-one covariance sector]
+Let
+\[
+  \Sigma_\varepsilon=I+\varepsilon ff^{\mathsf T},
+  \qquad
+  f=(a,b)\in\R^m\oplus\R^{n-m},
+  \qquad
+  \varepsilon>0.
+\]
+Let \(H_\varepsilon=\Sigma_\varepsilon^{-1}\), \(T=(H_\varepsilon)_{VV}\),
+and \(\Phi=(\Sigma_{\varepsilon,VV})^{-1}\). Then
+\[
+  T-\Phi
+  =
+  \frac{\varepsilon^2\|b\|^2}
+       {(1+\varepsilon\|a\|^2)(1+\varepsilon\|f\|^2)}
+       aa^{\mathsf T}.
+\]
+Thus the hidden gap is rank one if \(a\ne0\) and \(b\ne0\), and its visible
+channel is the visible signal direction \(a\).
+\end{proposition}
+
+\begin{proof}
+Sherman--Morrison gives
+\[
+  H_\varepsilon
+  =
+  I-\frac{\varepsilon}{1+\varepsilon\|f\|^2}ff^{\mathsf T},
+\]
+so
+\[
+  T
+  =
+  I_m-\frac{\varepsilon}{1+\varepsilon(\|a\|^2+\|b\|^2)}aa^{\mathsf T}.
+\]
+Also
+\[
+  \Phi
+  =
+  (I_m+\varepsilon aa^{\mathsf T})^{-1}
+  =
+  I_m-\frac{\varepsilon}{1+\varepsilon\|a\|^2}aa^{\mathsf T}.
+\]
+Subtracting yields the displayed expression.
+\end{proof}
+
+\begin{proposition}[Coloured background is generally two-rank]
+Let
+\[
+  \Sigma_\varepsilon=\Sigma_0+\varepsilon ff^{\mathsf T},
+  \qquad H_0=\Sigma_0^{-1},
+  \qquad \Phi_0=(\Sigma_{0,VV})^{-1}.
+\]
+Write \(u_V=(H_0f)_V\) and \(w_V=\Phi_0 f_V\). Then the hidden-gap increment
+\[
+  \Delta R:=(T_\varepsilon-\Phi_\varepsilon)-(T_0-\Phi_0)
+\]
+equals
+\[
+  \Delta R
+  =
+  \frac{\varepsilon}{1+\varepsilon f_V^{\mathsf T}\Phi_0f_V}w_Vw_V^{\mathsf T}
+  -
+  \frac{\varepsilon}{1+\varepsilon f^{\mathsf T}H_0f}u_Vu_V^{\mathsf T}.
+\]
+Consequently \(\rank(\Delta R)\le2\), and the one-channel conclusion requires
+the two visible directions \(u_V\) and \(w_V\) to be collinear.
+\end{proposition}
+
+\begin{proof}
+Apply Sherman--Morrison once to the full covariance, which gives the update of
+\(T_\varepsilon=(H_\varepsilon)_{VV}\), and once to the visible covariance
+\((\Sigma_\varepsilon)_{VV}=(\Sigma_0)_{VV}+\varepsilon f_Vf_V^{\mathsf T}\),
+which gives the update of \(\Phi_\varepsilon\). Subtract.
+\end{proof}
+
+The audit numerics found a coloured-background example with
+\[
+  \rank(\Delta R)=2,\qquad
+  \|\Delta R-\Delta R_{\rm formula}\|_{\max}=1.18\cdot10^{-16},
+  \qquad
+  |\langle u_V,w_V\rangle|/(\|u_V\|\|w_V\|)=0.809.
+\]
+Thus the Claude claim is not wrong in its toy sector, but it should be promoted
+as a rank-one solvable subcase, not as a generic law of differential
+correlations.
+
+\section{Noncommuting closure}
+
+The neural note also reports exact \(\eta=0\) closure-adapted observers at
+several ranks. The verifier confirms this, but the construction uses a
+commuting family built in an eigenbasis. That is a legitimate exact mode, not a
+generic noncommuting result.
+
+\begin{proposition}[Exact closure can fail generically]
+Let \(D_1=\diag(1,\ldots,n)\) and let \(D_2\in\mathrm{Sym}(n)\). For a fixed
+rank \(m\), an exact closure subspace for both \(D_1\) and \(D_2\) exists only
+if some coordinate \(m\)-plane has zero \(D_2\) cross-block. For a generic
+\(D_2\), this condition fails for every intermediate rank.
+\end{proposition}
+
+\begin{proof}
+Since \(D_1\) has simple spectrum, every \(D_1\)-invariant subspace is spanned
+by a subset of the coordinate eigenvectors. Exact closure for \(D_2\) then
+requires \(D_2(U)\subseteq U\), equivalently the \(U^\perp\times U\) block of
+\(D_2\) is zero. For each fixed coordinate subset this imposes polynomial
+equalities on the entries of \(D_2\). A finite union of such proper algebraic
+sets has empty interior and measure zero. Hence generic \(D_2\) gives no exact
+common intermediate-rank closure subspace.
+\end{proof}
+
+In the audit script with \(n=6\), \(m=2\), the commutator norm was \(6.80\) and
+the smallest coordinate cross-block certificate was \(1.113\). A random
+Grassmann search found best leakage \(1.376\), consistent with the compactness
+consequence that the infimum is positive once exact common invariance is
+excluded.
+
+\section{Robust branch and observer claims}
+
+The durable upgrade from the Claude notes is not ``the best observer is exact
+closure''. The durable upgrade is the margin doctrine. Suppose two quadratic
+branch scores satisfy \(q_2-q_1=\gamma>0\), and suppose unknown law-level or
+model-level residuals obey \(|r_i|\le R\). Then the ordering is forced only when
+\(\gamma>2R\). The same logic applies to selector Hessians: if the quadratic
+Hessian gap is \(\gamma\) and the residual Hessian operator norm is less than
+\(\gamma\), strict local stability persists.
+
+The audit script used \(\gamma=0.08\). With \(R=0.03\), no reversal occurred in
+50,000 residual draws and none is possible by the theorem. With \(R=0.05\), the
+condition fails; a constructive reversal has residuals \(r_1=0.05\),
+\(r_2=-0.05\), giving full gap \(-0.02\), and random draws produced 953
+reversals out of 50,000.
+
+\section{Local-geometry ensembles}
+
+The turbulence note's useful conceptual move is not that intermittency has been
+derived. It has not. The useful move is to name a possible higher layer:
+instead of one Hessian \(H\), use a distribution \(\mu(dH)\) of local Hessians
+or Fisher objects. Each fibre \(H\) has exact quadratic observer geometry, while
+the distribution over \(\Phi_C(H)\), \(\Lambda(H)\), and \(\tau(H)\) carries
+heterogeneity and tail information that a single averaged Hessian can lose.
+
+The audit numerics constructed two local-coupling ensembles with matched mean
+coupling \(0.13315\). The clock at the mean coupling was \(0.02363\), while the
+mean clocks were \(0.03734\) and \(0.03455\). The 99th percentile clocks were
+\(0.38274\) and \(0.48870\). Thus
+\[
+  \tau(\mathbf E H_{\rm local}) \ne \mathbf E\,\tau(H_{\rm local}),
+\]
+and tail-sensitive observational claims cannot be reduced to one representative
+quadratic object. This supports an ensemble-of-local-geometries extension, not a
+generic full non-Gaussian law theorem.
+
+\section{Application-note triage}
+
+\textbf{Black-hole note.} Keep only the covariance-level dictionary and the
+branch-minimised observer-prescription analogy. Do not identify the determinant
+clock with von Neumann entropy except under separately stated Gaussian/symplectic
+conditions. The area term, replica topology, and matrix-element encoding remain
+outside the project.
+
+\textbf{Neural note.} Keep the Fisher quadratic bridge, Sherman--Morrison
+precision perturbation, exact FI ceiling in the linear Gaussian model, and the
+rank-one white differential-correlation sector. Amend the general leakage-channel
+language to the rank-one/two-rank calculus above. Keep closure-adapted
+\(\eta=0\) only in commuting or explicitly invariant sectors.
+
+\textbf{Turbulence note.} Keep the statement that filters are observation maps
+and that cross-scale covariance coupling has exact hidden-load geometry. Treat
+triadic cascade exponents, spectral concentration, anomalous dissipation, and
+intermittency claims as model observations or structural resemblances unless a
+separate dynamical proof is supplied. The strong next theory idea is the
+local-geometry ensemble, not a claimed derivation of anomalous exponents.
+
+\section{Module and theory implications}
+
+No module source change is licensed by these notes. The module already supports
+the exact quadratic primitives. Sensible future additions would be theorem-local:
+
+\begin{itemize}
+\item a rank-one covariance perturbation helper that reports the white/aligned
+one-channel case and the general two-rank coloured update;
+\item a closure irreducibility diagnostic for simple-spectrum test families,
+returning certificates that exact intermediate-rank closure is impossible;
+\item a residual-margin wrapper for branch and observer selection;
+\item an ensemble evaluator that maps samples of local Hessians to distributions
+of \(\Phi_C\), \(\Lambda\), and \(\tau\), explicitly labelled as an ensemble
+quadratic layer.
+\end{itemize}
+
+The broader judgement is unchanged. The project is past Gaussian toy territory
+because its exact local quadratic geometry, fixed-precision affine-hidden sector,
+and rank-one perturbation sectors are genuinely structural. It is not past the
+need for law-level hypotheses. Higher cumulants, fibre-volume terms, remote
+mixture mass, and local-geometry distributions are real next frontiers, not
+cosmetic relabellings.
+
+\end{document}

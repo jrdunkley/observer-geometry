@@ -1,0 +1,1073 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{newtxtext,newtxmath}
+\usepackage[a4paper,margin=31mm]{geometry}
+\usepackage{microtype}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{mdframed}
+\let\openbox\relax
+\usepackage{amsmath,amsthm,mathtools}
+\let\Bbbk\relax
+\usepackage{amssymb}
+\usepackage{needspace}
+\usepackage[explicit]{titlesec}
+\usepackage{titling}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage[
+  pdfusetitle,
+  hidelinks,
+  bookmarksopen=true,
+  bookmarksnumbered=true
+]{hyperref}
+
+\linespread{0.95}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{5.5pt}
+\allowdisplaybreaks
+\numberwithin{equation}{section}
+
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Ran}{Ran}
+\DeclareMathOperator{\Sym}{Sym}
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\spano}{span}
+\newcommand{\R}{\mathbf R}
+\newcommand{\geomboxed}[1]{%
+  \setlength{\fboxsep}{8pt}%
+  \setlength{\fboxrule}{0.9pt}%
+  \fbox{\scalebox{1.10}{$\displaystyle #1$}}%
+}
+
+\titleformat{\section}
+{\normalfont\normalsize\bfseries\raggedright}
+{\thesection}{0.75em}{\begin{minipage}[t]{0.9\textwidth}#1\end{minipage}}
+[\vspace{0.12em}\titlerule]
+
+\newcommand{\subaccent}{\vspace{0.01em}\noindent\rule{7ex}{0.2pt}}
+\titleformat{\subsection}
+{\normalfont\normalsize\bfseries}{\thesubsection}{0.5em}{#1}
+[\subaccent]
+\titlespacing*{\subsection}{0pt}{2.1ex plus 0.5ex}{1.2ex}
+
+\newtheoremstyle{thmcompact}
+{0.5ex}{0.5ex}
+{\itshape}
+{0pt}
+{\bfseries}
+{.}
+{0.6em}
+{\thmname{#1}\ \thmnumber{#2}\ \thmnote{(\textit{#3})}}
+
+\theoremstyle{thmcompact}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{lemma}[theorem]{Lemma}
+
+\theoremstyle{remark}
+\newtheorem*{remarkplain}{Remark}
+
+\mdfdefinestyle{thmframe}{%
+leftline=true, rightline=false, topline=false, bottomline=false,
+linewidth=0.8pt, linecolor=black,
+innerleftmargin=16pt, innerrightmargin=8pt,
+innertopmargin=6pt, innerbottommargin=6pt,
+skipabove=6pt, skipbelow=6pt,
+nobreak=true
+}
+\surroundwithmdframed[style=thmframe]{theorem}
+\surroundwithmdframed[style=thmframe]{proposition}
+\surroundwithmdframed[style=thmframe]{corollary}
+\surroundwithmdframed[style=thmframe]{definition}
+\surroundwithmdframed[style=thmframe]{lemma}
+
+\newmdenv[
+linewidth=0.6pt,
+topline=false,
+bottomline=false,
+rightline=false,
+skipabove=\baselineskip,
+skipbelow=\baselineskip,
+backgroundcolor=gray!3,
+leftmargin=0pt,
+innerleftmargin=8pt,
+innerrightmargin=6pt,
+frametitleaboveskip=0.4em,
+frametitlebelowskip=0.2em,
+frametitlefont=\bfseries\small,
+]{remarkbox}
+\newenvironment{remark}[1][]%
+{\begin{remarkbox}\begin{remarkplain}[#1]\normalfont}
+{\end{remarkplain}\end{remarkbox}}
+
+\renewcommand{\qedsymbol}{}
+\newcommand{\thmneed}{\Needspace{6\baselineskip}}
+\AtBeginEnvironment{theorem}{\thmneed}
+\AtBeginEnvironment{proposition}{\thmneed}
+\AtBeginEnvironment{corollary}{\thmneed}
+\AtBeginEnvironment{definition}{\thmneed}
+\AtBeginEnvironment{lemma}{\thmneed}
+
+\title{\textbf{0.4.0 - Technical Note}\\
+\large{Reduced source law, composite curvature, sixth-order observer stability, compatibility laws, and information conservation}}
+\author{J.\,R.~Dunkley}
+\date{15 April 2026}
+
+\hypersetup{
+  pdftitle={0.4.0 - Technical Note},
+  pdfauthor={J. R. Dunkley},
+  pdfsubject={Reduced source law, composite curvature, sixth-order observer stability, compatibility laws, and information conservation},
+  pdfkeywords={observation geometry, local source law, composite curvature, Grassmannian projector, observer stability, information conservation, curvature-Gram identity}
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Let $H$ be a smooth field of positive definite quadratic forms and let $C$ be a rank-$m$ observation map. This note records the current exact core needed for future work. The first component is the support-local source law on a support-stable stratum:
+\[
+\geomboxed{A_{\mathrm{cpl}}=-\tfrac12V_S^{-1/2}W_SV_S^{-1/2}=A-\tfrac12\Sym(\mathcal R\Theta).}
+\]
+Here $V=L^{\mathsf T}\dot H L$ is the visible first jet, $W=D_t^{\alpha}V$ its covariant second jet, $A$ is the normalised direct visible acceleration, and $\mathcal R\Theta$ is the hidden-mediated excursion-return term. The second component is the exact composite curvature sector of the split bundle:
+\[
+\geomboxed{F_{\alpha}=-\beta\wedge\theta,
+\qquad
+F_{\omega}=-\theta\wedge\beta.}
+\]
+In the pure-observer branch $dH=0$ this becomes the Grassmannian projector curvature. The third component is a finite exact hierarchy for adapted-observer stability: quadratic control, quartic control on the quadratic kernel, and sextic control on the quartic null cone.
+
+The note proves three structural facts and then records the compatibility laws and conservation identities that connect them. First, the local source law admits a minimal fast-hidden lift whose reduced Gram flow has symmetric first jet exactly equal to $A_{\mathrm{cpl}}$. Second, the pure-observer curvature sector is composite and its natural curvature-square actions start at quartic order around the trivial background, so this branch has no quadratic free gauge mode. Third, the source law and the curvature law are not the same object: they are exact descendants of the same split geometry, but one is a symmetric support-local generator and the other is a bundle-valued curvature two-form. The compatibility is made precise by a curvature--Gram norm identity, a mixed source--curvature factorisation theorem for two-parameter families, a Cauchy--Schwarz curvature bound, and a split determinant conservation law. The conservation law constrains the source operator: the visible evidence acceleration governed by $A_{\mathrm{cpl}}$ and the hidden evidence acceleration must sum to the ambient acceleration, which depends only on the field and its derivatives. The observer does not create or destroy information; it only splits the ambient rate. The visible rate is gauge-invariant under latent basis changes. On linear ambient paths, $A_{\mathrm{cpl}}\succeq 0$: the hidden sector contributes only stabilising curvature. The closure-adapted observer achieves $B=L^{\mathsf T}\dot H\,Z=0$, eliminating hidden mediation entirely. The hidden defect can always be locally cancelled by the right ambient acceleration (equivalence principle).
+\end{abstract}
+
+\section{Setup}
+
+Fix integers $1\le m<n$. Let $U$ be a smooth parameter space. Let
+\[
+H:U\to \operatorname{SPD}(n)
+\]
+be a smooth field of symmetric positive definite matrices, and let
+\[
+C:U\to \R^{m\times n}
+\]
+be a smooth rank-$m$ observation map. Define the visible precision and visible lift by
+\begin{equation}
+\Phi:=(CH^{-1}C^{\mathsf T})^{-1},
+\qquad
+L:=H^{-1}C^{\mathsf T}\Phi.
+\label{eq:visible-defs}
+\end{equation}
+Then
+\[
+CL=I_m.
+\]
+Choose a smooth hidden frame
+\[
+Z:U\to \R^{n\times(n-m)}
+\qquad\text{with}\qquad
+CZ=0,
+\qquad \operatorname{rank} Z=n-m,
+\]
+and define the hidden metric
+\begin{equation}
+R:=Z^{\mathsf T}HZ\in \operatorname{SPD}(n-m).
+\label{eq:hidden-metric}
+\end{equation}
+Write the split frame as
+\[
+M:=[L\ Z].
+\]
+Because the columns of $L$ and $Z$ form a basis, their derivatives decompose uniquely as
+\begin{equation}
+dL=L\alpha+Z\theta,
+\qquad
+dZ=L\beta+Z\omega,
+\label{eq:split-derivatives}
+\end{equation}
+with matrix-valued $1$-forms
+\[
+\begin{aligned}
+\alpha&\in\Omega^1(U;\R^{m\times m}),
+&\beta&\in\Omega^1(U;\R^{m\times(n-m)}),\\
+\theta&\in\Omega^1(U;\R^{(n-m)\times m}),
+&\omega&\in\Omega^1(U;\R^{(n-m)\times(n-m)}).
+\end{aligned}
+\]
+Set
+\begin{equation}
+\Omega:=
+\begin{pmatrix}
+\alpha & \beta\\
+\theta & \omega
+\end{pmatrix}.
+\label{eq:Omega-def}
+\end{equation}
+
+\begin{theorem}[split-frame identities]\label{thm:split-frame-identities}
+With the notation above one has
+\begin{equation}
+M^{\mathsf T}dH\,M=
+\begin{pmatrix}
+\mathcal V & \mathcal B\\
+\mathcal B^{\mathsf T} & \mathcal U
+\end{pmatrix},
+\label{eq:metric-blocks}
+\end{equation}
+where
+\begin{equation}
+\mathcal V=d\Phi-\alpha^{\mathsf T}\Phi-\Phi\alpha=L^{\mathsf T}dH\,L,
+\label{eq:V-callig}
+\end{equation}
+\begin{equation}
+\mathcal B=-\theta^{\mathsf T}R-\Phi\beta=L^{\mathsf T}dH\,Z,
+\label{eq:B-callig}
+\end{equation}
+\begin{equation}
+\mathcal U=dR-\omega^{\mathsf T}R-R\omega=Z^{\mathsf T}dH\,Z.
+\label{eq:U-callig}
+\end{equation}
+Moreover the frame is flat:
+\begin{equation}
+d\Omega+\Omega\wedge\Omega=0.
+\label{eq:flatness}
+\end{equation}
+Hence
+\begin{equation}
+F_{\alpha}:=d\alpha+\alpha\wedge\alpha=-\beta\wedge\theta,
+\qquad
+F_{\omega}:=d\omega+\omega\wedge\omega=-\theta\wedge\beta,
+\label{eq:curvature-pair}
+\end{equation}
+and
+\begin{equation}
+D\beta:=d\beta+\alpha\wedge\beta+\beta\wedge\omega=0,
+\qquad
+D\theta:=d\theta+\theta\wedge\alpha+\omega\wedge\theta=0.
+\label{eq:Codazzi-pair}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Differentiating $CL=I_m$ and $CZ=0$ yields the derivative decomposition \eqref{eq:split-derivatives}. Differentiating
+\[
+M^{\mathsf T}HM=\diag(\Phi,R)
+\]
+and reading off blocks gives \eqref{eq:metric-blocks} through \eqref{eq:U-callig}. Finally, since $d^2M=0$, one has
+\[
+0=d(dM)=d(M\Omega)=M(d\Omega+\Omega\wedge\Omega),
+\]
+which implies \eqref{eq:flatness}, and therefore the block identities \eqref{eq:curvature-pair} and \eqref{eq:Codazzi-pair}.
+\end{proof}
+
+\section{Pathwise reduced source law}
+
+Let $\gamma:I\to U$ be a smooth path, and write a dot for contraction with $\partial_t$. Set
+\begin{equation}
+V:=\iota_{\partial_t}\mathcal V=L^{\mathsf T}\dot H\,L,
+\qquad
+B:=\iota_{\partial_t}\mathcal B=L^{\mathsf T}\dot H\,Z,
+\qquad
+U_h:=\iota_{\partial_t}\mathcal U=Z^{\mathsf T}\dot H\,Z.
+\label{eq:pathwise-VBU}
+\end{equation}
+Define the covariant visible second jet by
+\begin{equation}
+W:=D_t^{\alpha}V:=\dot V-\alpha^{\mathsf T}V-V\alpha.
+\label{eq:W-def}
+\end{equation}
+The active support at time $t$ is
+\[
+S:=\Ran(V(t)).
+\]
+Throughout this section we work on a support-stable stratum, so the rank of $V$ is constant and $V_S:=V|_S\succ0$.
+
+\begin{proposition}[completed square for the visible second jet]\label{prop:completed-square}
+Along the path,
+\begin{equation}
+W=L^{\mathsf T}\ddot H\,L+\theta^{\mathsf T}B^{\mathsf T}+B\theta.
+\label{eq:raw-W}
+\end{equation}
+Equivalently, with
+\begin{equation}
+\widehat B:=B+\tfrac12\Phi\beta,
+\qquad
+\widehat Q:=\widehat B R^{-1}\widehat B^{\mathsf T},
+\qquad
+\mathcal O:=\Phi\beta R^{-1}\beta^{\mathsf T}\Phi,
+\label{eq:widehat-defs}
+\end{equation}
+one has
+\begin{equation}
+\geomboxed{W=L^{\mathsf T}\ddot H\,L-2\widehat Q+\tfrac12\mathcal O.}
+\label{eq:completed-square}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Differentiate $V=L^{\mathsf T}\dot H\,L$:
+\[
+\dot V=\dot L^{\mathsf T}\dot H\,L+L^{\mathsf T}\ddot H\,L+L^{\mathsf T}\dot H\,\dot L.
+\]
+Using $\dot L=L\alpha+Z\theta$ and $B=L^{\mathsf T}\dot H\,Z$ gives
+\[
+\dot V=\alpha^{\mathsf T}V+V\alpha+\theta^{\mathsf T}B^{\mathsf T}+B\theta+L^{\mathsf T}\ddot H\,L,
+\]
+which is \eqref{eq:raw-W}. From \eqref{eq:B-callig}, contracted with $\partial_t$, one has
+\[
+B=-\theta^{\mathsf T}R-\Phi\beta,
+\qquad
+\theta=-R^{-1}B^{\mathsf T}-R^{-1}\beta^{\mathsf T}\Phi.
+\]
+Substituting into \eqref{eq:raw-W} gives
+\[
+\theta^{\mathsf T}B^{\mathsf T}+B\theta
+=-2BR^{-1}B^{\mathsf T}-BR^{-1}\beta^{\mathsf T}\Phi-\Phi\beta R^{-1}B^{\mathsf T}.
+\]
+Expanding
+\[
+-2\widehat B R^{-1}\widehat B^{\mathsf T}+\tfrac12\Phi\beta R^{-1}\beta^{\mathsf T}\Phi
+\]
+produces exactly the same expression, proving \eqref{eq:completed-square}.
+\end{proof}
+
+\begin{definition}[support-local coupled source operator]\label{def:Acpl}
+On a support-stable stratum define
+\begin{equation}
+\geomboxed{A_{\mathrm{cpl}}:=-\tfrac12V_S^{-1/2}W_SV_S^{-1/2}.}
+\label{eq:Acpl-def}
+\end{equation}
+\end{definition}
+
+\begin{theorem}[exact reduced source law]\label{thm:exact-reduced-source-law}
+Let
+\begin{equation}
+A:=-\tfrac12V_S^{-1/2}(L^{\mathsf T}\ddot H\,L)_SV_S^{-1/2},
+\qquad
+\mathcal R:=V_S^{-1/2}B_S,
+\qquad
+\Theta:=\theta_SV_S^{-1/2}.
+\label{eq:ART-defs}
+\end{equation}
+Then
+\begin{equation}
+\geomboxed{A_{\mathrm{cpl}}=A-\tfrac12\Sym(\mathcal R\Theta).}
+\label{eq:Acpl-A-RT}
+\end{equation}
+Equivalently, in completed-square form,
+\begin{equation}
+\geomboxed{A_{\mathrm{cpl}}=V_S^{-1/2}\widehat Q_SV_S^{-1/2}-\tfrac14V_S^{-1/2}\mathcal O_SV_S^{-1/2}-\tfrac12V_S^{-1/2}(L^{\mathsf T}\ddot H\,L)_SV_S^{-1/2}.}
+\label{eq:Acpl-expanded}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+From \eqref{eq:raw-W}, restricted to $S$,
+\[
+W_S=(L^{\mathsf T}\ddot H\,L)_S+\theta_S^{\mathsf T}B_S^{\mathsf T}+B_S\theta_S.
+\]
+Multiply on the left and right by $-\tfrac12V_S^{-1/2}$ and $V_S^{-1/2}$ respectively. Since
+\[
+V_S^{-1/2}(\theta_S^{\mathsf T}B_S^{\mathsf T}+B_S\theta_S)V_S^{-1/2}
+=\Theta^{\mathsf T}\mathcal R^{\mathsf T}+\mathcal R\Theta
+=\Sym(\mathcal R\Theta),
+\]
+formula \eqref{eq:Acpl-A-RT} follows. Formula \eqref{eq:Acpl-expanded} follows immediately from \eqref{eq:completed-square}.
+\end{proof}
+
+\begin{remark}[sign structure]
+The shifted defect $\widehat Q$ is positive semidefinite, and so is the observer tensor $\mathcal O$. But $\mathcal O$ enters \eqref{eq:Acpl-expanded} with the opposite sign. Therefore there is no universal positive-semidefinite observer-covariant extension of the anchored defect obtained merely by adding observer motion.
+\end{remark}
+
+\begin{proposition}[minimal fast-hidden lift]\label{prop:fast-hidden-lift}
+Let $X(t)$ be a visible amplitude on the active support fibre and let $Y(t)$ be a hidden auxiliary amplitude. Consider
+\begin{equation}
+\dot X=\tfrac12AX-\tfrac12\mathcal RY,
+\qquad
+\varepsilon\dot Y=-Y+\Theta X,
+\qquad 0<\varepsilon\ll1.
+\label{eq:fast-hidden-system}
+\end{equation}
+On the slow manifold $Y=\Theta X$, the reduced visible dynamics is
+\begin{equation}
+\dot X=GX,
+\qquad
+G:=\tfrac12(A-\mathcal R\Theta).
+\label{eq:reduced-amplitude}
+\end{equation}
+If $P:=XX^{\mathsf T}$, then
+\begin{equation}
+\dot P=GP+PG^{\mathsf T},
+\label{eq:gram-flow}
+\end{equation}
+and at the identity state on the support fibre,
+\begin{equation}
+\geomboxed{\dot P\big|_{P=I_S}=A_{\mathrm{cpl}}.}
+\label{eq:gram-first-jet}
+\end{equation}
+Thus $A_{\mathrm{cpl}}$ is exactly the symmetric first jet at identity of the reduced Gram flow induced by the minimal fast-hidden lift.
+\end{proposition}
+
+\begin{proof}
+The fast equation in \eqref{eq:fast-hidden-system} relaxes to $Y=\Theta X$ at leading order. Substituting this into the $X$ equation gives \eqref{eq:reduced-amplitude}. Differentiating $P=XX^{\mathsf T}$ gives \eqref{eq:gram-flow}. Evaluating at $P=I_S$ yields
+\[
+\dot P=G+G^{\mathsf T}=A-\tfrac12\Sym(\mathcal R\Theta)=A_{\mathrm{cpl}}
+\]
+by \eqref{eq:Acpl-A-RT}.
+\end{proof}
+
+\section{Pure-observer composite curvature}
+
+The pure-observer branch is the branch in which the ambient quadratic law is held fixed and only the observer split moves.
+
+\begin{corollary}[pure-observer branch]\label{cor:pure-observer-branch}
+If $dH=0$, then
+\begin{equation}
+d\Phi=\alpha^{\mathsf T}\Phi+\Phi\alpha,
+\qquad
+dR=\omega^{\mathsf T}R+R\omega,
+\qquad
+\theta=-R^{-1}\beta^{\mathsf T}\Phi.
+\label{eq:pure-observer-branch}
+\end{equation}
+Hence
+\begin{equation}
+\geomboxed{F_{\alpha}=\beta\wedge R^{-1}\beta^{\mathsf T}\Phi,
+\qquad
+F_{\omega}=R^{-1}\beta^{\mathsf T}\Phi\wedge\beta.}
+\label{eq:pure-observer-curvature}
+\end{equation}
+In the whitened gauge $\Phi=I_m$ and $R=I_{n-m}$,
+\begin{equation}
+\geomboxed{F_{\alpha}=\beta\wedge\beta^{\mathsf T},
+\qquad
+F_{\omega}=\beta^{\mathsf T}\wedge\beta.}
+\label{eq:whitened-curvature}
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+Set $dH=0$ in \eqref{eq:V-callig}, \eqref{eq:B-callig}, and \eqref{eq:U-callig}. Then $\mathcal B=0$, so
+\[
+0=-\theta^{\mathsf T}R-\Phi\beta,
+\qquad
+\theta=-R^{-1}\beta^{\mathsf T}\Phi.
+\]
+Substituting this into \eqref{eq:curvature-pair} gives \eqref{eq:pure-observer-curvature}. The whitened formulas are immediate.
+\end{proof}
+
+\begin{proposition}[projector form of the pure-observer branch]\label{prop:projector-form}
+Assume the whitened pure-observer branch, so locally $H=I_n$ and the split frame is orthogonal. Write
+\[
+Q=[L\ Z]\in O(n),
+\qquad
+P:=LL^{\mathsf T}.
+\]
+Then
+\begin{equation}
+dP=-Z\beta^{\mathsf T}L^{\mathsf T}-L\beta Z^{\mathsf T},
+\label{eq:dP-form}
+\end{equation}
+and
+\begin{equation}
+dP\wedge dP
+=
+Z(\beta^{\mathsf T}\wedge\beta)Z^{\mathsf T}
++
+L(\beta\wedge\beta^{\mathsf T})L^{\mathsf T}.
+\label{eq:dP-wedge-dP}
+\end{equation}
+Consequently,
+\begin{equation}
+P(dP\wedge dP)P=LF_{\alpha}L^{\mathsf T},
+\qquad
+(I-P)(dP\wedge dP)(I-P)=ZF_{\omega}Z^{\mathsf T}.
+\label{eq:projected-curvatures}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+In the whitened pure-observer branch one has $\theta=-\beta^{\mathsf T}$, hence from \eqref{eq:split-derivatives},
+\[
+dL=L\alpha-Z\beta^{\mathsf T}.
+\]
+Differentiating $P=LL^{\mathsf T}$ gives
+\[
+dP=dL\,L^{\mathsf T}+L\,dL^{\mathsf T}.
+\]
+The terms involving $\alpha$ cancel because $\alpha+\alpha^{\mathsf T}=0$ in the orthogonal gauge, which gives \eqref{eq:dP-form}. Wedge-multiplying \eqref{eq:dP-form} with itself and using $L^{\mathsf T}L=I_m$, $Z^{\mathsf T}Z=I_{n-m}$, and $L^{\mathsf T}Z=0$ yields \eqref{eq:dP-wedge-dP}. The identities \eqref{eq:projected-curvatures} follow from \eqref{eq:whitened-curvature}.
+\end{proof}
+
+\begin{proposition}[no quadratic free curvature mode]\label{prop:no-free-mode}
+In the whitened pure-observer branch, let $P=P_0+\varepsilon p+O(\varepsilon^2)$ be a perturbation of a constant projector $P_0$. Then
+\begin{equation}
+dP=O(\varepsilon),
+\qquad
+F_{\alpha}=O(\varepsilon^2),
+\qquad
+F_{\omega}=O(\varepsilon^2).
+\label{eq:curvature-order}
+\end{equation}
+Therefore any natural curvature-square action of the form
+\begin{equation}
+\mathcal I_{\alpha}=g^{\mu\rho}g^{\nu\sigma}\Tr(F_{\alpha,\mu\nu}^{\mathsf T}\Phi F_{\alpha,\rho\sigma}\Phi^{-1}),
+\qquad
+\mathcal I_{\omega}=g^{\mu\rho}g^{\nu\sigma}\Tr(F_{\omega,\mu\nu}^{\mathsf T}R F_{\omega,\rho\sigma}R^{-1})
+\label{eq:actions}
+\end{equation}
+starts at quartic order:
+\begin{equation}
+\mathcal I_{\alpha}=O(\varepsilon^4),
+\qquad
+\mathcal I_{\omega}=O(\varepsilon^4).
+\label{eq:quartic-actions}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Since $P=P_0+\varepsilon p+O(\varepsilon^2)$, one has $dP=O(\varepsilon)$. By \eqref{eq:dP-wedge-dP}, the projected curvatures are quadratic in $dP$, hence $F_{\alpha}=O(\varepsilon^2)$ and $F_{\omega}=O(\varepsilon^2)$. Substituting into \eqref{eq:actions} gives \eqref{eq:quartic-actions}.
+\end{proof}
+
+\section{Relation between the source law and the curvature law}
+
+\begin{theorem}[source-curvature separation]\label{thm:source-curvature-separation}
+The reduced source law and the composite curvature law are distinct exact sectors.
+
+More precisely:
+\begin{enumerate}
+    \item $A_{\mathrm{cpl}}$ is a symmetric support-local endomorphism on the active visible support, built from the covariant visible second jet and hidden excursion-return data.
+    \item $F_{\alpha}$ and $F_{\omega}$ are bundle-valued curvature $2$-forms built from the split solder data.
+    \item There is no canonical pointwise identity that identifies $A_{\mathrm{cpl}}$ with $F_{\alpha}$ or $F_{\omega}$.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+The type distinction already rules out a canonical identification: $A_{\mathrm{cpl}}$ is an endomorphism, whereas $F_{\alpha}$ and $F_{\omega}$ are curvature $2$-forms.
+
+To show that this is not only a type-theoretic obstruction, consider two explicit branches.
+
+First, fix the observer so that $\beta=0$ and hence $F_{\alpha}=F_{\omega}=0$ by \eqref{eq:curvature-pair}. Take $n=2$, $m=1$, choose
+\[
+C=(1\ 0),
+\qquad
+H(t)=\diag(1+t+ct^2,1),
+\qquad c\ne0.
+\]
+Then $L=e_1$ is constant, so the observer is fixed. One has
+\[
+V=L^{\mathsf T}\dot H\,L=1+2ct,
+\qquad
+W=L^{\mathsf T}\ddot H\,L=2c,
+\]
+so on the one-dimensional active support,
+\[
+A_{\mathrm{cpl}}=-\frac{c}{1+2ct},
+\]
+which is nonzero for $c\ne0$, while the curvature sector vanishes.
+
+Second, take the pure-observer branch $dH=0$, so the ambient source sector from $\dot H$ and $\ddot H$ vanishes. In a local graph chart of $\mathrm{Gr}(2,3)$ centred at the reference plane, write the observer graph as
+\[
+K(x,y)=\binom{x}{y}.
+\]
+At the chart origin, one has $\beta=dK$ and therefore from \eqref{eq:whitened-curvature},
+\[
+F_{\alpha}(0)=dK\wedge dK^{\mathsf T}
+=
+\begin{pmatrix}
+0 & dx\wedge dy\\
+-dx\wedge dy & 0
+\end{pmatrix}
+\neq 0.
+\]
+Thus the curvature sector is nontrivial while the ambient source sector is absent.
+
+Hence the two sectors are exact but distinct.
+\end{proof}
+
+\begin{proposition}[common split seed, distinct descendants]\label{prop:common-seed}
+Although the sectors in Theorem~\ref{thm:source-curvature-separation} are distinct, they descend from the same split channel. The observer tensor in the source balance is
+\begin{equation}
+\mathcal O=\Phi\beta R^{-1}\beta^{\mathsf T}\Phi,
+\label{eq:observer-tensor}
+\end{equation}
+while in the pure-observer branch the visible curvature is
+\begin{equation}
+F_{\alpha}=\beta\wedge R^{-1}\beta^{\mathsf T}\Phi.
+\label{eq:observer-curvature-again}
+\end{equation}
+The same split channel $\beta$ therefore generates
+\begin{enumerate}
+    \item a symmetric observer tensor in the local source balance, and
+    \item an antisymmetric curvature two-form in the pure-observer geometry.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+Equation \eqref{eq:observer-tensor} is the definition appearing in the completed-square identity \eqref{eq:completed-square}. Equation \eqref{eq:observer-curvature-again} is exactly the pure-observer curvature formula \eqref{eq:pure-observer-curvature}. One is obtained by symmetric contraction, the other by exterior antisymmetrisation.
+\end{proof}
+
+\begin{remark}[correct future target]
+The right unification problem is to derive a compatibility law between the symmetric time-local generator $A_{\mathrm{cpl}}$ and the transverse observer curvature. The wrong move is to identify them before such a theorem exists. The next section records the compatibility results that have now been established.
+\end{remark}
+
+\section{Compatibility laws}
+
+This section records the exact compatibility results connecting the source and curvature sectors. The first is a norm identity for the curvature in terms of hidden-space Gram data. The second is a factorisation theorem for mixed two-parameter families. The third is a Cauchy--Schwarz bound.
+
+\subsection{Curvature--Gram identity}
+
+\begin{proposition}[curvature--Gram identity]\label{prop:curvature-gram}
+In the whitened pure-observer branch, let $\beta_1,\beta_2\in\R^{m\times(n-m)}$ be tangent directions at a reference observer. Define the hidden-space Gram matrices
+\begin{equation}
+G_i:=\beta_i^{\mathsf T}\beta_i\in\R^{(n-m)\times(n-m)},
+\qquad
+\mathcal C:=\beta_1^{\mathsf T}\beta_2.
+\label{eq:gram-defs}
+\end{equation}
+Then
+\begin{equation}
+\geomboxed{\|F_\alpha(\partial_1,\partial_2)\|_F^2=2\bigl(\Tr(G_1G_2)-\Tr(\mathcal C^2)\bigr).}
+\label{eq:curvature-gram}
+\end{equation}
+\end{proposition}
+
+\begin{proof}
+Expand $\|F_\alpha\|_F^2=\Tr(F_\alpha^{\mathsf T}F_\alpha)$ with $F_\alpha=\beta_1\beta_2^{\mathsf T}-\beta_2\beta_1^{\mathsf T}$. Writing out the four terms and applying cyclic permutation under the trace gives
+\[
+2\Tr(\beta_2\beta_1^{\mathsf T}\beta_1\beta_2^{\mathsf T})-2\Tr(\beta_2\beta_1^{\mathsf T}\beta_2\beta_1^{\mathsf T})
+=2\Tr(G_1G_2)-2\Tr(\mathcal C^2).
+\]
+\end{proof}
+
+\begin{corollary}[Cauchy--Schwarz curvature bound]\label{cor:cs-bound}
+With $O_i:=\beta_i\beta_i^{\mathsf T}\in\R^{m\times m}$ the visible observer tensors,
+\begin{equation}
+\|F_\alpha\|_F^2\le 2\,\Tr(O_1)\Tr(O_2)=2\|\beta_1\|_F^2\|\beta_2\|_F^2.
+\label{eq:cs-bound}
+\end{equation}
+\end{corollary}
+
+\begin{proof}
+From \eqref{eq:curvature-gram}, $\|F_\alpha\|_F^2\le 2\Tr(G_1G_2)$. By the Cauchy--Schwarz inequality on Frobenius inner products, $\Tr(G_1G_2)\le \Tr(G_1)\Tr(G_2)$. Since $\Tr(G_i)=\|\beta_i\|_F^2=\Tr(O_i)$, the bound follows.
+\end{proof}
+
+\begin{corollary}[curvature vanishing]\label{cor:curvature-vanishing}
+$F_\alpha(\partial_1,\partial_2)=0$ if and only if $\Tr(G_1G_2)=\Tr(\mathcal C^2)$. In particular, $F_\alpha\equiv0$ whenever $m=1$.
+\end{corollary}
+
+\begin{proof}
+The identity \eqref{eq:curvature-gram} forces $\|F_\alpha\|_F^2=0$ if and only if $\Tr(G_1G_2)=\Tr(\mathcal C^2)$. For $m=1$, $F_\alpha$ is a $1\times 1$ antisymmetric matrix and therefore vanishes identically.
+\end{proof}
+
+\subsection{Mixed source--curvature factorisation}
+
+\begin{theorem}[mixed factorisation]\label{thm:mixed-factorisation}
+Let $(s,t)$ parameterise a two-parameter family in which $H$ varies along $s$ with fixed $C$, and $C$ varies along $t$ with fixed $H$. Then $\beta_s=0$ and $B_t=0$, and the mixed visible curvature factorises as
+\begin{equation}
+\geomboxed{F_\alpha(\partial_s,\partial_t)=-\beta_t\,R^{-1}B_s^{\mathsf T},}
+\label{eq:mixed-factorisation}
+\end{equation}
+where $B_s=L^{\mathsf T}\dot H\,Z$ is the source coupling and $\beta_t$ is the observer coupling from the $C$-variation.
+\end{theorem}
+
+\begin{proof}
+From the flatness equation \eqref{eq:curvature-pair}, $F_\alpha(\partial_s,\partial_t)=-(\beta_s\theta_t-\beta_t\theta_s)$. Since $C$ is fixed in the $s$-direction, $\beta_s=0$. From the calligraphic identity \eqref{eq:B-callig} with $\beta_s=0$, one has $\theta_s=-R^{-1}B_s^{\mathsf T}$. Substituting gives \eqref{eq:mixed-factorisation}.
+\end{proof}
+
+\begin{remark}[interpretation]
+The mixed curvature factorises into a source-sector piece $R^{-1}B_s^{\mathsf T}$ (how strongly the $H$-variation couples visible to hidden) and a curvature-sector piece $\beta_t$ (how much the $C$-variation rotates the hidden frame). These are mediated solely by the hidden metric $R$. If either coupling vanishes, the mixed curvature is zero.
+\end{remark}
+
+The factorisation generalises to the fully mixed case.
+
+\begin{corollary}[general two-parameter curvature]\label{cor:general-2param}
+For a general two-parameter family in which both $H$ and $C$ vary in both directions,
+\begin{equation}
+F_\alpha(\partial_s,\partial_t)=\beta_t\theta_s-\beta_s\theta_t,
+\label{eq:general-2param}
+\end{equation}
+which reduces to \eqref{eq:mixed-factorisation} when $\beta_s=0$.
+\end{corollary}
+
+\begin{proof}
+Immediate from $F_\alpha=-\beta\wedge\theta$ evaluated on $(\partial_s,\partial_t)$.
+\end{proof}
+
+\section{Information conservation}
+
+The split-frame geometry implies exact conservation laws for the determinant of the visible and hidden metrics.
+
+\begin{theorem}[split determinant conservation]\label{thm:det-conservation}
+With $M=[L\ Z]$ as in Section~1, one has
+\begin{equation}
+\det(\Phi)\det(R)=\det(H)\det(M)^2.
+\label{eq:det-identity}
+\end{equation}
+Along a path with fixed $C$ and fixed hidden frame $Z$, $\det(M)$ is constant and
+\begin{equation}
+\geomboxed{\frac{d}{dt}\log\det\Phi+\frac{d}{dt}\log\det R=\frac{d}{dt}\log\det H.}
+\label{eq:first-order-conservation}
+\end{equation}
+\end{theorem}
+
+\begin{proof}
+Since $M^{\mathsf T}HM=\diag(\Phi,R)$, taking determinants gives $\det(M)^2\det(H)=\det(\Phi)\det(R)$. When $C$ and $Z$ are fixed, $L=H^{-1}C^{\mathsf T}\Phi$ varies with $H$, but one verifies directly that $\det(M)$ is constant along the path (it equals $\det(C_{\mathrm{ext}})^{-1}$ for the extended selector $C_{\mathrm{ext}}=[C;Z^{\mathsf T}]^{-\mathsf T}$ which depends only on $C$ and $Z$). Taking logarithms and differentiating gives \eqref{eq:first-order-conservation}.
+\end{proof}
+
+\begin{remark}[visible and hidden evidence rates]
+Using the calligraphic identities, the visible rate is $\frac{d}{dt}\log\det\Phi=\Tr(\Phi^{-1}V)+2\Tr(\alpha)$ and the hidden rate is $\frac{d}{dt}\log\det R=\Tr(R^{-1}U_h)$. The conservation law says these sum to the ambient rate $\Tr(H^{-1}\dot H)$. The observer does not create or destroy information; it only splits the ambient rate between visible and hidden sectors.
+\end{remark}
+
+\begin{theorem}[second-order conservation]\label{thm:second-order-conservation}
+Under the same hypotheses,
+\begin{equation}
+\geomboxed{\frac{d^2}{dt^2}\log\det\Phi+\frac{d^2}{dt^2}\log\det R=\frac{d^2}{dt^2}\log\det H.}
+\label{eq:second-order-conservation}
+\end{equation}
+The visible acceleration involves $A_{\mathrm{cpl}}$ through
+\begin{equation}
+\Tr(\Phi^{-1}W)=-2\,\Tr\!\bigl(\Phi^{-1}V_S^{1/2}A_{\mathrm{cpl}}V_S^{1/2}\bigr),
+\label{eq:Acpl-in-evidence}
+\end{equation}
+and the hidden and ambient accelerations depend only on $(H,\dot H,\ddot H,Z)$.
+\end{theorem}
+
+\begin{proof}
+Differentiate \eqref{eq:first-order-conservation} once more. The identity \eqref{eq:Acpl-in-evidence} follows from $W=-2V_S^{1/2}A_{\mathrm{cpl}}V_S^{1/2}$ on the active support.
+\end{proof}
+
+\begin{corollary}[scalar evidence decomposition]\label{cor:scalar-evidence}
+When $m=1$ and $V>0$, write $\phi:=\Phi$, $v:=V$, $a:=\alpha$ (all scalars). Then
+\begin{equation}
+\frac{d^2}{dt^2}\log\phi
+=
+-\frac{2v\,A_{\mathrm{cpl}}}{\phi}
+-\Bigl(\frac{v}{\phi}\Bigr)^{\!2}
++2\,\frac{da}{dt}.
+\label{eq:scalar-evidence}
+\end{equation}
+The first term is the source contribution governed by $A_{\mathrm{cpl}}$, the second is kinematic, and the third is the connection acceleration.
+\end{corollary}
+
+\begin{proof}
+Differentiating $\frac{d}{dt}\log\phi=v/\phi+2a$ and using $\dot v/\phi=(w+2av)/\phi$ with $w/\phi=-2vA_{\mathrm{cpl}}/\phi$ on the support gives the stated decomposition after collecting terms.
+\end{proof}
+
+\begin{proposition}[gauge invariance of the visible rate]\label{prop:gauge-invariance}
+Under a latent basis change $S\in GL(n)$ acting as $(H,C,\dot H)\mapsto (S^{\mathsf T}HS,CS,S^{\mathsf T}\dot H S)$, the visible rate $\frac{d}{dt}\log\det\Phi$ is invariant.
+\end{proposition}
+
+\begin{proof}
+From TN1 Proposition~2.2, $\Phi_{CS}(S^{\mathsf T}HS)=\Phi_C(H)$ for all $S$. Since the path transforms consistently, $\Phi(t)$ is unchanged. Hence its log-determinant derivative is unchanged.
+\end{proof}
+
+\begin{remark}[the observer is a splitter]
+The conservation laws constrain $A_{\mathrm{cpl}}$: the visible evidence acceleration cannot be chosen freely, because its sum with the hidden acceleration must equal the ambient acceleration, which is determined entirely by the field $H$ and its derivatives. Different observers redistribute acceleration between visible and hidden sectors, but the total is fixed. This is the information-conservation principle for observer design.
+\end{remark}
+
+\subsection{Positivity on linear paths}
+
+\begin{theorem}[linear-path positivity]\label{thm:linear-positivity}
+Let $H(t)=H_0+t\Delta H$ be a linear path through $\operatorname{SPD}(n)$ with fixed observer $C$. If $V=L^{\mathsf T}\Delta H\,L\succ 0$ on the active support, then
+\begin{equation}
+\geomboxed{A_{\mathrm{cpl}}=V_S^{-1/2}\widehat Q_SV_S^{-1/2}\succeq 0,}
+\label{eq:linear-positivity}
+\end{equation}
+with equality if and only if $B=L^{\mathsf T}\Delta H\,Z=0$.
+\end{theorem}
+
+\begin{proof}
+On a linear path $\ddot H=0$. With $\beta=0$ (fixed $C$), the completed square \eqref{eq:completed-square} gives $W=-2\widehat Q$ and $\mathcal O=0$. Hence $A_{\mathrm{cpl}}=-\frac12V_S^{-1/2}(-2\widehat Q_S)V_S^{-1/2}=V_S^{-1/2}\widehat Q_SV_S^{-1/2}$. Since $R\succ 0$, $\widehat Q=BR^{-1}B^{\mathsf T}\succeq 0$, and conjugation by $V_S^{-1/2}$ preserves positive semidefiniteness. The equality case is $\widehat Q_S=0$, which on the full support forces $B=0$.
+\end{proof}
+
+\begin{remark}[physical content]
+On any straight ambient evolution, the hidden sector contributes only stabilising curvature. The visible evidence is concave in the source-term contribution:
+\[
+\Tr\!\bigl(\Phi^{-1}\widehat Q\bigr)\ge 0
+\qquad\Longrightarrow\qquad
+-2\Tr\!\bigl(\Phi^{-1}V_S^{1/2}A_{\mathrm{cpl}}V_S^{1/2}\bigr)\le 0.
+\]
+Indefiniteness of $A_{\mathrm{cpl}}$ requires nonzero $\ddot H$: the ambient path must curve through $\operatorname{SPD}(n)$.
+\end{remark}
+
+\begin{corollary}[optimal observer drives the hidden rate to zero]\label{cor:optimal-observer}
+On a linear path, consider the observer $C^*$ that maximises the visible rate $\frac{d}{dt}\log\det\Phi$ over the Grassmannian. By the conservation law, this is the observer that minimises the hidden rate $\frac{d}{dt}\log\det R$. At the optimum, the stationarity condition is
+\begin{equation}
+\frac{d}{dC}\Bigl[\Tr\!\bigl(R^{-1}U_h\bigr)\Bigr]=0,
+\label{eq:euler-lagrange}
+\end{equation}
+which is the zero-velocity Euler--Lagrange equation for the coupling-budget Lagrangian. On the coupled spring system ($n=2$, $m=1$) the optimal observer achieves $\frac{d}{dt}\log\det R=0$: the entire ambient rate is captured by the visible sector.
+\end{corollary}
+
+\begin{proof}
+From the conservation law $\frac{d}{dt}\log\det\Phi+\frac{d}{dt}\log\det R=\frac{d}{dt}\log\det H$, the visible rate is $\mathrm{amb}-\mathrm{hid}$. Since the ambient rate does not depend on $C$, maximising the visible rate is equivalent to minimising the hidden rate. Stationarity gives \eqref{eq:euler-lagrange}. The coupled spring claim is verified by exhaustive angular sweep.
+\end{proof}
+
+\begin{corollary}[local equivalence principle]\label{cor:equivalence}
+For any fixed $(H,C,\dot H)$ with $V_S\succ 0$, there exists a symmetric $\ddot H$ such that $A_{\mathrm{cpl}}=0$. The map $\ddot H\mapsto L^{\mathsf T}\ddot H\,L$ is surjective from $\Sym(n)$ onto $\Sym(m)$ whenever $\rank L=m$, so the cancelling $\ddot H$ always exists.
+\end{corollary}
+
+\begin{proof}
+On the support, $A_{\mathrm{cpl}}=A_{\mathrm{direct}}+V_S^{-1/2}\widehat Q_S V_S^{-1/2}$. Setting $A_{\mathrm{cpl}}=0$ requires $L^{\mathsf T}\ddot H\,L=2\widehat Q_S$. Since $L$ has rank $m$ and $n>m$, the linear map is surjective.
+\end{proof}
+
+\begin{proposition}[adapted observer achieves zero hidden coupling]\label{prop:zero-coupling}
+Let $\dot H$ be a fixed symmetric perturbation. The closure-adapted observer $C^*$ that solves $[P^*,\dot H_{w}]=0$ in the whitened frame achieves $B=L^{\mathsf T}\dot H\,Z=0$. On this observer the source law reduces to $A_{\mathrm{cpl}}=A_{\mathrm{direct}}$ (zero hidden defect), the mixed curvature vanishes ($F_\alpha(\partial_s,\partial_t)=0$ for any observer perturbation), and the visible rate equals the ambient rate minus the hidden rate with no mediation through the coupling channel.
+\end{proposition}
+
+\begin{proof}
+The adapted observer diagonalises the whitened perturbation $H^{-1/2}\dot H\,H^{-1/2}$ in the visible block. In the eigenbasis of this whitened operator, $L^{\mathsf T}\dot H\,Z=0$ because the visible and hidden blocks decouple. With $B=0$: $\widehat Q=0$, so $A_{\mathrm{cpl}}=A_{\mathrm{direct}}$. With $B=0$: $\theta_s=-R^{-1}B_s^{\mathsf T}=0$, so $F_\alpha(\partial_s,\partial_t)=\beta_t\theta_s=0$.
+\end{proof}
+
+\begin{corollary}[exact capture]\label{cor:exact-capture}
+If $\rank(\dot H)\le m$, then the adapted observer achieves $U_h=Z^{\mathsf T}\dot H\,Z=0$ and therefore
+\begin{equation}
+\frac{d}{dt}\log\det\Phi=\frac{d}{dt}\log\det H:
+\label{eq:exact-capture}
+\end{equation}
+the visible rate equals the ambient rate and the hidden rate is zero. The observer captures all the information in the perturbation. When $\rank(\dot H)>m$, the adapted observer captures the top $m$ eigenvalue directions and $\mathrm{vis\_frac}<1$.
+\end{corollary}
+
+\begin{proof}
+Since $B=L^{\mathsf T}\dot H\,Z=0$ and $\rank(\dot H)\le m$, the range of $\dot H$ lies in the column space of $L$. Hence $Z^{\mathsf T}\dot H=0$, giving $U_h=0$ and hidden rate $\Tr(R^{-1}U_h)=0$. By the conservation law, the visible rate equals the ambient rate.
+\end{proof}
+
+\begin{corollary}[eigenvalue capture formula]\label{cor:eigenvalue-capture}
+Let $\lambda_1\ge\cdots\ge\lambda_r>0$ be the positive eigenvalues of $H^{-1/2}\dot H\,H^{-1/2}$, where $r=\rank(\dot H)$. Then the adapted observer of rank $m$ achieves
+\begin{equation}
+\geomboxed{\mathrm{vis\_frac}(m)=\frac{\sum_{i=1}^{\min(m,r)}\lambda_i}{\sum_{i=1}^r\lambda_i}.}
+\label{eq:eigenvalue-capture}
+\end{equation}
+This is the exact replacement for the PCA scree plot: instead of variance explained, it gives task-information explained.
+\end{corollary}
+
+\begin{proof}
+The adapted observer selects the top $m$ eigenvectors of $H^{-1/2}\dot H\,H^{-1/2}$. In this eigenbasis, $V=\diag(\lambda_1,\dots,\lambda_m)$, $U_h=\diag(\lambda_{m+1},\dots,\lambda_r,0,\dots)$, and $B=0$. The visible rate is $\Tr(\Phi^{-1}V)=\sum_{i=1}^m\lambda_i/\phi_i$, but in the whitened frame $\Phi=I_m$, so it equals $\sum_{i=1}^m\lambda_i$. Similarly the ambient rate is $\sum_{i=1}^r\lambda_i$. The ratio gives \eqref{eq:eigenvalue-capture}.
+\end{proof}
+
+\begin{remark}[the adapted observer is the physically honest one]
+The zero-coupling property means the adapted observer shows what is really there, with no amplification or suppression from the hidden sector. A Grassmannian optimiser that maximises $\mathrm{vis\_frac}=\mathrm{vis}/\mathrm{amb}$ may achieve a higher ratio by leveraging hidden-sector counter-flow, but this leverage depends on the hidden sector behaving as expected and is not structurally guaranteed. The adapted observer's zero-coupling guarantee is unconditional.
+\end{remark}
+
+\begin{remark}[Codazzi constraint on the ambient evolution]
+The flatness-derived Codazzi identity $D\beta=0$ constrains which ambient perturbations $\dot H$ are compatible with a given observer motion $\dot C$. The constraint removes $m(n-m)$ directions from $\Sym(n)$, leaving a Codazzi-compatible subspace of dimension $\tfrac12 n(n+1)-m(n-m)$. For $n=4$, $m=2$ this is $6$ of $10$ directions; asymptotically the compatible fraction is $1-2m(n-m)/n(n+1)$, which stabilises near $60\%$ for balanced $m\sim n/2$.
+\end{remark}
+
+\section{Sixth-order local observer stability}
+
+This section records the exact finite-order stability hierarchy needed for adapted-observer selection.
+
+Let $\widetilde F_{\mu}$ be a smooth even reduced selector on an exact slice $\mathcal N$ through the reference observer. Around the origin write its expansion as
+\begin{equation}
+\widetilde F_{\mu}(Z)=\widetilde F_{\mu}(0)+\tfrac12\langle H_{\mu}^{\mathrm{red}}Z,Z\rangle+\mathcal Q_{\mu}(Z)+q_{6,\mu}(Z)+o(\|Z\|_F^6),
+\label{eq:selector-expansion}
+\end{equation}
+where $H_{\mu}^{\mathrm{red}}$ is the quadratic form, $\mathcal Q_{\mu}$ is homogeneous quartic, and $q_{6,\mu}$ is homogeneous sextic. Let
+\begin{equation}
+K_{\mu}:=\ker H_{\mu}^{\mathrm{red}},
+\qquad
+N_{\mu}:=\{U\in K_{\mu}:\|U\|_F=1,\ \mathcal Q_{\mu}(U)=0\}.
+\label{eq:K-and-N}
+\end{equation}
+
+\begin{theorem}[sixth-order strict local maximality]\label{thm:sixth-order}
+Assume
+\begin{equation}
+H_{\mu}^{\mathrm{red}}\le 0 \quad\text{on }\mathcal N,
+\label{eq:hyp-H}
+\end{equation}
+\begin{equation}
+\mathcal Q_{\mu}(Z)\le 0 \quad\text{for all } Z\in K_{\mu},
+\label{eq:hyp-Q}
+\end{equation}
+and
+\begin{equation}
+q_{6,\mu}(U)<0 \quad\text{for all } U\in N_{\mu}.
+\label{eq:hyp-q6}
+\end{equation}
+Then $Z=0$ is a strict local maximum of $\widetilde F_{\mu}$ on the slice $\mathcal N$.
+\end{theorem}
+
+\begin{proof}
+Assume for contradiction that there is a sequence $Z_k\to0$, $Z_k\ne0$, with
+\[
+\widetilde F_{\mu}(Z_k)\ge \widetilde F_{\mu}(0).
+\]
+Write $r_k:=\|Z_k\|_F$ and $U_k:=Z_k/r_k$. After passing to a subsequence, $U_k\to U$ with $\|U\|_F=1$.
+
+Divide \eqref{eq:selector-expansion} by $r_k^2$. Since the quadratic term is nonpositive, the only way the left-hand side can fail to become strictly negative is if
+\[
+\langle H_{\mu}^{\mathrm{red}}U,U\rangle=0,
+\]
+so $U\in K_{\mu}$. Now divide by $r_k^4$. By \eqref{eq:hyp-Q}, if $\mathcal Q_{\mu}(U)<0$, then for $k$ large the selector difference is strictly negative, contradiction. Hence $\mathcal Q_{\mu}(U)=0$, so $U\in N_{\mu}$. Finally divide by $r_k^6$. By \eqref{eq:hyp-q6}, one has $q_{6,\mu}(U)<0$, again giving a strict negative leading term for large $k$, contradiction. Therefore no such sequence exists, and the origin is a strict local maximum.
+\end{proof}
+
+\begin{corollary}[selector-specific sextic form]\label{cor:selector-sextic}
+For the reduced selector studied in the current observer-design problem, the sextic term is
+\begin{equation}
+\geomboxed{\begin{aligned}
+q_{6,\mu}(Z)
+&=-\Tr(Q^3M_U)+\Tr(Q^2N)\\
+&\quad-(1+\mu)\sum_a
+\Bigl[
+\|Y_aQ\|_F^2
++\|R^{1/2}Y_aQ^{1/2}\|_F^2
++\|RY_a\|_F^2
+\Bigr]
+\end{aligned}}
+\label{eq:q6-explicit}
+\end{equation}
+where
+\begin{equation}
+Q:=Z^{\mathsf T}Z,
+\qquad
+R:=ZZ^{\mathsf T},
+\qquad
+N:=Z^{\mathsf T}M_WZ,
+\qquad
+Y_a:=B_aZ-ZA_a.
+\label{eq:q6-defs}
+\end{equation}
+Every term in \eqref{eq:q6-explicit} is homogeneous of degree six in $Z$.
+\end{corollary}
+
+\begin{proof}
+The displayed formula is immediate from the sixth-order ray expansion of the selector on the exact slice. Each occurrence of $Q$, $R$, $N$, and $Y_a$ contributes the stated degree, so every summand is sextic.
+\end{proof}
+
+\section{Ambient metric optimisation}
+
+The preceding sections treat $H$ and $\dot H$ (henceforth $\Xi$ for the static perturbation) as given.
+A natural variational question is: given observer $C$ and perturbation $\Xi$, which $H\in\operatorname{SPD}(n)$ maximises visible rate?
+
+\subsection*{Spectral collapse and ill-posedness}
+
+\begin{lemma}[spectral collapse]\label{lem:spectral-collapse}
+Let $\Xi\in\Sym(n)$ have a positive component in the visible sector of a fixed observer $C$.  Any admissible class $\mathcal S\subset\operatorname{SPD}(n)$ that contains a sequence $H_k$ with $\lambda_{\min}(H_k)\to 0$ and $C$ aligned with the collapsing eigenspace satisfies $\sup_{H\in\mathcal S}\mathrm{vis\_rate}(H,C,\Xi)=+\infty$.
+\end{lemma}
+
+\begin{proof}
+Align $C$ with the eigenvector of $H_k$ corresponding to $\lambda_{\min}=\varepsilon_k$.  Then $\mathrm{vis\_rate}\ge \Xi_{\mathrm{vis}}/\varepsilon_k\to+\infty$.
+\end{proof}
+
+The lemma kills all scalar-only constraints: fixed determinant, fixed trace, or any budget that does not control spectral anisotropy.  The Fisher--Rao distance $d_{\mathrm{FR}}(H,H_0)^2=\sum_i(\log\lambda_i)^2$ also fails, because its quadratic-logarithmic growth is dominated by the $1/\lambda_{\min}$ divergence of the visible rate.
+
+\subsection*{KL-regularised objective}
+
+The natural coercive regulariser is the KL divergence relative to a reference $H_0\in\operatorname{SPD}(n)$:
+\[
+D_{\mathrm{KL}}(H_0\|H)
+=\tfrac12\bigl[\Tr(H_0 H^{-1})-\log\det(H_0 H^{-1})-n\bigr].
+\]
+Define
+\begin{equation}
+J(H)=\mathrm{vis\_rate}(H,C,\Xi)-\gamma\,D_{\mathrm{KL}}(H_0\|H),
+\qquad \gamma>0.
+\label{eq:kl-objective}
+\end{equation}
+
+\begin{theorem}[well-posedness]\label{thm:kl-wellposed}
+For $\gamma>2K/c_0$ where $K=2\|\Xi\|_{\mathrm{nuc}}$ and $c_0=\lambda_{\min}(H_0)$, the functional $J$ is bounded above on $\operatorname{SPD}(n)$, attains its supremum at an interior $H^*$, and $H^*$ satisfies
+\begin{equation}
+\geomboxed{S(H^*)-\Xi=\tfrac\gamma2\,(H^*-H_0)}
+\label{eq:field-equation}
+\end{equation}
+where $S(H)=HZ\,R^{-1}U_h\,R^{-1}Z^{\mathsf T}H$ is the hidden stress tensor, $R=Z^{\mathsf T}HZ$, and $U_h=Z^{\mathsf T}\Xi Z$.
+\end{theorem}
+
+\begin{proof}
+$|\mathrm{vis\_rate}|\le K/\lambda_{\min}(H)$.  $D_{\mathrm{KL}}\ge c_0/(4\lambda_{\min}(H))$ for $\lambda_{\min}(H)$ small and $D_{\mathrm{KL}}\to\infty$ as $\lambda_{\max}(H)\to\infty$.  For $\gamma>2K/c_0$, $J\to-\infty$ in all escape directions.  Superlevel sets are compact in $\operatorname{SPD}(n)$; the supremum is attained at an interior point.  Stationarity $\nabla_H J=0$ gives
+\[
+-H^{-1}\Xi H^{-1}+ZR^{-1}U_hR^{-1}Z^{\mathsf T}
+=\tfrac\gamma2\bigl(H^{-1}-H^{-1}H_0 H^{-1}\bigr).
+\]
+Multiplying by $H$ on both sides yields \eqref{eq:field-equation}.
+\end{proof}
+
+\subsection*{Tensor residual decomposition}
+
+Define $T=S-\Xi+(\mathrm{vis}/n)\,H$ where $\mathrm{vis}=\mathrm{vis\_rate}$.
+
+\begin{proposition}[tensor residual]\label{prop:tensor-residual}
+In the adapted frame $M=[L\mid Z]$:
+\[
+M^{\mathsf T}TM
+=\begin{pmatrix}
+-V+(\mathrm{vis}/n)\,\Phi & -B \\
+-B^{\mathsf T} & (\mathrm{vis}/n)\,R
+\end{pmatrix}.
+\]
+Consequently $\Tr(H^{-1}T)=0$ identically, and $T=0$ requires $\mathrm{vis\_rate}=0$.
+\end{proposition}
+
+\begin{proof}
+$M^{\mathsf T}SM=\bigl(\begin{smallmatrix}0&0\\0&U_h\end{smallmatrix}\bigr)$ since $L^{\mathsf T}HZ=\Phi CZ=0$.  Assemble.  The $H$-trace vanishes because $\Tr(\Lambda^{-1}\tilde T)=-\mathrm{vis}+(\mathrm{vis}/n)(m+(n{-}m))=0$.  The $(2{,}2)$ block is $(\mathrm{vis}/n)R\succ 0$ when $\mathrm{vis}\ne 0$.
+\end{proof}
+
+\subsection*{Mixed channel unification}
+
+The three candidate objects---curvature $F_\alpha$, source operator $A_{\mathrm{cpl}}$, and hidden stress $S$---are not the same tensor.  They are three projections of one Codazzi-constrained mixed coupling channel
+\[
+\mathcal K(u,v)=\beta(v)\,\theta(u)\sim B_v\,R^{-1}B_u^{\mathsf T}:
+\]
+curvature is $-\mathrm{Alt}\,\mathcal K$, the hidden defect is $\mathrm{Diag}\,\mathcal K$, and the hidden stress is the ambient lift of $\mathrm{Diag}\,\mathcal K$.
+
+\subsection*{Joint optimum}
+
+\begin{theorem}[joint optimum]\label{thm:joint-optimum}
+Let $(H^*,C^*)$ jointly maximise $J$ over $\operatorname{SPD}(n)\times\mathrm{Gr}(m,n)$ with $\gamma$ above the coercive threshold.  Set $Z=\ker C^*$, $L^*=L(H^*,C^*)$, $L_0=L(H_0,C^*)$.  Then:
+\begin{enumerate}
+\item[\textup{(a)}] $B^*=L^{*\mathsf T}\Xi Z=0$ \textup{(adapted observer)}.
+\item[\textup{(b)}] $L^{*\mathsf T}H_0 Z=0$ \textup{(reference block-diagonal in adapted frame)}.
+\item[\textup{(c)}] $Z^{\mathsf T}H^*Z=Z^{\mathsf T}H_0 Z$ \textup{(hidden metric frozen)}.
+\item[\textup{(d)}] $L^*=L_0$ \textup{(lifts coincide)}.
+\item[\textup{(e)}] $\Phi^*=\Phi_0-(2/\gamma)\,V$, where $\Phi_0=(C^*H_0^{-1}C^{*\mathsf T})^{-1}$ and $V=L_0^{\mathsf T}\Xi L_0$, provided $\Phi_0-(2/\gamma)V\succ 0$.
+\item[\textup{(f)}] $H^*-H_0=M_0^{-\mathsf T}\bigl(\begin{smallmatrix}-(2/\gamma)V&0\\0&0\end{smallmatrix}\bigr)M_0^{-1}$, a rank-$m$ visible-sector perturbation.
+\end{enumerate}
+\end{theorem}
+
+\begin{proof}
+(a) $D_{\mathrm{KL}}$ is $C$-independent.  In the $H$-whitened frame, $\mathrm{vis\_rate}=\Tr(P\Xi_w)$ and its tangential derivative on $\mathrm{Gr}(m,n)$ is $P\Xi_w(I{-}P)$, which vanishes iff $B=0$.
+
+(b,c) Project \eqref{eq:field-equation} through $M^*$.  At $B=0$: $M^{*\mathsf T}(S{-}\Xi)M^*=\bigl(\begin{smallmatrix}-V^*&0\\0&0\end{smallmatrix}\bigr)$.  The off-diagonal block gives $L^{*\mathsf T}H_0 Z=0$.  The hidden block gives $Z^{\mathsf T}H^*Z=Z^{\mathsf T}H_0 Z$.
+
+(d) From (b), $H_0$ is block-diagonal in $M^*$, so $C^*H_0^{-1}C^{*\mathsf T}=(L^{*\mathsf T}H_0L^*)^{-1}$, giving $\Phi_0=L^{*\mathsf T}H_0L^*$ and $L_0=L^*$.
+
+(e,f) The visible block of the field equation gives $\Phi^*=\Phi_0-(2/\gamma)V$.  Since $L^*=L_0$, $V$ is explicit.
+\end{proof}
+
+\begin{remark}
+The reference metric $H_0$ and the regularisation strength $\gamma$ are not determined by the observer geometry; they are external parameters.  An additional physical, statistical, or information-theoretic principle is required to fix them.  The \textup{SPD} condition in~(e) is automatically satisfied at the joint maximiser (since $H^*\succ 0$) but provides a useful a priori check: $\gamma>2\lambda_{\max}(\Phi_0^{-1}V)$ suffices.
+\end{remark}
+
+Numerical verification: $108/108$ checks passed across three independent test suites (fixed-$C$ generic, compatibility-sector closed form, joint $(H,C)$ optimisation) for $n\in\{2,\dots,7\}$, $m\in\{1,\dots,5\}$.
+
+\section{Conclusion}
+
+The note records nine groups of exact results.
+
+First, the support-local source law is $A_{\mathrm{cpl}}=A-\frac12\Sym(\mathcal R\Theta)$, with the equivalent completed-square formula \eqref{eq:Acpl-expanded} and the fast-hidden lift interpretation of Proposition~\ref{prop:fast-hidden-lift}.
+
+Second, the pure-observer branch carries an exact composite curvature sector, $F_{\alpha}=\beta\wedge R^{-1}\beta^{\mathsf T}\Phi$, which is the Grassmannian projector curvature in the whitened gauge and whose natural curvature-square actions begin at quartic order around the trivial background.
+
+Third, the source law and the curvature law are distinct exact sectors (Theorem~\ref{thm:source-curvature-separation}), but they share the split channel $\beta$ and are connected by the compatibility laws of Section~5: the curvature--Gram identity \eqref{eq:curvature-gram}, the mixed factorisation \eqref{eq:mixed-factorisation}, and the Cauchy--Schwarz bound \eqref{eq:cs-bound}.
+
+Fourth, observer redesign has a finite exact stability hierarchy that closes at sixth order under the criterion of Theorem~\ref{thm:sixth-order}.
+
+Fifth, the split determinant conservation law \eqref{eq:first-order-conservation} and its second-order extension \eqref{eq:second-order-conservation} constrain the source law: the visible evidence acceleration governed by $A_{\mathrm{cpl}}$ and the hidden evidence acceleration must sum to the ambient acceleration, which is fixed by $H$ and its derivatives alone. The observer does not create or destroy information; it only splits the ambient rate between visible and hidden sectors.
+
+Sixth, the scalar evidence decomposition \eqref{eq:scalar-evidence} separates the log-evidence curvature into a source term $-2vA_{\mathrm{cpl}}/\phi$ governed by the coupled source operator, a kinematic term $(v/\phi)^2$, and a connection term $2\,da/dt$.
+
+Seventh, on any linear ambient path the coupled source operator is positive semidefinite (Theorem~\ref{thm:linear-positivity}): straight ambient evolution cannot produce visible convexification through a fixed observer; the hidden sector contributes only stabilising curvature. Indefiniteness of $A_{\mathrm{cpl}}$ requires the ambient path to curve through $\operatorname{SPD}(n)$.
+
+Eighth, the closure-adapted observer achieves $B=L^{\mathsf T}\dot H\,Z=0$ (Proposition~\ref{prop:zero-coupling}): it decouples visible and hidden sectors exactly through the declared perturbation. On this observer the source law has no hidden mediation and the mixed curvature vanishes. This is the structurally honest observer: it reports exactly what is visible with no hidden-sector leverage.
+
+Ninth, the ambient metric optimisation problem---which $H$ maximises the visible rate for a given observer and perturbation---is ill-posed under any scalar constraint (Lemma~\ref{lem:spectral-collapse}) but well-posed under KL-divergence regularisation (Theorem~\ref{thm:kl-wellposed}).  The stationarity law $S-\Xi=(\gamma/2)(H^*-H_0)$ balances the hidden stress tensor against the perturbation and a metric-deviation term.  At the joint optimum over $(H,C)$, the adapted observer forces the hidden metric to freeze at the reference value and the visible precision to shift by $\Phi^*=\Phi_0-(2/\gamma)V$ (Theorem~\ref{thm:joint-optimum}).  The three candidate field-equation objects---curvature, source, and stress---are unified as projections of one Codazzi-constrained mixed coupling channel (Proposition~\ref{prop:tensor-residual}).
+
+These results are compatible, and the compatibility is now explicit. The source law is a symmetric support-local generator. The curvature law is a bundle-valued two-form. They interact through the split channel and are constrained by the conservation law. The positivity theorem explains why $A_{\mathrm{cpl}}$ is empirically non-negative on real data: most natural perturbations are locally linear. The zero-coupling theorem explains why the static adapted observer is near-optimal for dynamic capture: it finds the observer where the hidden sector is transparent. The stability hierarchy is a selector theorem operating at a different scale.
+
+The conservation law and the source law have been implemented in the \texttt{nomogeo} kernel and validated on $118{,}539$ molecular solvent-perturbation pairs from the HessianQM9 dataset. The conservation law holds to machine precision across all tested pairs. The visible fraction---the share of the ambient information rate captured by the softest vibrational modes---has median $0.45$. Approximately $50\%$ of the solvent response is captured by observing $12.5\%$ of the vibrational modes, following a concave information capture law. Observer optimisation on the Grassmannian triples the median visible fraction and quadruples the rate at which molecules enter the exact sector where $V\succ 0$ and $A_{\mathrm{cpl}}$ is computable. The static closure-adapted observer from the weighted-family frontier and the dynamic visible-fraction optimum have Spearman rank correlation $0.83$: the same geometry governs static observability and dynamic information capture.
+
+\end{document}

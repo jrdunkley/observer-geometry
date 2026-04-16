@@ -1,0 +1,73 @@
+{
+  "card_id": "string_fixed_end_three_mode",
+  "schema_version": "attachment_card.v0",
+  "system": "fixed-end string truncated to the first three sine modes",
+  "attachment_type": "exact_quadratic",
+  "state_variables": [
+    {"name": "q1", "meaning": "amplitude of first fixed-end sine mode", "unit": "m sqrt(m)"},
+    {"name": "q2", "meaning": "amplitude of second fixed-end sine mode", "unit": "m sqrt(m)"},
+    {"name": "q3", "meaning": "amplitude of third fixed-end sine mode", "unit": "m sqrt(m)"}
+  ],
+  "sensor_surface": {
+    "ideal": ["modal amplitudes q1, q2, q3"],
+    "practical": ["point displacement pickup, optical displacement tracking, or microphone-like channel after an additional modal observer map is declared"]
+  },
+  "control_variables": [
+    {"name": "L_string", "meaning": "fixed-end string length", "unit": "m"},
+    {"name": "Tension", "meaning": "string tension", "unit": "N"},
+    {"name": "mu", "meaning": "linear mass density", "unit": "kg m^-1"},
+    {"name": "mode_count", "meaning": "finite truncation count", "unit": "none"}
+  ],
+  "regime_assumptions": [
+    "small transverse displacement",
+    "fixed boundary conditions at x = 0 and x = L_string",
+    "orthonormal sine basis phi_n(x) = sqrt(2 / L_string) sin(n pi x / L_string)",
+    "only modes n = 1, 2, 3 are included",
+    "modes above n = 3 are explicitly outside this finite object",
+    "damping, drive, nonlinear string motion, and point-sensor inversion are outside this card"
+  ],
+  "equation_hook": "U(q) = 1/2 sum_{n=1}^3 Tension (n pi / L_string)^2 q_n^2; M = mu I in the same orthonormal modal coordinates",
+  "units_and_dimensions": {
+    "q_n": "m sqrt(m) under the declared orthonormal spatial basis convention",
+    "Tension": "N",
+    "mu": "kg m^-1",
+    "K_n": "Tension (n pi / L_string)^2",
+    "M_n": "mu",
+    "omega_n^2": "K_n / M_n",
+    "H": "modal stiffness Hessian K; the mass metric M is a distinct declared object"
+  },
+  "coordinate_note": "This finite modal card separates stiffness Hessian K, mass metric M, and frequency readout. The runner reads the declared stiffness Hessian K; frequencies require the pair (K, M) and are not inferred from K alone.",
+  "module_object": {
+    "kind": "finite modal stiffness Hessian with mass metric metadata",
+    "description": "three-mode diagonal stiffness Hessian K plus a separate diagonal mass metric M for modal frequency interpretation"
+  },
+  "derivation_status": "exact for the declared small-amplitude fixed-end string after basis choice and three-mode truncation",
+  "observer_map": {
+    "description": "observe the three declared modal amplitudes directly; practical point sensors require a separate observer map",
+    "matrix": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]]
+  },
+  "ceiling_or_reference": {
+    "kind": "none",
+    "description": "no visible-block ceiling or hidden modal sector is declared in this card"
+  },
+  "allowed_nomogeo_calls": ["visible_precision"],
+  "nomogeo_readout": {
+    "requested": ["visible_precision"]
+  },
+  "positive_scope": "This card converts a raw standing-wave formula into a finite positive modal stiffness object after boundary, basis, and truncation are declared.",
+  "boundary": "It does not attach the infinite string, modes above n = 3, point-sensor inversion, damping, drive response, or hidden-load structure.",
+  "failure_mode": "The attachment fails if the boundary conditions, modal basis, finite truncation, positive tension, or positive mass density are not declared.",
+  "next_measurement": "Measure the first three resonant frequencies and use the declared M/K separation to test the modal convention before adding a point-sensor observer map.",
+  "default_parameters": {
+    "L_string": 1.0,
+    "Tension": 100.0,
+    "mu": 0.01,
+    "mode_count": 3,
+    "frequencies_hz": [50.0, 100.0, 150.0]
+  },
+  "declared_objects": {
+    "H": [[986.9604401089358, 0.0, 0.0], [0.0, 3947.8417604357433, 0.0], [0.0, 0.0, 8882.643960980422]],
+    "C": [[1.0, 0.0, 0.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+    "M": [[0.01, 0.0, 0.0], [0.0, 0.01, 0.0], [0.0, 0.0, 0.01]]
+  }
+}

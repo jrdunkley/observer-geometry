@@ -1,0 +1,19 @@
+{
+  "card_id": "linear_elastic_bar",
+  "system": "small-strain linear elastic bar in axial extension coordinate",
+  "attachment_type": "exact_quadratic",
+  "executed_calls": [
+    "visible_precision"
+  ],
+  "refused_calls": [],
+  "readout": {
+    "visible_precision": [
+      [
+        199999.99999999994
+      ]
+    ]
+  },
+  "coordinate_note": "The coordinate is total axial extension, not strain. If strain epsilon = delta_L / L0 is used as the coordinate, the Hessian changes to E_young A_cross L0.",
+  "positive_scope": "This card exposes material stiffness as the same scalar quadratic contact type as an ideal spring after geometry is declared.",
+  "boundary": "It does not describe plastic deformation, nonlinear elasticity, bending modes, shear, damping, or fracture."
+}

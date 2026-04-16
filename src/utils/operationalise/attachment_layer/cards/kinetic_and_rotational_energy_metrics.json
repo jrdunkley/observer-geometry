@@ -1,0 +1,63 @@
+{
+  "card_id": "kinetic_and_rotational_energy_metrics",
+  "schema_version": "attachment_card.v0",
+  "system": "translational and rotational kinetic energy in declared velocity coordinates",
+  "attachment_type": "exact_quadratic",
+  "state_variables": [
+    {"name": "v", "meaning": "one-dimensional translational velocity coordinate", "unit": "m s^-1"},
+    {"name": "omega", "meaning": "angular velocity about a declared fixed axis", "unit": "rad s^-1"}
+  ],
+  "sensor_surface": {
+    "ideal": ["translational velocity v", "angular velocity omega"],
+    "practical": ["motion tracking or encoder-derived velocity", "tachometer, gyroscope, or rotary encoder angular velocity"]
+  },
+  "control_variables": [
+    {"name": "m", "meaning": "mass associated with the translational coordinate", "unit": "kg"},
+    {"name": "I_axis", "meaning": "moment of inertia about the declared fixed axis", "unit": "kg m^2"}
+  ],
+  "regime_assumptions": [
+    "nonrelativistic kinetic energy",
+    "mass is constant over the measurement regime",
+    "rotation is about the declared fixed principal axis",
+    "coordinates are velocity coordinates, not displacement coordinates",
+    "no restoring potential, damping, or modal frequency claim is made by this card"
+  ],
+  "equation_hook": "K(v, omega) = 1/2 m v^2 + 1/2 I_axis omega^2",
+  "units_and_dimensions": {
+    "v": "m s^-1",
+    "omega": "rad s^-1",
+    "m": "kg = J (m s^-1)^-2",
+    "I_axis": "kg m^2 = J (rad s^-1)^-2 when rad is treated as the declared angular coordinate unit",
+    "H": "block units by coordinate; mass and inertia entries are not stiffness entries"
+  },
+  "coordinate_note": "This is kinetic metric geometry in velocity coordinates. The Hessian entries are mass and moment of inertia, not restoring stiffnesses; they must not be compared entry-by-entry with spring or LC storage Hessians.",
+  "module_object": {
+    "kind": "metric Hessian",
+    "description": "diagonal mass/inertia metric induced by kinetic energy in the declared velocity coordinates"
+  },
+  "derivation_status": "exact from the stated nonrelativistic kinetic energy after the velocity coordinates and rotation axis are declared",
+  "observer_map": {
+    "description": "observe both declared velocity coordinates",
+    "matrix": [[1.0, 0.0], [0.0, 1.0]]
+  },
+  "ceiling_or_reference": {
+    "kind": "none",
+    "description": "no hidden coordinate or ceiling is declared in this card"
+  },
+  "allowed_nomogeo_calls": ["visible_precision"],
+  "nomogeo_readout": {
+    "requested": ["visible_precision"]
+  },
+  "positive_scope": "This card admits kinetic energy as an exact finite positive quadratic object while keeping metric geometry distinct from stiffness and frequency geometry.",
+  "boundary": "It does not describe potentials, oscillation frequencies, damping, relativistic kinetic energy, gyroscopic coupling, or hidden-load structure.",
+  "failure_mode": "The attachment fails if the coordinates are not velocity coordinates, the rotation axis is not declared, the inertia tensor is not positive on the active coordinate, or the metric is used as a stiffness Hessian.",
+  "next_measurement": "Measure mass or moment of inertia independently, then compare kinetic energy changes against v^2 and omega^2 over the declared coordinate range.",
+  "default_parameters": {
+    "m": 2.0,
+    "I_axis": 0.08
+  },
+  "declared_objects": {
+    "H": [[2.0, 0.0], [0.0, 0.08]],
+    "C": [[1.0, 0.0], [0.0, 1.0]]
+  }
+}

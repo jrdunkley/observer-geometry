@@ -1,0 +1,210 @@
+{
+  "schema_version": "observation_equation_fisher_proofs.v0",
+  "purpose": "Proof packet for observation-equation Fisher curvature before any generic evidence schema is promoted.",
+  "proofs": [
+    {
+      "id": "rc_decay_tau_observation_equation",
+      "route": "observation_equation_fisher",
+      "status": "admissible_local_precision",
+      "observation_equation": "V_i = V0 exp(-t_i / tau) + E_i, E_i ~ N(0, sigma^2)",
+      "measurand_or_parameter": "tau",
+      "controls": {
+        "V0": 5.0,
+        "sigma": 0.05,
+        "times": [
+          0.25,
+          0.7666666666666667,
+          1.2833333333333334,
+          1.8000000000000003,
+          2.316666666666667,
+          2.8333333333333335,
+          3.3500000000000005,
+          3.866666666666667,
+          4.383333333333334,
+          4.9,
+          5.416666666666667,
+          5.933333333333334,
+          6.450000000000001,
+          6.966666666666668,
+          7.483333333333334,
+          8.0
+        ]
+      },
+      "observations": [
+        4.421484512922977,
+        3.396928330969239,
+        2.6380716764010352,
+        2.036348298702995,
+        1.5625454674510235,
+        1.2221053731782436,
+        0.9320408974097849,
+        0.7253258831949752,
+        0.5531518802828786,
+        0.43846793249685245,
+        0.3302389692823414,
+        0.2583730335085038,
+        0.20377890788110642,
+        0.14952445312457285,
+        0.12107272966454119,
+        0.09007819444367089
+      ],
+      "fisher_object": {
+        "kind": "scalar Fisher precision",
+        "coordinate": "tau",
+        "value": 2392.753487271695,
+        "local_variance": 0.000417928551904541
+      },
+      "residual_gate": {
+        "max_abs_standardized_residual": 0.22,
+        "sum_squared_standardized_residuals": 0.2239,
+        "degrees_of_freedom": 15,
+        "passed_simple_gate": true,
+        "gate_note": "Simple deterministic gate for this proof packet; not a substitute for a full residual diagnostic workflow."
+      },
+      "allowed_route": "local_positive_curvature",
+      "refused_routes": [
+        "static storage Hessian",
+        "hidden_load without a ceiling"
+      ],
+      "boundary": "This compiles a sampled voltage trace into local information about tau; it is not capacitor storage or a hidden-load object."
+    },
+    {
+      "id": "repeated_current_mean_observation_equation",
+      "route": "observation_equation_fisher",
+      "status": "admissible_local_precision_with_estimated_sigma",
+      "observation_equation": "I_j = I0 + E_j, E_j ~ N(0, sigma^2)",
+      "measurand_or_parameter": "I0",
+      "observations": [
+        19.663,
+        19.639,
+        19.64,
+        19.685,
+        19.678
+      ],
+      "estimate": 19.660999999999998,
+      "estimated_sigma": 0.02117781858454721,
+      "degrees_of_freedom_for_sigma": 4,
+      "fisher_object": {
+        "kind": "scalar Fisher precision",
+        "coordinate": "I0",
+        "value": 11148.272017837404,
+        "local_variance": 8.969999999999864e-05
+      },
+      "residual_gate": {
+        "max_abs_standardized_residual": 1.133261195159777,
+        "sum_squared_standardized_residuals": 3.999999999999999,
+        "degrees_of_freedom": 4,
+        "passed_simple_gate": true,
+        "gate_note": "Simple deterministic gate for this proof packet; not a substitute for a full residual diagnostic workflow."
+      },
+      "allowed_route": "local_positive_curvature",
+      "refused_routes": [
+        "static storage Hessian",
+        "hidden_load without a ceiling"
+      ],
+      "boundary": "This is a statistical observation model for a repeated measurement, not a physical storage law."
+    },
+    {
+      "id": "load_cell_linear_calibration_observation_equation",
+      "route": "observation_equation_fisher",
+      "status": "admissible_local_precision_matrix",
+      "observation_equation": "D_i = alpha + beta F_i + E_i, E_i ~ N(0, sigma^2)",
+      "measurand_or_parameter": [
+        "alpha",
+        "beta"
+      ],
+      "controls": {
+        "force_values": [
+          0.0,
+          10.0,
+          20.0,
+          30.0,
+          40.0,
+          50.0
+        ],
+        "sigma": 0.02
+      },
+      "observations": [
+        0.20240000000000002,
+        0.6963999999999999,
+        1.2012,
+        1.702,
+        2.197,
+        2.7008
+      ],
+      "fit_estimate": {
+        "alpha_hat": 0.20035238095238173,
+        "beta_hat": 0.04998457142857141
+      },
+      "fisher_object": {
+        "kind": "2x2 Fisher precision matrix",
+        "coordinates": [
+          "alpha",
+          "beta"
+        ],
+        "matrix": [
+          [
+            15000.0,
+            375000.0
+          ],
+          [
+            375000.0,
+            13750000.0
+          ]
+        ],
+        "covariance": [
+          [
+            0.00020952380952380954,
+            -5.7142857142857145e-06
+          ],
+          [
+            -5.7142857142857145e-06,
+            2.2857142857142858e-07
+          ]
+        ],
+        "spd_check": {
+          "eigenvalues": [
+            4769.178718899588,
+            13760230.8212811
+          ],
+          "condition_number": 2885.2411772180462
+        }
+      },
+      "residual_gate": {
+        "max_abs_standardized_residual": 0.18990476190479666,
+        "sum_squared_standardized_residuals": 0.0834419047619044,
+        "degrees_of_freedom": 4,
+        "passed_simple_gate": true,
+        "gate_note": "Simple deterministic gate for this proof packet; not a substitute for a full residual diagnostic workflow."
+      },
+      "allowed_route": "local_positive_curvature",
+      "refused_routes": [
+        "static storage Hessian",
+        "hidden_load without a ceiling",
+        "analysis-function inversion without validity range"
+      ],
+      "boundary": "This proves calibration-parameter precision for a declared linear response; using it as an inverse force-measurement function is a later analysis-function step."
+    }
+  ],
+  "negative_controls": [
+    {
+      "id": "rc_decay_zero_sensitivity_grid_refusal",
+      "route": "observation_equation_fisher",
+      "status": "refused",
+      "reason": "All samples are at t = 0, so dV/dtau is zero and no local precision for tau is exposed.",
+      "computed_fisher": 0.0,
+      "refused_route": "local_positive_curvature"
+    },
+    {
+      "id": "load_cell_rank_deficient_design_refusal",
+      "route": "observation_equation_fisher",
+      "status": "refused",
+      "reason": "All force standards have the same force value, so intercept and slope are not jointly identifiable.",
+      "fisher_eigenvalues": [
+        0.0,
+        161599.99999999994
+      ],
+      "refused_route": "local_positive_curvature_matrix"
+    }
+  ]
+}

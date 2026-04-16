@@ -1,0 +1,19 @@
+{
+  "card_id": "mass_spring_single",
+  "system": "single ideal mass-spring oscillator near equilibrium",
+  "attachment_type": "exact_quadratic",
+  "executed_calls": [
+    "visible_precision"
+  ],
+  "refused_calls": [],
+  "readout": {
+    "visible_precision": [
+      [
+        11.999999999999995
+      ]
+    ]
+  },
+  "coordinate_note": "Single homogeneous displacement coordinate; the Hessian entry is directly interpretable as stiffness.",
+  "positive_scope": "This card exposes physical stiffness as a direct one-dimensional quadratic module object.",
+  "boundary": "It does not describe nonlinear springs, damping, driving, or measurement noise."
+}

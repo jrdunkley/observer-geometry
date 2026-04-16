@@ -1,0 +1,63 @@
+{
+  "schema_version": "main_module_contact_bridge.v0",
+  "status": "wrap_ready_synthesis",
+  "purpose": "State how the operationalise attachment layer now relates to the main observer-geometry module.",
+  "core_result": "The operationalise layer is a disciplined compiler from physical surfaces into finite declared positive objects, licensed module calls, record-only positive objects, gate decisions, or refusals.",
+  "module_handoffs": [
+    {
+      "handoff_id": "visible_precision_direct",
+      "module_surface": "visible_precision",
+      "input_contract": "declared finite SPD H and observer C",
+      "current_examples": ["mass_spring_single", "lc_resonator_single", "linear_elastic_bar", "capacitor_charge_coordinate", "kinetic_and_rotational_energy_metrics", "string_fixed_end_three_mode", "string_point_sensor_modal_observer", "acoustic_tube_three_mode_pressure_observer"],
+      "licensed_claim": "visible or sensor-channel precision in the declared coordinates only",
+      "mandatory_boundary": "does not license hidden load, full state inference, dynamics, damping, or coordinate-free interpretation"
+    },
+    {
+      "handoff_id": "hidden_load_with_declared_ceiling",
+      "module_surface": "hidden_load",
+      "input_contract": "declared finite SPD H, observer C, ceiling/reference T, and executable T >= Phi check",
+      "current_examples": ["mass_spring_coupled_observe_one", "coupled_lc_resonators_observe_one_node", "coupled_rlc_resonators_observe_one_node", "string_modal_hidden_load_with_declared_ceiling"],
+      "licensed_claim": "hidden-load readout relative to the declared ceiling/reference",
+      "mandatory_boundary": "hidden-load language is refused from C alone or without T >= Phi"
+    },
+    {
+      "handoff_id": "local_positive_record",
+      "module_surface": "record_only_not_theorem_local_call",
+      "input_contract": "declared measurement equation, observation equation, likelihood, uncertainty model, or residual-estimated noise convention",
+      "current_examples": ["rc_decay_q7_probe", "beer_lambert_uvvis_probe", "measurement_equation_linearisation_proofs", "observation_equation_fisher_proofs", "calibration_analysis_function_proofs"],
+      "licensed_claim": "local covariance, precision, Fisher, or analysis-function uncertainty record",
+      "mandatory_boundary": "does not license static storage Hessian, hidden load, or physical-constant claims without extra declarations"
+    },
+    {
+      "handoff_id": "process_gate",
+      "module_surface": "gate_or_refusal_only",
+      "input_contract": "declared check standard, baseline, variability, and out-of-control rule",
+      "current_examples": ["check_standard_process_gate"],
+      "licensed_claim": "measurement process may proceed or must refuse before module contact",
+      "mandatory_boundary": "passing gate does not create H, Fisher precision, or hidden-load structure"
+    },
+    {
+      "handoff_id": "principled_refusal",
+      "module_surface": "no_call",
+      "input_contract": "explicit missing declaration or route mismatch",
+      "current_examples": ["pendulum_full", "ideal_gas_law_boundary", "raw acoustic impedance", "raw standing wave formula", "relativity_lorentz_metric diagnostic"],
+      "licensed_claim": "none; refusal is the correct operational object",
+      "mandatory_boundary": "a famous equation remains non-admissible until route declarations change"
+    }
+  ],
+  "what_is_now_good": [
+    "The storage and modal cards give runnable module inputs.",
+    "The hidden-load cards require an explicit ceiling/reference and executable dominance check.",
+    "The empirical probes show that data can produce information curvature without pretending to be storage geometry.",
+    "The process-control gate proves a pre-module refusal layer.",
+    "The refusal set is now part of the scientific result rather than cleanup."
+  ],
+  "what_is_still_weak": [
+    "instrument-declared uncertainty is still absent.",
+    "thermodynamic positive contact is still only a candidate route.",
+    "Acoustic/modal contact is clean mathematically but not yet apparatus-real.",
+    "Dynamic response and damping remain outside the static card runner.",
+    "The current local-positive records are not yet consumed directly by a main-module API surface."
+  ],
+  "wrap_recommendation": "Wrap this phase as a v0 attachment grammar, not as a complete physical ontology. The next phase should choose one apparatus-grade measurement route and one thermodynamic refusal-plus-conditional-positive route."
+}

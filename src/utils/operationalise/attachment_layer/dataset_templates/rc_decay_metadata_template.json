@@ -1,0 +1,38 @@
+{
+  "schema_version": "empirical_dataset_metadata.v0",
+  "dataset_kind": "rc_decay_trace",
+  "route": "observation_equation_fisher",
+  "table_file": "rc_decay_trace.csv",
+  "required_columns": [
+    {"name": "time_s", "unit": "s", "meaning": "sample time relative to declared switching/start event"},
+    {"name": "voltage_V", "unit": "V", "meaning": "measured capacitor or node voltage"}
+  ],
+  "measurement_model": {
+    "equation": "V_i = V0 exp(-t_i / tau) + E_i",
+    "noise_model": "independent Gaussian voltage noise",
+    "noise_standard_deviation_V": "declare_value_or_sensor_resolution",
+    "offset_voltage_treatment": "declare_negligible_or_fit_offset",
+    "trace_type": "declare_charge_or_discharge"
+  },
+  "controls": {
+    "R_ohm_nominal": "optional_declared_value",
+    "C_F_nominal": "optional_declared_value",
+    "V0_V": "declare_known_or_fit",
+    "switch_time_convention": "declare_t0"
+  },
+  "admission_checks": [
+    "time_s column is finite and has at least two distinct positive times",
+    "voltage_V column is finite",
+    "noise_standard_deviation_V is positive or estimable from replicates/residuals",
+    "tau parameterization is positive",
+    "sensitivity to tau is nonzero on the declared sample grid",
+    "residual adequacy gate is recorded"
+  ],
+  "allowed_output": "local Fisher precision for tau",
+  "mandatory_refusals": [
+    "static storage Hessian",
+    "hidden_load",
+    "fit without time convention",
+    "fit without noise or residual uncertainty convention"
+  ]
+}

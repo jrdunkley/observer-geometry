@@ -1,7 +1,7 @@
-workspace 0.3
-nomogeo: 0.30.0
+workspace 0.4
+nomogeo: 0.4.0
 nomodescent: 0.2.0
 evidence: 0.3.0
 release_state: github_ready
-freeze_date: 2026-04-10
-notes: nomogeo 0.30.0 adds the exact real-valued observation-field layer: Pi/Lambda coordinates, support-stratum transport, finite restart maps, kernel Schur-jet event classification, local coupled birth extraction, sampled interval diagnostics, and v0.30 QA/use-case hardening.
+freeze_date: 2026-04-16
+notes: nomogeo 0.4.0 adds the source law, information conservation layer, and KL-regularised field equation. New modules: source.py (information_budget, source_law, evidence_decomposition, observer_diagnostics, capture_curve), extract.py (extract_supervised, extract_covariance), steer.py (steer, score_observer, optimize_observer). 0.4.0 Technical Note contains 30+ formal statements including conservation laws, positivity theorem, equivalence principle, mixed factorisation, curvature-Gram identity, B=0 theorem, gauge invariance, spectral collapse lemma, KL well-posedness theorem, tensor residual decomposition, joint optimum theorem. Validated on 118,539 molecular pairs from HessianQM9 and 108/108 field equation checks across n=2..7.

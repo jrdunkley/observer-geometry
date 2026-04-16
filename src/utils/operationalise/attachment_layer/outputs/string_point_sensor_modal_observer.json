@@ -1,0 +1,19 @@
+{
+  "card_id": "string_point_sensor_modal_observer",
+  "system": "point displacement sensor over a three-mode fixed-end string truncation",
+  "attachment_type": "exact_quadratic",
+  "executed_calls": [
+    "visible_precision"
+  ],
+  "refused_calls": [],
+  "readout": {
+    "visible_precision": [
+      [
+        612.5961352400288
+      ]
+    ]
+  },
+  "coordinate_note": "This card is the first practical sensor-over-modal observer. The point sensor row is not full modal access; it induces a one-dimensional quotient stiffness for the measured displacement channel. Frequencies still require the separate pair (K, M), and hidden load still requires a declared ceiling/reference.",
+  "positive_scope": "This card shows that a practical point sensor becomes a declared observer map over a finite modal object and exposes a one-dimensional quotient stiffness.",
+  "boundary": "It does not infer full modal amplitudes, attach modes above n = 3, model sensor noise, attach damping or drive response, or license hidden-load structure."
+}

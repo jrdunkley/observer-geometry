@@ -1,0 +1,110 @@
+{
+  "schema_version": "rc_decay_q7_probe.v0",
+  "dataset": "datasets/Q7_CapacitorVoltageDecay.m",
+  "route": "observation_equation_fisher",
+  "status": "admissible_empirical_probe",
+  "source": {
+    "file": "Q7_CapacitorVoltageDecay.m",
+    "author": "Amey Thakur",
+    "course_repo": "https://github.com/Amey-Thakur/COMPUTATIONAL-METHODS-AND-MODELING-FOR-ENGINEERING-APPLICATIONS",
+    "release_date": "2023-09-08",
+    "license": "CC-BY-4.0 as declared in the file header",
+    "reference": "MATLAB for Engineering Applications, William J. Palm, Chapter 6, Q7"
+  },
+  "admission": "The MATLAB problem data compile into a small RC exponential observation-equation probe after declaring V0 = 100 V, positive tau, and residual-estimated Gaussian voltage noise.",
+  "observation_count": 9,
+  "declared_controls": {
+    "V0_V": 100.0,
+    "time_unit": "s",
+    "voltage_unit": "V"
+  },
+  "observations": [
+    {
+      "time_s": 0.0,
+      "voltage_V": 100.0
+    },
+    {
+      "time_s": 0.5,
+      "voltage_V": 62.0
+    },
+    {
+      "time_s": 1.0,
+      "voltage_V": 38.0
+    },
+    {
+      "time_s": 1.5,
+      "voltage_V": 21.0
+    },
+    {
+      "time_s": 2.0,
+      "voltage_V": 13.0
+    },
+    {
+      "time_s": 2.5,
+      "voltage_V": 7.0
+    },
+    {
+      "time_s": 3.0,
+      "voltage_V": 4.0
+    },
+    {
+      "time_s": 3.5,
+      "voltage_V": 2.0
+    },
+    {
+      "time_s": 4.0,
+      "voltage_V": 3.0
+    }
+  ],
+  "fixed_V0_voltage_fit": {
+    "tau_hat_s": 0.9971158409029761,
+    "sse_V2": 10.073322682446532,
+    "sigma_voltage_residual_V": 1.1221253652359064,
+    "fitted_voltage_V": [
+      100.0,
+      60.565409829813014,
+      36.681688678532105,
+      22.216415080649085,
+      13.455462843087501,
+      8.149356215414153,
+      4.935690990356921,
+      2.989321476242825,
+      1.8104948032170838
+    ],
+    "residual_voltage_V": [
+      0.0,
+      1.4345901701869863,
+      1.3183113214678954,
+      -1.2164150806490852,
+      -0.45546284308750096,
+      -1.1493562154141532,
+      -0.935690990356921,
+      -0.9893214762428251,
+      1.1895051967829162
+    ],
+    "fisher_tau": 3931.508099613896,
+    "local_variance_tau_s2": 0.00025435531980671936,
+    "max_abs_standardized_residual": 1.278458017821734
+  },
+  "loglinear_comparison": {
+    "V0_hat_V": 95.8063421031394,
+    "decay_rate_per_s": -0.9976463029538822,
+    "tau_hat_s": 1.0023592500058878,
+    "sigma_log_residual": 0.26190965864696725
+  },
+  "data_warnings": [
+    {
+      "previous_time_s": 3.5,
+      "previous_voltage_V": 2.0,
+      "current_time_s": 4.0,
+      "current_voltage_V": 3.0
+    }
+  ],
+  "mandatory_refusals": [
+    "static storage Hessian",
+    "hidden_load",
+    "capacitance inference without separately declared resistance",
+    "instrument-noise claim without instrument metadata"
+  ],
+  "boundary": "This is a small textbook regression dataset. It supports a local Fisher precision for tau only under a residual-estimated voltage-noise convention. It does not identify capacitance without a declared resistance, does not expose static storage Hessian geometry, and does not license hidden-load calls."
+}

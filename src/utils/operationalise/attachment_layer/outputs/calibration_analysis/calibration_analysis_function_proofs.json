@@ -1,0 +1,98 @@
+{
+  "schema_version": "calibration_analysis_function_proofs.v0",
+  "purpose": "Proof packet for calibration-analysis function admissibility before a measurement attachment schema is promoted.",
+  "proofs": [
+    {
+      "id": "load_cell_linear_analysis_function",
+      "route": "calibration_analysis_function",
+      "status": "admissible_analysis_function_record",
+      "calibration_function": "D = alpha + beta F",
+      "analysis_function": "F = (D - alpha) / beta",
+      "standards": {
+        "force_values": [
+          0.0,
+          10.0,
+          20.0,
+          30.0,
+          40.0,
+          50.0
+        ],
+        "indications": [
+          0.20240000000000002,
+          0.6963999999999999,
+          1.2012,
+          1.702,
+          2.197,
+          2.7008
+        ],
+        "sigma_indication": 0.02
+      },
+      "fit": {
+        "alpha_hat": 0.20035238095238173,
+        "beta_hat": 0.04998457142857141,
+        "parameter_covariance": [
+          [
+            0.00020952380952380954,
+            -5.7142857142857145e-06
+          ],
+          [
+            -5.7142857142857145e-06,
+            2.2857142857142858e-07
+          ]
+        ],
+        "residual_gate": {
+          "max_abs_standardized_residual": 0.18990476190479666,
+          "sum_squared_standardized_residuals": 0.0834419047619044,
+          "degrees_of_freedom": 4,
+          "passed_simple_gate": true,
+          "gate_note": "Simple deterministic proof gate; a real calibration workflow should use residual plots and model checks."
+        }
+      },
+      "validity_range": {
+        "indication_min": 0.20240000000000002,
+        "indication_max": 2.7008,
+        "rule": "analysis function use is refused outside the calibrated indication span unless a separate theoretical extrapolation argument is declared"
+      },
+      "analysis_readout": {
+        "new_indication": 1.45,
+        "force_estimate": 25.00066687244444,
+        "parameter_variance": 0.026683131470650257,
+        "indication_variance": 0.16009878857979082,
+        "total_local_variance": 0.18678192005044109,
+        "local_standard_uncertainty": 0.4321827391861469,
+        "local_precision": 5.353837243615156
+      },
+      "allowed_route": "analysis_function_record",
+      "refused_routes": [
+        "static storage Hessian",
+        "hidden_load without a ceiling"
+      ],
+      "boundary": "This proves inversion of a declared linear calibration inside its calibration range. It does not make the load cell a storage Hessian or hidden-load object."
+    }
+  ],
+  "negative_controls": [
+    {
+      "id": "load_cell_analysis_extrapolation_refusal",
+      "route": "calibration_analysis_function",
+      "status": "refused",
+      "reason": "A new indication outside the calibrated indication span cannot use the empirical analysis function without a separate extrapolation argument.",
+      "calibrated_indication_span": [
+        0.2024,
+        2.7008
+      ],
+      "requested_indication": 3.2,
+      "refused_route": "analysis_function_record"
+    },
+    {
+      "id": "load_cell_analysis_rank_deficient_refusal",
+      "route": "calibration_analysis_function",
+      "status": "refused",
+      "reason": "Repeated use of one force standard cannot identify both intercept and slope for the analysis function.",
+      "fisher_eigenvalues": [
+        0.0,
+        1010000.0
+      ],
+      "refused_route": "analysis_function_record"
+    }
+  ]
+}

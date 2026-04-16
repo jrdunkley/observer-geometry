@@ -1,0 +1,19 @@
+{
+  "card_id": "acoustic_tube_three_mode_pressure_observer",
+  "system": "closed-closed acoustic tube truncated to three displacement modes with a pressure microphone observer",
+  "attachment_type": "exact_quadratic",
+  "executed_calls": [
+    "visible_precision"
+  ],
+  "refused_calls": [],
+  "readout": {
+    "visible_precision": [
+      [
+        2.3610721534205812e-08
+      ]
+    ]
+  },
+  "coordinate_note": "This card uses longitudinal displacement modal amplitudes as the state coordinates and a pressure microphone as the observer row. The pressure quotient precision is meaningful only for this declared pressure channel; it is not acoustic impedance, intensity, reflection coefficient, or full field reconstruction.",
+  "positive_scope": "This card shows that an acoustic resonator can expose a finite modal positive object through a realistic pressure sensor after boundary, basis, truncation, and sensor convention are declared.",
+  "boundary": "It does not attach raw sound intensity, ultrasound reflection, acoustic impedance, damping, drive response, sensor noise, or full pressure-field reconstruction."
+}

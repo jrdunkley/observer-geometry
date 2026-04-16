@@ -1,0 +1,51 @@
+{
+  "claim": "A declared observer can be stationary without being an exact branch. The general graph-frontier Hessian detects the sign change at |e| = sqrt(3), while the exact-branch proxy is not applicable outside the off-block-zero sector.",
+  "threshold_e_abs": 1.7320508075688772,
+  "key_cases": [
+    {
+      "label": "stable_max",
+      "e_abs": 1.0,
+      "graph_hessian": -16.0,
+      "closed_form_hessian": -16.0,
+      "status": "strict_local_max",
+      "stationarity_residual": 0.0,
+      "max_certificate_passes": true,
+      "max_certificate_kind": "sufficient_local_max",
+      "min_certificate_passes": false,
+      "min_certificate_kind": "vacuous",
+      "exact_branch_applicability": "rejected_non_exact_branch"
+    },
+    {
+      "label": "degenerate",
+      "e_abs": 1.7320508075688772,
+      "graph_hessian": 0.0,
+      "closed_form_hessian": -3.552713678800501e-15,
+      "status": "stationary_degenerate",
+      "stationarity_residual": 0.0,
+      "max_certificate_passes": false,
+      "max_certificate_kind": "vacuous",
+      "min_certificate_passes": false,
+      "min_certificate_kind": "vacuous",
+      "exact_branch_applicability": "rejected_non_exact_branch"
+    },
+    {
+      "label": "stable_min",
+      "e_abs": 2.0,
+      "graph_hessian": 8.0,
+      "closed_form_hessian": 8.0,
+      "status": "strict_local_min",
+      "stationarity_residual": 0.0,
+      "max_certificate_passes": false,
+      "max_certificate_kind": "vacuous",
+      "min_certificate_passes": true,
+      "min_certificate_kind": "sufficient_local_min",
+      "exact_branch_applicability": "rejected_non_exact_branch"
+    }
+  ],
+  "outputs": [
+    "frontier_sweep.csv",
+    "hessian_breakpoint.svg",
+    "summary.json",
+    "audit.json"
+  ]
+}

@@ -1,0 +1,180 @@
+{
+  "schema_version": "attachment_sweep.v0",
+  "description": "Coupled spring and coupled LC hidden-renormalisation sweep.",
+  "monotone_checks": [
+    "ceiling",
+    "ceiling_minus_visible_precision",
+    "hidden_load",
+    "clock"
+  ],
+  "rows": [
+    {
+      "family": "coupled_spring",
+      "coupling": 0.5,
+      "visible_precision": 10.483870967741934,
+      "ceiling": 10.5,
+      "ceiling_minus_visible_precision": 0.016129032258065834,
+      "hidden_load": 0.0015384615384614886,
+      "clock": 0.0015372793188863979,
+      "ceiling_dominance_min_eigenvalue": 0.016129032258065834,
+      "executed_calls": [
+        "visible_precision",
+        "hidden_load"
+      ]
+    },
+    {
+      "family": "coupled_spring",
+      "coupling": 1.0,
+      "visible_precision": 10.9375,
+      "ceiling": 11.0,
+      "ceiling_minus_visible_precision": 0.0625,
+      "hidden_load": 0.005714285714285783,
+      "clock": 0.005698021114637796,
+      "ceiling_dominance_min_eigenvalue": 0.0625,
+      "executed_calls": [
+        "visible_precision",
+        "hidden_load"
+      ]
+    },
+    {
+      "family": "coupled_spring",
+      "coupling": 2.0,
+      "visible_precision": 11.764705882352938,
+      "ceiling": 12.0,
+      "ceiling_minus_visible_precision": 0.23529411764706154,
+      "hidden_load": 0.020000000000000018,
+      "clock": 0.01980262729617973,
+      "ceiling_dominance_min_eigenvalue": 0.23529411764706154,
+      "executed_calls": [
+        "visible_precision",
+        "hidden_load"
+      ]
+    },
+    {
+      "family": "coupled_spring",
+      "coupling": 5.0,
+      "visible_precision": 13.750000000000004,
+      "ceiling": 15.0,
+      "ceiling_minus_visible_precision": 1.2499999999999964,
+      "hidden_load": 0.09090909090909083,
+      "clock": 0.08701137698962969,
+      "ceiling_dominance_min_eigenvalue": 1.2499999999999964,
+      "executed_calls": [
+        "visible_precision",
+        "hidden_load"
+      ]
+    },
+    {
+      "family": "coupled_spring",
+      "coupling": 10.0,
+      "visible_precision": 16.0,
+      "ceiling": 20.0,
+      "ceiling_minus_visible_precision": 4.0,
+      "hidden_load": 0.2500000000000002,
+      "clock": 0.22314355131420993,
+      "ceiling_dominance_min_eigenvalue": 4.0,
+      "executed_calls": [
+        "visible_precision",
+        "hidden_load"
+      ]
+    },
+    {
+      "family": "coupled_spring",
+      "coupling": 20.0,
+      "visible_precision": 18.571428571428573,
+      "ceiling": 30.0,
+      "ceiling_minus_visible_precision": 11.428571428571427,
+      "hidden_load": 0.615384615384615,
+      "clock": 0.479573080261886,
+      "ceiling_dominance_min_eigenvalue": 11.428571428571427,
+      "executed_calls": [
+        "visible_precision",
+        "hidden_load"
+      ]
+    },
+    {
+      "family": "coupled_lc",
+      "coupling": 1.0,
+      "visible_precision": 10.833333333333332,
+      "ceiling": 11.0,
+      "ceiling_minus_visible_precision": 0.16666666666666785,
+      "hidden_load": 0.015384615384615552,
+      "clock": 0.0152674721307886,
+      "ceiling_dominance_min_eigenvalue": 0.16666666666666785,
+      "executed_calls": [
+        "visible_precision",
+        "hidden_load"
+      ]
+    },
+    {
+      "family": "coupled_lc",
+      "coupling": 2.0,
+      "visible_precision": 11.428571428571425,
+      "ceiling": 12.0,
+      "ceiling_minus_visible_precision": 0.5714285714285747,
+      "hidden_load": 0.050000000000000266,
+      "clock": 0.04879016416943226,
+      "ceiling_dominance_min_eigenvalue": 0.5714285714285747,
+      "executed_calls": [
+        "visible_precision",
+        "hidden_load"
+      ]
+    },
+    {
+      "family": "coupled_lc",
+      "coupling": 5.0,
+      "visible_precision": 12.500000000000004,
+      "ceiling": 15.0,
+      "ceiling_minus_visible_precision": 2.4999999999999964,
+      "hidden_load": 0.1999999999999995,
+      "clock": 0.18232155679395423,
+      "ceiling_dominance_min_eigenvalue": 2.4999999999999964,
+      "executed_calls": [
+        "visible_precision",
+        "hidden_load"
+      ]
+    },
+    {
+      "family": "coupled_lc",
+      "coupling": 10.0,
+      "visible_precision": 13.333333333333334,
+      "ceiling": 20.0,
+      "ceiling_minus_visible_precision": 6.666666666666666,
+      "hidden_load": 0.4999999999999998,
+      "clock": 0.4054651081081642,
+      "ceiling_dominance_min_eigenvalue": 6.666666666666666,
+      "executed_calls": [
+        "visible_precision",
+        "hidden_load"
+      ]
+    },
+    {
+      "family": "coupled_lc",
+      "coupling": 20.0,
+      "visible_precision": 14.000000000000007,
+      "ceiling": 30.0,
+      "ceiling_minus_visible_precision": 15.999999999999993,
+      "hidden_load": 1.1428571428571423,
+      "clock": 0.7621400520468965,
+      "ceiling_dominance_min_eigenvalue": 15.999999999999993,
+      "executed_calls": [
+        "visible_precision",
+        "hidden_load"
+      ]
+    },
+    {
+      "family": "coupled_lc",
+      "coupling": 40.0,
+      "visible_precision": 14.444444444444454,
+      "ceiling": 50.0,
+      "ceiling_minus_visible_precision": 35.55555555555554,
+      "hidden_load": 2.4615384615384595,
+      "clock": 1.2417131323087824,
+      "ceiling_dominance_min_eigenvalue": 35.55555555555554,
+      "executed_calls": [
+        "visible_precision",
+        "hidden_load"
+      ]
+    }
+  ]
+}

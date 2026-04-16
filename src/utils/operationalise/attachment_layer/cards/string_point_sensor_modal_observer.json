@@ -1,0 +1,75 @@
+{
+  "card_id": "string_point_sensor_modal_observer",
+  "schema_version": "attachment_card.v0",
+  "system": "point displacement sensor over a three-mode fixed-end string truncation",
+  "attachment_type": "exact_quadratic",
+  "state_variables": [
+    {"name": "q1", "meaning": "amplitude of first fixed-end sine mode", "unit": "m sqrt(m)"},
+    {"name": "q2", "meaning": "amplitude of second fixed-end sine mode", "unit": "m sqrt(m)"},
+    {"name": "q3", "meaning": "amplitude of third fixed-end sine mode", "unit": "m sqrt(m)"}
+  ],
+  "sensor_surface": {
+    "ideal": ["point displacement y at x0 = L_string / 4 as a linear functional of q1, q2, q3"],
+    "practical": ["single optical displacement pickup, contact displacement probe, or microphone-like point channel calibrated at x0 = L_string / 4"]
+  },
+  "control_variables": [
+    {"name": "L_string", "meaning": "fixed-end string length", "unit": "m"},
+    {"name": "Tension", "meaning": "string tension", "unit": "N"},
+    {"name": "mu", "meaning": "linear mass density", "unit": "kg m^-1"},
+    {"name": "x0", "meaning": "sensor position", "unit": "m"},
+    {"name": "mode_count", "meaning": "finite truncation count", "unit": "none"}
+  ],
+  "regime_assumptions": [
+    "same small-amplitude fixed-end three-mode truncation as string_fixed_end_three_mode",
+    "point sensor is calibrated to a linear displacement measurement at x0 = L_string / 4",
+    "observer row is C_n = sqrt(2 / L_string) sin(n pi x0 / L_string) for n = 1, 2, 3",
+    "sensor reads one scalar displacement channel, not full modal access",
+    "modes above n = 3, damping, drive, noise, and point-spread effects are outside this card",
+    "no hidden-load call is licensed because no ceiling/reference is declared"
+  ],
+  "equation_hook": "y = sum_{n=1}^3 sqrt(2 / L_string) sin(n pi x0 / L_string) q_n; U(q) = 1/2 q^T K q",
+  "units_and_dimensions": {
+    "q_n": "m sqrt(m) under the declared orthonormal spatial basis convention",
+    "C_n": "m^-1/2",
+    "y": "m",
+    "K": "modal stiffness Hessian",
+    "M": "mass metric, separate from K",
+    "Phi_y": "quotient stiffness for the declared point displacement channel"
+  },
+  "coordinate_note": "This card is the first practical sensor-over-modal observer. The point sensor row is not full modal access; it induces a one-dimensional quotient stiffness for the measured displacement channel. Frequencies still require the separate pair (K, M), and hidden load still requires a declared ceiling/reference.",
+  "module_object": {
+    "kind": "observed finite modal stiffness quotient",
+    "description": "three-mode stiffness Hessian K observed through one point-displacement row C"
+  },
+  "derivation_status": "exact for the declared three-mode fixed-end truncation and point sensor position",
+  "observer_map": {
+    "description": "observe y at x0 = L_string / 4 through the first three sine modes",
+    "matrix": [[1.0000000000000002, 1.4142135623730951, 1.0000000000000002]]
+  },
+  "ceiling_or_reference": {
+    "kind": "none",
+    "description": "no visible-block ceiling or reference stiffness is declared; hidden-load is therefore refused by omission"
+  },
+  "allowed_nomogeo_calls": ["visible_precision"],
+  "nomogeo_readout": {
+    "requested": ["visible_precision"]
+  },
+  "positive_scope": "This card shows that a practical point sensor becomes a declared observer map over a finite modal object and exposes a one-dimensional quotient stiffness.",
+  "boundary": "It does not infer full modal amplitudes, attach modes above n = 3, model sensor noise, attach damping or drive response, or license hidden-load structure.",
+  "failure_mode": "The attachment fails if the sensor is not well approximated by a linear point displacement at the declared location, if the finite modal truncation is invalid, or if the point sensor is treated as full state access.",
+  "next_measurement": "Place a calibrated displacement pickup near x0 = L_string / 4 and compare the local point response against the finite-mode quotient stiffness before adding noise or hidden-load structure.",
+  "default_parameters": {
+    "L_string": 1.0,
+    "Tension": 100.0,
+    "mu": 0.01,
+    "x0": 0.25,
+    "mode_count": 3,
+    "observer_row": [1.0000000000000002, 1.4142135623730951, 1.0000000000000002],
+    "expected_visible_precision": 612.5961352400288
+  },
+  "declared_objects": {
+    "H": [[986.9604401089358, 0.0, 0.0], [0.0, 3947.8417604357433, 0.0], [0.0, 0.0, 8882.643960980422]],
+    "C": [[1.0000000000000002, 1.4142135623730951, 1.0000000000000002]],
+    "M": [[0.01, 0.0, 0.0], [0.0, 0.01, 0.0], [0.0, 0.0, 0.01]]
+  }
+}

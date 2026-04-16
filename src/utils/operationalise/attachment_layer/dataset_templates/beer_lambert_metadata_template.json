@@ -1,0 +1,39 @@
+{
+  "schema_version": "empirical_dataset_metadata.v0",
+  "dataset_kind": "beer_lambert_calibration",
+  "route": "measurement_equation_local_linearisation_or_observation_equation_fisher",
+  "table_file": "beer_lambert_calibration.csv",
+  "required_columns": [
+    {"name": "concentration", "unit": "declare_unit", "meaning": "known or prepared analyte concentration for calibration standards"},
+    {"name": "absorbance", "unit": "dimensionless", "meaning": "blank-corrected absorbance reading unless declared otherwise"}
+  ],
+  "measurement_model": {
+    "equation": "A_i = epsilon path_length concentration_i + E_i",
+    "noise_model": "independent Gaussian absorbance noise or declared replicate model",
+    "sigma_absorbance": "declare_value_or_estimation_route",
+    "blank_correction": "declare_none_or_blank_value_or_blank_subtraction_method"
+  },
+  "controls": {
+    "wavelength_nm": "declare_value",
+    "path_length_cm": "declare_value",
+    "molar_absorptivity": "optional_if_calibrating_slope",
+    "calibration_range_concentration": "declare_min_max",
+    "linear_absorbance_range": "declare_min_max"
+  },
+  "admission_checks": [
+    "concentration column is finite and nonnegative under declared unit",
+    "absorbance column is finite",
+    "path_length_cm is positive",
+    "absorbance uncertainty or replicate convention is declared",
+    "data are inside the declared linear/calibrated range",
+    "residual adequacy gate is recorded if a calibration slope is fitted"
+  ],
+  "allowed_output": "local concentration precision or calibration Fisher precision",
+  "mandatory_refusals": [
+    "static storage Hessian",
+    "hidden_load",
+    "thermodynamic concentration model",
+    "inversion outside calibrated range",
+    "division by undeclared or nonpositive denominator"
+  ]
+}

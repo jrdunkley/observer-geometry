@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Molecular Atlas v0 — Exploration</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    background: #0a0a12; color: #c0c0d0;
+    line-height: 1.75; max-width: 860px; margin: 0 auto;
+    padding: 3rem 2rem 6rem;
+}
+h1 { font-size: 1.8rem; font-weight: 400; color: #bbbbdd; margin-bottom: 0.3rem; letter-spacing: 0.02em; }
+.subtitle { font-size: 0.95rem; color: #666680; margin-bottom: 3rem; font-style: italic; }
+h2 { font-size: 1.2rem; font-weight: 500; color: #9999bb; margin: 3rem 0 1rem; border-bottom: 1px solid #1a1a2a; padding-bottom: 0.5rem; }
+h3 { font-size: 1.05rem; font-weight: 500; color: #8888aa; margin: 2rem 0 0.8rem; }
+p { margin-bottom: 1.2rem; }
+em { color: #aaaacc; font-style: italic; }
+strong { color: #ccccee; font-weight: 600; }
+
+.molecule-card {
+    background: #111120; border: 1px solid #1e1e35; border-radius: 8px;
+    padding: 1.2rem 1.5rem; margin: 1rem 0;
+}
+.molecule-card .name { font-size: 1rem; font-weight: 500; color: #aaaacc; }
+.molecule-card .formula { font-size: 0.85rem; color: #666680; margin-left: 0.5rem; }
+.molecule-card .stats { font-size: 0.85rem; color: #888899; margin-top: 0.5rem; font-family: 'Menlo', monospace; }
+.molecule-card .note { font-size: 0.88rem; color: #999aab; margin-top: 0.6rem; line-height: 1.6; }
+
+.data-table {
+    width: 100%; border-collapse: collapse; margin: 1rem 0 1.5rem;
+    font-size: 0.82rem; font-family: 'Menlo', 'Courier New', monospace;
+}
+.data-table th {
+    text-align: left; padding: 8px 10px; color: #8888aa; font-weight: 500;
+    border-bottom: 1px solid #2a2a40; font-size: 0.75rem; text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+.data-table td { padding: 6px 10px; border-bottom: 1px solid #151525; color: #aaaabc; }
+.data-table tr:hover td { background: #14142a; }
+
+.highlight { background: #1a1a35; border-left: 3px solid #5555aa; padding: 1rem 1.5rem; margin: 1.5rem 0; border-radius: 0 6px 6px 0; }
+.highlight p { margin-bottom: 0.5rem; }
+.highlight p:last-child { margin-bottom: 0; }
+
+.tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.72rem; font-family: monospace; margin-right: 4px; }
+.tag-poison { background: #2a1515; color: #cc7777; border: 1px solid #3a2020; }
+.tag-neuro { background: #1a1a2e; color: #9999dd; border: 1px solid #2a2a44; }
+.tag-bio { background: #152a15; color: #77cc77; border: 1px solid #203a20; }
+.tag-drug { background: #2a2a15; color: #cccc77; border: 1px solid #3a3a20; }
+.tag-metabolite { background: #15202a; color: #77aacc; border: 1px solid #203040; }
+.tag-fail { background: #2a1520; color: #cc77aa; border: 1px solid #3a2030; }
+
+.section-intro { font-size: 0.95rem; color: #9999ab; margin-bottom: 1.5rem; }
+.stat-num { color: #aaaadd; font-family: 'Menlo', monospace; }
+a { color: #7777bb; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+.toc { background: #0e0e1a; border: 1px solid #1a1a2a; border-radius: 8px; padding: 1.5rem 2rem; margin: 2rem 0; }
+.toc-title { font-size: 0.8rem; color: #666680; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.8rem; }
+.toc a { display: block; padding: 3px 0; font-size: 0.9rem; color: #8888aa; }
+.toc a:hover { color: #aaaacc; }
+</style>
+</head>
+<body>
+
+<h1>Molecular Atlas v0 &mdash; Exploration</h1>
+<div class="subtitle">40,583 molecules read through atom-selection observers. What do we see?</div>
+
+<div class="toc">
+    <div class="toc-title">Contents</div>
+    <a href="#scale">1. The Scale of What Was Read</a>
+    <a href="#simplest">2. The Simplest Molecules &mdash; A Geometric Ladder</a>
+    <a href="#nucleobases">3. The Nucleobases &mdash; Reading the Letters of Life</a>
+    <a href="#amino">4. Amino Acids in the Atlas</a>
+    <a href="#pharma">5. Psychedelic &amp; Neuroactive Scaffolds</a>
+    <a href="#poisons">6. Poisons &amp; Toxins</a>
+    <a href="#drugs">7. Drug Scaffolds</a>
+    <a href="#water">8. The Water Problem &mdash; 1,446 Molecules That Break</a>
+    <a href="#collapse">9. Coarse Collapse &mdash; Molecules That Look Identical But Aren't</a>
+    <a href="#outliers">10. Extreme Outliers</a>
+    <a href="#correlations">11. Composition&ndash;Geometry Correlations</a>
+    <a href="#verdict">12. What This May Mean</a>
+</div>
+
+<!-- ============================================ -->
+<h2 id="scale">1. The Scale of What Was Read</h2>
+
+<p>The atlas compiled <span class="stat-num">40,583</span> molecules from the Hessian QM9 dataset &mdash; small organic molecules containing only carbon, hydrogen, nitrogen, and oxygen, with up to 9 heavy atoms. Each molecule was read through three atom-selection observers: <em>heavy atoms</em> (the C/N/O skeleton), <em>hydrogens</em> (the surface), and <em>local heavy site plus attached hydrogens</em> (each heavy atom and its immediate hydrogen neighbourhood). This produced <span class="stat-num">243,479</span> observer readings in vacuum alone, plus environment probes in THF, toluene, and water.</p>
+
+<p>Of the original 41,645 records, <span class="stat-num">1,062</span> were refused admission &mdash; their vibrational Hessians failed the positive-curvature gate. This is not a bug. It is the atlas declaring that those molecules do not admit the declared observation route.</p>
+
+<p>The <span class="stat-num">528</span> distinct molecular formulas span everything from water (H<sub>2</sub>O, one heavy atom) to nine-carbon molecules like C<sub>9</sub>H<sub>20</sub> (nonane isomers). The dataset includes nucleobases, amino acids, drug scaffolds, neurotransmitter precursors, common solvents, metabolites, and several known poisons.</p>
+
+<!-- ============================================ -->
+<h2 id="simplest">2. The Simplest Molecules &mdash; A Geometric Ladder</h2>
+
+<p class="section-intro">The smallest molecules form a natural ordering by heavy-atom geometric mean eigenvalue. This is the visible precision &mdash; how tightly the observer can resolve the molecule's curvature through the selected atoms.</p>
+
+<table class="data-table">
+<tr><th>Molecule</th><th>Formula</th><th>Heavy gmean</th><th>H gmean</th><th>Ratio</th><th>Water shift</th></tr>
+<tr><td>Water</td><td>H<sub>2</sub>O</td><td>5,364</td><td>35.6</td><td>5.02</td><td>&minus;0.07</td></tr>
+<tr><td>Ammonia</td><td>H<sub>3</sub>N</td><td>1,236</td><td>22.3</td><td>4.02</td><td>+0.06</td></tr>
+<tr><td>Formaldehyde</td><td>CH<sub>2</sub>O</td><td>871</td><td>15.3</td><td>4.04</td><td>&minus;0.03</td></tr>
+<tr><td>Methanol</td><td>CH<sub>4</sub>O</td><td>409</td><td>12.4</td><td>3.49</td><td>&minus;1.03</td></tr>
+<tr><td>Ethanol</td><td>C<sub>2</sub>H<sub>6</sub>O</td><td>145</td><td>8.7</td><td>2.81</td><td>&minus;0.77</td></tr>
+<tr><td>Glycine</td><td>C<sub>2</sub>H<sub>5</sub>NO<sub>2</sub></td><td>123</td><td>6.7</td><td>2.91</td><td>&minus;1.49</td></tr>
+</table>
+
+<div class="highlight">
+<p><strong>The pattern:</strong> as molecules grow, both the heavy-atom and hydrogen geometric means fall &mdash; but the ratio between them also decreases. Water's skeleton/surface ratio is 5.0; by the time you reach ethanol it is 2.8. The heavy skeleton dominates less as the molecule gets larger and floppier. This may have the form of a geometric dilution effect: more atoms spread the curvature across more degrees of freedom.</p>
+<p>Water and ammonia are essentially unmoved by implicit water solvent (water shifts of &minus;0.07 and +0.06). Methanol, by contrast, stiffens appreciably in water (shift &minus;1.03). This is consistent with methanol's known strong hydrogen-bonding with water.</p>
+</div>
+
+<!-- ============================================ -->
+<h2 id="nucleobases">3. The Nucleobases &mdash; Reading the Letters of Life</h2>
+
+<p class="section-intro">The four nucleobases (or rather, the molecular formula classes that contain them among their isomers) give us a remarkable window into how the atlas reads biologically critical molecules.</p>
+
+<table class="data-table">
+<tr><th>Family</th><th>Formula</th><th>Isomers</th><th>Heavy gmean</th><th>H gmean</th><th>Water shift</th><th>Failures</th></tr>
+<tr><td>Uracil <span class="tag tag-bio">RNA</span></td><td>C<sub>4</sub>H<sub>4</sub>N<sub>2</sub>O<sub>2</sub></td><td>39</td><td>83.8</td><td>5.6</td><td>&minus;1.67</td><td>6</td></tr>
+<tr><td>Cytosine <span class="tag tag-bio">DNA/RNA</span></td><td>C<sub>4</sub>H<sub>5</sub>N<sub>3</sub>O</td><td>53</td><td>76.9</td><td>5.8</td><td>&minus;1.73</td><td>6</td></tr>
+<tr><td>Purine <span class="tag tag-bio">scaffold</span></td><td>C<sub>5</sub>H<sub>4</sub>N<sub>4</sub></td><td>38</td><td>77.6</td><td>5.6</td><td>&minus;1.60</td><td>3</td></tr>
+<tr><td>Thymine <span class="tag tag-bio">DNA</span></td><td>C<sub>5</sub>H<sub>6</sub>N<sub>2</sub>O<sub>2</sub></td><td>654</td><td>63.5</td><td>5.4</td><td>&minus;1.78</td><td>72</td></tr>
+</table>
+
+<div class="highlight">
+<p>All four nucleobase families show <strong>consistent water stiffening</strong> (negative water shifts between &minus;1.60 and &minus;1.78). This is notable: water makes these molecules geometrically tighter, not looser. The effect is strongest for thymine.</p>
+<p>Uracil has the stiffest heavy skeleton (83.8) despite having fewer heavy atoms than purine &mdash; its two oxygens and two nitrogens pack more curvature into a smaller frame. The thymine family, being larger (654 isomers), shows the most internal diversity and the highest failure rate (11%). These 72 thymine-formula molecules whose vibrational geometry breaks in at least one solvent environment may be a useful set to examine for unusual tautomers or strained configurations.</p>
+<p>Adenine (C<sub>5</sub>H<sub>5</sub>N<sub>5</sub>) was <strong>not found</strong> in the Hessian QM9 subset &mdash; its five nitrogens may push it beyond the dataset's compositional boundary.</p>
+</div>
+
+<!-- ============================================ -->
+<h2 id="amino">4. Amino Acids in the Atlas</h2>
+
+<div class="molecule-card">
+    <span class="name">Glycine</span><span class="formula">C<sub>2</sub>H<sub>5</sub>NO<sub>2</sub> &mdash; the simplest amino acid</span>
+    <span class="tag tag-bio">amino acid</span>
+    <div class="stats">heavy=123.3 &nbsp; H=6.7 &nbsp; ratio=2.91 &nbsp; water=&minus;1.49 &nbsp; SSSS (stable everywhere)</div>
+    <div class="note">Exactly one record in the atlas. Glycine is geometrically stiff for its size &mdash; its heavy-atom precision of 123 is comparable to molecules half its weight. It stiffens substantially in water (&minus;1.49), consistent with its zwitterionic behaviour in aqueous solution. Stable across all four environments.</div>
+</div>
+
+<div class="molecule-card">
+    <span class="name">Alanine isomers</span><span class="formula">C<sub>3</sub>H<sub>7</sub>NO<sub>2</sub> &mdash; 7 structural isomers</span>
+    <span class="tag tag-bio">amino acid</span>
+    <div class="stats">heavy: 62.5&ndash;75.5 (median 66.5) &nbsp; water=&minus;1.48 &nbsp; 2 of 7 fail in water</div>
+    <div class="note">The seven C<sub>3</sub>H<sub>7</sub>NO<sub>2</sub> isomers span a 20% range in heavy-atom precision, despite sharing the same formula. Two of them (29%) fail the positive-curvature gate in water &mdash; a high failure rate that may reflect particular conformations where the implicit solvent field disrupts the vibrational landscape. The water shift is nearly identical to glycine's (&minus;1.48 vs &minus;1.49).</div>
+</div>
+
+<!-- ============================================ -->
+<h2 id="pharma">5. Psychedelic &amp; Neuroactive Scaffolds</h2>
+
+<p class="section-intro">QM9's size limit (9 heavy atoms) excludes most complete psychedelic molecules &mdash; LSD, psilocybin, DMT are all too large. But the dataset does contain the <em>parent scaffolds</em> from which these molecules are built.</p>
+
+<div class="molecule-card">
+    <span class="name">Phenylethylamine family</span><span class="formula">C<sub>8</sub>H<sub>11</sub>N &mdash; 252 isomers</span>
+    <span class="tag tag-neuro">neuroactive</span> <span class="tag tag-neuro">psychedelic parent</span>
+    <div class="stats">heavy: 33.2&ndash;64.5 (median 45.0) &nbsp; H: 4.6&ndash;7.3 &nbsp; water: &minus;5.33 to +0.47 &nbsp; 10 failures</div>
+    <div class="note">Phenylethylamine is the core scaffold of mescaline, amphetamine, MDMA, and the 2C-x family. The atlas contains 252 structural isomers of this formula, spanning a nearly 2&times; range in heavy-atom geometric mean. The most rigid isomers (heavy &asymp; 64) may correspond to ring-containing or conjugated structures; the floppiest (heavy &asymp; 33) may be more chain-like. The water response varies enormously &mdash; from strong stiffening (&minus;5.33) to slight softening (+0.47) &mdash; suggesting that different phenylethylamine isomers interact with implicit water in fundamentally different ways.</div>
+</div>
+
+<div class="molecule-card">
+    <span class="name">Indoline / dimethylaniline family</span><span class="formula">C<sub>8</sub>H<sub>9</sub>N &mdash; 156 isomers</span>
+    <span class="tag tag-neuro">neuroactive</span>
+    <div class="stats">heavy: median 47.8 &nbsp; water: median &minus;0.76 &nbsp; 9 failures</div>
+    <div class="note">This formula class may contain indoline &mdash; a reduced form of indole, the core of tryptamine, serotonin, DMT, and psilocybin. Geometrically stiffer than phenylethylamine (median 47.8 vs 45.0), and more uniformly affected by water. The indole/tryptamine scaffold, if present among these isomers, would be one of the most pharmacologically significant structures in the atlas.</div>
+</div>
+
+<div class="molecule-card">
+    <span class="name">Pyrrole</span><span class="formula">C<sub>4</sub>H<sub>5</sub>N &mdash; 2 isomers</span>
+    <span class="tag tag-drug">porphyrin ring</span>
+    <div class="stats">heavy=114.2 &nbsp; H=7.1 &nbsp; water=&minus;0.13 &nbsp; SSSS</div>
+    <div class="note">Pyrrole is the building block of porphyrins &mdash; the molecular machinery of haemoglobin, chlorophyll, and vitamin B12. Its geometric stiffness (114) is high for a 5-heavy-atom molecule. Almost completely inert to water (+/&minus;0.1). This is a molecule that has the same vibrational character whether it is dry or wet.</div>
+</div>
+
+<!-- ============================================ -->
+<h2 id="poisons">6. Poisons &amp; Toxins</h2>
+
+<div class="molecule-card">
+    <span class="name">Formaldehyde</span><span class="formula">CH<sub>2</sub>O &mdash; 1 record</span>
+    <span class="tag tag-poison">carcinogen</span>
+    <div class="stats">heavy=870.7 &nbsp; H=15.3 &nbsp; ratio=4.04 &nbsp; water=&minus;0.03 &nbsp; SSSS</div>
+    <div class="note">Geometrically extreme &mdash; the third-stiffest molecule in the atlas after water and ammonia. Its local-site geometric range is the widest of any molecule: the carbon site reads 1,301 while the oxygen reads just 24.6. This is the starkest internal asymmetry in the entire dataset. Its water response is essentially zero &mdash; the solvent barely touches it.</div>
+</div>
+
+<div class="molecule-card">
+    <span class="name">Ammonia</span><span class="formula">H<sub>3</sub>N &mdash; 1 record</span>
+    <span class="tag tag-poison">toxic</span> <span class="tag tag-metabolite">metabolite</span>
+    <div class="stats">heavy=1,236.1 &nbsp; H=22.3 &nbsp; ratio=4.02 &nbsp; water=+0.06 &nbsp; SSSS</div>
+    <div class="note">The second-stiffest molecule. Ammonia is one of only two molecules in the entire atlas that gets <em>softer</em> in water (water shift +0.06). The other is pyrrole. Almost everything else stiffens.</div>
+</div>
+
+<!-- ============================================ -->
+<h2 id="drugs">7. Drug Scaffolds</h2>
+
+<table class="data-table">
+<tr><th>Scaffold</th><th>Formula</th><th>Heavy gmean</th><th>Water shift</th><th>Used in</th></tr>
+<tr><td>Isoxazole <span class="tag tag-drug">scaffold</span></td><td>C<sub>3</sub>H<sub>3</sub>NO</td><td>184.0</td><td>&minus;0.19</td><td>Antibiotics, antivirals</td></tr>
+<tr><td>Furan</td><td>C<sub>4</sub>H<sub>4</sub>O</td><td>122.2</td><td>&minus;1.05</td><td>Nitrofurantoin, ranitidine</td></tr>
+<tr><td>Pyrrole</td><td>C<sub>4</sub>H<sub>5</sub>N</td><td>114.2</td><td>&minus;0.13</td><td>Porphyrins, atorvastatin</td></tr>
+<tr><td>Pyridine</td><td>C<sub>5</sub>H<sub>5</sub>N</td><td>74.2</td><td>&minus;0.99</td><td>Niacin, isoniazid, nicotine</td></tr>
+<tr><td>Pyruvic acid</td><td>C<sub>3</sub>H<sub>4</sub>O<sub>3</sub></td><td>122.5</td><td>&minus;1.54</td><td>Central metabolism (Krebs cycle)</td></tr>
+</table>
+
+<div class="highlight">
+<p>There may be a pattern here worth noting: the smaller, more nitrogen-rich scaffolds (isoxazole, pyrrole) tend to have <strong>weaker water responses</strong> than the oxygen-containing ones (furan, pyruvic acid). Isoxazole at &minus;0.19 and pyrrole at &minus;0.13 are almost water-inert, while pyruvic acid at &minus;1.54 is strongly water-sensitive. This could reflect the different hydrogen-bonding capacities of N-H versus O-H and C=O groups in implicit solvent.</p>
+</div>
+
+<!-- ============================================ -->
+<h2 id="water">8. The Water Problem &mdash; 1,446 Molecules That Break</h2>
+
+<p class="section-intro">Of the 40,583 admitted molecules, <span class="stat-num">1,446</span> (3.6%) are stable in vacuum, THF, and toluene, but their vibrational geometry fails the positive-curvature gate in water. These are the SSSI molecules &mdash; <em>water-only failures</em>.</p>
+
+<p>This is a striking asymmetry. THF and toluene are organic solvents; water is polar, hydrogen-bonding, and altogether a more aggressive environment for small organic molecules. The atlas is picking up what may be a geometric echo of this chemical reality.</p>
+
+<h3>Who breaks in water?</h3>
+
+<table class="data-table">
+<tr><th>Formula</th><th>SSSI</th><th>Total</th><th>Fail %</th><th>Notes</th></tr>
+<tr><td>C<sub>5</sub>H<sub>10</sub>N<sub>2</sub>O<sub>2</sub></td><td>20</td><td>214</td><td>9.3%</td><td>N+O rich, dipeptide-like</td></tr>
+<tr><td>C<sub>4</sub>H<sub>6</sub>N<sub>4</sub>O</td><td>16</td><td>177</td><td>9.0%</td><td>Creatinine family</td></tr>
+<tr><td>C<sub>4</sub>H<sub>5</sub>N<sub>3</sub>O<sub>2</sub></td><td>14</td><td>180</td><td>7.8%</td><td>Near-cytosine</td></tr>
+<tr><td>C<sub>6</sub>H<sub>9</sub>NO<sub>2</sub></td><td>70</td><td>2,412</td><td>2.9%</td><td>Largest absolute count</td></tr>
+<tr><td>C<sub>5</sub>H<sub>6</sub>N<sub>2</sub>O<sub>2</sub></td><td>35</td><td>654</td><td>5.4%</td><td>Thymine family</td></tr>
+<tr><td>C<sub>6</sub>H<sub>10</sub>N<sub>2</sub>O</td><td>55</td><td>1,068</td><td>5.1%</td><td>N+O compound</td></tr>
+</table>
+
+<div class="highlight">
+<p><strong>Notable individual:</strong> <em>Acetone</em> (C<sub>3</sub>H<sub>6</sub>O, dsgdb9nsd_000018) is an SSSI molecule. The ketone body your liver produces during fasting has vibrational geometry that breaks specifically in water. Given acetone's high water miscibility and its role as a biological signalling molecule in ketosis, this may be chemically meaningful &mdash; or it may reflect a numerical near-zero eigenvalue that the water perturbation tips negative.</p>
+<p>More broadly, the <strong>highest failure-rate formulas</strong> are dominated by nitrogen-and-oxygen-rich compounds: C<sub>4</sub>H<sub>9</sub>N<sub>3</sub>O<sub>2</sub> (25.9%), C<sub>4</sub>H<sub>8</sub>N<sub>2</sub>O<sub>3</sub> (25.7%), C<sub>4</sub>H<sub>7</sub>N<sub>5</sub> (22.2%). These are exactly the kinds of molecules where water's hydrogen-bonding network would most strongly perturb the vibrational landscape.</p>
+</div>
+
+<h3>The multi-failure molecules</h3>
+<p>Beyond the 1,446 water-only failures, there are <span class="stat-num">276</span> SISI molecules (fail in THF and water but not toluene), <span class="stat-num">771</span> SISS molecules (fail only in THF), and <span class="stat-num">23</span> SIII molecules (fail in all three solvents, surviving only in vacuum). The SIII molecules &mdash; the most fragile &mdash; include members of the thymine family, C<sub>6</sub>H<sub>12</sub>O<sub>3</sub>, and C<sub>7</sub>H<sub>8</sub>O<sub>2</sub>.</p>
+
+<!-- ============================================ -->
+<h2 id="collapse">9. Coarse Collapse &mdash; Molecules That Look Identical But Aren't</h2>
+
+<p class="section-intro">A coarse collapse occurs when two molecules within the same formula share nearly identical coarse fingerprints (heavy-atom and hydrogen geometric means) but diverge sharply under the richer fingerprint (which includes local-site variation, water response, and support pattern). These are molecule pairs that a simple observer would conflate, but a richer observer separates.</p>
+
+<div class="molecule-card">
+    <span class="name">Top collapse: C<sub>6</sub>H<sub>9</sub>NO<sub>2</sub></span>
+    <span class="formula">Score 35,342 &mdash; coarse distance 0.0000, rich distance 1.21</span>
+    <div class="stats">
+        left: dsgdb9nsd_119544 &nbsp; heavy=47.4 &nbsp; local_med=10.3 &nbsp; water=&minus;1.25<br>
+        right: dsgdb9nsd_098324 &nbsp; heavy=47.4 &nbsp; local_med=10.2 &nbsp; water=&minus;2.29
+    </div>
+    <div class="note">These two molecules have <em>exactly</em> the same heavy-atom geometric mean (47.4) and nearly the same local-site median. A coarse observer would call them identical. But their water responses differ by a full log-unit &mdash; one stiffens modestly (&minus;1.25), the other nearly twice as much (&minus;2.29). The richer fingerprint catches what the coarse one misses: these are structurally different molecules wearing the same coarse geometric costume.</div>
+</div>
+
+<div class="molecule-card">
+    <span class="name">Most dramatic: C<sub>6</sub>H<sub>8</sub>N<sub>2</sub>O</span>
+    <span class="formula">Score 3,344 &mdash; coarse distance 0.001, rich distance 3.33</span>
+    <div class="stats">
+        left: dsgdb9nsd_080811 &nbsp; heavy=52.6 &nbsp; local_med=13.0 &nbsp; water=&minus;0.66<br>
+        right: dsgdb9nsd_052061 &nbsp; heavy=52.7 &nbsp; local_med=10.6 &nbsp; water=&minus;3.98
+    </div>
+    <div class="note">The rich distance here is 3.33 &mdash; the largest in the top 25 after the C<sub>6</sub>H<sub>10</sub>O<sub>3</sub> pair. The coarse fingerprints are virtually identical (heavy 52.6 vs 52.7), but the water response diverges by more than 3 log-units. One molecule barely notices water; the other is dramatically reshaped by it.</div>
+</div>
+
+<!-- ============================================ -->
+<h2 id="outliers">10. Extreme Outliers</h2>
+
+<h3>Most extreme water softening</h3>
+<p>The molecule <strong>dsgdb9nsd_053190</strong> (C<sub>9</sub>H<sub>12</sub>) has a water shift of <span class="stat-num">+7.18</span> &mdash; it gets dramatically <em>softer</em> in water. This is a trimethylbenzene isomer. Its softest eigenvalue in vacuum is just 0.000029, making it one of the most ill-conditioned molecules in the atlas. It also has the widest local-site range among C9 molecules (range 1.67, min 0.6, max 3.4). This may be a molecule sitting on a very flat vibrational mode that water nudges further downhill.</p>
+
+<h3>Most extreme water stiffening</h3>
+<p><strong>dsgdb9nsd_055647</strong> (C<sub>5</sub>H<sub>8</sub>N<sub>2</sub>O<sub>2</sub>) has a water shift of <span class="stat-num">&minus;9.69</span> &mdash; water makes it almost ten thousand times stiffer in log-geometric-mean terms. This is in the thymine formula class and is itself an SSSI molecule. The effect is so extreme it may reflect a near-zero mode in vacuum that water lifts substantially.</p>
+
+<h3>Graph-stratified extremes</h3>
+<p>The most separated same-graph pair is two <strong>C<sub>7</sub>H<sub>14</sub>O</strong> isomers with the same bond topology but a rich distance of <span class="stat-num">11.7</span>. One (dsgdb9nsd_009772) has heavy=38.0 and water=&minus;1.56; the other (dsgdb9nsd_009911) has heavy=23.5 and water=+6.98. Same molecular graph, but one softens enormously in water while the other stiffens. This is the strongest evidence in the atlas that <strong>the same connectivity can produce radically different geometric readings</strong> &mdash; the observer is sensitive to something beyond the graph.</p>
+
+<!-- ============================================ -->
+<h2 id="correlations">11. Composition&ndash;Geometry Correlations</h2>
+
+<p class="section-intro">Across 40,583 molecules, composition variables correlate with geometric observables in ways that may be chemically interpretable:</p>
+
+<table class="data-table">
+<tr><th>Property</th><th>N fraction</th><th>O fraction</th><th>H count</th><th>Heavy count</th></tr>
+<tr><td>Water shift</td><td>&minus;0.291</td><td>&minus;0.182</td><td><strong>+0.470</strong></td><td>+0.003</td></tr>
+<tr><td>Heavy gmean</td><td>+0.184</td><td>+0.085</td><td><strong>&minus;0.340</strong></td><td>&minus;0.229</td></tr>
+<tr><td>Heavy/H ratio</td><td><strong>+0.541</strong></td><td>+0.183</td><td><strong>&minus;0.943</strong></td><td>&minus;0.289</td></tr>
+</table>
+
+<div class="highlight">
+<p><strong>Hydrogen count is the dominant predictor.</strong> Molecules with more hydrogens have weaker heavy-atom precision (&minus;0.34), lower skeleton/surface separation (&minus;0.94), and less water stiffening (+0.47). The hydrogen count&ndash;ratio correlation of &minus;0.943 is remarkably tight &mdash; it may indicate that in these small molecules, the number of hydrogens essentially determines the balance between skeleton and surface curvature.</p>
+<p><strong>Nitrogen fraction predicts water sensitivity.</strong> The &minus;0.291 correlation between nitrogen fraction and water shift means nitrogen-rich molecules stiffen more in water. This aligns with nitrogen's hydrogen-bonding capacity and the atlas-level finding that the highest water-failure rates belong to nitrogen-rich formulas.</p>
+</div>
+
+<!-- ============================================ -->
+<h2 id="verdict">12. What This May Mean</h2>
+
+<p>This is an atlas of how 40,583 molecules look when you read their curvature through declared atom-selection observers. The reading is done entirely from vibrational Hessians &mdash; no chemical labels, no SMILES strings, no human classification was used. Every number comes from the shape of the energy surface around each molecule's equilibrium geometry.</p>
+
+<p>Several patterns have the form of genuine chemical signals:</p>
+
+<p><strong>The skeleton/surface separation is real and graded.</strong> Heavy-atom observers read 7&ndash;11&times; more curvature than hydrogen observers, and the ratio correlates with heteroatom count (+0.56 with heteroatom count per the status document). The atlas is recovering something about molecular rigidity from pure geometry.</p>
+
+<p><strong>Water sensitivity tracks polar group density.</strong> Nitrogen-rich, oxygen-rich, hydrogen-poor molecules stiffen most in implicit water. The failure-rate leaders &mdash; 26% for C<sub>4</sub>H<sub>9</sub>N<sub>3</sub>O<sub>2</sub>, 22% for C<sub>4</sub>H<sub>7</sub>N<sub>5</sub> &mdash; are exactly the formula classes you would expect to interact most strongly with an aqueous environment.</p>
+
+<p><strong>Same-graph molecules can diverge dramatically.</strong> The C<sub>7</sub>H<sub>14</sub>O pair with identical bond topology but a rich distance of 11.7 &mdash; one softening wildly in water, the other stiffening &mdash; is consistent with what chemistry calls conformational or stereoelectronic effects. The observer is reading something that the molecular graph does not fully specify.</p>
+
+<p><strong>Coarse observers lose real information.</strong> The 141 collapse candidates show that heavy-atom and hydrogen geometric means alone are insufficient to distinguish structurally meaningful differences. Water response and local-site variation carry discriminative information that global means miss.</p>
+
+<p>What this does <em>not</em> yet do is assign chemical meaning. The atlas reads curvature, not chemistry. The nucleobase families <em>may</em> separate from non-nucleobase isomers of the same formula, but this has not been tested. The phenylethylamine isomers <em>may</em> sort into structurally recognizable subgroups, but the atlas does not yet know what indoline or amphetamine looks like. These are the next questions &mdash; and they are now answerable, because the geometric readings exist.</p>
+
+<p style="color: #555568; font-size: 0.85rem; margin-top: 3rem; border-top: 1px solid #1a1a2a; padding-top: 1.5rem;">
+    Molecular Atlas v0 Exploration &mdash; April 2026<br>
+    Data: Hessian QM9 (Figshare 26363959, CC0)<br>
+    40,583 molecules &middot; 243,479 observer readings &middot; 528 formulas &middot; 4 environments
+</p>
+
+</body>
+</html>

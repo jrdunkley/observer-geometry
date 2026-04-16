@@ -1,0 +1,63 @@
+{
+  "card_id": "pendulum_small_angle",
+  "schema_version": "attachment_card.v0",
+  "system": "simple pendulum at the stable equilibrium under small-angle reduction",
+  "attachment_type": "local_quadratic_approximation",
+  "state_variables": [
+    {"name": "theta", "meaning": "angular displacement from downward equilibrium", "unit": "rad"}
+  ],
+  "sensor_surface": {
+    "ideal": ["angle theta near zero"],
+    "practical": ["encoder, video tracking, or IMU angle estimate near the stable equilibrium"]
+  },
+  "control_variables": [
+    {"name": "m", "meaning": "bob mass", "unit": "kg"},
+    {"name": "ell", "meaning": "pendulum length", "unit": "m"},
+    {"name": "g", "meaning": "gravitational acceleration", "unit": "m s^-2"}
+  ],
+  "regime_assumptions": [
+    "theta is small enough that cos(theta) is approximated to second order",
+    "pivot is fixed",
+    "string/rod is ideal",
+    "air resistance and drive are omitted",
+    "operating point is theta0 = 0"
+  ],
+  "equation_hook": "U(theta) = m g ell (1 - cos theta) approx 1/2 m g ell theta^2 at theta0 = 0",
+  "units_and_dimensions": {
+    "theta": "rad treated as dimensionless",
+    "m g ell": "J",
+    "H": "J rad^-2"
+  },
+  "coordinate_note": "The angular coordinate is treated as the declared local coordinate at theta0 = 0; radians are handled as dimensionless for the Hessian.",
+  "module_object": {
+    "kind": "local Hessian",
+    "description": "second derivative of pendulum potential at theta0 = 0"
+  },
+  "derivation_status": "exact for the declared local quadratic approximation at the operating point",
+  "observer_map": {
+    "description": "observe theta",
+    "matrix": [[1.0]]
+  },
+  "ceiling_or_reference": {
+    "kind": "none",
+    "description": "no hidden coordinate is declared in this card"
+  },
+  "allowed_nomogeo_calls": ["visible_precision"],
+  "nomogeo_readout": {
+    "requested": ["visible_precision"]
+  },
+  "positive_scope": "This card exposes the local stiffness of the pendulum at a declared stable operating point.",
+  "boundary": "It does not describe global large-angle pendulum motion.",
+  "failure_mode": "The attachment fails when the amplitude is large enough that higher-order terms in cos(theta) materially affect the motion.",
+  "next_measurement": "Measure period at small amplitude and compare the inferred local stiffness with m g ell.",
+  "default_parameters": {
+    "m": 1.0,
+    "ell": 1.0,
+    "g": 9.81,
+    "theta0": 0.0
+  },
+  "declared_objects": {
+    "H": [[9.81]],
+    "C": [[1.0]]
+  }
+}

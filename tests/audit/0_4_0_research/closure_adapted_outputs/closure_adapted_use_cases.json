@@ -1,0 +1,93 @@
+{
+  "capability_shift": {
+    "before": "audit a chosen observer",
+    "after": "synthesise an observer from a task family when the paper's conditions apply"
+  },
+  "use_cases": {
+    "clinical_panel_demo": {
+      "domain": "biomarker panel design",
+      "ambient_dim": 12,
+      "panel_dim": 3,
+      "task_count": 4,
+      "top_indices": [
+        0,
+        2,
+        1
+      ],
+      "mu_sorted": [
+        21.14,
+        10.0,
+        9.23,
+        0.0,
+        0.0,
+        0.0
+      ],
+      "adapted_scores": {
+        "S": 40.370000000000076,
+        "H": -1.849478594101544e-14,
+        "eta": -4.581319281896312e-16
+      },
+      "adapted_local_checks": [
+        {
+          "Q_norm": 1.000458712332811e-30,
+          "V_norm": 3.806573262134857
+        },
+        {
+          "Q_norm": 3.7976275633795996e-31,
+          "V_norm": 3.1384709652950447
+        },
+        {
+          "Q_norm": 7.515132908560778e-31,
+          "V_norm": 2.5238858928247927
+        },
+        {
+          "Q_norm": 8.785586187131313e-31,
+          "V_norm": 3.108054053584011
+        }
+      ],
+      "random_summary": {
+        "eta_median": 0.7559545506318819,
+        "eta_min": 0.32985788321795195,
+        "S_median": 3.847253029294749,
+        "S_max": 15.435801748269993
+      },
+      "claim": "A three-channel panel can exactly close a four-task clinical family living in a 12D latent space. Random three-channel observers leak heavily."
+    },
+    "bridge_monitor_demo": {
+      "domain": "nonequilibrium monitor design",
+      "ambient_dim": 8,
+      "observer_dim": 2,
+      "top_abs_eigenvalues": [
+        0.5174051493914185,
+        0.5174051493914179
+      ],
+      "adapted_scores": {
+        "S": 0.5354161772335114,
+        "H": 2.9176271664506084e-16,
+        "eta": 5.449269727944996e-16
+      },
+      "adapted_Q_norm": 6.363606991523912e-31,
+      "adapted_V_norm": 0.731721379511022,
+      "adapted_quartic_residual_scaled": 1.3448587320721576e-12,
+      "random_summary": {
+        "eta_median": 0.5405504384524977,
+        "eta_min": 0.15227962198923808,
+        "S_median": 0.10221180025517432,
+        "S_max": 0.30881267168641735
+      },
+      "claim": "A two-channel bridge-adapted observer exposes the visible DV curvature while driving quartic hidden birth essentially to zero."
+    },
+    "approximate_noncommuting_demo": {
+      "domain": "approximate task-matched sensing",
+      "ambient_dim": 10,
+      "observer_dim": 3,
+      "best_eta_found": 0.20001065998623596,
+      "best_S_found": 20.892330206421732,
+      "random_eta_median": 0.633645807643453,
+      "random_S_median": 5.971982369562136,
+      "eta_improvement_factor": 3.1680601808276534,
+      "S_improvement_factor": 3.4983911394154954,
+      "claim": "Even when exact closure is impossible, the leakage objective still finds observers with dramatically lower hidden birth than generic choices."
+    }
+  }
+}

@@ -1,0 +1,234 @@
+{
+  "schema_version": "non_integration_diagnostics.v0",
+  "purpose": "Classify every non-carded AP/A-level/formulary hook by why it is not yet a v0 static attachment card.",
+  "route_classes": {
+    "static_quadratic_next": "Likely direct card after coordinate/units cleanup.",
+    "local_quadratic": "Needs an operating point, local regime, or local expansion.",
+    "dynamic_evidence": "Needs time-series, likelihood, Fisher, or state-space evidence layer.",
+    "sensor_or_observer_map": "Measurement or observer map before it is a module object.",
+    "finite_weighted_family": "Needs finite basis/truncation or supplied observer/quadratic family.",
+    "thermodynamic_fluctuation": "Needs ensemble, potential, coordinates, and fluctuation/local Hessian convention.",
+    "support_or_event": "Needs support-stratum, branch, restart, or residual-margin route.",
+    "exact_special_sector": "Potentially exact only after a supplied special law sector is declared.",
+    "parameter_input": "Useful physical parameter, not an attachment object alone.",
+    "true_gap_or_defer": "No honest current route without new theory/API or a strategic decision to defer."
+  },
+  "items": [
+    {
+      "id": "kinematics_constant_acceleration",
+      "route_class": "dynamic_evidence",
+      "likely_module_route": ["evidence bundle", "state-space wrapper"],
+      "why_not_static_card": "It is a trajectory law over time, not a finite Hessian or precision object.",
+      "missing_declarations": ["time grid", "state vector", "observation noise", "initial condition policy"],
+      "next_proof_obligation": "Show that a sampled trajectory with declared noise yields a Fisher/precision object before calling kernel surfaces.",
+      "gap_assessment": "misrouted, not theoretical gap"
+    },
+    {
+      "id": "circular_motion_constraint",
+      "route_class": "local_quadratic",
+      "likely_module_route": ["local_visible_calculus", "evidence route if estimated"],
+      "why_not_static_card": "Centripetal force is a constraint/dynamics relation, not a restoring potential by itself.",
+      "missing_declarations": ["constraint manifold", "operating point", "restoring potential or measurement objective"],
+      "next_proof_obligation": "Supply a local radial potential or estimation objective before extracting a Hessian.",
+      "gap_assessment": "missing physical declaration"
+    },
+    {
+      "id": "collisions_impulse_conservation",
+      "route_class": "support_or_event",
+      "likely_module_route": ["evidence bundle", "residual-margin diagnostic", "event schema"],
+      "why_not_static_card": "Collision formulas are event/conservation constraints rather than a standing quadratic object.",
+      "missing_declarations": ["pre/post state", "collision model", "measurement noise", "event boundary"],
+      "next_proof_obligation": "Encode a finite before/after evidence object or explicitly defer event handling.",
+      "gap_assessment": "likely schema gap in v0 operationalise layer"
+    },
+    {
+      "id": "density_mass_input",
+      "route_class": "parameter_input",
+      "likely_module_route": ["finite modal family", "kinetic mass metric"],
+      "why_not_static_card": "Density supplies a parameter for mass matrices; it is not an observer object.",
+      "missing_declarations": ["geometry", "basis", "coordinate family"],
+      "next_proof_obligation": "Use density only inside a declared kinetic or wave-mode card.",
+      "gap_assessment": "no gap; not standalone"
+    },
+    {
+      "id": "rc_charge_decay",
+      "route_class": "dynamic_evidence",
+      "likely_module_route": ["evidence bundle", "Fisher over time constant", "state-space wrapper"],
+      "why_not_static_card": "The exponential decay law is a dynamic response, not a static storage Hessian.",
+      "missing_declarations": ["sampling times", "noise model", "initial condition", "fit parameter"],
+      "next_proof_obligation": "Build a minimal time-series Fisher object for tau = RC, or defer until evidence integration.",
+      "gap_assessment": "misrouted relative to first runner"
+    },
+    {
+      "id": "resistor_and_op_amp_surfaces",
+      "route_class": "sensor_or_observer_map",
+      "likely_module_route": ["observer map", "evidence/Fisher if noise declared"],
+      "why_not_static_card": "Ohm law is dissipative and op-amp equations are gain/observer maps; neither is a stored SPD object alone.",
+      "missing_declarations": ["drive protocol", "gain regime", "noise model", "saturation boundary"],
+      "next_proof_obligation": "Decide whether operationalise v1 admits observer-map cards distinct from Hessian cards.",
+      "gap_assessment": "schema gap, not kernel theorem gap"
+    },
+    {
+      "id": "paraxial_optics_lens",
+      "route_class": "sensor_or_observer_map",
+      "likely_module_route": ["observer map", "evidence bundle after noise model"],
+      "why_not_static_card": "Lens equations are ray-transfer/measurement maps, not SPD precision objects.",
+      "missing_declarations": ["ray coordinate convention", "paraxial regime", "sensor noise or resolution model"],
+      "next_proof_obligation": "Decide whether to introduce observer-map cards or defer optics.",
+      "gap_assessment": "operational schema gap"
+    },
+    {
+      "id": "interference_diffraction",
+      "route_class": "sensor_or_observer_map",
+      "likely_module_route": ["evidence bundle", "finite wave-field family"],
+      "why_not_static_card": "Fringe equations are measurement equations unless a field and sensor likelihood are supplied.",
+      "missing_declarations": ["field model", "geometry", "sensor likelihood", "noise model"],
+      "next_proof_obligation": "Create only after evidence/sensor route is explicit.",
+      "gap_assessment": "defer; not current static route"
+    },
+    {
+      "id": "gravity_inverse_square_local",
+      "route_class": "local_quadratic",
+      "likely_module_route": ["local_visible_calculus", "visible_precision after Hessian extraction"],
+      "why_not_static_card": "The inverse-square potential is not globally SPD; only local sectors may be usable.",
+      "missing_declarations": ["operating point", "coordinate chart", "stability/sign convention", "local domain"],
+      "next_proof_obligation": "Compute a local Hessian with signs and support declared; refuse global overclaim.",
+      "gap_assessment": "local route exists but fragile"
+    },
+    {
+      "id": "coulomb_inverse_square_local",
+      "route_class": "local_quadratic",
+      "likely_module_route": ["local_visible_calculus", "visible_precision after Hessian extraction"],
+      "why_not_static_card": "Charge signs and operating-point stability decide whether a local positive sector exists.",
+      "missing_declarations": ["charge signs", "operating point", "screening/dielectric", "positive local sector"],
+      "next_proof_obligation": "Attach first through capacitor energy, then revisit local Coulomb potentials.",
+      "gap_assessment": "local route exists but should wait"
+    },
+    {
+      "id": "lorentz_induction_transformer",
+      "route_class": "sensor_or_observer_map",
+      "likely_module_route": ["inductive storage Hessian", "observer/control map"],
+      "why_not_static_card": "Lorentz force and induction are dynamic/control relations unless reduced to declared inductor storage.",
+      "missing_declarations": ["flux/current coordinate", "drive protocol", "coupling convention"],
+      "next_proof_obligation": "Route inductive storage through LC cards and transformer action through observer-map grammar.",
+      "gap_assessment": "partial route exists"
+    },
+    {
+      "id": "fluid_pressure_bernoulli",
+      "route_class": "finite_weighted_family",
+      "likely_module_route": ["finite flow-state object", "evidence route"],
+      "why_not_static_card": "Flow equations are field/dynamic constraints, not finite SPD objects without discretization.",
+      "missing_declarations": ["control volume", "state variables", "boundary conditions", "regime", "noise if measured"],
+      "next_proof_obligation": "Defer until a minimal finite fluid/acoustic discretization is selected.",
+      "gap_assessment": "defer; schema not ready"
+    },
+    {
+      "id": "heat_capacity_calorimetry",
+      "route_class": "thermodynamic_fluctuation",
+      "likely_module_route": ["local thermodynamic Hessian", "evidence/Fisher"],
+      "why_not_static_card": "Heat accounting is not curvature until a potential or noise model is declared.",
+      "missing_declarations": ["temperature coordinate", "heat capacity convention", "measurement noise or thermodynamic potential"],
+      "next_proof_obligation": "Pick either potential-curvature route or lab measurement Fisher route.",
+      "gap_assessment": "route fork"
+    },
+    {
+      "id": "thermodynamic_potentials",
+      "route_class": "thermodynamic_fluctuation",
+      "likely_module_route": ["local quadratic ensemble", "declared fluctuation model"],
+      "why_not_static_card": "Potentials can yield Hessians, but only after choosing variables and ensemble.",
+      "missing_declarations": ["potential", "natural variables", "operating point", "convexity convention"],
+      "next_proof_obligation": "Define a thermodynamic attachment micro-schema before carding.",
+      "gap_assessment": "schema gap"
+    },
+    {
+      "id": "chemistry_kinetics_rate_laws",
+      "route_class": "dynamic_evidence",
+      "likely_module_route": ["evidence bundle", "Fisher over rate parameter"],
+      "why_not_static_card": "Rate laws are time-series parameter models, not static energy geometry.",
+      "missing_declarations": ["concentration observations", "sampling times", "rate-law order", "noise model"],
+      "next_proof_obligation": "Build a minimal Fisher card only after evidence convention exists.",
+      "gap_assessment": "misrouted relative to static runner"
+    },
+    {
+      "id": "chemistry_equilibrium_constants",
+      "route_class": "thermodynamic_fluctuation",
+      "likely_module_route": ["declared free-energy model", "evidence route"],
+      "why_not_static_card": "Equilibrium constants need reaction coordinate, standard state, and potential convention.",
+      "missing_declarations": ["reaction coordinate", "composition variables", "standard state", "operating point"],
+      "next_proof_obligation": "Do electrochemistry first; it supplies a clearer voltage sensor surface.",
+      "gap_assessment": "schema gap"
+    },
+    {
+      "id": "electrochemistry_nernst_voltage",
+      "route_class": "thermodynamic_fluctuation",
+      "likely_module_route": ["declared free-energy model", "evidence/Fisher voltage readout"],
+      "why_not_static_card": "Voltage is measurable, but the free-energy coordinate and fluctuation convention are missing.",
+      "missing_declarations": ["reaction coordinate", "electron count", "reaction quotient", "temperature", "voltage noise"],
+      "next_proof_obligation": "Define smallest honest reaction-coordinate schema.",
+      "gap_assessment": "best chemistry bridge; not ready for static v0"
+    },
+    {
+      "id": "absorbance_beer_lambert",
+      "route_class": "sensor_or_observer_map",
+      "likely_module_route": ["evidence bundle", "measurement Fisher"],
+      "why_not_static_card": "Absorbance is a sensor law, not a physical storage Hessian.",
+      "missing_declarations": ["path length", "molar absorptivity", "concentration variable", "noise model"],
+      "next_proof_obligation": "Use as first chemistry sensor-evidence test after evidence route is chosen.",
+      "gap_assessment": "misrouted; strong evidence hook"
+    },
+    {
+      "id": "photon_photoelectric_debroglie",
+      "route_class": "sensor_or_observer_map",
+      "likely_module_route": ["measurement transform", "evidence bundle"],
+      "why_not_static_card": "These are energy/momentum conversion and threshold relations, not Hessian objects.",
+      "missing_declarations": ["observable", "uncertainty model", "material threshold if photoelectric"],
+      "next_proof_obligation": "Use only as measurement transform until an estimation objective is declared.",
+      "gap_assessment": "defer"
+    },
+    {
+      "id": "nuclear_decay_poisson",
+      "route_class": "dynamic_evidence",
+      "likely_module_route": ["Poisson evidence/Fisher"],
+      "why_not_static_card": "Radioactive decay is a stochastic counting process, not static storage geometry.",
+      "missing_declarations": ["counting windows", "detector efficiency", "background", "Poisson likelihood"],
+      "next_proof_obligation": "This is a strong future evidence card, but not a v0 static card.",
+      "gap_assessment": "misrouted; strong evidence hook"
+    },
+    {
+      "id": "blackbody_wien_stefan",
+      "route_class": "dynamic_evidence",
+      "likely_module_route": ["fit-parameter Fisher", "evidence bundle"],
+      "why_not_static_card": "Radiation laws are distribution/fit models without a finite sensor likelihood.",
+      "missing_declarations": ["spectral band", "temperature parameter", "emissivity", "noise model"],
+      "next_proof_obligation": "Defer until evidence/fit schema exists.",
+      "gap_assessment": "defer"
+    },
+    {
+      "id": "hubble_law_regression",
+      "route_class": "dynamic_evidence",
+      "likely_module_route": ["linear regression Fisher", "evidence bundle"],
+      "why_not_static_card": "The law is a regression relation, not a physical Hessian.",
+      "missing_declarations": ["distance observations", "velocity/redshift observations", "uncertainties", "sample selection"],
+      "next_proof_obligation": "Treat as evidence benchmark only.",
+      "gap_assessment": "defer"
+    },
+    {
+      "id": "relativity_lorentz_metric",
+      "route_class": "exact_special_sector",
+      "likely_module_route": ["special positive sector only", "defer indefinite metric"],
+      "why_not_static_card": "Current visible-precision calls are SPD; Lorentzian geometry is indefinite.",
+      "missing_declarations": ["signature convention", "positive local sector", "observable map"],
+      "next_proof_obligation": "Do not mix indefinite metric with current SPD calls.",
+      "gap_assessment": "true boundary for current kernel route"
+    },
+    {
+      "id": "quantum_harmonic_oscillator",
+      "route_class": "exact_special_sector",
+      "likely_module_route": ["declared quadratic Hamiltonian sector"],
+      "why_not_static_card": "It is quadratic but uses operator/Hilbert or phase-space conventions outside the AP v0 runner.",
+      "missing_declarations": ["phase-space or Hilbert convention", "observable map", "units"],
+      "next_proof_obligation": "Only after classical oscillator/circuit cards are stable.",
+      "gap_assessment": "possible special-sector route, not immediate"
+    }
+  ]
+}

@@ -1,0 +1,60 @@
+{
+  "card_id": "ideal_gas_law_boundary",
+  "schema_version": "attachment_card.v0",
+  "system": "ideal gas equation of state without ensemble or fluctuation model",
+  "attachment_type": "not_yet_attachable",
+  "state_variables": [
+    {"name": "p", "meaning": "pressure", "unit": "Pa"},
+    {"name": "V", "meaning": "volume", "unit": "m^3"},
+    {"name": "T", "meaning": "temperature", "unit": "K"},
+    {"name": "n", "meaning": "amount of substance", "unit": "mol"}
+  ],
+  "sensor_surface": {
+    "ideal": ["pressure p", "volume V", "temperature T", "amount n"],
+    "practical": ["pressure transducer", "volume mark or piston displacement", "thermometer", "mole estimate from sample preparation"]
+  },
+  "control_variables": [
+    {"name": "R_gas", "meaning": "molar gas constant", "unit": "J mol^-1 K^-1"},
+    {"name": "chosen_ensemble", "meaning": "thermodynamic ensemble required for a fluctuation object", "unit": "none_declared"},
+    {"name": "operating_point", "meaning": "state point required for a local thermodynamic Hessian", "unit": "none_declared"}
+  ],
+  "regime_assumptions": [
+    "gas is ideal if the equation of state is used",
+    "no thermodynamic potential is declared",
+    "no ensemble or fluctuation model is declared",
+    "no local expansion around an operating point is declared"
+  ],
+  "equation_hook": "p V = n R_gas T",
+  "units_and_dimensions": {
+    "p V": "J",
+    "n R_gas T": "J",
+    "H": "not declared"
+  },
+  "coordinate_note": "The equation of state relates state variables but does not by itself declare a positive Hessian, covariance, Fisher object, or finite observer map.",
+  "module_object": {
+    "kind": "none",
+    "description": "no module object exists until an ensemble, thermodynamic potential, fluctuation model, or local measurement model is declared"
+  },
+  "derivation_status": "not attachable from the equation of state alone",
+  "observer_map": null,
+  "ceiling_or_reference": {
+    "kind": "none",
+    "description": "no ceiling/reference is declared"
+  },
+  "allowed_nomogeo_calls": [],
+  "nomogeo_readout": {
+    "requested": []
+  },
+  "positive_scope": "This card records the boundary that an equation of state is not automatically a module object.",
+  "boundary": "It cannot call theorem-local quadratic or hidden-load surfaces without a declared thermodynamic potential, ensemble, fluctuation model, or local measurement route.",
+  "failure_mode": "The attachment would overclaim if pV=nRT were treated as a Hessian or precision object by itself.",
+  "next_measurement": "Choose a thermodynamic ensemble and potential, or declare a pressure/volume/temperature measurement equation with an uncertainty model.",
+  "default_parameters": {
+    "p": 101325.0,
+    "V": 0.024465,
+    "T": 298.15,
+    "n": 1.0,
+    "R_gas": 8.314462618
+  },
+  "declared_objects": {}
+}

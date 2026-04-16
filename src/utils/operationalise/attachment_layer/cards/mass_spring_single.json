@@ -1,0 +1,56 @@
+{
+  "card_id": "mass_spring_single",
+  "schema_version": "attachment_card.v0",
+  "system": "single ideal mass-spring oscillator near equilibrium",
+  "attachment_type": "exact_quadratic",
+  "state_variables": [
+    {"name": "x", "meaning": "spring displacement from equilibrium", "unit": "m"}
+  ],
+  "sensor_surface": {
+    "ideal": ["displacement x"],
+    "practical": ["linear displacement sensor, camera tracking, or encoder measuring x"]
+  },
+  "control_variables": [
+    {"name": "k", "meaning": "spring constant", "unit": "N m^-1"}
+  ],
+  "regime_assumptions": [
+    "spring is ideal",
+    "coordinate x is measured from static equilibrium",
+    "damping and drive are outside this static stiffness card"
+  ],
+  "equation_hook": "U(x) = 1/2 k x^2",
+  "units_and_dimensions": {
+    "x": "m",
+    "k": "N m^-1 = J m^-2",
+    "H": "J m^-2"
+  },
+  "coordinate_note": "Single homogeneous displacement coordinate; the Hessian entry is directly interpretable as stiffness.",
+  "module_object": {
+    "kind": "Hessian",
+    "description": "stiffness Hessian of the potential energy in coordinate x"
+  },
+  "derivation_status": "exact from the stated ideal spring equation",
+  "observer_map": {
+    "description": "observe the single displacement coordinate",
+    "matrix": [[1.0]]
+  },
+  "ceiling_or_reference": {
+    "kind": "none",
+    "description": "no hidden coordinate is declared in this card"
+  },
+  "allowed_nomogeo_calls": ["visible_precision"],
+  "nomogeo_readout": {
+    "requested": ["visible_precision"]
+  },
+  "positive_scope": "This card exposes physical stiffness as a direct one-dimensional quadratic module object.",
+  "boundary": "It does not describe nonlinear springs, damping, driving, or measurement noise.",
+  "failure_mode": "The attachment fails if the force-displacement law is not linear over the operating range.",
+  "next_measurement": "Measure displacement and force over a small range to estimate k.",
+  "default_parameters": {
+    "k": 12.0
+  },
+  "declared_objects": {
+    "H": [[12.0]],
+    "C": [[1.0]]
+  }
+}

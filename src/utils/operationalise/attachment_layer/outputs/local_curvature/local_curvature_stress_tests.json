@@ -1,0 +1,60 @@
+{
+  "schema_version": "local_curvature_stress_tests.v0",
+  "description": "Reparameterization, noise-scaling, and negative-control tests for local positive information curvature.",
+  "tests": [
+    {
+      "id": "rc_decay_local_curvature_stress",
+      "positive_coordinate": "tau",
+      "reparameterized_coordinate": "rho = log(tau)",
+      "fisher_tau": 2392.753487271695,
+      "fisher_log_tau": 9571.01394908678,
+      "reparameterization_rule": "I_rho = I_tau * (dtau/drho)^2",
+      "noise_sigmas": [
+        0.03,
+        0.05,
+        0.1,
+        0.2
+      ],
+      "fisher_by_noise": [
+        6646.537464643599,
+        2392.753487271695,
+        598.1883718179238,
+        149.54709295448095
+      ],
+      "negative_controls": {
+        "zero_sensitivity_fisher": 0.0,
+        "zero_noise_refused": true,
+        "hidden_load_route_refused_without_ceiling": true,
+        "static_storage_route_refused": true
+      },
+      "status": "passed"
+    },
+    {
+      "id": "beer_lambert_local_curvature_stress",
+      "positive_coordinate": "c",
+      "reparameterized_coordinate": "alpha = log(c)",
+      "fisher_concentration": 14400.0,
+      "fisher_log_concentration_at_c": 2304.0,
+      "reparameterization_rule": "I_alpha = I_c * (dc/dalpha)^2",
+      "noise_sigmas": [
+        0.005,
+        0.01,
+        0.02,
+        0.05
+      ],
+      "fisher_by_noise": [
+        57600.0,
+        14400.0,
+        3600.0,
+        575.9999999999999
+      ],
+      "negative_controls": {
+        "zero_sensitivity_fisher": 0.0,
+        "zero_noise_refused": true,
+        "hidden_load_route_refused_without_ceiling": true,
+        "static_storage_route_refused": true
+      },
+      "status": "passed"
+    }
+  ]
+}

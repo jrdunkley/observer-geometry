@@ -1,0 +1,136 @@
+{
+  "schema_version": "measurement_equation_linearisation_proofs.v0",
+  "purpose": "Proof packet for measurement-equation local linearisation before any evidence schema is promoted.",
+  "proofs": [
+    {
+      "id": "beer_lambert_concentration_measurement_equation",
+      "route": "measurement_equation_local_linearisation",
+      "status": "admissible_local_precision",
+      "measurement_equation": "c = A_abs / (epsilon path_length)",
+      "values": {
+        "A_abs": 0.72,
+        "epsilon": 15000.0,
+        "path_length": 1.0
+      },
+      "standard_uncertainties": {
+        "A_abs": 0.01,
+        "epsilon": 300.0,
+        "path_length": 0.005
+      },
+      "units": {
+        "A_abs": "dimensionless absorbance",
+        "epsilon": "L mol^-1 cm^-1",
+        "path_length": "cm",
+        "c": "mol L^-1"
+      },
+      "estimate": 4.8e-05,
+      "sensitivities": {
+        "A_abs": 6.666666666666667e-05,
+        "epsilon": -3.2e-09,
+        "path_length": -4.8e-05
+      },
+      "numeric_sensitivity_check": {
+        "A_abs": 6.666666666666682e-05,
+        "epsilon": -3.2012805122048825e-09,
+        "path_length": -4.800120003000004e-05
+      },
+      "max_sensitivity_error": 1.2000300000393743e-09,
+      "variance_terms": {
+        "A_abs": 4.444444444444445e-13,
+        "epsilon": 9.216000000000002e-13,
+        "path_length": 5.760000000000001e-14
+      },
+      "local_variance": 1.4236444444444447e-12,
+      "local_standard_uncertainty": 1.1931657237971784e-06,
+      "local_precision": 702422577422.5773,
+      "positivity_checks": {
+        "epsilon": "positive denominator; relative standard uncertainty is 2 percent",
+        "path_length": "positive denominator; relative standard uncertainty is 0.5 percent"
+      },
+      "allowed_route": "local_positive_curvature",
+      "refused_routes": [
+        "static storage Hessian",
+        "hidden_load without a ceiling"
+      ],
+      "boundary": "This is a local concentration precision, not a storage Hessian; it must remain inside the calibrated optical range."
+    },
+    {
+      "id": "cadmium_calibration_standard_measurement_equation",
+      "route": "measurement_equation_local_linearisation",
+      "status": "admissible_local_precision",
+      "measurement_equation": "c_Cd = 1000 mass_cd_mg purity / volume_ml",
+      "values": {
+        "mass_cd_mg": 100.28,
+        "purity": 0.9999,
+        "volume_ml": 100.0
+      },
+      "standard_uncertainties": {
+        "mass_cd_mg": 0.05,
+        "purity": 5.8e-05,
+        "volume_ml": 0.07
+      },
+      "units": {
+        "mass_cd_mg": "mg",
+        "purity": "dimensionless",
+        "volume_ml": "mL",
+        "c_Cd": "mg L^-1"
+      },
+      "estimate": 1002.69972,
+      "sensitivities": {
+        "mass_cd_mg": 9.998999999999999,
+        "purity": 1002.8,
+        "volume_ml": -10.0269972
+      },
+      "numeric_sensitivity_check": {
+        "mass_cd_mg": 9.999000000001388,
+        "purity": 1002.8000000002537,
+        "volume_ml": -10.027002113230308
+      },
+      "max_sensitivity_error": 4.913230307934668e-06,
+      "variance_terms": {
+        "mass_cd_mg": 0.24995000249999996,
+        "purity": 0.0033828647737599994,
+        "volume_ml": 0.4926492969591586
+      },
+      "local_variance": 0.7459821642329185,
+      "local_standard_uncertainty": 0.8637025901506366,
+      "local_precision": 1.3405146234672836,
+      "positivity_checks": {
+        "volume_ml": "positive denominator; relative standard uncertainty is 0.07 percent",
+        "purity": "bounded positive factor near one"
+      },
+      "allowed_route": "local_positive_curvature",
+      "refused_routes": [
+        "static storage Hessian",
+        "hidden_load without a ceiling"
+      ],
+      "boundary": "This is an uncertainty-propagation object for a calibration solution, not a physical hidden-load object."
+    },
+    {
+      "id": "bromine_abundance_linearisation_negative_control",
+      "route": "measurement_equation_local_linearisation",
+      "status": "first_order_refused",
+      "measurement_equation": "x160 = 2 x79 (1 - x79)",
+      "values": {
+        "x79": 0.5
+      },
+      "standard_uncertainties": {
+        "x79": 0.005
+      },
+      "estimate_first_order": 0.5,
+      "sensitivity": {
+        "x79": 0.0
+      },
+      "first_order_variance": 0.0,
+      "second_order_mean_for_normal_local_model": 0.49995,
+      "second_order_standard_uncertainty_for_normal_local_model": 7.071067811865475e-05,
+      "allowed_route": "higher_order_or_monte_carlo_only",
+      "refused_routes": [
+        "first_order local precision",
+        "static storage Hessian",
+        "hidden_load without a ceiling"
+      ],
+      "lesson": "A zero first derivative can make first-order uncertainty propagation report zero variance even when the nonlinear model has nonzero uncertainty."
+    }
+  ]
+}

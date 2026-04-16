@@ -1,0 +1,65 @@
+{
+  "card_id": "capacitor_charge_coordinate",
+  "schema_version": "attachment_card.v0",
+  "system": "single ideal capacitor in declared charge coordinate",
+  "attachment_type": "exact_quadratic",
+  "state_variables": [
+    {"name": "q", "meaning": "capacitor plate charge", "unit": "C"}
+  ],
+  "sensor_surface": {
+    "ideal": ["charge q"],
+    "practical": ["capacitor voltage V = q / Ccap measured with a high-impedance voltmeter"]
+  },
+  "control_variables": [
+    {"name": "Ccap", "meaning": "capacitance", "unit": "F"},
+    {"name": "epsilon_abs", "meaning": "absolute permittivity when using a parallel-plate model", "unit": "F m^-1"},
+    {"name": "A_plate", "meaning": "plate area when using a parallel-plate model", "unit": "m^2"},
+    {"name": "d_gap", "meaning": "plate separation when using a parallel-plate model", "unit": "m"}
+  ],
+  "regime_assumptions": [
+    "capacitor is ideal",
+    "charge q is the declared energy coordinate",
+    "leakage, dielectric nonlinearity, fringe fields, and measurement loading are outside this card",
+    "capacitance is treated as a fixed positive control parameter"
+  ],
+  "equation_hook": "U(q) = q^2/(2 Ccap)",
+  "units_and_dimensions": {
+    "q": "C",
+    "Ccap": "F = C V^-1",
+    "epsilon_abs A_plate / d_gap": "F",
+    "1/Ccap": "J C^-2 = V C^-1",
+    "H": "J C^-2"
+  },
+  "coordinate_note": "This card uses charge q as the coordinate. If voltage V is used as the coordinate, U(V) = 1/2 Ccap V^2 gives a different Hessian with different units; the two coordinates must not be compared as the same stiffness table.",
+  "module_object": {
+    "kind": "Hessian",
+    "description": "scalar capacitor energy Hessian in charge coordinate"
+  },
+  "derivation_status": "exact after declaring charge as the capacitor energy coordinate",
+  "observer_map": {
+    "description": "observe the declared charge coordinate",
+    "matrix": [[1.0]]
+  },
+  "ceiling_or_reference": {
+    "kind": "none",
+    "description": "no hidden coordinate is declared in this card"
+  },
+  "allowed_nomogeo_calls": ["visible_precision"],
+  "nomogeo_readout": {
+    "requested": ["visible_precision"]
+  },
+  "positive_scope": "This card exposes capacitor storage as a scalar quadratic module object in a declared charge coordinate.",
+  "boundary": "It does not describe voltage-coordinate geometry, leakage, nonlinear dielectrics, fringing fields, or dynamic RC/RLC response.",
+  "failure_mode": "The attachment fails if capacitance is not fixed and positive over the operating regime or if the measurement surface cannot support the declared charge coordinate.",
+  "next_measurement": "Measure capacitance and voltage, then infer q = Ccap V under high-impedance conditions.",
+  "default_parameters": {
+    "Ccap": 0.000000001,
+    "epsilon_abs": 0.000000000008854187817,
+    "A_plate": 0.01,
+    "d_gap": 0.00008854187817
+  },
+  "declared_objects": {
+    "H": [[1000000000.0]],
+    "C": [[1.0]]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "schema_version": "empirical_dataset_metadata.v0",
+  "dataset_kind": "beer_lambert_uvvis_rhodamine_6g",
+  "route": "observation_equation_fisher",
+  "source": {
+    "name": "Edinburgh-Chemistry-Teaching/Data-driven-chemistry Unit_09 data Section3",
+    "repository": "https://github.com/Edinburgh-Chemistry-Teaching/Data-driven-chemistry",
+    "source_directory": "https://github.com/Edinburgh-Chemistry-Teaching/Data-driven-chemistry/tree/main/Unit_09/data/Section3",
+    "license": "CC-BY-4.0 as declared by the source repository"
+  },
+  "chemistry": {
+    "analyte": "Rhodamine 6G",
+    "solvent": "methanol",
+    "concentration_unit": "mM",
+    "absorbance_unit": "dimensionless",
+    "path_length_cm": "not declared in downloaded data; assume 1 cm only for molar absorptivity interpretation, not for the empirical slope fit"
+  },
+  "measurement_model": {
+    "equation": "A_i(lambda_star) = alpha + beta concentration_i + E_i",
+    "noise_model": "Gaussian absorbance residuals estimated from replicate calibration fit",
+    "lambda_star_selection": "common wavelength chosen from the maximum mean absorbance of known concentration standards in the visible peak region"
+  },
+  "admission_checks": [
+    "spectra files contain wavelength and absorbance columns",
+    "known concentration standards are finite and positive",
+    "unknown sample C is excluded from calibration and then estimated from the fitted analysis function",
+    "calibration design has at least two distinct known concentrations",
+    "residual sigma is positive",
+    "estimated unknown concentration is inside the known calibration span"
+  ],
+  "mandatory_refusals": [
+    "static storage Hessian",
+    "hidden_load",
+    "thermodynamic concentration model",
+    "molar absorptivity claim without declared path length"
+  ]
+}

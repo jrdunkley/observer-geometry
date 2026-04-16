@@ -1,144 +1,165 @@
 ﻿# nomogeo
 
-Agent-facing observer-geometry workspace.
+Exact observer-geometry kernel for visible precision, hidden-load calculus, information conservation, and observer steering.
 
-Public docs: https://docs.nomogenetics.com/
+Current release: **nomogeo 0.4.0**.
 
-Current kernel release: `nomogeo 0.30.0`.
+## What nomogeo does
 
-Use this repo as a three-layer stack:
+Given a symmetric positive-definite matrix H (the ambient precision / Fisher information / Hessian) and a rank-m observer C, nomogeo computes exact split-frame geometry:
 
-- `nomogeo`
-  - exact linear / Gaussian kernel
-- `nomodescent`
-  - exact observer relation and common-descent layer, plus explicitly audited approximation where enabled
-- `evidence`
-  - evidence encoding and problem assembly with explicit exact / inferred / ambiguous status
+- **Visible precision** Phi = (C H^{-1} C^T)^{-1} and canonical lift L
+- **Information budget**: vis_rate + hid_rate = amb_rate (exact conservation)
+- **Source law**: A_cpl on support-stable strata, with hidden-defect decomposition
+- **Observer steering**: adapted observer (B = 0), capture curves, Grassmannian diagnostics
+- **Geometry extraction**: from supervised data (X, y) or covariance matrices directly to (H, Hdot)
 
-Supporting surfaces:
+## Install
 
-- https://docs.nomogenetics.com/
-  - public documentation for install, API overview, examples, and validation
-- [examples/README.md](examples/README.md)
-  - public demonstrations and runnable examples
-- [tests/micro_case_studies/README.md](tests/micro_case_studies/README.md)
-  - tiny "we took paper X and did Y" case studies
-- [docs/claim_hierarchy.md](docs/claim_hierarchy.md)
-  - epistemic split across exact, audited approximate, synthetic, and micro-real outputs
-- [docs/release_scope_0_30.md](docs/release_scope_0_30.md)
-  - exact release boundary for the support-stratified observation-field layer
-- [LICENSE](LICENSE)
-- [CITATIONS.md](CITATIONS.md)
+```bash
+pip install nomogeo
+```
 
-## Exact Domain
+Runtime dependencies: `numpy >= 2.0`, `scipy >= 1.15`. No other requirements.
 
-This workspace is disciplined around:
-
-- linear observers
-- finite-dimensional Gaussian / quadratic visible objects
-- exact matrix identities where theorems apply
-- explicitly audited approximation only where the exact engine deliberately stops
-
-It is not a generic scientific assistant, generic PDF reader, or unconstrained search system.
-
-## Kernel Surface
-
-`nomogeo` keeps scope narrow:
-
-- exact visible precision `Phi_C(H) = (C H^{-1} C^T)^{-1}`
-- canonical lift and hidden projector
-- local visible calculus `(V, Q)` and determinant-curvature split
-- exact closure-adapted whitening, leakage / visibility scores, leakage-channel
-  diagnostics, same-rank observer comparison, and commuting-family observer
-  synthesis
-- exact fixed-observer chart coordinates `(Phi, R, K)`, chart reconstruction,
-  observer-transition law, and fixed-observer current / forcing diagnostics
-- support-aware hidden-load parametrisation beneath a ceiling
-- fixed-ceiling inverse theorem
-- hidden-load transport and determinant clock
-- contraction factors for associative hidden composition
-- observation-field coordinates `Pi <-> Lambda`, support-stratum transport,
-  finite birth/death restarts, kernel Schur-jet event classification,
-  local coupled birth extraction, and sampled interval-family diagnostics
-- thin Donsker-Varadhan and quotient-side Gaussian layers
-
-Runtime deps stay minimal: `numpy`, `scipy`.
-
-## Working Directories
-
-The workspace has three install roots. Run commands from the correct root.
-
-- repo root
-  - `python -m pytest -q`
-  - `python -m examples.entanglement_hidden_load.run_all`
-  - `python -m examples.bell_common_gluing.run_all`
-  - `python -m examples.arrow_rank_deficiency.run_all`
-  - `python -m tools.stack_soak`
-- `nomodescent/`
-  - `python -m pytest`
-  - `python -m worked_examples.bell_descent.run_main`
-  - `python -m worked_examples.free_gaussian_rg.run_main`
-  - `python -m worked_examples.replication_fragility.run_main`
-- `evidence/`
-  - `python -m pytest`
-  - `python -m worked_examples.bell_evidence_encoding.run_main`
-  - `python -m worked_examples.replication_protocol_encoding.run_main`
-  - `python -m worked_examples.benchmark_blindness_encoding.run_main`
-  - `python -m micro_real_bundles.bell_counts_bundle.run_main`
-  - `python -m micro_real_bundles.iris_protocol_mismatch.run_main`
-  - `python -m micro_real_bundles.leaderboard_benchmark_slice.run_main`
-
-## Quick Kernel Use
+## Quick start
 
 ```python
 import numpy as np
-from nomogeo import (
-    canonical_lift,
-    hidden_load,
-    inverse_visible_class,
-    kernel_schur_jet_from_coefficients,
-    pi_from_hidden_load,
-    support_stratum_transport,
-    visible_precision,
-)
+from nomogeo import visible_precision, information_budget, steer
 
+# Exact visible precision
 H = np.array([[3.0, 1.0], [1.0, 2.0]])
 C = np.array([[1.0, 0.0]])
 phi = visible_precision(H, C)
-lift = canonical_lift(H, C)
 
-T = np.diag([2.0, 1.0, 0.0])
-Lambda = np.diag([0.3, 0.8])
-X = inverse_visible_class(T, Lambda, lambda_representation="reduced")
-load = hidden_load(T, X)
-
-Pi = pi_from_hidden_load(load.reduced_lambda)
-transport = support_stratum_transport(load.reduced_lambda, np.diag([0.2, 0.4]))
-jet = kernel_schur_jet_from_coefficients([np.diag([0.0, 1.0]), np.diag([1.0, 0.0])])
+# Information conservation: vis + hid = amb
+Hdot = np.array([[0.1, -0.2], [-0.2, 0.3]])
+budget = information_budget(H, C, Hdot)
+print(f"vis={budget.visible_rate:.4f}, hid={budget.hidden_rate:.4f}, "
+      f"amb={budget.ambient_rate:.4f}")
+print(f"conservation residual: {budget.conservation_residual:.1e}")
 ```
 
-## Important Boundaries
+### Observer steering from data
 
-- The fixed-ceiling inverse theorem is exact only after choosing the ceiling `T`. It does not invert the global map `(H, C) -> Phi_C(H)`.
-- If `rank(T) = n`, reduced and ambient hidden-load coordinates can have the same shape. In that case you must pass `lambda_representation="reduced"` or `"ambient"`.
-- For long hidden composition, use `hidden_contraction(...)` and `load_from_hidden_contraction(...)`. Raw load coordinates are not the associative object.
-- The `0.30.0` observation-field layer is exact but narrow: support-stable transport is reduced-coordinate diagnostics, restart maps require explicit nested support bases, kernel jets control leading small-eigenvalue behaviour only, sampled interval diagnostics certify samples only, and no global field simulator or noncommuting optimiser is exposed.
+```python
+from sklearn.datasets import load_iris
+from nomogeo import steer
+
+X, y = load_iris(return_X_y=True)
+result = steer(X=X, y=y, rank=2, task="fisher")
+print(f"vis_frac={result.visible_fraction:.3f}, "
+      f"advantage over PCA: {result.advantage_over_pca:.3f}")
+print(f"exact sector: {result.exact_sector}")
+```
+
+## Core API
+
+### Geometry
+
+| Function | Description |
+|----------|-------------|
+| `visible_precision(H, C)` | Phi_C(H) = (C H^{-1} C^T)^{-1} |
+| `canonical_lift(H, C)` | L = H^{-1} C^T Phi |
+| `hidden_projector(H, C)` | P = I - L C |
+| `fixed_observer_coordinates(H, C)` | Exact (Phi, R, K) chart |
+| `observer_transition(H, C1, C2)` | Exact transition between observers |
+
+### Information conservation and source law
+
+| Function | Description |
+|----------|-------------|
+| `information_budget(H, C, Hdot)` | vis + hid = amb (first order) |
+| `source_law(H, C, Hdot, Hddot)` | A_cpl on support-stable strata |
+| `evidence_decomposition(H, C, Hdot, Hddot)` | Second-order: source + kinematic + connection |
+| `observer_diagnostics(H, C, Hdot)` | vis_frac, exact sector, hidden defect, leakage |
+| `capture_curve(H, Hdot)` | Information capture vs observer rank |
+
+### Extraction and steering
+
+| Function | Description |
+|----------|-------------|
+| `extract_supervised(X, y, task)` | (X, y) -> (H, Hdot) for fisher/equal_weight/minority |
+| `extract_covariance(cov, perturbation)` | Raw matrices -> (H, Hdot) |
+| `steer(X, y, rank, task)` | One-call: extract + optimise + diagnose |
+| `score_observer(H, C, Hdot)` | Score an observer against baselines |
+| `optimize_observer(H, Hdot, rank)` | Adapted observer + PCA fallback |
+
+### Observation fields and regime classification
+
+| Function | Description |
+|----------|-------------|
+| `support_stratum_transport(Lambda, A_cpl)` | Hidden-load transport diagnostics |
+| `local_coupled_birth(H, Hdot, Hddot, C, Cdot)` | Birth/death events at support transitions |
+| `classify_regime(datum)` | Quadratic regime classification |
+
+## 0.4.0 Technical Note
+
+The accompanying technical note contains 30+ formal statements:
+
+- **Conservation laws**: vis_rate + hid_rate = amb_rate (first and second order)
+- **Source law**: A_cpl = A_direct + hidden_defect, with completed-square decomposition
+- **Positivity theorem**: A_cpl >= 0 on linear paths (hidden sector stabilises)
+- **Equivalence principle**: A_cpl can always be locally cancelled
+- **Curvature-Gram identity**: ||F_alpha||^2 = 2(Tr(G1 G2) - Tr(C^2))
+- **Mixed factorisation**: F_alpha(ds, dt) = -beta_t R^{-1} B_s^T
+- **Gauge invariance**: vis_rate is a gauge-invariant Noether current
+- **Spectral collapse lemma**: no scalar constraint makes vis_rate maximisation well-posed
+- **KL field equation**: S - Xi = (gamma/2)(H - H0) under KL-divergence regularisation
+- **Joint optimum theorem**: closed-form solution with frozen hidden sector
+
+Validated on 118,539 molecular pairs from HessianQM9 and 108/108 field equation checks.
+
+## Companion packages
+
+- **nomocomp** (0.1.0): geometric model comparison replacing AIC/BIC with exact fibre-volume correction
+- **nomoselect** (0.1.0): task-aware subspace selection replacing PCA with certified observer design
+
+Both depend on nomogeo >= 0.4.0.
+
+## Architecture
+
+```
+nomogeo/
+  src/nomogeo/
+    core.py          -- visible precision, lift, projector
+    connection.py    -- fixed-observer charts, transitions, currents
+    source.py        -- conservation, source law, diagnostics, capture curves
+    extract.py       -- data -> geometry extraction
+    steer.py         -- observer steering engine
+    field.py         -- observation fields, birth/death, support transport
+    regime.py        -- quadratic regime classification
+    singular.py      -- singularity analysis
+    kernel_reduction.py -- affine-hidden Gaussian-fibre reduction
+    frontier.py      -- weighted-family frontier evaluation
+    ensemble.py      -- local quadratic ensemble diagnostics
+    adapted.py       -- closure-adapted observer synthesis
+    affine.py        -- thin affine layers
+  tests/             -- 340+ tests
+    audit/           -- complete research audit trail
+  examples/          -- 6+ runnable demonstrations
+  papers/            -- LaTeX source for technical notes
+```
 
 ## Verification
 
 ```bash
-python -m pytest -q
-python tools/install_surface_smoke.py
-python tools/validation_sweep.py
-python tools/stack_soak.py
+PYTHONPATH=src python -m pytest tests/ -q
 ```
 
-For theorem and validation maps, start with:
+340+ tests, all passing. 2 skipped (require external datasets).
 
-- [docs/theorem_map.md](docs/theorem_map.md)
-- [docs/release_scope_0_30.md](docs/release_scope_0_30.md)
-- [docs/release_scope_0_25.md](docs/release_scope_0_25.md)
-- [docs/inverse_theorem.md](docs/inverse_theorem.md)
-- [docs/validation_note.md](docs/validation_note.md)
-- [docs/stack_validation_note.md](docs/stack_validation_note.md)
+## Exact domain
 
+nomogeo is exact for:
+- Linear observers on finite-dimensional SPD matrices
+- Gaussian/quadratic visible objects
+- Matrix identities where theorems apply
+- Explicitly supplied special-law sectors
+
+It is not a generic non-Gaussian engine. Outside the exact Gaussian sector, it provides local quadratic Hessian/Fisher geometry plus separately proved special sectors.
+
+## License
+
+BSD 3-Clause. See LICENSE
